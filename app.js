@@ -8,7 +8,7 @@ const bodyParser = require('body-parser');
 
 
 const mainRoute = require('./routes/main');
-
+const menuRoute = require('./routes/menu');
 
 const app = express();
 
@@ -25,6 +25,7 @@ app.use(methodOverride('__method'));
 app.use(cookieParser());
 
 app.use('/', mainRoute);
+app.use('/menu', menuRoute);
 
 const port = 5000;
 

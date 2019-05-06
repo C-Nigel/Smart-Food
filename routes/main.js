@@ -6,7 +6,9 @@ router.get('/', (req, res) => {
     res.render('home', {title: title}) // renders views/home.handlebars
 });
 
-
+router.get('/menu', (req, res) => {
+    res.render('cart/menu')
+});
 
 module.exports = router;
 
