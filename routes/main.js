@@ -1,7 +1,13 @@
 const express = require('express')
+const router = express.Router();
+
 const app = express()
-const port = 3000
+const port = 5000
 
-app.get('/', (req, res) => res.send('Hello World!'))
+router.get('/showLogin', (req, res) => {
+    res.render('user/login') // renders views/user/login.handlebars
+});
 
-app.listen(port, () => console.log(`Example app listening on port ${port}!`))
+module.exports = router;
+
+
