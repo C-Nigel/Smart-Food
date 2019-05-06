@@ -1,7 +1,9 @@
 const express = require('express');
 const session = require('express-session');
+const path = require('path');
 const exphbs = require('express-handlebars');
 const methodOverride = require('method-override');
+const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
 
 
@@ -10,13 +12,13 @@ const mainRoute = require('./routes/main');
 
 const app = express();
 
-app.engine('handlerbars', exphbs({
-    defaultLayout: 'main' // Specify default template views/user/home.handlebar
-}));
-app.use('view engine', 'handlebars');
+app.engine('handlebars', exphbs({
+    // Specify default template views/user/home.handlebar
+})); 
+app.set('view engine', 'handlebars');
 app.use(bodyParser.urlencoded({
     extended: false
-}))
+}));
 app.use(bodyParser.json());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(methodOverride('__method'));
