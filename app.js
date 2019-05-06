@@ -5,7 +5,7 @@ const methodOverride = require('method-override');
 const bodyParser = require('body-parser');
 
 
-const loginRoute = require('./views/user')
+const mainRoute = require('./routes/main');
 
 
 
@@ -14,18 +14,18 @@ const loginRoute = require('./views/user')
 const app = express();
 
 app.engine('handlerbars', exphbs({
-    defaultLayout: 'login' // Specify default template views/user/login.handlebar
+    defaultLayout: 'main' // Specify default template views/user/home.handlebar
 }));
 app.use('view engine', 'handlebars');
 app.use(bodyParser.urlencoded({
-    extended: false;
+    extended: false
 }))
 app.use(bodyParser.json());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(methodOverride('__method'));
 app.use(cookieParser());
 
-app.use('/login', loginRoute);
+app.use('/', mainRoute);
 
 const port = 5000;
 
