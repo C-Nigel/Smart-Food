@@ -6,9 +6,7 @@ router.get('/', (req, res) => {
     res.render('home', {title: title}) // renders views/home.handlebars
 })
 
-router.get('/showLogin', (req, res) => {
-    res.render('user/login') // renders views/user/login.handlebars
-});
+
 
 module.exports = router;
 

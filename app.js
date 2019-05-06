@@ -8,9 +8,6 @@ const bodyParser = require('body-parser');
 const mainRoute = require('./routes/main');
 
 
-
-
-
 const app = express();
 
 app.engine('handlerbars', exphbs({
@@ -29,6 +26,6 @@ app.use('/', mainRoute);
 
 const port = 5000;
 
-app.listenerCount(port, () =>{
+app.listen(port, () =>{
     console.log(`Server started on port ${port}`);
 });
