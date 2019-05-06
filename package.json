@@ -4,7 +4,7 @@
   "description": "To help users skip the queue",
   "main": "app.js",
   "scripts": {
-    "start": "start http://localhost:5000 && node mysql.js"
+    "start": "start http://localhost:5000 && nodemon app.js"
   },
   "keywords": [],
   "author": "Chew Phuay Hern",
