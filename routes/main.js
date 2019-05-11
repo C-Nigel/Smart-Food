@@ -10,6 +10,10 @@ router.get('/menu', (req, res) => {
     res.render('cart/menu')
 });
 
+router.get('/login', (req, res) => {
+	res.render('user/login') // renders views/user/login.handlebars
+});
+
 module.exports = router;
 
 
