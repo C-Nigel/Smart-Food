@@ -10,8 +10,12 @@ router.get('/menu', (req, res) => {
     res.render('cart/menu')
 });
 
-router.get('/login', (req, res) => {
-	res.render('user/login') // renders views/user/login.handlebars
+router.get('/loginuser', (req, res) => {
+	res.render('user/loginuser') // renders views/user/loginuser.handlebars
+});
+
+router.get('/loginseller', (req, res) => {
+	res.render('user/loginseller') // renders views/user/loginseller.handlebars
 });
 
 router.get('/register', (req, res) => {

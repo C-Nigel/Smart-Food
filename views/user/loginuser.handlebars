@@ -1,6 +1,6 @@
 
 <head>
-	<title>Login V19</title>
+	<title>Login</title>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 <!--===============================================================================================-->	
@@ -17,7 +17,15 @@
 					<span class="login100-form-title p-b-33">
 						Account Login
 					</span>
-
+					
+					<a href="/loginuser" id="buttons">Student/Staff</a>
+					<a href="/loginseller" id="buttonss">Seller</a>
+					<style>
+						#buttons {
+							background: silver;
+						}
+					</style>
+					
 					<div class="wrap-input100 validate-input" data-validate = "Valid email is required: ex@abc.xyz">
 						<input class="input100" type="text" name="email" placeholder="Email">
 						<span class="focus-input100-1"></span>
@@ -34,6 +42,9 @@
 						<button class="login100-form-btn">
 							Sign in
 						</button>
+						<label>
+        					<input type="checkbox" checked="checked" name="remember"> Remember me
+      					</label>
 					</div>
 
 					<div class="text-center p-t-45 p-b-4">
