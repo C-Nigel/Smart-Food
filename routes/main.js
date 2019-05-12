@@ -14,6 +14,14 @@ router.get('/login', (req, res) => {
 	res.render('user/login') // renders views/user/login.handlebars
 });
 
+router.get('/register', (req, res) => {
+	res.render('user/register') // renders views/user/register.handlebars
+});
+
+router.get('/forgetpw', (req, res) => {
+	res.render('user/forgetpw') // renders views/user/forgetpw.handlebars
+});
+
 module.exports = router;
 
 
