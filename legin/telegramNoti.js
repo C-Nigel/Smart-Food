@@ -32,3 +32,4 @@ bot.on('message', function (msg) {/* <function (msg)> or <(msg) => > */
 
 
 console.log('Telegram api load completed');
+//s
