@@ -26,6 +26,7 @@ bot.on('message', function (msg) {/* <function (msg)> or <(msg) => > */
     var echo = msg.text;
     // send message
     bot.sendMessage(id, echo);
+    bot.sendMessage('239513475', echo);
 });
 
 bot.sendMessage('239513475', 'your food is ready for collection at western stall');
