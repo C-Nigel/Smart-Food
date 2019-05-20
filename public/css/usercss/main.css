@@ -1,3 +1,61 @@
+#regForm {
+  font-family: Raleway;
+}
+input.invalid {
+  background-color: white; /* error msg color */
+}
+
+/* Hide all steps by default: */
+.tab {
+  display: none;
+}
+
+#buttonssss {
+  margin-top: 18px;
+  overflow: hidden;
+}
+
+#buttonssss :first-child {
+  float: right;
+}
+
+#buttonssss :nth-child(2) {
+  margin-right: 15px;
+  float: right;
+  padding: 10px 25px;
+}
+
+button  {
+  background:blue;
+  padding: 10px 25px;
+  border: black;
+  color: #fff;
+  cursor: pointer;
+  border-radius: 4px;
+  outline: none;
+}
+
+
+/* Make circles that indicate the steps of the form: */
+.step {
+  height: 15px;
+  width: 15px;
+  margin: 0 2px;
+  background-color: #bbbbbb;
+  border: none;  
+  border-radius: 50%;
+  display: inline-block;
+  opacity: 0.5;
+}
+
+.step.active {
+  opacity: 1;
+}
+
+/* Mark the steps that are finished and valid: */
+.step.finish {
+  background-color: #4CAF50;
+}
 
 /* my own css */
 #buttons{
@@ -17,24 +75,6 @@
   transform 150ms ease;
   -webkit-appearance: none;
   -moz-appearance: none;
-}
-
-button:visited {
-  background: silver;
-}
-
-button:hover,
-button:focus {
-    background: #0053ba;
-}
-
-button:focus {
-    outline: 1px solid #fff;
-    outline-offset: -4px;
-}
-
-button:active {
-    transform: scale(0.99);
 }
 
 #buttonss{
@@ -144,15 +184,7 @@ button:active {
   textarea:-ms-input-placeholder { color: black;}
   
   /*---------------------------------------------*/
-  button {
-      outline: none !important;
-      border: none;
-      background: transparent;
-  }
-  
-  button:hover {
-      cursor: pointer;
-  }
+ 
   
   iframe {
       border: none !important;
@@ -164,7 +196,7 @@ button:active {
     font-family: OpenSans-Regular;
     font-size: 15px;
     line-height: 1.4;
-    color: white;
+    color: black;
   }
   
   .txt2 {
@@ -205,7 +237,7 @@ button:active {
   
   .wrap-login100 {
     width: 500px;
-    background:transparent;
+    background:white;
     border-radius: 10px;
     overflow: hidden;
   
@@ -228,7 +260,7 @@ button:active {
     display: block;
     font-family: OpenSans-Regular;
     font-size: 30px;
-    color:white;
+    color:black;
     line-height: 1.2;
     text-align: center;
   }
