@@ -22,7 +22,6 @@ bot.on('message', function (msg) {/* <function (msg)> or <(msg) => > */
     console.log(msg);
     // get sender id
     var id = msg.chat.id;
-    console.log('message id is', id)
     // get text
     var echo = msg.text;
     // send message
@@ -30,6 +29,6 @@ bot.on('message', function (msg) {/* <function (msg)> or <(msg) => > */
     bot.sendMessage('239513475', echo);
 });
 
+bot.sendMessage('239513475', 'your food is ready for collection at western stall');
 
 console.log('Telegram api load completed');
-//s

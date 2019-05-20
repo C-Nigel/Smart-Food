@@ -1,7 +1,8 @@
-var mysql = require("mysql");
+var mysql = require("mysql2");
 
 var con = mysql.createConnection({
     host: "bloopy.dyndns-home.com",
+    //host: "diskstation",
     port: 3307,
     user: "guest",
     password: "password",
