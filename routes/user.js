@@ -1,8 +1,5 @@
 const express = require('express');
 const router = express.Router();
-const User = require('../models/User');
-var bcrypt = require('bcryptjs');
-var mysql = require("mysql");
 
 
 router.get('/', (req, res) => {

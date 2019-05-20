@@ -5,7 +5,6 @@ const exphbs = require('express-handlebars');
 const methodOverride = require('method-override');
 const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
-const flash = require('connect-flash');
 
 
 
@@ -21,7 +20,6 @@ app.set('view engine', 'handlebars');
 app.use(bodyParser.urlencoded({
     extended: false
 }));
-app.use(flash());
 
 
 app.use(bodyParser.json());

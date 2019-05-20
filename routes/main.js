@@ -1,6 +1,5 @@
 const express = require('express')
 const router = express.Router();
-const alertMessage = require('../helpers/messenger')
 
 
 router.get('/', (req, res) => {
