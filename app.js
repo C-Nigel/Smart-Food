@@ -5,6 +5,8 @@ const exphbs = require('express-handlebars');
 const methodOverride = require('method-override');
 const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
+const flash = require('connect-flash');
+
 
 
 const mainRoute = require('./routes/main');
@@ -19,6 +21,9 @@ app.set('view engine', 'handlebars');
 app.use(bodyParser.urlencoded({
     extended: false
 }));
+app.use(flash());
+
+
 app.use(bodyParser.json());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(methodOverride('__method'));
