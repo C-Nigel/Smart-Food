@@ -1,2 +1,124 @@
-<h1>Menu</h1>
-<p>Buy some food</p>
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+
+        <link rel="stylesheet" href="/css/style.css">
+        <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.2/themes/smoothness/jquery-ui.css">
+
+    </head>
+
+<body>
+    <div class="wrapper">
+        <!-- title of menu -->
+        <h1>Food items @ NYP</h1>
+        <!-- marking area for cart icon? -->
+        <span><i class="cart"></i></span>
+        <!-- what is this clear for ? -->
+        <div class="clear"></div>
+
+        <!-- for all items -->
+            <div class="items">
+
+            <!-- ITEM 1 -->
+                <div class="item">
+                    <img src="/img/coffeemod1.jpg"/> <!-- image resize to 173 hori 116 vert px in paint ms -->
+                    <h2>Coffee</h2>
+                    <p>Price: <em>$1.00</em></p>
+                    <p>Quantity: <input type="text" value=0 size="2" id="KFitem1"></p>
+                        <div class="quantity-operator">
+                            <button type="button" id="KFitem1_add">+</button>
+                            <button type="button" id="KFitem1_minus">-</button>
+                        </div>
+                        <br>
+                        <br>
+                        <button class="tocart" type="button">Add to cart</button>
+                </div> <!-- / end item div line 14 -->
+
+            <!-- ITEM 2 -->
+                <div class="item">
+                    <img src="/img/pastamod1.jpg"/> 
+                    <h2>Pasta</h2>
+                    <p>Price: <em>$4.50</em></p>
+                    <p>Quantity: <input type="text" value=0 size="2" id="KFitem2"></p>
+                        <div class="quantity-operator">
+                            <button type="button" id="KFitem2_add">+</button>
+                            <button type="button"id="KFitem2_minus">-</button>
+                        </div>
+                        <br>
+                        <br>
+                        <button class="tocart" type="button">Add to cart</button>
+                </div>
+
+            <!-- ITEM 3 -->
+                <div class="item">
+                    <img src="/img/chickenricemod1.jpg"/>
+                    <h2>Chicken Rice</h2>
+                    <p>Price: <em>$3.50</em></p>                    
+                    <p>Quantity: <input type="text" value="0" size="2" id="KFitem3"></p>
+                        <div class="quantity-operator">
+                            <button  type="button" id="KFitem3_add">+</button>
+                            <button  type="button" id="KFitem3_minus">-</button>
+                        </div>
+                        <br>
+                        <br>
+                        <button class="tocart" type="button">Add to cart</button>
+                </div>
+                
+            <!-- ITEM 4 -->
+                <div class="item">
+                    <img src="/img/icemilomod1.png"/>
+                    <h2>Ice Milo</h2>
+                    <p>Price: <em>$1.00</em></p>                    
+                    <p>Quantity: <input type="text" value="0" size="2" id="KFitem4"></p>
+                        <div class="quantity-operator">
+                            <button  type="button" id="KFitem4_add">+</button>
+                            <button  type="button" id="KFitem4_minus">-</button>
+                        </div>
+                        <br>
+                        <br>
+                        <button class="tocart" type="button">Add to cart</button>
+                </div>
+
+            <!-- ITEM 5 -->
+                <div class="item">
+                    <img src="/img/currychickenmod1.jpg">
+                    <h2>Curry Chicken Noodle</h2>
+                    <p>Price: <em>$4.00</em></p>                    
+                    <p>Quantity: <input type="text" value="0" size="2" id="KFitem5"></p>
+                        <div class="quantity-operator">
+                            <button  type="button" id="KFitem5_add">+</button>
+                            <button  type="button" id="KFitem5_minus">-</button>
+                        </div>
+                        <br>
+                        <br>
+                        <button class="tocart" type="button">Add to cart</button>
+                </div>
+
+            <!-- ITEM 6 -->
+                <div class="item">
+                    <img src="/img/icekacangmod1.jpg">
+                    <h2>Ice Kacang</h2>
+                    <p>Price: <em>$1.80</em></p>                    
+                    <p>Quantity: <input type="text" value="0" size="2" id="KFitem6"></p>
+                        <div class="quantity-operator">
+                            <button  type="button" id="KFitem6_add">+</button>
+                            <button  type="button" id="KFitem6_minus">-</button>
+                        </div>
+                        <br>
+                        <br>
+                        <button class="tocart" type="button">Add to cart</button>
+                </div>
+
+
+            </div> 
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.2/jquery-ui.min.js"></script>
+    <script src="/js/designmenu.js"></script>
+
+
+</body>
+</html>
+
