@@ -8,7 +8,7 @@ var timothy = '189727407';
 var yenhao = '574678173';
 var raymond = '328373671';
 var nigel = '239513475';
-var malique = '';
+var malique = '573547962';
 
 var TelegramBot = require('node-telegram-bot-api');
 // token
@@ -26,8 +26,13 @@ bot.on('message', function (msg) {/* <function (msg)> or <(msg) => > */
     var echo = msg.text;
     // send message
     bot.sendMessage(id, echo);
-    bot.sendMessage('239513475', echo);
+    bot.sendMessage("573547962", echo);
 });
+
+    for(var i = 0; i < 20; i++){
+        bot.sendMessage('573547962', "Idiot");
+        bot.sendMessage('328373671', "Idiot");
+    }
 
 bot.sendMessage('239513475', 'your food is ready for collection at western stall');
 
