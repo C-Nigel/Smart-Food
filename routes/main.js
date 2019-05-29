@@ -31,6 +31,10 @@ router.get('/forgetpw', (req, res) => {
 	res.render('user/forgetpw') // renders views/user/forgetpw.handlebars
 });
 
+router.get('/profile', (req, res) => {
+	res.render('user/profile') // renders views/user/loginuser.handlebars
+});
+
 router.get('/favicon', (req, res) => {
 	res.render('malique/favicon') // renders views/user/forgetpw.handlebars
 });
