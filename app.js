@@ -10,6 +10,7 @@ const bodyParser = require('body-parser');
 
 const mainRoute = require('./routes/main');
 const menuRoute = require('./routes/menu');
+const userRoute = require('./routes/user');
 
 const app = express();
 
@@ -29,6 +30,7 @@ app.use(cookieParser());
 
 app.use('/', mainRoute);
 app.use('/menu', menuRoute);
+app.use('/user', userRoute);
 
 const port = 5000;
 
