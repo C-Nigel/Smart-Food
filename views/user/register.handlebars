@@ -44,7 +44,7 @@
 					</div>
 					<div class="tab">
 						<div class="wrap-input100 validate-input" data-validate = "Valid number is required: 12345678">
-							<input class="input100" type="text" name="phonenumber" placeholder="Phone Number">
+							<input class="input100" type="text" name="phonenumber" id="phoneNo" placeholder="Phone Number"/><span id="errrmsg"></span>
 							<span class="focus-input100-1"></span>
 							<span class="focus-input100-2"></span>
 						</div>
@@ -119,7 +119,7 @@
 		else {
 			document.getElementById("prevBtn").style.display = "inline";
 		}
-		if (n == (x.length - 1)) {
+		if (n == (x.length-1)) {
 			document.getElementById("nextBtn").innerHTML = "Submit";
 		} 
 		else {
@@ -179,6 +179,18 @@
 		//... and adds the "active" class on the current step:
 		x[n].className += " active";
 	}
+
+    $(document).ready(function () {
+        //called when key is pressed in textbox
+        $("#phoneNo").keypress(function (e) {
+            //if the letter is not digit then display error and don't type anything
+            if (e.which != 8 && e.which != 0 && (e.which < 48 || e.which > 57)) {
+                //display error message
+                $("#errrmsg").html("Digits Only").show().fadeOut("slow");
+                    return false;
+          }
+        });
+      });
 </script>
 	
 
