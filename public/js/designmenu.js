@@ -122,3 +122,4 @@ $('#KFitem6_minus').on('click', function(){
         input.val(parseFloat(input.val()) = 0);
     }
 })
+
