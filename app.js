@@ -32,6 +32,12 @@ app.use('/', mainRoute);
 app.use('/menu', menuRoute);
 app.use('/user', userRoute);
 
+/* // This code is to run nigel DataBase
+// Bring in database connection
+const vidjotDB = require('./public/js/nigel/DBConnection');
+// Connects to MySQL database
+vidjotDB.setUpDB(true); // To set up database with new tables set (true) */
+
 const port = 5000;
 
 app.listen(port, () =>{
