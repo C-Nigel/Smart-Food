@@ -18,7 +18,7 @@ const User = db.define('user', {
         type: Sequelize.STRING
     },
     telegram_id: {
-        type: Sequalize.STRING
+        type: Sequelize.STRING
     },
     phone_no: {
         type: Sequelize.INTEGER,
