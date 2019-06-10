@@ -18,4 +18,5 @@ const flashMessage = (res, messageType, message, icon, dismissable) => {
     }
     alert.titleIcon = icon;
     alert.canBeDismissed = dismissable;
-}; module.exports = flashMessage; // returns a function
+}; 
+module.exports = flashMessage; // returns a function

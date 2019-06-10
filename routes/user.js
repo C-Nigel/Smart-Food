@@ -3,6 +3,7 @@ const router = express.Router();
 const User = require('../models/User');
 var bcrypt = require('bcryptjs');
 const alertMessage = require('../helpers/messenger');
+const jwt = require('jsonwebtoken');
 
 router.get('/', (req, res) => {
     const title = 'Smart Food';
@@ -97,7 +98,7 @@ router.post('/register', (req, res) => {
                             }).catch(err => { // Send email fail
                                 alertMessage(res, 'warning', 'Error sending to ' + user.email,
                                     'fas fa-sign-in-alt', true);
-                                res.redirect('/');
+                                res.redirect('/loginuser');
                             });
                     }).catch(err => {
                         console.log(err)
