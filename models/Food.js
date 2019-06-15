@@ -16,7 +16,7 @@ const Item = db.define("item", {
         type: Sequelize.STRING,
         references: {
             model: Outlet,
-            key: "outlet_id"
+            key: "id"
         }
     }
 });

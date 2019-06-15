@@ -4,10 +4,6 @@ const db = require('../config/DBConfig');
 Note that Sequelize automatically pleuralizes the entity name as the table name
 */
 const User = db.define('user', {
-    user_id: {
-        type: Sequelize.STRING,
-        primaryKey: true
-    },
     admin_no: {
         type: Sequelize.STRING
     },

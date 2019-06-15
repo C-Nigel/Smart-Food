@@ -19,14 +19,14 @@ const Order = db.define("order", {
         type: Sequelize.INTEGER,
         references: {
             model: Outlet,
-            key: "outlet_id"
+            key: "id"
         }
     },
     user: {
         type: Sequelize.INTEGER,
         references: {
             model: User,
-            key: "user_id"
+            key: "id"
         }
     },
     total_price: {
