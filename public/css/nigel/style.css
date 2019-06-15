@@ -159,7 +159,7 @@ p {
 
 
 .slider {
-  background: url(../../img/nigel/slider.jpg) no-repeat;
+  background: url(../../img/nigel/loading.png) no-repeat;
   background-size: cover;
   min-height: 800px; 
   transition: background-image 1s;}

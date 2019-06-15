@@ -2,6 +2,12 @@
 <html lang="en">
 
 <head>
+
+    <!-- *********************************************************************************************
+    Just add your CSS file down below if you need
+***********************************************************************************************-->
+
+
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -29,7 +35,7 @@
     <!--============================= HEADER =============================-->
     <div class="nav-menu">
         <div class="bg transition">
-            <div class="container-fluid fixed">
+            <div class="container-fluid fixed is-sticky">
                 <div class="row">
                     <div class="col-md-12">
                         <nav class="navbar navbar-expand-lg navbar-light">
@@ -41,6 +47,13 @@
                             </button>
                             <div class="collapse navbar-collapse justify-content-end" id="navbarNavDropdown">
                                 <ul class="navbar-nav">
+
+
+{{!******************************************************************************************************
+raymond, the commented codes below is hamburger menu is for you to use incase you need to use
+********************************************************************************************************}}
+
+
                                     <!--                                    <li class="nav-item dropdown">
                                         <a class="nav-link" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     Explore
@@ -74,10 +87,10 @@
                                             <a class="dropdown-item" href="#">Something else here</a>
                                         </div>
                                     </li> -->
-                                    <li class="nav-item">
+                                    <li class="nav-item active">
                                         <a class="nav-link" href="/register">Register</a>
                                     </li>
-                                    <li class="nav-item active">
+                                    <li class="nav-item">
                                         <a class="nav-link" href="/loginuser">Login</a>
                                     </li>
                                     <!-- <li><a href="#" class="btn btn-outline-light top-btn"><span class="ti-plus"></span> Login</a></li> -->
@@ -89,49 +102,6 @@
             </div>
         </div>
     </div>
-    <!-- SLIDER -->
-    <section class="slider d-flex align-items-center" data-slides='[
-                                                                    "img/nigel/test 1.jpg",
-                                                                    "img/nigel/test 2.jpg",
-                                                                    "img/nigel/test 3.jpg"
-]'>
-
-        <!-- <img src="images/slider.jpg" class="img-fluid" alt="#"> -->
-        <div class="container">
-            <div class="row d-flex justify-content-center">
-                <div class="col-md-12">
-                    <div class="slider-title_box">
-                        <div class="row">
-                            <div class="col-md-12">
-                                <div class="slider-content_wrap">
-                                    <h1>Order great food in NYP</h1>
-                                    <h5>All from the touch of a button</h5>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- Codes for search bar if needed -->
-                        <!-- <div class="row d-flex justify-content-center">
-                            <div class="col-md-10">
-                                <form class="form-wrap mt-4">
-                                    <div class="btn-group" role="group" aria-label="Basic example">
-                                        <input type="text" placeholder="Canteen Name" class="btn-group1">
-                                        <input type="text" placeholder="Stall name" class="btn-group2">
-                                        <button type="submit" class="btn-form"><span
-                                                class="icon-magnifier search-icon"></span>SEARCH<i
-                                                class="pe-7s-angle-right"></i></button>
-                                    </div>
-                                </form>
-                                <div class="slider-link">
-                                    <a href="#">Browse Popular</a><span>or</span> <a href="#">Recently Added</a>
-                                </div>
-                            </div>
-                        </div> -->
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-    <!--// SLIDER -->
     <!--//END HEADER -->
     <!--============================= CATEGORIES =============================-->
     <section class="main-block">
@@ -499,12 +469,8 @@
                 </div>
             </div>
             <div class="row">
-
-                {{! 1st slideshow}}
-
-                {{! 1 1}}
                 <div class="col-md-4 featured-responsive">
-                    <div class="featured-place-wrap mySlides1">
+                    <div class="featured-place-wrap">
                         <a href="detail.html">
                             <img src="img/nigel/featured1.jpg" class="img-fluid" alt="#">
                             <span class="featured-rating-orange">6.5</span>
@@ -531,191 +497,21 @@
                                     <span class="ti-bookmark"></span>
                                 </div>
                             </div>
-                        </a>
-                    </div>
-
-                    {{! 1 2 }}
-                    <div class="featured-place-wrap mySlides1">
-                        <a href="detail.html">
-                            <img src="img/nigel/featured3.jpg" class="img-fluid" alt="#">
-                            <span class="featured-rating">3.2</span>
-                            <div class="featured-title-box">
-                                <h6>Tasty Hand-Pulled Noodles 1 2</h6>
-                                <p>Restaurant </p> <span>• </span>
-                                <p>3 Reviews</p> <span> • </span>
-                                <p><span>$$$</span>$$</p>
-                                <ul>
-                                    <li><span class="icon-location-pin"></span>
-                                        <p>1301 Avenue, Brooklyn, NY 11230</p>
-                                    </li>
-                                    <li><span class="icon-screen-smartphone"></span>
-                                        <p>+44 20 7336 8898</p>
-                                    </li>
-                                    <li><span class="icon-link"></span>
-                                        <p>https://burgerandlobster.com</p>
-                                    </li>
-                                </ul>
-                                <div class="bottom-icons">
-                                    <div class="open-now">OPEN NOW</div>
-                                    <span class="ti-heart"></span>
-                                    <span class="ti-bookmark"></span>
-                                </div>
+                            <div style="text-align:center">
+                                <span class="dot"></span>
+                                <span class="dot"></span>
+                                <span class="dot"></span>
                             </div>
                         </a>
-                    </div>
-
-                    {{! 1 3 }}
-                    <div class="featured-place-wrap mySlides1">
-                        <a href="detail.html">
-                            <img src="img/nigel/featured2.jpg" class="img-fluid" alt="#">
-                            <span class="featured-rating-green">9.5</span>
-                            <div class="featured-title-box">
-                                <h6>Joe’s Shanghai 1 1</h6>
-                                <p>Restaurant </p> <span>• </span>
-                                <p>3 Reviews</p> <span> • </span>
-                                <p><span>$$$</span>$$</p>
-                                <ul>
-                                    <li><span class="icon-location-pin"></span>
-                                        <p>1301 Avenue, Brooklyn, NY 11230</p>
-                                    </li>
-                                    <li><span class="icon-screen-smartphone"></span>
-                                        <p>+44 20 7336 8898</p>
-                                    </li>
-                                    <li><span class="icon-link"></span>
-                                        <p>https://burgerandlobster.com</p>
-                                    </li>
-                                </ul>
-                                <div class="bottom-icons">
-                                    <div class="closed-now">CLOSED NOW</div>
-                                    <span class="ti-heart"></span>
-                                    <span class="ti-bookmark"></span>
-                                </div>
-                            </div>
-                        </a>
-                    </div>
-
-                    <div style="text-align:center">
-                        <span class="dot1"></span>
-                        <span class="dot1"></span>
-                        <span class="dot1"></span>
-                    </div>
-
-                </div>
-
-                {{! end of 1st slideshow}}
-
-                {{! 2nd slideshow}}
-
-                {{! 2 1 }}
-                <div class="col-md-4 featured-responsive">
-                    <div class="featured-place-wrap mySlides2">
-                        <a href="detail.html">
-                            <img src="img/nigel/featured2.jpg" class="img-fluid" alt="#">
-                            <span class="featured-rating-green">9.5</span>
-                            <div class="featured-title-box">
-                                <h6>Joe’s Shanghai 2 1</h6>
-                                <p>Restaurant </p> <span>• </span>
-                                <p>3 Reviews</p> <span> • </span>
-                                <p><span>$$$</span>$$</p>
-                                <ul>
-                                    <li><span class="icon-location-pin"></span>
-                                        <p>1301 Avenue, Brooklyn, NY 11230</p>
-                                    </li>
-                                    <li><span class="icon-screen-smartphone"></span>
-                                        <p>+44 20 7336 8898</p>
-                                    </li>
-                                    <li><span class="icon-link"></span>
-                                        <p>https://burgerandlobster.com</p>
-                                    </li>
-                                </ul>
-                                <div class="bottom-icons">
-                                    <div class="closed-now">CLOSED NOW</div>
-                                    <span class="ti-heart"></span>
-                                    <span class="ti-bookmark"></span>
-                                </div>
-                            </div>
-                        </a>
-                    </div>
-
-                    {{! 2 2 }}
-                    <div class="featured-place-wrap mySlides2">
-                        <a href="detail.html">
-                            <img src="img/nigel/featured1.jpg" class="img-fluid" alt="#">
-                            <span class="featured-rating-orange">6.5</span>
-                            <div class="featured-title-box">
-                                <h6>Burger & Lobster 2 2</h6>
-                                <p>Restaurant </p> <span>• </span>
-                                <p>3 Reviews</p> <span> • </span>
-                                <p><span>$$$</span>$$</p>
-                                <ul>
-                                    <li><span class="icon-location-pin"></span>
-                                        <p>1301 Avenue, Brooklyn, NY 11230</p>
-                                    </li>
-                                    <li><span class="icon-screen-smartphone"></span>
-                                        <p>+44 20 7336 8898</p>
-                                    </li>
-                                    <li><span class="icon-link"></span>
-                                        <p>https://burgerandlobster.com</p>
-                                    </li>
-                                </ul>
-                                <div class="bottom-icons">
-                                    <div class="closed-now">CLOSED NOW</div>
-                                    <span class="ti-heart"></span>
-                                    <span class="ti-bookmark"></span>
-                                </div>
-                            </div>
-                        </a>
-                    </div>
-
-                    {{! 2 3 }}
-                    <div class="featured-place-wrap mySlides2">
-                        <a href="detail.html">
-                            <img src="img/nigel/featured3.jpg" class="img-fluid" alt="#">
-                            <span class="featured-rating">3.2</span>
-                            <div class="featured-title-box">
-                                <h6>Tasty Hand-Pulled Noodles 2 3</h6>
-                                <p>Restaurant </p> <span>• </span>
-                                <p>3 Reviews</p> <span> • </span>
-                                <p><span>$$$</span>$$</p>
-                                <ul>
-                                    <li><span class="icon-location-pin"></span>
-                                        <p>1301 Avenue, Brooklyn, NY 11230</p>
-                                    </li>
-                                    <li><span class="icon-screen-smartphone"></span>
-                                        <p>+44 20 7336 8898</p>
-                                    </li>
-                                    <li><span class="icon-link"></span>
-                                        <p>https://burgerandlobster.com</p>
-                                    </li>
-                                </ul>
-                                <div class="bottom-icons">
-                                    <div class="open-now">OPEN NOW</div>
-                                    <span class="ti-heart"></span>
-                                    <span class="ti-bookmark"></span>
-                                </div>
-                            </div>
-                        </a>
-                    </div>
-
-                    <div style="text-align:center">
-                        <span class="dot2"></span>
-                        <span class="dot2"></span>
-                        <span class="dot2"></span>
                     </div>
                 </div>
-
-                {{! end of 2nd slide show}}
-
-                {{! 3rd slide show}}
-
-                {{! 3 1 }}
                 <div class="col-md-4 featured-responsive">
-                    <div class="featured-place-wrap mySlides3">
+                    <div class="featured-place-wrap">
                         <a href="detail.html">
-                            <img src="img/nigel/featured3.jpg" class="img-fluid" alt="#">
-                            <span class="featured-rating">3.2</span>
+                            <img src="img/nigel/featured2.jpg" class="img-fluid" alt="#">
+                            <span class="featured-rating-green">9.5</span>
                             <div class="featured-title-box">
-                                <h6>Tasty Hand-Pulled Noodles 3 1</h6>
+                                <h6>Joe’s Shanghai</h6>
                                 <p>Restaurant </p> <span>• </span>
                                 <p>3 Reviews</p> <span> • </span>
                                 <p><span>$$$</span>$$</p>
@@ -729,84 +525,58 @@
                                     <li><span class="icon-link"></span>
                                         <p>https://burgerandlobster.com</p>
                                     </li>
+
+                                </ul>
+                                <div class="bottom-icons">
+                                    <div class="closed-now">CLOSED NOW</div>
+                                    <span class="ti-heart"></span>
+                                    <span class="ti-bookmark"></span>
+                                </div>
+                            </div>
+                            <div style="text-align:center">
+                                <span class="dot"></span>
+                                <span class="dot"></span>
+                                <span class="dot"></span>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+                <div class="col-md-4 featured-responsive">
+                    <div class="featured-place-wrap">
+                        <a href="detail.html">
+                            <img src="img/nigel/featured3.jpg" class="img-fluid" alt="#">
+                            <span class="featured-rating">3.2</span>
+                            <div class="featured-title-box">
+                                <h6>Tasty Hand-Pulled Noodles</h6>
+                                <p>Restaurant </p> <span>• </span>
+                                <p>3 Reviews</p> <span> • </span>
+                                <p><span>$$$</span>$$</p>
+                                <ul>
+                                    <li><span class="icon-location-pin"></span>
+                                        <p>1301 Avenue, Brooklyn, NY 11230</p>
+                                    </li>
+                                    <li><span class="icon-screen-smartphone"></span>
+                                        <p>+44 20 7336 8898</p>
+                                    </li>
+                                    <li><span class="icon-link"></span>
+                                        <p>https://burgerandlobster.com</p>
+                                    </li>
+
                                 </ul>
                                 <div class="bottom-icons">
                                     <div class="open-now">OPEN NOW</div>
                                     <span class="ti-heart"></span>
                                     <span class="ti-bookmark"></span>
                                 </div>
+
+                            </div>
+                            <div style="text-align:center">
+                                <span class="dot"></span>
+                                <span class="dot"></span>
+                                <span class="dot"></span>
                             </div>
                         </a>
                     </div>
-
-                    {{! 3 2 }}
-                    <div class="featured-place-wrap mySlides3">
-                        <a href="detail.html">
-                            <img src="img/nigel/featured2.jpg" class="img-fluid" alt="#">
-                            <span class="featured-rating-green">9.5</span>
-                            <div class="featured-title-box">
-                                <h6>Joe’s Shanghai 3 2</h6>
-                                <p>Restaurant </p> <span>• </span>
-                                <p>3 Reviews</p> <span> • </span>
-                                <p><span>$$$</span>$$</p>
-                                <ul>
-                                    <li><span class="icon-location-pin"></span>
-                                        <p>1301 Avenue, Brooklyn, NY 11230</p>
-                                    </li>
-                                    <li><span class="icon-screen-smartphone"></span>
-                                        <p>+44 20 7336 8898</p>
-                                    </li>
-                                    <li><span class="icon-link"></span>
-                                        <p>https://burgerandlobster.com</p>
-                                    </li>
-                                </ul>
-                                <div class="bottom-icons">
-                                    <div class="closed-now">CLOSED NOW</div>
-                                    <span class="ti-heart"></span>
-                                    <span class="ti-bookmark"></span>
-                                </div>
-                            </div>
-                        </a>
-                    </div>
-
-                    {{! 3 3}}
-                    <div class="featured-place-wrap mySlides3">
-                        <a href="detail.html">
-                            <img src="img/nigel/featured1.jpg" class="img-fluid" alt="#">
-                            <span class="featured-rating-orange">6.5</span>
-                            <div class="featured-title-box">
-                                <h6>Burger & Lobster 3 3</h6>
-                                <p>Restaurant </p> <span>• </span>
-                                <p>3 Reviews</p> <span> • </span>
-                                <p><span>$$$</span>$$</p>
-                                <ul>
-                                    <li><span class="icon-location-pin"></span>
-                                        <p>1301 Avenue, Brooklyn, NY 11230</p>
-                                    </li>
-                                    <li><span class="icon-screen-smartphone"></span>
-                                        <p>+44 20 7336 8898</p>
-                                    </li>
-                                    <li><span class="icon-link"></span>
-                                        <p>https://burgerandlobster.com</p>
-                                    </li>
-                                </ul>
-                                <div class="bottom-icons">
-                                    <div class="closed-now">CLOSED NOW</div>
-                                    <span class="ti-heart"></span>
-                                    <span class="ti-bookmark"></span>
-                                </div>
-                            </div>
-                        </a>
-                    </div>
-
-                    <div style="text-align:center">
-                        <span class="dot3"></span>
-                        <span class="dot3"></span>
-                        <span class="dot3"></span>
-                    </div>
-
-                    {{! end of 3rd slideshow}}
-
                 </div>
             </div>
             <div class="row justify-content-center">
@@ -818,9 +588,8 @@
             </div>
         </div>
         <style>
-            /* The dots/bullets/indicators */
-
-            .dot1 {
+            .dot {
+                cursor: pointer;
                 height: 15px;
                 width: 15px;
                 margin: 0 2px;
@@ -828,58 +597,6 @@
                 border-radius: 50%;
                 display: inline-block;
                 transition: background-color 0.6s ease;
-            }
-
-            .dot2 {
-                height: 15px;
-                width: 15px;
-                margin: 0 2px;
-                background-color: #bbb;
-                border-radius: 50%;
-                display: inline-block;
-                transition: background-color 0.6s ease;
-            }
-
-            .dot3 {
-                height: 15px;
-                width: 15px;
-                margin: 0 2px;
-                background-color: #bbb;
-                border-radius: 50%;
-                display: inline-block;
-                transition: background-color 0.6s ease;
-            }
-
-            .active {
-                background-color: #717171;
-            }
-
-            /* Fading animation */
-            .fade {
-                -webkit-animation-name: fade;
-                -webkit-animation-duration: 1.5s;
-                animation-name: fade;
-                animation-duration: 1.5s;
-            }
-
-            @-webkit-keyframes fade {
-                from {
-                    opacity: .4
-                }
-
-                to {
-                    opacity: 1
-                }
-            }
-
-            @keyframes fade {
-                from {
-                    opacity: .4
-                }
-
-                to {
-                    opacity: 1
-                }
             }
         </style>
     </section>
@@ -912,76 +629,10 @@
 
     <!-- jQuery, Bootstrap JS. -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-    <script src="js/nigel/jquery-3.2.1.min.js"></script>
+    <!-- <script src="js/nigel/jquery-3.2.1.min.js"></script> --> {{! this is for nav bar fade in and out animation}}
     <script src="js/nigel/popper.min.js"></script>
     <script src="js/nigel/bootstrap.min.js"></script>
     <script src="js/nigel/homepageJS.js"></script>
-    <script src="js/nigel/DB.js"></script>
-    <script src="js/nigel/DBConfig.js"></script>
-
-    <script>
-
-        var slideIndex3 = 0;
-        showSlides3();
-
-        function showSlides3() {
-            var i;
-            var slides = document.getElementsByClassName("mySlides3");
-            var dots = document.getElementsByClassName("dot3");
-            for (i = 0; i < slides.length; i++) {
-                slides[i].style.display = "none";
-            }
-            slideIndex3++;
-            if (slideIndex3 > slides.length) { slideIndex3 = 1 }
-            for (i = 0; i < dots.length; i++) {
-                dots[i].className = dots[i].className.replace(" active", "");
-            }
-            slides[slideIndex3 - 1].style.display = "block";
-            dots[slideIndex3 - 1].className += " active";
-            setTimeout(showSlides3, 2000); // Change image every 2 seconds
-        }
-
-        var slideIndex2 = 0;
-        showSlides2();
-
-        function showSlides2() {
-            var i;
-            var slides = document.getElementsByClassName("mySlides2");
-            var dots = document.getElementsByClassName("dot2");
-            for (i = 0; i < slides.length; i++) {
-                slides[i].style.display = "none";
-            }
-            slideIndex2++;
-            if (slideIndex2 > slides.length) { slideIndex2 = 1 }
-            for (i = 0; i < dots.length; i++) {
-                dots[i].className = dots[i].className.replace(" active", "");
-            }
-            slides[slideIndex2 - 1].style.display = "block";
-            dots[slideIndex2 - 1].className += " active";
-            setTimeout(showSlides2, 2000); // Change image every 2 seconds
-        }
-
-        var slideIndex1 = 0;
-        showSlides1();
-
-        function showSlides1() {
-            var i;
-            var slides = document.getElementsByClassName("mySlides1");
-            var dots = document.getElementsByClassName("dot1");
-            for (i = 0; i < slides.length; i++) {
-                slides[i].style.display = "none";
-            }
-            slideIndex1++;
-            if (slideIndex1 > slides.length) { slideIndex1 = 1 }
-            for (i = 0; i < dots.length; i++) {
-                dots[i].className = dots[i].className.replace(" active", "");
-            }
-            slides[slideIndex1 - 1].style.display = "block";
-            dots[slideIndex1 - 1].className += " active";
-            setTimeout(showSlides1, 2000); // Change image every 2 seconds
-        }
-
-    </script>
 
 </body>
 
