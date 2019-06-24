@@ -1,30 +1,51 @@
+<!-- TO DO 7/6/2019 -->
+<!-- Use only 1 Add to Cart button -->
+<!-- Create feature to view other canteen -->
+
 <!doctype html>
 <html lang="en">
     <head>
         <meta charset="utf-8">
-
         <link rel="stylesheet" href="/css/style.css">
         <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.2/themes/smoothness/jquery-ui.css">
-
     </head>
 
 <body>
     <div class="wrapper">
         <!-- title of menu -->
-        <h1>Food items @ NYP</h1>
+        <h1>Food items @ NYP KouFu</h1>
         <!-- marking area for cart icon? -->
-        <span><a href="#"><i class="cart"></i></a></span>
+        
+        <!-- <a href="#" class="notification"> -->
+        <span id="itemCount"></span>
+        <span id="tag"><a href="#"><i class="cart"></i></a>  <!-- remove previously span id=tag --></span>
+        <!-- </a> -->
+
+            <select class="choosePlace" onchange="location = this.value;">
+                <option value="#">South</option>
+                <option value="#">North</a></option>
+                <option value="#">Foodgle</option>
+                <option value="#">Food Connect</option>
+            </select>
+
         <!-- what is this clear for ? -->
         <div class="clear"></div>
 
         <!-- for all items -->
             <div class="items">
 
+            <!-- adding num icon for cart 
+            <div id="cartItems"></div> -->
+
             <!-- ITEM 1 -->
                 <div class="item">
                     <img src="/img/coffeemod1.jpg"/> <!-- image resize to 173 hori 116 vert px in paint ms -->
                     <h2>Coffee</h2>
-                    <p>Price: <em>$1.00</em></p>
+                    <p>Price: $<span class="price">1.00</span></p>
+
+                    <!-- Testing disbaling of ATC btn -->
+                    <!-- <p>Quantity: <input type="text" value=0 size="2" id="KFitem1" onkeyup="disableATC(this)"></p> -->
+                    
                     <p>Quantity: <input type="text" value=0 size="2" id="KFitem1"></p>
                         <div class="quantity-operator">
                             <button type="button" id="KFitem1_add">+</button>
@@ -32,14 +53,23 @@
                         </div>
                         <br>
                         <br>
-                        <button class="tocart" type="button">Add to cart</button>
+
+                        
+                        <button id="btnd" class="tocart" type="button">Add to cart</button>
+                        
+                        <!--
+                        <input type="Submit" id="btnd" class="tocart" disabled="disabled"/>
+                        -->
+                    
+                        <!-- testing of disabling of ATC btn -->
+                        <!-- <input type="submit" id="btnd" disabled class="tocart" type="submit"> -->
                 </div> <!-- / end item div line 14 -->
 
             <!-- ITEM 2 -->
                 <div class="item">
                     <img src="/img/pastamod1.jpg"/> 
                     <h2>Pasta</h2>
-                    <p>Price: <em>$4.50</em></p>
+                    <p>Price: $<span class="price">4.50</span></p>
                     <p>Quantity: <input type="text" value=0 size="2" id="KFitem2"></p>
                         <div class="quantity-operator">
                             <button type="button" id="KFitem2_add">+</button>
@@ -110,6 +140,17 @@
                         <button class="tocart" type="button">Add to cart</button>
                 </div>
 
+            <!-- adding this for showing and calulating total price from cart -->
+                <div id="shoppingCart">
+                    <div id="cartContainer">
+                        <h2>Selected Items</h2>
+                            <div id="cartItems"></div>
+                            <span id="cartTotal"></span>
+                            <br>
+                            <button type="button" class="back">Back to selection</button>
+                    </div>
+                </div>
+            
 
             </div> 
     </div>

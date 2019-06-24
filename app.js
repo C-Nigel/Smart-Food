@@ -5,13 +5,14 @@ const exphbs = require('express-handlebars');
 const methodOverride = require('method-override');
 const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
-//const flash = require('connect-flash');
-//const FlashMessenger = require('flash-messenger'); 
+/*const flash = require('connect-flash');
+const FlashMessenger = require('flash-messenger'); */
 
 
 const mainRoute = require('./routes/main');
 const menuRoute = require('./routes/menu');
 const userRoute = require('./routes/user');
+const profileRoute = require('./routes/profile');
 
 const app = express();
 
@@ -45,6 +46,7 @@ app.use(cookieParser());
 app.use('/', mainRoute);
 app.use('/menu', menuRoute);
 app.use('/user', userRoute);
+app.use('/profile', userRoute);
 
 // This code is to create DataBase
 // Bring in database connection
