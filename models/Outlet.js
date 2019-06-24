@@ -7,4 +7,4 @@ const Outlet = db.define('outlet', {
     }
 });
 
-module.export = Outlet;
+module.exports = Outlet;

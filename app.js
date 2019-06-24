@@ -24,7 +24,8 @@ app.use(bodyParser.urlencoded({
     extended: false
 }));
 
-/*app.use(flash());
+/*
+app.use(flash());
 app.use(FlashMessenger.middleware);
 app.use(function (req, res, next) {
 	res.locals.success_msg = req.flash('success_msg');
@@ -32,10 +33,11 @@ app.use(function (req, res, next) {
 	res.locals.error = req.flash('error');
 	res.locals.user = req.user || null;
 	next();
-});*/
+});
 app.use(function (req, res, next) {
 	next();
 });
+*/
 app.use(bodyParser.json());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(methodOverride('__method'));
@@ -46,12 +48,11 @@ app.use('/menu', menuRoute);
 app.use('/user', userRoute);
 app.use('/profile', userRoute);
 
- // This code is to run nigel DataBase
+// This code is to create DataBase
 // Bring in database connection
-const vidjotDB = require('./public/js/nigel/DBConnection');
+const db = require('./config/DBConnection');
 // Connects to MySQL database
-vidjotDB.setUpDB(true); // To set up database with new tables set (true) 
-
+db.setUpDB(true); // To set up database with new tables set (true)
 
 const port = 5000;
 

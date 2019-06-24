@@ -1,6 +1,8 @@
 module.exports = {
-    host: 'localhost',
-    username: 'raymond',
-    password: 'raymond',
-    database: 'smart-food'
+    //host: "bloopy.dyndns-home.com",
+    host: "diskstation",
+    port: 3307,
+    user: "guest",
+    password: "password",
+    database: "ooadp"
 }
