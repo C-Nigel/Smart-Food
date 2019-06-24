@@ -1,9 +1,10 @@
 const express = require('express');
 const router = express.Router();
-const User = require('../public/js/nigel/DBUsers');
+const User = require('../models/User');
 var bcrypt = require('bcryptjs');
 const alertMessage = require('../helpers/messenger');
 const jwt = require('jsonwebtoken');
+const Sequelize = require('sequelize');
 
 router.get('/', (req, res) => {
     const title = 'Smart Food';
@@ -32,8 +33,8 @@ router.post('/register', (req, res) => {
         full_name,
         password,
         phone_no,
-        telegram_id
-        // admin_status = false
+        telegram_id,
+        admin_status: 0
         // Practical 11 Activity 04
          // Add this statement – set verify to false
     })
