@@ -1,4 +1,4 @@
-const bot = require("../config/telegram");
+const bot = require("../config/telegramConfig");
 // catch message
 bot.on('message', function (msg) {/* <function (msg)> or <(msg) => > */
     console.log(msg);

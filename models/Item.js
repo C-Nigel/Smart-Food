@@ -1,6 +1,6 @@
 const Sequelize = require("sequelize");
 const db = require("../config/DBConfig");
-const Outlet = require("./Outlet");
+
 
 const Item = db.define('item', {
     name: {
