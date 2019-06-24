@@ -1,13 +1,20 @@
 const Sequelize = require("sequelize");
 const db = require("../config/DBConfig");
 
-const Outlet = db.define('outlet', {
+
+const Item = db.define('item', {
     name: {
         type: Sequelize.STRING
     },
-    desc: {
+    cat: {
         type: Sequelize.STRING
+    },
+    price: {
+        type: Sequelize.DOUBLE
+    },
+    outlet_id: {
+        type: Sequelize.INTEGER,
     }
 });
 
-module.exports = Outlet;
+module.exports = Item;

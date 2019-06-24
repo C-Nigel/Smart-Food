@@ -4,20 +4,45 @@ const User = require('../models/User');
 var bcrypt = require('bcryptjs');
 const alertMessage = require('../helpers/messenger');
 const jwt = require('jsonwebtoken');
+const Sequelize = require('sequelize');
 
 router.get('/', (req, res) => {
     const title = 'Smart Food';
     res.render('home', {title: title}) // renders views/home.handlebars
 });
 
-router.post('/register', (req, res) => {
+router.post('/loginuser', (req, res) => {
+    let { admin_no, password } = req.body;
+    User.findOne({
+        where: {
+            admin_no: admin_no,
+            password: password
+        }
+    }).then(user => {
+        res.redirect('/')
+    })
 
-    let errors = [];
+});
+router.post('/register', (req, res) => {
+    let { full_name, admin_no, password, confirmpassword, phone_no, telegram_id } = req.body;
+    var randLetter = String.fromCharCode(65 + Math.floor(Math.random() * 26));
+    User.create({
+        admin_no,
+        full_name,
+        password,
+        phone_no,
+        telegram_id,
+        admin_status: 0
+        // Practical 11 Activity 04
+         // Add this statement – set verify to false
+    })
+    res.redirect('/loginuser');
+    
+    /*let errors = [];
     // Retrieves fields from register page from request body
     let { full_name, admin_no, password, confirmpassword, phone_no } = req.body;
     var randLetter = String.fromCharCode(65 + Math.floor(Math.random() * 26));
     var user_id = randLetter + Date.now(); 
-    var telegram_id = "";
     var email = admin_no + "@mymail.nyp.edu.sg"
     // Checks if both passwords entered are the same
     if (password !== confirmpassword) {
@@ -42,7 +67,7 @@ router.post('/register', (req, res) => {
             full_name,
             password,
             confirmpassword,
-            phonenumber
+            phone_no
         });
     } else {
         // If all is well, checks if user is already registered
@@ -58,7 +83,7 @@ router.post('/register', (req, res) => {
                         full_name,
                         password,
                         confirmpassword,
-                        phonenumber
+                        phone_no
                     });
                 } else {
                     // Practical 11 Activity 04
@@ -86,7 +111,7 @@ router.post('/register', (req, res) => {
                         phone_no,
                         telegram_id,
                         // Practical 11 Activity 04
-                        admin_status: 0, // Add this statement – set verify to false
+                         // Add this statement – set verify to false
                     }).then(user => {
                         // Practical 11 Activity 04
                         sendEmail(user.id, email, token) // Add this to call sendEmail function
@@ -105,7 +130,7 @@ router.post('/register', (req, res) => {
                     });
                 }
             });
-    }
+    } */
 });
 
 
