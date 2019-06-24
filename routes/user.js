@@ -1,9 +1,10 @@
 const express = require('express');
 const router = express.Router();
-const User = require('../public/js/nigel/DBUsers');
+const User = require('../models/User');
 var bcrypt = require('bcryptjs');
 const alertMessage = require('../helpers/messenger');
 const jwt = require('jsonwebtoken');
+const Sequelize = require('sequelize');
 
 router.get('/', (req, res) => {
     const title = 'Smart Food';
@@ -25,15 +26,13 @@ router.post('/loginuser', (req, res) => {
 router.post('/register', (req, res) => {
     let { full_name, admin_no, password, confirmpassword, phone_no, telegram_id } = req.body;
     var randLetter = String.fromCharCode(65 + Math.floor(Math.random() * 26));
-    var user_id = randLetter + Date.now();
     User.create({
-        user_id,
         admin_no,
         full_name,
         password,
         phone_no,
-        telegram_id
-        // admin_status = false
+        telegram_id,
+        admin_status: 0
         // Practical 11 Activity 04
          // Add this statement – set verify to false
     })
