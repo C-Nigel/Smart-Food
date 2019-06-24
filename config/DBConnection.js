@@ -11,10 +11,9 @@ const setUpDB = (drop) => {
         }
     ).then(
         () => {
-            order.hasMany(user);
-            order.hasMany(item);
-            order.hasOne(outlet);
-            item.hasOne(outlet);
+            order.belongsTo(user, {foreignKey: 'user_id'});
+            order.belongsTo(item, {foreignKey: 'item_id'});
+            item.belongsTo(outlet, {foreignKey: 'outlet_id'});
 
             db.sync({ // Creates table if none exists
                 force: drop

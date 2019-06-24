@@ -1,10 +1,5 @@
 const Sequelize = require("sequelize");
 const db = require("../config/DBConfig");
-/*
-const User = require("../models/User");
-const Outlet = require("../models/Outlet");
-const Food = require("../models/Food");
-*/
 
 const Order = db.define("order", {
     queue_no: {
