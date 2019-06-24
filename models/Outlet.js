@@ -4,6 +4,9 @@ const db = require("../config/DBConfig");
 const Outlet = db.define('outlet', {
     name: {
         type: Sequelize.STRING
+    },
+    desc: {
+        type: Sequelize.STRING
     }
 });
 
