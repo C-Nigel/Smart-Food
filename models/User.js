@@ -19,10 +19,10 @@ const User = db.define('user', {
     phone_no: {
         type: Sequelize.INTEGER,
         length: 8
+    },
+    admin_status: {
+        type: Sequelize.BOOLEAN
     }
-    //admin_status: {
-    //    type: Sequelize.BOOLEAN
-    //}
 });
 
 module.exports = User;
