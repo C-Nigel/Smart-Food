@@ -6,9 +6,8 @@ router.get('/', (req, res) => {
     res.render('home', {title: title}) // renders views/home.handlebars
 });
 
-router.get('/menu', (req, res) => {
-    res.render('cart/menu')
-});
+// testing the feature for the menu of different canteen
+
 
 router.get('/loginuser', (req, res) => {
 	res.render('user/loginuser') // renders views/user/loginuser.handlebars
@@ -37,6 +36,33 @@ router.get('/profile', (req, res) => {
 router.get('/favicon', (req, res) => {
 	res.render('malique/favicon') // renders views/user/forgetpw.handlebars
 });
+
+router.get('/menufoodconnect', (req, res) =>{
+	res.render('cart/menufoodconnect')
+});
+
+router.get('/menufoodgle', (req, res) =>{
+	res.render('cart/menufoodgle')
+});
+
+router.get('/menukoufu', (req, res) => {
+    res.render('cart/menukoufu')
+});
+
+router.get('/menunorth', (req, res) =>{
+	res.render('cart/menunorth')
+});
+
+router.get('/menusouth', (req, res) =>{
+	res.render('cart/menusouth')
+});
+
+/* testing allmenu */
+router.get('/allmenu', (req, res) =>{
+	res.render('cart/allmenu')
+});
+
+
 module.exports = router;
 
 
