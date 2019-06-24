@@ -26,9 +26,7 @@ router.post('/loginuser', (req, res) => {
 router.post('/register', (req, res) => {
     let { full_name, admin_no, password, confirmpassword, phone_no, telegram_id } = req.body;
     var randLetter = String.fromCharCode(65 + Math.floor(Math.random() * 26));
-    var user_id = randLetter + Date.now();
     User.create({
-        user_id,
         admin_no,
         full_name,
         password,
