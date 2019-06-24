@@ -37,7 +37,30 @@ router.get('/favicon', (req, res) => {
 	res.render('malique/favicon') // renders views/user/forgetpw.handlebars
 });
 
+router.get('/menufoodconnect', (req, res) =>{
+	res.render('cart/menufoodconnect')
+})
 
+router.get('/menufoodgle', (req, res) =>{
+	res.render('cart/menufoodgle')
+})
+
+router.get('/menukoufu', (req, res) => {
+    res.render('cart/menukoufu')
+});
+
+router.get('/menunorth', (req, res) =>{
+	res.render('cart/menunorth')
+})
+
+router.get('/menusouth', (req, res) =>{
+	res.render('cart/menusouth')
+})
+
+/* testing allmenu */
+router.get('/allmenu', (req, res) =>{
+	res.render('cart/allmenu')
+})
 
 
 module.exports = router;
