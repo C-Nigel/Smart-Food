@@ -7,9 +7,8 @@ router.get('/', (req, res) => {
     res.render('home', {title: title}) // renders views/home.handlebars
 });
 
-router.get('/menu', (req, res) => {
-    res.render('cart/menu')
-});
+// testing the feature for the menu of different canteen
+
 
 router.get('/loginuser', (req, res) => {
 	res.render('user/loginuser') // renders views/user/loginuser.handlebars
@@ -38,6 +37,10 @@ router.get('/profile', (req, res) => {
 router.get('/favicon', (req, res) => {
 	res.render('malique/favicon') // renders views/user/forgetpw.handlebars
 });
+
+
+
+
 module.exports = router;
 
 
