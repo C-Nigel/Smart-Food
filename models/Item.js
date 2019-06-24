@@ -6,7 +6,7 @@ const Item = db.define('item', {
     name: {
         type: Sequelize.STRING
     },
-    description: {
+    desc: {
         type: Sequelize.STRING
     },
     price: {
