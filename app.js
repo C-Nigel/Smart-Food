@@ -13,7 +13,7 @@ const User = require("./models/User")
 const mainRoute = require('./routes/main');
 const menuRoute = require('./routes/menu');
 const userRoute = require('./routes/user');
-const profileRoute = require('./routes/profile');
+//const profileRoute = require('./routes/profile');
 
 const app = express();
 
@@ -47,13 +47,13 @@ app.use(cookieParser());
 app.use('/', mainRoute);
 app.use('/menu', menuRoute);
 app.use('/user', userRoute);
-app.use('/profile', userRoute);
+//app.use('/profile', profileRoute);
 
 // This code is to create DataBase
 // Bring in database connection
 const db = require('./config/DBConnection');
 // Connects to MySQL database
-db.setUpDB(true); // To set up database with new tables set (true)
+db.setUpDB(false); // To set up database with new tables set (true)
 
 const port = 5000;
 
