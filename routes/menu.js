@@ -27,15 +27,15 @@ router.post('/additem', (req, res) => {
     let price = req.body.price;
     let outlet = req.body.outlet;
 
-item.create({
-    name,
-    description,
-    price,
-    outlet
-    }).then((item) =>{
-        res.redirect('/views/cart/allmenu');
-    })
-    .catch(err => console.log(err))
+    item.create({
+        name,
+        description,
+        price,
+        outlet
+        }).then((item) =>{
+            res.redirect('/views/cart/allmenu');
+        })
+        .catch(err => console.log(err))
 });
 
 module.exports = router;

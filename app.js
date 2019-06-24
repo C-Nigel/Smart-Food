@@ -52,7 +52,7 @@ app.use('/profile', userRoute);
 // Bring in database connection
 const db = require('./config/DBConnection');
 // Connects to MySQL database
-db.setUpDB(true); // To set up database with new tables set (true)
+db.setUpDB(false); // To set up database with new tables set (true)
 
 const port = 5000;
 
