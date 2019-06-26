@@ -17,6 +17,10 @@ router.get('/loginseller', (req, res) => {
 	res.render('user/loginseller') // renders views/user/loginseller.handlebars
 });
 
+router.get('/loginadmin', (req,res) => {
+	res.render('user/loginadmin')
+});
+
 router.get('/register', (req, res) => {
 	res.render('user/register') // renders views/user/register.handlebars
 });
