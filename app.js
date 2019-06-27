@@ -8,6 +8,7 @@ const bodyParser = require('body-parser');
 /*const flash = require('connect-flash');
 const FlashMessenger = require('flash-messenger'); */
 
+const User = require("./models/User")
 
 const mainRoute = require('./routes/main');
 const menuRoute = require('./routes/menu');
@@ -68,8 +69,9 @@ const bot = require("./config/telegramConfig");
 bot.on('message', function (msg) {/* <function (msg)> or <(msg) => > */
     console.log(msg);
     // get sender id
-    var sender = msg.chat.id;
+	var sender = msg.chat.id;
+	User.create({user_id:"dwsa", admin_no:"w122", full_name:"qwer", password:"ggad", phone_no:"12345678", telegram_id:sender, admin_status: 0})
     // get text
-    var content = msg.text;
-
+	var content = msg.text;
+	
 });
