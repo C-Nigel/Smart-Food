@@ -57,7 +57,7 @@ db.setUpDB(false); // To set up database with new tables set (true)
 
 const port = 5000;
 
-app.listen(port, () =>{
+app.listen(port, () => {
 	console.log(`Server started on port ${port}`);
 });
 
@@ -70,7 +70,7 @@ var con = mysql.createConnection({
 	user: "guest",
 	password: "password",
 	database: "ooadp"
-  });
+});
 
 // catch message
 bot.on('message', function (msg) {/* <function (msg)> or <(msg) => > */
@@ -80,7 +80,7 @@ bot.on('message', function (msg) {/* <function (msg)> or <(msg) => > */
 	//User.create({ user_id: "1", admin_no: "180448w", full_name: "Nigel Cheong", password: "pls_encrypt_this", phone_no: "12345678", telegram_id: null, admin_status: null })
 	// get text
 	var content = msg.text;
-	
+
 });
 
 /*
@@ -102,34 +102,53 @@ bot.onText(/\/start (.+)/, (msg, match) => {
 	// 'msg' is the received Message from Telegram
 	// 'match' is the result of executing the regexp above on the text content
 	// of the message
-   
+
 	const chatId = msg.chat.id;
 	const resp = "Hi there, thank you for signing up! \xF0\x9F\x98\x8A"; // the captured "whatever"
-   
+
 	// send back the matched "whatever" to the chat
 	bot.sendMessage(chatId, resp);
-  });
+});
 
-  bot.onText(/\/verify (.+)/, (msg, match) => {
+bot.onText(/\/start/, (msg) => {
+
+	bot.sendMessage(msg.chat.id, 'Hi there, thank you for signing up with us! to receieve notification, Please reply "/verify <your admin no.>" back to me.');
+		
+	});
+	
+bot.onText(/\/verify/, (msg) => {
+
+	bot.sendMessage(msg.chat.id, 'Please put your admin number behind. eg. "/verify 1xxxxxxA"');
+		
+	});
+
+bot.onText(/\/verify (.+)/, (msg, match) => {
 	// 'msg' is the received Message from Telegram
 	// 'match' is the result of executing the regexp above on the text content
 	// of the message
-   
+
 	var chatId = msg.chat.id;
 	var resp = match[1]; // the captured "whatever"
-	console.log('qwertyqweqqweqweqweqe')
-	con.connect(function(err) {
+	
+
+	var con = mysql.createConnection({
+		host: "bloopy.dyndns-home.com",
+		port: "3307",
+		user: "guest",
+		password: "password",
+		database: "ooadp"
+	});
+
+	con.connect(function (err) {
 		if (err) throw err;
-		var him = "'180448w";
-		console.log("qqqqqqqqqqqqqqqqqqqqqqqqqqqqqq")
-		var sql = "UPDATE ooadp.users SET telegram_id = '" + chatId + "'" + "WHERE admin_no = '180448w'" ;
-		console.log (sql)
+		var sql = "UPDATE ooadp.users SET telegram_id = '" + chatId + "'" + "WHERE admin_no = '" + resp + "'";
+		console.log(sql)
 		con.query(sql, function (err, result) {
 			if (err) throw err;
 			console.log(result.affectedRows + " record(s) updated");
 		});
 	});
-	console.log('wdadasdawdtttttttttttttttttttttttttttttttttt')
+
 	// send back the matched "whatever" to the chat
-	bot.sendMessage(chatId, resp);
-  });
+	bot.sendMessage(chatId, "Thank you for verifying! you will now receieve notifications with your meal is ready!");
+});
