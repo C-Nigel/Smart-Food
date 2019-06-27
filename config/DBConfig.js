@@ -9,7 +9,7 @@ const sequelize = new Sequelize(db.database, db.user, db.password, {
     dialect: 'mysql', // Tells squelize that MySQL is used
     operatorsAliases: false,
     define: {
-        timestamps: true // Don't create timestamp fields in database
+        timestamps: false // Don't create timestamp fields in database
     },
     pool: { // Database system params, don't need to know
         max: 5,
@@ -17,5 +17,6 @@ const sequelize = new Sequelize(db.database, db.user, db.password, {
         acquire: 30000,
         idle: 10000
     },
+    logging: false //disables sql statement logging
 });
 module.exports = sequelize;
