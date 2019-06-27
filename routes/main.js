@@ -66,6 +66,13 @@ router.get('/allmenu', (req, res) =>{
 	res.render('cart/allmenu')
 });
 
+router.get('/admin', (req,res)=>{
+	res.render('user/admin')
+});
+
+router.get('/favourites',(req,res)=>{
+	res.render('user/favourites')
+});
 
 module.exports = router;
 
