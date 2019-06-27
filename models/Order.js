@@ -13,6 +13,16 @@ const Order = db.define("order", {
     },
     total_price: {
         type: Sequelize.DOUBLE
+    },
+    status: {
+        type: Sequelize.TINYINT,
+        max: 2,
+        min: 0
+        /*
+        0 - order received
+        1 - being prepared
+        2 - ready
+        */
     }
 });
 

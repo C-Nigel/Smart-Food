@@ -17,5 +17,6 @@ const sequelize = new Sequelize(db.database, db.user, db.password, {
         acquire: 30000,
         idle: 10000
     },
+    logging: false //disables sql statement logging
 });
 module.exports = sequelize;
