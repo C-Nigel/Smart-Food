@@ -9,7 +9,7 @@ const sequelize = new Sequelize(db.database, db.user, db.password, {
     dialect: 'mysql', // Tells squelize that MySQL is used
     operatorsAliases: false,
     define: {
-        timestamps: true // Don't create timestamp fields in database
+        timestamps: false // Don't create timestamp fields in database
     },
     pool: { // Database system params, don't need to know
         max: 5,

@@ -1,41 +1,48 @@
-const express = require('express')
+const express = require('express');
 const router = express.Router();
-const item = require('../models/Item');
+
+const Item = require('../models/Item');
+const outlet = require('../models/Outlet');
 
 console.log("Server Online!");
 
-router.get('/allmenu', (req, res) =>{
-    item.findAll({
+// adding new food items from /stall/stallowner
+
+router.post('/stallownerConfig', (req, res) => {
+    let name = req.body.name;
+    let price = req.body.price;
+    //let description = req.body.description;
+    let cat = req.body.cat;
+    let outlet_id = req.body.outlet_id;
+
+    Item.create({
+        name,
+        //description,
+        price,
+        cat,
+        outlet_id
+    }).then((item) =>{
+        res.redirect('/cart/MainMenu');
+    })
+    .catch(err => console.log(err))
+});
+
+
+
+router.get('/MainMenu', (req, res) =>{
+    // never add a request yet, though having req now
+    Item.findAll({
         order:[
-            ['outlet', 'ASC'] //setting the outlet to be in ascending order
+            ['name', 'ASC'] //setting the outlet to be in ascending order
         ],
         raw: true
-    })
-    .then((items) =>{
-        res.render('views/cart/allmenu', {
+    }).then((items) =>{
+        // passing object to MainMenu.handlebar
+        res.render('cart/MainMenu', {
             items: items
         });
     })
     .catch(err => console.log(err));
-});
-
-// adding food items according to Food.js
-
-router.post('/additem', (req, res) => {
-    let name = req.body.name;
-    let description = req.body.description;
-    let price = req.body.price;
-    let outlet = req.body.outlet;
-
-    item.create({
-        name,
-        description,
-        price,
-        outlet
-        }).then((item) =>{
-            res.redirect('/views/cart/allmenu');
-        })
-        .catch(err => console.log(err))
 });
 
 module.exports = router;

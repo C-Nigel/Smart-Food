@@ -12,6 +12,7 @@ const FlashMessenger = require('flash-messenger'); */
 const mainRoute = require('./routes/main');
 const menuRoute = require('./routes/menu');
 const userRoute = require('./routes/user');
+//const stall = require('.')
 //const profileRoute = require('./routes/profile');
 
 const app = express();
@@ -46,6 +47,7 @@ app.use(cookieParser());
 app.use('/', mainRoute);
 app.use('/menu', menuRoute);
 app.use('/user', userRoute);
+
 //app.use('/profile', profileRoute);
 
 // This code is to create DataBase

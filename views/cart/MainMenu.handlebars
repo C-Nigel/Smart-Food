@@ -1,0 +1,34 @@
+
+<u>Registered</u>
+<br>
+<div class="container">
+    {{#if items}}
+    <h3>Menu</h3>
+        {{#each items}}
+        <div class="item">
+            <img src="/img/chickenricemod1.jpg"/>
+            <h2>{{name}}</h2>
+            <p>Price: <em>$ {{price}}</em></p>        
+            <p>Category: {{cat}}</p>
+            <p>From: Outlet {{outlet_id}}</p>
+            <p>Quantity: <input type="text" value="0" size="2" id="KFitem3"></p>
+                <div class="quantity-operator">
+                    <button  type="button" id="KFitem3_add">+</button>
+                    <button  type="button" id="KFitem3_minus">-</button>
+                </div>
+                <br>
+                <br>
+                <button class="tocart" type="button">Add to cart</button>
+        </div>
+        {{/each}}
+        {{else}}
+            <h3>No registered food items</h3>
+    {{/if}}
+</div>
+
+
+<!-- add card design from my menukoufu here for loop to create itself -->
+<p class="">Name of Food item: {{name}}</p>
+<p>Price: {{price}}</p>
+<p>Food type: {{cat}}</p>
+<p>Outled id: {{outlet_id}}</p>

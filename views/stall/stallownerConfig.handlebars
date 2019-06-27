@@ -1,0 +1,34 @@
+<p>Stall owner's lab: Upload your food items here!</p>
+
+<form action="/stall/stallownerConfig" method="post" id="stallowner">
+
+    <div class="form-group">
+        <!-- registering name of food item -->
+        <label class="font-italic" for="name">Name of Food Item: </label>
+        <textarea class="form-control" id="name" name="name" rows="1" onblur="ProperCase('name')">{{name}}</textarea>
+    </div>
+
+    <div class="form-group">
+        <!-- registering price of food item -->
+        <label class="font-italic" for="price">Price: </label>
+        <textarea class="form-control" id="price" name="price" rows="1">{{price}}</textarea>
+    </div>
+
+    <div class="form-group">
+        <!-- registering category of food item -->
+        <label class="font-italic" for="cat">Food Category (Eg. Chinese/Malay Muslim ...): </label>
+        <textarea class="form-control" id="cat" name="cat" rows="1">{{cat}}</textarea>
+    </div>
+
+    <div class="form-group">
+        <!-- registering outlet_id of food item -->
+        <label class="font-italic" for="outlet_id">Food outlet: (1-KouFu, 2-North, 3-South, 4-Foodgle, 5-Food Connect): </label>
+        <textarea class="form-control" id="outlet_id" name="outlet_id" rows="1">{{outlet_id}}</textarea>
+    </div>
+
+    <br>
+    <button id="publishInfo_Stall" type="submit" class="btn btn-primary">Save</button>
+
+
+</form>
+
