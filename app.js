@@ -13,7 +13,13 @@ const User = require("./models/User")
 const mainRoute = require('./routes/main');
 const menuRoute = require('./routes/menu');
 const userRoute = require('./routes/user');
-//const stall = require('.')
+
+
+// fixing my issue with save btn from stallownerConfig
+/*
+const stallRoute = require('./views/stall');
+*/
+
 //const profileRoute = require('./routes/profile');
 
 const app = express();
@@ -48,7 +54,9 @@ app.use(cookieParser());
 app.use('/', mainRoute);
 app.use('/menu', menuRoute);
 app.use('/user', userRoute);
-
+/*
+app.use('/stall', stallRoute);
+*/
 //app.use('/profile', profileRoute);
 
 // This code is to create DataBase
@@ -70,7 +78,7 @@ bot.on('message', function (msg) {/* <function (msg)> or <(msg) => > */
     console.log(msg);
     // get sender id
 	var sender = msg.chat.id;
-	User.create({user_id:"dwsa", admin_no:"w122", full_name:"qwer", password:"ggad", phone_no:"12345678", telegram_id:sender, admin_status: 0})
+	//User.create({user_id:"dwsa", admin_no:"w122", full_name:"qwer", password:"ggad", phone_no:"12345678", telegram_id:sender, admin_status: 0})
     // get text
 	var content = msg.text;
 	

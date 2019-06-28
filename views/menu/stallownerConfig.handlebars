@@ -1,6 +1,8 @@
-<p>Stall owner's lab: Upload your food items here!</p>
 
-<form action="/stall/stallownerConfig" method="post" id="stallowner">
+<div class="container">
+<legend><p>Stall owner's lab: Upload your food items here!</p></legend>
+<fieldset>
+<form action="../menu/stallownerConfig" method="post" id="stallownerConfig">
 
     <div class="form-group">
         <!-- registering name of food item -->
@@ -20,15 +22,10 @@
         <textarea class="form-control" id="cat" name="cat" rows="1">{{cat}}</textarea>
     </div>
 
-    <div class="form-group">
-        <!-- registering outlet_id of food item -->
-        <label class="font-italic" for="outlet_id">Food outlet: (1-KouFu, 2-North, 3-South, 4-Foodgle, 5-Food Connect): </label>
-        <textarea class="form-control" id="outlet_id" name="outlet_id" rows="1">{{outlet_id}}</textarea>
-    </div>
-
     <br>
-    <button id="publishInfo_Stall" type="submit" class="btn btn-primary">Save</button>
+    <button id="butAddFoodItem" type="submit" class="btn btn-primary">Save</button>
 
 
 </form>
-
+</fieldset>
+</div>

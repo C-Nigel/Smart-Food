@@ -1,6 +1,7 @@
 
 <u>Registered</u>
 <br>
+<form action="../cart/MainMenu" method="GET" id="">
 <div class="container">
     {{#if items}}
     <h3>Menu</h3>
@@ -10,7 +11,7 @@
             <h2>{{name}}</h2>
             <p>Price: <em>$ {{price}}</em></p>        
             <p>Category: {{cat}}</p>
-            <p>From: Outlet {{outlet_id}}</p>
+            <!--<p>From: Outlet {{outlet_id}}</p> -->
             <p>Quantity: <input type="text" value="0" size="2" id="KFitem3"></p>
                 <div class="quantity-operator">
                     <button  type="button" id="KFitem3_add">+</button>
@@ -25,10 +26,12 @@
             <h3>No registered food items</h3>
     {{/if}}
 </div>
-
+</form>
 
 <!-- add card design from my menukoufu here for loop to create itself -->
+<!--
 <p class="">Name of Food item: {{name}}</p>
 <p>Price: {{price}}</p>
 <p>Food type: {{cat}}</p>
 <p>Outled id: {{outlet_id}}</p>
+-->

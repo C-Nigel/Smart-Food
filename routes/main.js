@@ -67,8 +67,14 @@ router.get('/MainMenu', (req, res) =>{
 // stall owner's page
 
 router.get('/stallownerConfig', (req, res) =>{
-	res.render('stall/stallownerConfig')
+	res.render('menu/stallownerConfig')
 });
+
+/*
+router.get('/showAddedItems', (req, res) =>{
+	res.render('cart/MainMenu')
+});
+*/
 
 
 module.exports = router;
