@@ -74,8 +74,8 @@ router.get('/favourites',(req,res)=>{
 	res.render('user/favourites')
 });
 
-router.get('/addfavourites', (req,res)=>{
-	res.render('user/addfavourites')
+router.get('/addFavourite',(req,res)=>{
+	res.render('user/addFavourite')
 });
 
 module.exports = router;

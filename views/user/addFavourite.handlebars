@@ -104,61 +104,46 @@ raymond, the commented codes below is hamburger menu is for you to use incase yo
     </div>
     <!--//END HEADER -->
 <section class="main-block">
-<div class="container">
-    {{#if food}}
-        <div class="card card-body">
-            <h3>Favourites</h3>
-            {{#each food}}
-                <div class="card border-primary mb-2 w-100 mx-auto">
-                    <div class="card-header">
-                        <h5 class="card-title">{{foodName}}</h5>
-                    </div> 
-                    <div class="card-body">
-                        <div class="row">
-                            <div class="col-sm-12 col-md-12 col-lg-3">
-                                <p class="font-italic">Canteen</p>
-                                <p class="text-info">Canteen</p>
-                            </div>
-                            <div class="col-sm-12 col-md-12 col-lg-3">
-                                <p class="font-italic">Price</p>
-                                <p class="text-info">Price</p>
-                            </div>
-                            <div class="col-sm-12 col-md-12 col-lg-2">
-                                <p class="font-italic"></p>
-                                <a href="" class="cardlink">
-                                    <i class="far fa-trash-alt"></i>
-                                    Edit
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="accordion" id="storyAccordion">
-                        <div class="card-header" id="headingOne">
-                            <button class="btn btn-link" type="button" data-toggle="collapse"
-                                    data-target="#collapseOne"
-                                    aria-expanded="false" aria-controls="collapseOne">
-                                    Food Description<i class="fas fa-chevron-down"></i>
-                            </button>
-
-                        </div>
-                        <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#storyAccordion">
-                            <div class="card-body">
-                                Food Description
-                            </div>
-
-                            <button id="buttonAddCart" type="submit" class="btn btn-primary"></button>
-                        </div>
-                    </div>
+    <div class="container">
+        <h3>Add new Favourites</h3>
+        <form action="" method="post" id="addFavourite">
+            <div class="form-group">
+                <label class="font-italic" for="food">Name</label>
+                <textarea class="form-control" id="name" name="name" rows="1">{{foodName}}</textarea>
+            </div>
+            <div class="form-group mb-4">
+                <label class="font-italic" for="food">Description</label>
+                <textarea class="form-control" id="description" name="description" rows="8">{{foodDescription}}</textarea>
+            </div>
+            <div class="col-12 col-sm-12 col-md-12 col-lg-6">
+                <label class="font-italic">Canteen</label>
+                <br>
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="checkbox" name="canteen" id="North" value="North">
+                    <label class="form-check-label" for="North">North</label>
                 </div>
-            {{/each}}
-        </div>
-    
-    {{else}}
-        <h3>No Food Items Favourited</h3>
-    {{/if}}
-</div>
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="checkbox" name="canteen" id="South" value="South">
+                    <label class="form-check-label" for="South">South</label>
+                </div>
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="checkbox" name="canteen" id="Koufu" value="Koufu">
+                    <label class="form-check-label" for="Koufu">Koufu</label>
+                </div>
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="checkbox" name="canteen" id="FoodConnect" value="FoodConnect">
+                    <label class="form-check-label" for="FoodConnect">Food Connect</label>
+                </div>
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="checkbox" name="canteen" id="Foodgle" value="Foodgle">
+                    <label class="form-check-label" for="Foodgle">Foodgle</label>
+                </div>
+            </div>
+            <button id="butAddFavourites" type="submit" class="btn btn-primary">Save
+			</button>
+        </form>
+    </div>
 </section>
-    
     <!--============================= FOOTER =============================-->
     <footer class="main-block dark-bg">
         <div class="container">
