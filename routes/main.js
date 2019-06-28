@@ -74,6 +74,10 @@ router.get('/favourites',(req,res)=>{
 	res.render('user/favourites')
 });
 
+router.get('/addfavourites', (req,res)=>{
+	res.render('user/addfavourites')
+});
+
 module.exports = router;
 
 
