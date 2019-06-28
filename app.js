@@ -8,7 +8,7 @@ const bodyParser = require('body-parser');
 /*const flash = require('connect-flash');
 const FlashMessenger = require('flash-messenger'); */
 
-const User = require("./models/User")
+//const User = require("./models/User")
 
 const mainRoute = require('./routes/main');
 const menuRoute = require('./routes/menu');
@@ -61,16 +61,9 @@ app.listen(port, () => {
 	console.log(`Server started on port ${port}`);
 });
 
-var mysql = require('mysql2');
 const bot = require("./config/telegramConfig");
+const User = require("./class/user_class");
 
-var con = mysql.createConnection({
-	host: "bloopy.dyndns-home.com",
-	port: "3307",
-	user: "guest",
-	password: "password",
-	database: "ooadp"
-});
 
 // catch message
 bot.on('message', function (msg) {/* <function (msg)> or <(msg) => > */
@@ -96,7 +89,7 @@ con.connect(function(err) {
 	});
 });
 */
-
+/*
 // Matches "/echo [whatever]"
 bot.onText(/\/start (.+)/, (msg, match) => {
 	// 'msg' is the received Message from Telegram
@@ -109,19 +102,14 @@ bot.onText(/\/start (.+)/, (msg, match) => {
 	// send back the matched "whatever" to the chat
 	bot.sendMessage(chatId, resp);
 });
-
+*/
 bot.onText(/\/start/, (msg) => {
 
-	bot.sendMessage(msg.chat.id, 'Hi there, thank you for signing up with us! to receieve notification, Please reply "/verify <your admin no.>" back to me.');
-		
+	bot.sendMessage(msg.chat.id, 'Hi there, thank you for signing up with us! Please send "/verify <your admin no.>" back to verify your account.');
+	bot.sendMessage(msg.chat.id, 'eg. "/verify 1xxxxxxA"');
+
 	});
 	
-bot.onText(/\/verify/, (msg) => {
-
-	bot.sendMessage(msg.chat.id, 'Please put your admin number behind. eg. "/verify 1xxxxxxA"');
-		
-	});
-
 bot.onText(/\/verify (.+)/, (msg, match) => {
 	// 'msg' is the received Message from Telegram
 	// 'match' is the result of executing the regexp above on the text content
@@ -129,24 +117,9 @@ bot.onText(/\/verify (.+)/, (msg, match) => {
 
 	var chatId = msg.chat.id;
 	var resp = match[1]; // the captured "whatever"
-	
 
-	var con = mysql.createConnection({
-		host: "bloopy.dyndns-home.com",
-		port: "3307",
-		user: "guest",
-		password: "password",
-		database: "ooadp"
-	});
-
-	con.connect(function (err) {
-		if (err) throw err;
-		var sql = "UPDATE ooadp.users SET telegram_id = '" + chatId + "'" + "WHERE admin_no = '" + resp + "'";
-		console.log(sql)
-		con.query(sql, function (err, result) {
-			if (err) throw err;
-			console.log(result.affectedRows + " record(s) updated");
-		});
+	User.getUserByAdmin(resp).then(user => {
+		User.setTelegram(user.id, chatId);
 	});
 
 	// send back the matched "whatever" to the chat

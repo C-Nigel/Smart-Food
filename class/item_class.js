@@ -13,42 +13,31 @@ ex.getItemById = function(itemid){
 }
 
 ex.setName = function(itemid, newName){
-    this.getItemById(itemid)
-    .then(item => {
-        item.update({
-            name: newName
-        })
-    })
+    ItemModel.update(
+        { name: newName },
+        { where: { id, itemid }}
+    )
 }
 
 ex.setCategory = function(itemid, newCat){
-    this.getItemById(itemid)
-    .then(item => {
-        item.update({
-            cat: newCat
-        })
-    })
+    ItemModel.update(
+        { cat: newCat },
+        { where: { id, itemid }}
+    )
 }
 
 ex.setPrice = function(itemid, newPrice){
-    this.getItemById(itemid)
-    .then(item => {
-        item.update({
-            price: newPrice
-        })
-    })
+    ItemModel.update(
+        { price: newPrice },
+        { where: { id, itemid }}
+    )
 }
 
 ex.setOutlet = function(itemid, outletid){
-    this.getItemById(itemid)
-    .then(item => {
-        console.log(item);
-        item.update({
-            outlet_id: outletid
-        });
-        console.log(item.outlet_id);
-    })
-    .catch(err => {
-        return err
+    ItemModel.update(
+        { outlet_id: outletid },
+        { where: { id, itemid }}
+    ).catch(err => {
+        console.log(err)
     })
 }
