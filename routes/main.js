@@ -67,15 +67,15 @@ router.get('/allmenu', (req, res) =>{
 });
 
 router.get('/admin', (req,res)=>{
-	res.render('user/admin')
+	res.render('admin/admin')
 });
 
 router.get('/favourites',(req,res)=>{
-	res.render('user/favourites')
+	res.render('favs/favourites')
 });
 
-router.get('/addFavourite',(req,res)=>{
-	res.render('user/addFavourite')
+router.get('/addFav',(req,res)=>{
+	res.render('favs/addFav')
 });
 
 module.exports = router;
