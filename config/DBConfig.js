@@ -8,8 +8,9 @@ const sequelize = new Sequelize(db.database, db.user, db.password, {
     port: db.port,
     dialect: 'mysql', // Tells squelize that MySQL is used
     operatorsAliases: false,
+    timezone: "+08:00",
     define: {
-        timestamps: false // Don't create timestamp fields in database
+        timestamps: true
     },
     pool: { // Database system params, don't need to know
         max: 5,
