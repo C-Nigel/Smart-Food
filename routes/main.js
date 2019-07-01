@@ -17,6 +17,10 @@ router.get('/loginseller', (req, res) => {
 	res.render('user/loginseller') // renders views/user/loginseller.handlebars
 });
 
+router.get('/index', (req, res) => {
+	res.render('user/index') // renders views/user/loginuser.handlebars
+});
+
 router.get('/loginadmin', (req,res) => {
 	res.render('user/loginadmin')
 });
@@ -66,6 +70,11 @@ router.get('/allmenu', (req, res) =>{
 	res.render('cart/allmenu')
 });
 
+router.get('/logout', (req, res) => {
+	req.logout();
+	res.redirect('/');
+});
+
 router.get('/admin', (req,res)=>{
 	res.render('admin/admin')
 });
@@ -79,5 +88,3 @@ router.get('/addFav',(req,res)=>{
 });
 
 module.exports = router;
-
-
