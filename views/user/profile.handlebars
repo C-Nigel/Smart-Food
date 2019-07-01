@@ -16,10 +16,27 @@
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 </head>
-
-
+<style>
+    #hi {
+        background-image: url(https://backgrounddownload.com/wp-content/uploads/2018/09/background-for-food-website-3.jpg) ;
+    }
+    #hii {
+            width: 500px;
+            background:white;
+            border-radius: 10px;
+            overflow: hidden;
+        
+            box-shadow: 0 3px 20px 0px rgba(0, 0, 0, 0.1);
+            -moz-box-shadow: 0 3px 20px 0px rgba(0, 0, 0, 0.1);
+            -webkit-box-shadow: 0 3px 20px 0px rgba(0, 0, 0, 0.1);
+            -o-box-shadow: 0 3px 20px 0px rgba(0, 0, 0, 0.1);
+            -ms-box-shadow: 0 3px 20px 0px rgba(0, 0, 0, 0.1);
+    }
+</style>
+<div id="hi">
 <hr>
-<div class="container bootstrap snippet">
+
+<div class="container bootstrap snippet" id="hii">
     <div class="row">
   		<div class="col-sm-10"><h1>Profile</h1></div>
     </div>
@@ -65,7 +82,7 @@
           <div class="tab-content">
             <div class="tab-pane active" id="home">
                 <hr>
-                  <form class="form" action="##" method="post" id="registrationForm">
+                  <form class="form" action="../user/profile" method="post" id="registrationForm">
                       <div class="form-group">
                           
                           <div class="col-xs-6">
@@ -107,7 +124,7 @@
                           
                           <div class="col-xs-6">
                             <label for="password2"><h4>Verify</h4></label>
-                              <input type="password" class="form-control" name="password2" id="password2" placeholder="password2" title="enter your password2.">
+                              <input type="password" class="form-control" name="confirmpassword" id="password2" placeholder="confirmpassword" title="enter your password2.">
                           </div>
                       </div>
                       <div class="form-group">
@@ -259,6 +276,7 @@
 
         </div><!--/col-9-->
     </div><!--/row-->
+    </div>
     <script>
         $(document).ready(function() {
 

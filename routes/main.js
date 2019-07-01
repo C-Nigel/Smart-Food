@@ -17,6 +17,10 @@ router.get('/loginseller', (req, res) => {
 	res.render('user/loginseller') // renders views/user/loginseller.handlebars
 });
 
+router.get('/index', (req, res) => {
+	res.render('user/index') // renders views/user/loginuser.handlebars
+});
+
 router.get('/register', (req, res) => {
 	res.render('user/register') // renders views/user/register.handlebars
 });
@@ -62,6 +66,10 @@ router.get('/allmenu', (req, res) =>{
 	res.render('cart/allmenu')
 });
 
+router.get('/logout', (req, res) => {
+	req.logout();
+	res.redirect('/');
+});
 
 module.exports = router;
 
