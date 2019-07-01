@@ -13,15 +13,15 @@
 	<div class="limiter">
 		<div class="container-login100">
 			<div class="wrap-login100 p-l-55 p-r-55 p-t-65 p-b-50">
-				<form class="login100-form validate-form">
+				<form method="post" action="../user/forgetpw" class="login100-form validate-form">
 					<span class="login100-form-title p-b-33">
 						Password Recovery
 					</span>
 
-					<div class="wrap-input100 validate-input" data-validate = "Valid email is required: ex@abc.xyz">
-						<input class="input100" type="text" name="email" placeholder="Email">
-						<span class="focus-input100-1"></span>
-						<span class="focus-input100-2"></span>
+					<div class="wrap-input100 validate-input" data-validate = "Valid admin number is required: 123456A">
+							<input class="input100" type="text" name="admin_no" placeholder="Admin number" value="{{admin_no}}" required />
+							<span class="focus-input100-1"></span>
+							<span class="focus-input100-2"></span>
 					</div>
 
 

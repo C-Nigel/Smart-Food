@@ -17,6 +17,10 @@ router.get('/loginseller', (req, res) => {
 	res.render('user/loginseller') // renders views/user/loginseller.handlebars
 });
 
+router.get('/index', (req, res) => {
+	res.render('user/index') // renders views/user/loginuser.handlebars
+});
+
 router.get('/loginadmin', (req,res) => {
 	res.render('user/loginadmin')
 });
@@ -41,6 +45,8 @@ router.get('/favicon', (req, res) => {
 	res.render('malique/favicon') // renders views/user/forgetpw.handlebars
 });
 
+// deon's cart stuff
+
 router.get('/menufoodconnect', (req, res) =>{
 	res.render('cart/menufoodconnect')
 });
@@ -62,8 +68,25 @@ router.get('/menusouth', (req, res) =>{
 });
 
 /* testing allmenu */
-router.get('/allmenu', (req, res) =>{
-	res.render('cart/allmenu')
+router.get('/MainMenu', (req, res) =>{
+	res.render('cart/MainMenu')
+});
+
+// stall owner's page
+
+router.get('/stallownerConfig', (req, res) =>{
+	res.render('menu/stallownerConfig')
+});
+
+/*
+router.get('/showAddedItems', (req, res) =>{
+	res.render('cart/MainMenu')
+});
+*/
+
+router.get('/logout', (req, res) => {
+	req.logout();
+	res.redirect('/');
 });
 
 router.get('/admin', (req,res)=>{
@@ -79,5 +102,3 @@ router.get('/addFavourite',(req,res)=>{
 });
 
 module.exports = router;
-
-

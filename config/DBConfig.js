@@ -16,7 +16,7 @@ const sequelize = new Sequelize(db.database, db.user, db.password, {
         max: 5,
         min: 0,
         acquire: 30000,
-        idle: 10000
+        idle: 20000
     },
     logging: false //disables sql statement logging
 });
