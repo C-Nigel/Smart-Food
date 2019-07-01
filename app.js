@@ -22,12 +22,7 @@ const app = express();
 
 app.engine('handlebars', exphbs({
 	// Specify default template views/user/home.handlebar
-<<<<<<< HEAD
-
 })); 
-=======
-}));
->>>>>>> 567aca46549723362c4845fb00b3af9c189e8688
 app.set('view engine', 'handlebars');
 app.use(bodyParser.urlencoded({
 	extended: false
@@ -98,13 +93,8 @@ bot.on('message', function (msg) {/* <function (msg)> or <(msg) => > */
 	console.log(msg);
 	// get sender id
 	var sender = msg.chat.id;
-<<<<<<< HEAD
-	//User.create({user_id:"dwsa", admin_no:"w122", full_name:"qwer", password:"ggad", phone_no:"12345678", telegram_id:sender, admin_status: 0})
-    // get text
-=======
 	//User.create({ user_id: "1", admin_no: "180448w", full_name: "Nigel Cheong", password: "pls_encrypt_this", phone_no: "12345678", telegram_id: null, admin_status: null })
 	// get text
->>>>>>> 567aca46549723362c4845fb00b3af9c189e8688
 	var content = msg.text;
 
 });
