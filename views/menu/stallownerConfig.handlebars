@@ -22,8 +22,16 @@
         <textarea class="form-control" id="cat" name="cat" rows="1">{{cat}}</textarea>
     </div>
 
+    <div class="form-group">
+        <!-- registering category of food item -->
+        <label class="font-italic" for="outlet_id">Insert outlet id:  </label>
+        <textarea class="form-control" id="outlet_id" name="outlet_id" rows="1">{{outlet_id}}</textarea>
+    </div>
+
     <br>
-    <button id="butAddFoodItem" type="submit" class="btn btn-primary">Save</button>
+    <!--<button id="butAddFoodItem" type="submit" class="btn btn-primary">Save</button>-->
+    <button type="submit" disabled style="display: none" aria-hidden="true"></button>
+    <input id="butAddVideo" class="btn btn-outline-primary" type="submit" value="Save">
 
 
 </form>

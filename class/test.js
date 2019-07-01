@@ -3,11 +3,13 @@
 const db = require('../config/DBConnection');
 const user = require('./user_class');
 const item = require('./item_class');
+const outlet = require('./outlet_class');
 
 // Connects to MySQL database
 db.setUpDB(false); // To set up database with new tables set (true)
 
 user.getUserByAdmin('180448w').then(user1 => {
-    user.setTelegram(user1.id, 'empty string');
-    console.log(user)
+    user.setTelegram(user1.id, '239513475');
 })
+
+outlet.createOutlet('chicken dinner', 'sells all chicken related food');

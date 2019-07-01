@@ -4,26 +4,7 @@ const item_class = require('../class/item_class')
 const Item = require('../models/Item');
 // const outlet = require('../models/Outlet');
 
-
 console.log("Server Online!");
-
-// adding new food items from /stall/stallownerConfig
-router.get('/MainMenu', (req, res) =>{
-    // never add a request yet, though having req now
-    Item.findAll({
-        order:[
-            ['name', 'ASC'] //setting the outlet to be in ascending order
-        ],
-        raw: true
-    }).then((items) =>{
-        // passing object to MainMenu.handlebar
-        res.render('/MainMenu', {
-            items: items
-        });
-    })
-    .catch(err => console.log(err));
-});
-
 
 // trying out tim's added feature
 /*
@@ -36,24 +17,16 @@ router.get('/MainMenu', (req, res) =>{
 
 
 router.post('/stallownerConfig', (req, res) => {
-    
-    /*
-    let name = req.body.name;
-    let price = req.body.price;
-    //let description = req.body.description;
-    let cat = req.body.cat;
-    let outlet_id = req.body.outlet_id;
-    */
-
     let {name, price, cat, outlet_id} = req.body;
 
     Item.create({
         name,
         //description,
         price,
-        cat
+        cat,
+        outlet_id
     }).then((item) =>{    //this 'item' is from Item.js
-        res.redirect('/MainMenu');
+        res.redirect('/menu/MainMenu');
     })
     .catch(err => console.log(err))
 });
@@ -66,6 +39,25 @@ router.get('/showAddedItems', (req,res) =>{
     });
 });
 */
+
+// adding new food items from /stall/stallownerConfig
+router.get('/MainMenu', (req, res) =>{
+    // never add a request yet, though having req now
+    Item.findAll({
+        /*
+        order:[
+            ['name', 'ASC'] //setting the outlet to be in ascending order
+        ],
+        */
+        raw: true
+    }).then((items) =>{
+        // passing object to MainMenu.handlebar
+        res.render('cart/MainMenu', {
+            items
+        });
+    })
+    .catch(err => console.log(err));
+});
 
 
 
