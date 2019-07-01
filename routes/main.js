@@ -17,6 +17,10 @@ router.get('/loginseller', (req, res) => {
 	res.render('user/loginseller') // renders views/user/loginseller.handlebars
 });
 
+router.get('/index', (req, res) => {
+	res.render('user/index') // renders views/user/loginuser.handlebars
+});
+
 router.get('/loginadmin', (req,res) => {
 	res.render('user/loginadmin')
 });
@@ -80,6 +84,11 @@ router.get('/showAddedItems', (req, res) =>{
 });
 */
 
+router.get('/logout', (req, res) => {
+	req.logout();
+	res.redirect('/');
+});
+
 router.get('/admin', (req,res)=>{
 	res.render('user/admin')
 });
@@ -93,5 +102,3 @@ router.get('/addFavourite',(req,res)=>{
 });
 
 module.exports = router;
-
-
