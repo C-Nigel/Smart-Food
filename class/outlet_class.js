@@ -18,22 +18,16 @@ ex.createOutlet = function(name1, description){
     })
 }
 
-ex.deleteOutlet = function(){
-
-}
-
 ex.setName = function(outletid, name1){
-    this.getOutletById(outletid)
-    .then(outlet => {
-        outlet.update({
-            name: name1
-        })
-    })
+    OutletModel.update(
+        { name: name1 },
+        { where: { id, outletid }}
+    )
 }
 
 ex.setDesc = function(outletid, descript){
-    this.getOutletById(outletid)
-    .then(outlet => {
-        desc: descript
-    })
+    OutletModel.update(
+        { desc: descript },
+        { where: { id, outletid }}
+    )
 }

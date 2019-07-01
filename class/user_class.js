@@ -29,27 +29,16 @@ ex.createUser = function(adminNo, fullName, pswd){
     })
 }
 
-ex.deleteUser = function(user_id){
-    this.getUserById(user_id)
-    .then(user =>
-        { return user.destroy() }
+ex.setAdmin = function(user_id, admin){
+    UserModel.update(
+        {admin_no: admin},
+        {where : { id: user_id }}
     )
 }
 
-ex.setAdmin = function(user_id, admin){
-    this.getUserById(user_id)
-    .then(user => {
-        user.update({
-            admin_no: admin
-        })
-    })
-}
-
 ex.setTelegram = function(user_id, tlg_id){
-    this.getUserById(user_id)
-    .then(user => {
-        user.update({
-            telegram_id: tlg_id
-        })
-    })
+    UserModel.update(
+        {telegram_id: tlg_id},
+        {where: { id: user_id }}
+    )
 }
