@@ -11,16 +11,6 @@ ex.getUserByAdmin = function(adminNo){
     });
 }
 
-ex.getUserById = function(user_id){
-    return UserModel.findOne({
-        where: { id: user_id },
-        raw: true
-    })
-    .catch(err => {
-        console.log(err)
-    });
-}
-
 ex.getAllUsers = function(){
     return UserModel.findAll({
         raw: true

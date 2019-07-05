@@ -5,7 +5,7 @@ const User = db.define('user', {
     admin_no: {
         type: Sequelize.STRING,
         allowNull: false,
-        unique: true
+        primaryKey: true
     },
     full_name: {
         type: Sequelize.STRING
@@ -15,15 +15,15 @@ const User = db.define('user', {
         allowNull: false
     },
     telegram_id: {
-        type: Sequelize.STRING,
-        allowNull: false
+        type: Sequelize.STRING
     },
     phone_no: {
         type: Sequelize.INTEGER,
         length: 8
     },
     admin_status: {
-        type: Sequelize.BOOLEAN
+        type: Sequelize.BOOLEAN,
+        defaultValue: false
     }
 });
 

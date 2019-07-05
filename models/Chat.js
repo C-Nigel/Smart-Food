@@ -12,6 +12,10 @@ const Chat = db.define('chat', {
     },
     msg: {
         type: Sequelize.STRING
+    },
+    user_admin: {
+        type: Sequelize.STRING,
+        allowNull: false
     }
 });
 

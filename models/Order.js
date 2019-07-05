@@ -10,8 +10,8 @@ const Order = db.define("order", {
         type: Sequelize.INTEGER,
         allowNull: false
     },
-    user_id: {
-        type: Sequelize.INTEGER,
+    user_admin: {
+        type: Sequelize.STRING,
         allowNull: false
     },
     total_price: {
