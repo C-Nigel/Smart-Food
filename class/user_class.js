@@ -7,18 +7,17 @@ ex.getUserByAdmin = function(adminNo){
         raw: true
     })
     .catch(err => {
-        return err
+        console.log(err)
     });
 }
 
-ex.getUserById = function(user_id){
-    return UserModel.findOne({
-        where: { id: user_id },
+ex.getAllUsers = function(){
+    return UserModel.findAll({
         raw: true
     })
-    .catch(err => 
-        {return err}
-    );
+    .catch(err => {
+        console.log(err)
+    })
 }
 
 ex.createUser = function(adminNo, fullName, pswd){

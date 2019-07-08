@@ -1,10 +1,11 @@
-const Sequelize = require("sequelize");
-const db = require("../config/DBConfig");
+const Sequelize = require('sequelize');
+const db = require('../config/DBConfig');
 
 
 const Item = db.define('item', {
     name: {
-        type: Sequelize.STRING
+        type: Sequelize.STRING,
+        allowNull: false
     },
     cat: {
         type: Sequelize.STRING
@@ -14,6 +15,7 @@ const Item = db.define('item', {
     },
     outlet_id: {
         type: Sequelize.INTEGER,
+        allowNull: false
     }
 });
 

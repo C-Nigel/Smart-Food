@@ -11,10 +11,12 @@ $('.tocart').on('click', function () {
 /* testing the opening cart function & total sum */
 
     // testing the addition of remove item button
-    // $(this).siblings().clone().appendTo('#cartItems').append('<button class="removeFoodItem">Remove Item</button>');
+    //$(this).siblings().clone().appendTo('#cartItems').append('<button class="removeFoodItem">Remove Item</button>');
     
     //Testing calculating total price
     var price = parseInt($(this).siblings().find('.price').text());
+    // testing mutliplying quantity
+    //var quantity = parseInt($(this).siblings().find('.quant').text());
     totalSum += price;
     $('#cartTotal').text("Total: $" + totalSum);
     

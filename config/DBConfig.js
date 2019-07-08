@@ -8,14 +8,15 @@ const sequelize = new Sequelize(db.database, db.user, db.password, {
     port: db.port,
     dialect: 'mysql', // Tells squelize that MySQL is used
     operatorsAliases: false,
+    timezone: "+08:00",
     define: {
-        timestamps: false // Don't create timestamp fields in database
+        timestamps: true
     },
     pool: { // Database system params, don't need to know
         max: 5,
         min: 0,
         acquire: 30000,
-        idle: 10000
+        idle: 20000
     },
     logging: false //disables sql statement logging
 });
