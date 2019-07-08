@@ -116,9 +116,10 @@ bot.onText(/\/verify (.+)/, (msg, match) => {
 	// of the message
 
 	var chatId = msg.chat.id;
-	var resp = match[1]; // the captured "whatever"
+	var response = match[1]; // the captured "whatever"
 
-	User.getUserByAdmin(resp).then(user => {
+	
+	User.getUserByAdmin(response).then(user => {
 		User.setTelegram(user.id, chatId);
 	});
 
