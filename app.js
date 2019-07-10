@@ -16,6 +16,13 @@ const dbs = require('./config/db'); // db.js config file
 const mainRoute = require('./routes/main');
 const menuRoute = require('./routes/menu');
 const userRoute = require('./routes/user');
+
+
+// fixing my issue with save btn from stallownerConfig
+/*
+const stallRoute = require('./views/stall');
+*/
+
 //const profileRoute = require('./routes/profile');
 
 const app = express();
@@ -70,6 +77,11 @@ app.use(function (req, res, next) {
 app.use('/', mainRoute);
 app.use('/menu', menuRoute);
 app.use('/user', userRoute);
+
+
+/*
+app.use('/stall', stallRoute);
+*/
 //app.use('/profile', profileRoute);
 
 // This code is to create DataBase
@@ -93,6 +105,8 @@ bot.on('message', function (msg) {/* <function (msg)> or <(msg) => > */
 	console.log(msg);
 	// get sender id
 	var sender = msg.chat.id;
+	//User.create({user_id:"dwsa", admin_no:"w122", full_name:"qwer", password:"ggad", phone_no:"12345678", telegram_id:sender, admin_status: 0})
+    // get text
 	//User.create({ user_id: "1", admin_no: "180448w", full_name: "Nigel Cheong", password: "pls_encrypt_this", phone_no: "12345678", telegram_id: null, admin_status: null })
 	// get text
 	var content = msg.text;
@@ -139,9 +153,10 @@ bot.onText(/\/verify (.+)/, (msg, match) => {
 	// of the message
 
 	var chatId = msg.chat.id;
-	var resp = match[1]; // the captured "whatever"
+	var response = match[1]; // the captured "whatever"
 
-	User.getUserByAdmin(resp).then(user => {
+	
+	User.getUserByAdmin(response).then(user => {
 		User.setTelegram(user.id, chatId);
 	});
 

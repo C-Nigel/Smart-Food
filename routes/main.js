@@ -45,6 +45,8 @@ router.get('/favicon', (req, res) => {
 	res.render('malique/favicon') // renders views/user/forgetpw.handlebars
 });
 
+// deon's cart stuff
+
 router.get('/menufoodconnect', (req, res) =>{
 	res.render('cart/menufoodconnect')
 });
@@ -66,9 +68,21 @@ router.get('/menusouth', (req, res) =>{
 });
 
 /* testing allmenu */
-router.get('/allmenu', (req, res) =>{
-	res.render('cart/allmenu')
+router.get('/MainMenu', (req, res) =>{
+	res.render('cart/MainMenu')
 });
+
+// stall owner's page
+
+router.get('/stallownerConfig', (req, res) =>{
+	res.render('menu/stallownerConfig')
+});
+
+/*
+router.get('/showAddedItems', (req, res) =>{
+	res.render('cart/MainMenu')
+});
+*/
 
 router.get('/logout', (req, res) => {
 	req.logout();

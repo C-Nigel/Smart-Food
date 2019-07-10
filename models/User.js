@@ -4,14 +4,15 @@ const db = require('../config/DBConfig');
 const User = db.define('user', {
     admin_no: {
         type: Sequelize.STRING,
-        notNull: true
+        allowNull: false,
+        primaryKey: true
     },
     full_name: {
         type: Sequelize.STRING
     },
     password: {
         type: Sequelize.STRING,
-        notNull: true
+        allowNull: false
     },
     telegram_id: {
         type: Sequelize.STRING
@@ -21,7 +22,8 @@ const User = db.define('user', {
         length: 8
     },
     admin_status: {
-        type: Sequelize.BOOLEAN
+        type: Sequelize.BOOLEAN,
+        defaultValue: false
     }
 });
 

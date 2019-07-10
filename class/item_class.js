@@ -8,7 +8,19 @@ ex.getItemById = function(itemid){
         raw: true
     })
     .catch(err => {
-        return err
+        console.log(err)
+    })
+}
+
+ex.createItem = function(iname, icat, iprice, outletid){
+    ItemModel.create({
+        name: iname,
+        cat: icat,
+        price: iprice,
+        outlet_id: outletid
+    })
+    .catch(err => {
+        console.log(err)
     })
 }
 

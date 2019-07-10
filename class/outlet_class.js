@@ -7,7 +7,7 @@ ex.getOutletById = function(x){
         raw: true
     })
     .catch(err => {
-        return err
+        console.log(err)
     });
 }
 
@@ -15,6 +15,15 @@ ex.createOutlet = function(name1, description){
     OutletModel.create({
         name: name1,
         desc: description
+    })
+}
+
+ex.deleteOutlet = function(x){
+    OutletModel.delete({
+        where: {id: x}
+    })
+    .catch(err =>{
+        console.log(err)
     })
 }
 
