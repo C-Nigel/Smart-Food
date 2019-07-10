@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <!-- *********************************************************************************************
+    Just add your CSS file down below if you need
+***********************************************************************************************-->
+
+
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="author" content="Colorlib">
+    <meta name="description" content="#">
+    <meta name="keywords" content="#">
+    <!-- Page Title -->
+    <title>NYP Food Portal</title>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="css/nigel/bootstrap.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,500,700,900" rel="stylesheet">
+    <!-- Simple line Icon -->
+    <link rel="stylesheet" href="css/nigel/simple-line-icons.css">
+    <!-- Themify Icon -->
+    <link rel="stylesheet" href="css/nigel/themify-icons.css">
+    <!-- Hover Effects -->
+    <link rel="stylesheet" href="css/nigel/set1.css">
+    <!-- Main CSS -->
+    <link rel="stylesheet" href="css/nigel/style.css">
+</head>
+
+<body>
+    <!--============================= HEADER =============================-->
+    <div class="nav-menu">
+        <div class="bg transition">
+            <div class="container-fluid fixed is-sticky">
+                <div class="row">
+                    <div class="col-md-12">
+                        <nav class="navbar navbar-expand-lg navbar-light">
+                            <a class="navbar-brand" href="index.html">NYP Smart Food</a>
+                            <button class="navbar-toggler" type="button" data-toggle="collapse"
+                                data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false"
+                                aria-label="Toggle navigation">
+                                <span class="icon-menu"></span>
+                            </button>
+                            <div class="collapse navbar-collapse justify-content-end" id="navbarNavDropdown">
+                                <ul class="navbar-nav">
+                                    <li class="nav-item active">
+                                        <a class="nav-link" href="/register">Register</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="/loginuser">Login</a>
+                                    </li>
+                                    <!-- <li><a href="#" class="btn btn-outline-light top-btn"><span class="ti-plus"></span> Login</a></li> -->
+                                </ul>
+                            </div>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--//END HEADER -->
+<section class="main-block">
+    <div class="container">
+        <h3>Add new Favourites</h3>
+        <form action="" method="post" id="addFavourite">
+            <div class="form-group">
+                <label class="font-italic" for="food">Name</label>
+                <textarea class="form-control" id="name" name="name" rows="1">{{foodName}}</textarea>
+            </div>
+            <div class="form-group mb-4">
+                <label class="font-italic" for="food">Description</label>
+                <textarea class="form-control" id="description" name="description" rows="8">{{foodDescription}}</textarea>
+            </div>
+            <div class="col-12 col-sm-12 col-md-12 col-lg-6">
+                <label class="font-italic">Canteen</label>
+                <br>
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="checkbox" name="canteen" id="North" value="North">
+                    <label class="form-check-label" for="North">North</label>
+                </div>
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="checkbox" name="canteen" id="South" value="South">
+                    <label class="form-check-label" for="South">South</label>
+                </div>
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="checkbox" name="canteen" id="Koufu" value="Koufu">
+                    <label class="form-check-label" for="Koufu">Koufu</label>
+                </div>
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="checkbox" name="canteen" id="FoodConnect" value="FoodConnect">
+                    <label class="form-check-label" for="FoodConnect">Food Connect</label>
+                </div>
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="checkbox" name="canteen" id="Foodgle" value="Foodgle">
+                    <label class="form-check-label" for="Foodgle">Foodgle</label>
+                </div>
+            </div>
+            <button id="butAddFavourites" type="submit" class="btn btn-primary">Save
+			</button>
+        </form>
+    </div>
+</section>
+    <!--============================= FOOTER =============================-->
+    <footer class="main-block dark-bg">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="copyright">
+                        <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+                        <p>Copyright &copy; 2018 Listing. All rights reserved | This template is made with <i
+                                class="ti-heart" aria-hidden="true"></i> by <a href="https://colorlib.com"
+                                target="_blank">Colorlib</a></p>
+                        <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+                        <ul>
+                            <li><a href="#"><span class="ti-facebook"></span></a></li>
+                            <li><a href="#"><span class="ti-twitter-alt"></span></a></li>
+                            <li><a href="#"><span class="ti-instagram"></span></a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <!--//END FOOTER -->
+
+
+
+
+    <!-- jQuery, Bootstrap JS. -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <!-- <script src="js/nigel/jquery-3.2.1.min.js"></script> --> {{! this is for nav bar fade in and out animation}}
+    <script src="js/nigel/popper.min.js"></script>
+    <script src="js/nigel/bootstrap.min.js"></script>
+    <script src="js/nigel/homepageJS.js"></script>
+
+</body>
+
+</html>
