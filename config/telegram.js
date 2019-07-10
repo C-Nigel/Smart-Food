@@ -14,8 +14,9 @@ var malique = '573547962';
 
 var TelegramBot = require('node-telegram-bot-api');
 // token
-var token = '807750194:AAE5rnUPlRKurVW9BhX__GhUn4gEpB2JqDk';
+var token = '807750194:AAEd6To8ZonJwSUiCf0rSUh9Vqcz-_pTswg';
 // polling option
 var opt = {polling: true};
+
 // create bot
 module.exports = new TelegramBot(token, opt);

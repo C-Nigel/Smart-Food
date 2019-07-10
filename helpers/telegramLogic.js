@@ -1,14 +1,6 @@
 var te = module.exports = {};
-const mysql = require('mysql2');
 var bot = require("../config/telegramConfig");
 
-const con = mysql.createConnection({
-    host: "bloopy.dyndns-home.com",
-    port: "3307",
-    user: "guest",
-    password: "password",
-    database: "ooadp"
-});
 
 // catch message
 bot.on('message', function (msg) {/* <function (msg)> or <(msg) => > */

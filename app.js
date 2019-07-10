@@ -46,7 +46,7 @@ app.use(session({
 	secret: 'tojiv',
 	store: new MySQLStore({
 	host: dbs.host,
-	port: 3307,
+	port: dbs.port,
 	user: dbs.user,
 	password: dbs.password,
 	database: dbs.database,
@@ -96,7 +96,7 @@ app.listen(port, () => {
 	console.log(`Server started on port ${port}`);
 });
 
-const bot = require("./config/telegramConfig");
+const bot = require("./config/telegram");
 const User = require("./class/user_class");
 
 
@@ -154,12 +154,20 @@ bot.onText(/\/verify (.+)/, (msg, match) => {
 
 	var chatId = msg.chat.id;
 	var response = match[1]; // the captured "whatever"
+	console.log(response);
 
 	
 	User.getUserByAdmin(response).then(user => {
-		User.setTelegram(user.id, chatId);
-	});
-
-	// send back the matched "whatever" to the chat
-	bot.sendMessage(chatId, "Thank you for verifying! you will now receieve notifications with your meal is ready!");
+		User.setTelegram(user.id, chatId)
+		.then(tg => {
+			// send back the matched "whatever" to the chat
+			bot.sendMessage(chatId, "Thank you for verifying! you will now receieve notifications with your meal is ready!");
+		})
+		.catch(err => {
+			bot.sendMessage(chatId, "Unsuccessful registraton!");
+		});
+	})
+	.catch(err => {
+		bot.sendMessage(chatId, "Admin number not associated with user!");
+	})
 });
