@@ -1,10 +1,7 @@
 process.env["NTBA_FIX_319"] = 1;
 
 /*
-console.log('Telegram api started');
-console.log('Telegram api loading')
-
-//group members chat id
+group members chat id
 var timothy = '189727407';
 var yenhao = '574678173';
 var raymond = '328373671';
