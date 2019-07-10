@@ -90,15 +90,15 @@ router.get('/logout', (req, res) => {
 });
 
 router.get('/admin', (req,res)=>{
-	res.render('admin/admin')
+	res.render('views/admin')
 });
 
 router.get('/favourites',(req,res)=>{
-	res.render('favs/favourites')
+	res.render('views/favourites')
 });
 
 router.get('/addFav',(req,res)=>{
-	res.render('favs/addFav')
+	res.render('views/addFav')
 });
 
 module.exports = router;
