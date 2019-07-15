@@ -74,7 +74,6 @@ app.use(function (req, res, next) {
 	next();
 });
 
-app.use(telegram.onText)
 
 
 app.use('/', mainRoute);
