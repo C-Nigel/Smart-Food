@@ -9,7 +9,17 @@ ex.getUserByAdmin = function(adminNo){
     .catch(err => {
         console.log(err)
     });
-}
+};
+
+ex.getUserByTelegram = function(telegram){
+    return UserModel.findOne({
+        where: { telegram_id: telegram },
+        raw: true
+    })
+    .catch(err => {
+        console.log(err);
+    })
+};
 
 ex.getAllUsers = function(){
     return UserModel.findAll({
@@ -18,7 +28,7 @@ ex.getAllUsers = function(){
     .catch(err => {
         console.log(err)
     })
-}
+};
 
 ex.createUser = function(adminNo, fullName, pswd){
     UserModel.create({
@@ -26,18 +36,18 @@ ex.createUser = function(adminNo, fullName, pswd){
         full_name: fullName,
         password: pswd
     })
-}
+};
 
 ex.setAdmin = function(user_id, admin){
     UserModel.update(
         {admin_no: admin},
         {where : { id: user_id }}
     )
-}
+};
 
 ex.setTelegram = function(user_id, tlg_id){
     UserModel.update(
         {telegram_id: tlg_id},
         {where: { id: user_id }}
     )
-}
+};

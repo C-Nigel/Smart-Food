@@ -2,10 +2,6 @@ const Sequelize = require("sequelize");
 const db = require("../config/DBConfig");
 
 const Order = db.define("order", {
-    queue_no: {
-        type: Sequelize.INTEGER,
-        allowNull: false
-    },
     item_id: {
         type: Sequelize.INTEGER,
         allowNull: false
@@ -13,9 +9,6 @@ const Order = db.define("order", {
     user_admin: {
         type: Sequelize.STRING,
         allowNull: false
-    },
-    total_price: {
-        type: Sequelize.DOUBLE
     },
     status: {
         type: Sequelize.TINYINT,

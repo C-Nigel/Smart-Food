@@ -8,12 +8,6 @@ const chat = require('./chat_class');
 
 // Connects to MySQL database
 db.setUpDB(false); // To set up database with new tables set (true)
-/*
-user.createUser('w122', 'nigel cheong', 'pswd');
-user.createUser('w123', 'lique ibrahim', 'pswd');
 
-
-chat.systemMsg('w122', 'please enter your admin number');
-chat.userMsg('w122', 'admin no is w122');
-chat.userMsg('w122', 'confirm');
-*/
+//outlet.createOutlet("Chicken Rice", "Sells chicken rice of many kinds");
+item.createItem("Steamed Chicken Rice", "Asian", 2, 1);
