@@ -17,6 +17,7 @@ const passport = require('passport');
 const mainRoute = require('./routes/main');
 const menuRoute = require('./routes/menu');
 const userRoute = require('./routes/user');
+const telegram = require('./helpers/telegramLogic')
 
 
 // fixing my issue with save btn from stallownerConfig
@@ -62,11 +63,14 @@ app.use(session({
 	saveUninitialized: false,
 }));
 
+<<<<<<< HEAD
 // Initilize Passport middleware
 app.use(passport.initialize());
 app.use(passport.session());
 
 
+=======
+>>>>>>> d1f4543a56a00509725c6df6e7e00a6fa2f06145
 app.use(flash());
 
 app.use(FlashMessenger.middleware);
@@ -80,8 +84,6 @@ app.use(function (req, res, next) {
 app.use(function (req, res, next) {
 	next();
 });
-
-
 
 app.use('/', mainRoute);
 app.use('/menu', menuRoute);
@@ -103,6 +105,7 @@ const port = 4000;
 
 app.listen(port, () => {
 	console.log(`Server started on port ${port}`);
+<<<<<<< HEAD
 });
 
 const bot = require("./config/telegram");
@@ -178,3 +181,6 @@ bot.onText(/\/verify (.+)/, (msg, match) => {
 // Passport Config
 const authenticate = require('./config/passport');
 authenticate.localStrategy(passport);
+=======
+});
+>>>>>>> d1f4543a56a00509725c6df6e7e00a6fa2f06145
