@@ -29,9 +29,8 @@
     <link rel="stylesheet" href="css/nigel/set1.css">
     <!-- Main CSS -->
     <link rel="stylesheet" href="css/nigel/style.css">
-</head>
-
-<body>
+    <!-- star CSS -->
+    <link rel="stylesheet" href="css/nigel/rating.css" </head> <body>
     <!--============================= HEADER =============================-->
     <div class="nav-menu">
         <div class="bg transition">
@@ -111,69 +110,80 @@ raymond, the commented codes below is hamburger menu is for you to use incase yo
             {{#each videos}}
             <div class="card border-primary mb-2 w-100 mx-auto">
                 <div class="card-header">
-                    <h5 class="card-title">{{title}}</h5>
+                    <h5 class="card-title">{{name}}</h5>
                 </div>
                 <div class="card-body">
                     <div class="row">
                         <div class="col-sm-12 col-md-12 col-lg-3">
-                            <p class="font-italic">Subtitles</p>
-                            <p class="text-info">
-                                Subtitles
-                            </p>
-                        </div>
-                        <div class="col-sm-12 col-md-12 col-lg-3">
-                            <p class="font-italic">Language</p>
-                            <p class="text-info">
-                                Language
-                            </p>
-                        </div>
-                        <div class="col-sm-12 col-md-12 col-lg-2">
-                            <p class="font-italic">Classification</p>
-                            <p class="text-info">Classification</p>
-                        </div>
-                        <div class="col-sm-12 col-md-12 col-lg-2">
-                            <p class="font-italic">Date Release</p>
-                            <p class="text-info">Date of Release</p>
-                        </div>
-                        <div class="col-sm-12 col-md-12 col-lg-2">
-                            <p class="font-italic"></p>
-                            <a href="" class="card-link">
-                                <i class="fas fa-pencil-alt"></i>
-                                Edit
+                            <a href="{{posterURL}}" data-title="{{name}}" data-toggle="lightbox">
+                                <img src="{{posterURL}}" alt="Poster unavailable" class="img-thumbnail img-fluid">
                             </a>
-                            <a href="" class="card-link" data-toggle="confirmation" data-title="Confirm delete?">
-                                <i class="far fa-trash-alt"></i>
-                                Delete
-                            </a>
+                        </div>
+                        <div class="col-sm-12 col-md-12 col-lg-9">
+                            <div class="row"> {{!-- subtitles, language... --}}
+                                <div class="col-sm-12 col-md-6 col-lg-3">
+                                    <p class="font-italic">Ordered By</p>
+                                    <p class="text-info">
+                                        {{user_admin}}
+                                    </p>
+                                </div>
+                                <div class="col-sm-12 col-md-6 col-lg-3">
+                                    <p class="font-italic">item_id</p>
+                                    <p class="text-info">
+                                        {{item_id}}
+                                    </p>
+                                </div>
+                                <div class="col-sm-12 col-md-6 col-lg-2">
+                                    <p class="font-italic">Price</p>
+                                    <p class="text-info">{{total_price}}</p>
+                                </div>
+                                <div class="col-sm-12 col-md-6 col-lg-3">
+                                    <p class="font-italic">Queue No.</p>
+                                    <p class="text-info">{{queue_no}}</p>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-12 col-md-6 col-lg-10 rate">
+                                    <input type="radio" id="star5" name="rate" value="5" />
+                                    <label for="star5" title="text">5 stars</label>
+                                    <input type="radio" id="star4" name="rate" value="4" />
+                                    <label for="star4" title="text">4 stars</label>
+                                    <input type="radio" id="star3" name="rate" value="3" />
+                                    <label for="star3" title="text">3 stars</label>
+                                    <input type="radio" id="star2" name="rate" value="2" />
+                                    <label for="star2" title="text">2 stars</label>
+                                    <input type="radio" id="star1" name="rate" value="1" />
+                                    <label for="star1" title="text">1 star</label>
+                                </div>
+                            </div>
                         </div>
                     </div>
-
                 </div>
 
-                <div class="accordion" id="storyAccordion">
-                    <div class="card-header" id="headingOne">
-                        <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseOne"
-                            aria-expanded="false" aria-controls="collapseOne">
+                <div class="accordion" id="storyAccordion{{id}}">
+                    <div class="card-header" id="headingOne{{id}}">
+                        <button class="btn btn-link" type="button" data-toggle="collapse"
+                            data-target="#collapseOne{{id}}" aria-expanded="false" aria-controls="collapseOne{{id}}">
                             Story<i class="fas fa-chevron-down"></i>
                         </button>
 
                     </div>
 
-                    <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#storyAccordion">
+                    <div id="collapseOne{{id}}" class="collapse" aria-labelledby="headingOne{{id}}"
+                        data-parent="#storyAccordion{{id}}">
                         <div class="card-body">
-                            Story
+                            {{story}}
                         </div>
                     </div>
                 </div>
             </div>
             {{/each}}
         </div>
-
+        <button type="button" onclick="alert('Hello world!')">Submit</button>
+        {{else}}
+        <h3>No orders made recently</h3>
+        {{/if}}
     </div>
-    {{else}}
-    <h3>No videos jotted</h3>
-    {{/if}}
-
     <!--============================= FOOTER =============================-->
     <footer class="main-block dark-bg">
         <div class="container">
@@ -207,6 +217,6 @@ raymond, the commented codes below is hamburger menu is for you to use incase yo
     <script src="js/nigel/bootstrap.min.js"></script>
     <script src="js/nigel/homepageJS.js"></script>
 
-</body>
+    </body>
 
 </html>

@@ -23,18 +23,14 @@ bot.onText(/\/verify (.+)/, (msg, match) => {
 
 	var chatId = msg.chat.id;
 	var response = match[1]; // the captured user admin number
-	User.getUserByAdmin(response).then(user => {
-		User.setTelegram(user.id, chatId)
-		.then(tg => {
-			// send back the matched "whatever" to the chat
-			bot.sendMessage(chatId, "Thank you for verifying! you will now receieve notifications with your meal is ready!");
-		})
-		.catch(err => {
-			bot.sendMessage(chatId, "Unsuccessful registraton!");
-		});
+	
+	User.setTelegram(response, chatId)
+	.then(tg => {
+		// send back the matched "whatever" to the chat
+		bot.sendMessage(chatId, "Thank you for verifying! you will now receieve notifications with your meal is ready!");
 	})
 	.catch(err => {
-		bot.sendMessage(chatId, "Admin number not associated with user!");
+		bot.sendMessage(chatId, "Unsuccessful registraton!");
 	});
 });
 

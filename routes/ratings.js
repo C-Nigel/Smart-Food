@@ -13,10 +13,10 @@ router.get('/review', ensureAuthenticated, (req, res) => {
         ],
         raw: true
     })
-        .then((videos) => {
+        .then((orders) => {
             // pass object to listVideos.handlebar
             res.render('../views/ratings', {
-                videos: videos
+                orders: orders
             });
         })
         .catch(err => console.log(err));
