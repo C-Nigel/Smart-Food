@@ -1,5 +1,4 @@
 const ItemModel = require('../models/Item');
-const OutletClass = require('./outlet_class');
 var ex = module.exports = {};
 
 ex.getItemById = function(itemid){
@@ -8,7 +7,7 @@ ex.getItemById = function(itemid){
         raw: true
     })
     .catch(err => {
-        console.log(err)
+        console.log(err);
     })
 }
 
@@ -19,8 +18,11 @@ ex.createItem = function(iname, icat, iprice, outletid){
         price: iprice,
         outlet_id: outletid
     })
+    .then(result => {
+        console.log(result.id);
+    })
     .catch(err => {
-        console.log(err)
+        console.log(err);
     })
 }
 
