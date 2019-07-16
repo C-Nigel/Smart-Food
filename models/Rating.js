@@ -1,7 +1,7 @@
 const Sequelize = require("sequelize");
 const db = require("../config/DBConfig");
 
-const Order = db.define("order", {
+const Rating = db.define("rating", {
     item_id: {
         type: Sequelize.INTEGER,
         allowNull: false
@@ -10,17 +10,16 @@ const Order = db.define("order", {
         type: Sequelize.STRING,
         allowNull: false
     },
-    status: {
+    rating_given: {
         type: Sequelize.TINYINT,
-        max: 2,
+        max: 5,
         min: 0,
         /*
-        0 - order received
-        1 - being prepared
-        2 - ready
+        0 - 0 being the worst
+        5 - 5 being the best
         */
-       allowNull: false
+        allowNull: false
     }
 });
 
-module.exports = Order;
+module.exports = Rating;

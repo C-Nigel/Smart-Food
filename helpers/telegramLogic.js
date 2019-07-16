@@ -1,71 +1,38 @@
-var te = module.exports = {};
-const mysql = require('mysql2');
-var bot = require("../config/telegramConfig");
-
-const con = mysql.createConnection({
-    host: "bloopy.dyndns-home.com",
-    port: "3307",
-    user: "guest",
-    password: "password",
-    database: "ooadp"
-});
+const bot = require("../config/telegram");
+const User = require("../class/user_class");
+const Chat = require("../class/chat_class")
 
 // catch message
 bot.on('message', function (msg) {/* <function (msg)> or <(msg) => > */
-    console.log(msg);
-    // get sender id
-    var sender = msg.chat.id;
-    User.create({ user_id: "1", admin_no: "180448w", full_name: "Nigel Cheong", password: "pls_encrypt_this", phone_no: "12345678", telegram_id: null, admin_status: null })
-    // get text
-    var content = msg.text;
-
+	console.log(msg);
+	// get sender id
+	var sender = msg.chat.id;
+	var content = msg.text;
 });
 
-/*
-te.con.connect(function (err) {
-    if (err) throw err;
-    var him = "'180448w'";
+bot.onText(/\/start/, (msg) => {
 
-    var sql = "UPDATE ooadp.users SET telegram_id = '2313' WHERE admin_no = " + him;
-    console.log(sql)
-    con.query(sql, function (err, result) {
-        if (err) throw err;
-        console.log(result.affectedRows + " record(s) updated");
-    });
+	bot.sendMessage(msg.chat.id, 'Hi there, thank you for signing up with us! Send "/verify <your admin no.>" to link this phone to your Smart Food account.');
+	bot.sendMessage(msg.chat.id, 'eg. "/verify 1xxxxxxA"');
+
 });
-*/
-
-// Matches "/echo [whatever]"
-bot.onText(/\/start (.+)/, (msg, match) => {
-    // 'msg' is the received Message from Telegram
-    // 'match' is the result of executing the regexp above on the text content
-    // of the message
-
-    const chatId = msg.chat.id;
-    const resp = "Hi there, thank you for signing up! \xF0\x9F\x98\x8A"; // the captured "whatever"
-
-    // send back the matched "whatever" to the chat
-    bot.sendMessage(chatId, resp);
-});
-
+	
 bot.onText(/\/verify (.+)/, (msg, match) => {
-    // 'msg' is the received Message from Telegram
-    // 'match' is the result of executing the regexp above on the text content
-    // of the message
+	// 'msg' is the received Message from Telegram
+	// 'match' is the result of executing the regexp above on the text content of the message
 
-    const chatId = msg.chat.id;
-    const resp = match[1]; // the captured "whatever"
-    con.connect(function (err) {
-        if (err) throw err;
-        var sql = "UPDATE ooadp.users SET telegram_id = '" + chatId +" WHERE admin_no = '" + resp + "'";
-        console.log(sql)
-        con.query(sql, function (err, result) {
-            if (err) throw err;
-            console.log(result.affectedRows + " record(s) updated");
-        });
-    });
-    // send back the matched "whatever" to the chat
-    bot.sendMessage(chatId, resp);
+	var chatId = msg.chat.id;
+	var response = match[1]; // the captured user admin number
+
+	User.getUserByAdmin(response).then(user => {
+		if (user != null){
+			User.setTelegram(response, chatId);
+			bot.sendMessage(chatId, "Thank you for verifying! you will now receieve notifications with your meal is ready!");
+		}
+		else {
+			bot.sendMessage(chatId, "No such admin number registered to user!");
+		}
+	})
 });
 
 module.exports = bot;
