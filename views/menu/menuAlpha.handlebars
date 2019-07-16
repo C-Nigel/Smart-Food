@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <link rel="stylesheet" href="/css/menu/menu.css">
+        <link rel="stylesheeet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.2/themes/smoothness/jquery-ui.css">
+    </head>
+
+<body>
+    <div class="container">
+        <div class="wrapper">
+            <h3>Our Food Items @ NYP ! </h3>
+            
+            {{#if items}}
+            <span id="itemCount"></span>
+            <span id="tag"><a href="#"><i class="cart"></i></a></span>
+            <br>
+            <br>
+                {{#each items}}
+                    <div class="item">
+                        <h2>{{name}}</h2>
+                        <p>Price: $<span class="price">{{price}}</span></p>
+                        <p>Food Category: {{cat}}</p>
+                        <p>Owned by Food Outlet: {{outlet_id}}</p>
+                        <p>Quantity: <input type="text" value=0 size="2" </p>
+                        <!-- figure out how to add KFitem -->
+                        <div class="quantity-operator">
+                            <button type="button">+</button>
+                            <button type="button">-</button>
+                        </div>
+                        <br>
+                        <br>
+                        <button class="atcart" type="button">Add to Cart</button>
+                    </div>
+                {{/each}}
+            </div>
+        </div>
+
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.2/jquery-ui.min.js"></script>
+        <script src="/js/designmenu.js"></script>
+
+
+    </div>
+    {{else}}
+        <h3>No food item is registered</h3>
+    {{/if}}
+</body>
+
+</html>

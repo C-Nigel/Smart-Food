@@ -45,37 +45,65 @@ router.get('/favicon', (req, res) => {
 	res.render('malique/favicon') // renders views/user/forgetpw.handlebars
 });
 
-// deon's cart stuff
 
-router.get('/menufoodconnect', (req, res) =>{
-	res.render('cart/menufoodconnect')
-});
+// deon's cart + menu stuff
 
-router.get('/menufoodgle', (req, res) =>{
-	res.render('cart/menufoodgle')
-});
 
-router.get('/menukoufu', (req, res) => {
-    res.render('cart/menukoufu')
-});
-
-router.get('/menunorth', (req, res) =>{
-	res.render('cart/menunorth')
-});
-
-router.get('/menusouth', (req, res) =>{
-	res.render('cart/menusouth')
-});
-
-/* testing allmenu */
 router.get('/MainMenu', (req, res) =>{
-	res.render('cart/MainMenu')
+	res.render('menu/MainMenu')
 });
-
-// stall owner's page
 
 router.get('/stallownerConfig', (req, res) =>{
-	res.render('menu/stallownerConfig')
+	res.render('stallowner/stallownerConfig')
+});
+
+router.get('/menuDemo', (req, res) =>{
+	res.render('menu/menuDemo')
+});
+
+router.get('/menuAlpha', (req, res) =>{
+	res.render('menu/menuAlpha')
+});
+
+// displaying only chinese menu 
+router.get('/menu-chinese', (req, res) =>{
+	res.render('menu/menu-chinese')
+});
+
+// displaying only muslim menu, including indian muslim 
+router.get('/menu-muslim', (req, res) =>{
+	res.render('menu/menu-muslim')
+});
+
+// displaying only indian menu, non-halal
+router.get('/menu-indian', (req, res) =>{
+	res.render('menu/menu-indian')
+});
+
+// displaying only western menu
+router.get('/menu-western', (req, res) =>{
+	res.render('menu/menu-western')
+});
+
+// displaying only fusion menu
+router.get('/menu-fusion', (req, res) =>{
+	res.render('menu/menu-fusion')
+});
+
+
+// displaying only desserts menu
+router.get('/menu-desserts', (req, res) =>{
+	res.render('menu/menu-desserts')
+});
+
+// displaying only drinks menu
+router.get('/menu-drinks', (req, res) =>{
+	res.render('menu/menu-drinks')
+});
+
+// displaying only vegetarian menu
+router.get('/menu-vegetarian', (req, res) =>{
+	res.render('menu/menu-vegetarian')
 });
 
 /*
@@ -83,6 +111,15 @@ router.get('/showAddedItems', (req, res) =>{
 	res.render('cart/MainMenu')
 });
 */
+
+// Setting up Stall Owner Config after clearing directory
+/*
+router.get('/stallownerConfig', (req, res) =>{
+	res.render('stallowner/stallownerConfig') 
+	// renders views/stallowner/stallownerConfig.handlebars
+});
+*/
+
 
 router.get('/logout', (req, res) => {
 	req.logout();

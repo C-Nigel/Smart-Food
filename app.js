@@ -96,7 +96,7 @@ app.listen(port, () => {
 	console.log(`Server started on port ${port}`);
 });
 
-const bot = require("./config/telegramConfig");
+const bot = require("./config/telegram");
 const User = require("./class/user_class");
 
 
