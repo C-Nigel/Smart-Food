@@ -23,15 +23,16 @@ bot.onText(/\/verify (.+)/, (msg, match) => {
 
 	var chatId = msg.chat.id;
 	var response = match[1]; // the captured user admin number
-	
-	User.setTelegram(response, chatId)
-	.then(tg => {
-		// send back the matched "whatever" to the chat
-		bot.sendMessage(chatId, "Thank you for verifying! you will now receieve notifications with your meal is ready!");
+
+	User.getUserByAdmin(response).then(user => {
+		if (user != null){
+			User.setTelegram(response, chatId);
+			bot.sendMessage(chatId, "Thank you for verifying! you will now receieve notifications with your meal is ready!");
+		}
+		else {
+			bot.sendMessage(chatId, "No such admin number registered to user!");
+		}
 	})
-	.catch(err => {
-		bot.sendMessage(chatId, "Unsuccessful registraton!");
-	});
 });
 
 module.exports = bot;

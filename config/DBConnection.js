@@ -4,6 +4,7 @@ const outlet = require("../models/Outlet");
 const item = require("../models/Item");
 const user = require("../models/User");
 const chat = require("../models/Chat");
+const rating = require("../models/Rating");
 
 const setUpDB = (drop) => {
     db.authenticate().then(
@@ -16,7 +17,9 @@ const setUpDB = (drop) => {
             order.belongsTo(item, {foreignKey: 'item_id'});
             item.belongsTo(outlet, {foreignKey: 'outlet_id'});
             chat.belongsTo(user, {foreignKey: 'user_admin'});
-
+            rating.belongsTo(user, {foreignKey: 'user_admin'});
+            rating.belongsTo(item, {foreignKey: 'item_id'});
+            
             db.sync({ // Creates table if none exists
                 force: drop
             }).then(

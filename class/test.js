@@ -7,7 +7,4 @@ const outlet = require('./outlet_class');
 const chat = require('./chat_class');
 
 // Connects to MySQL database
-db.setUpDB(false); // To set up database with new tables set (true)
-
-//outlet.createOutlet("Chicken Rice", "Sells chicken rice of many kinds");
-item.createItem("Steamed Chicken Rice", "Asian", 2, 1);
+db.setUpDB(true); // To set up database with new tables set (true)

@@ -49,14 +49,6 @@ ex.setAdmin = function(user_id, admin){
 ex.setTelegram = function(user_id, tlg_id){
     UserModel.update(
         {telegram_id: tlg_id},
-        {
-            where: { admin_no: user_id },
-            returning: true,
-            plain: true
-        }
+        {where: { admin_no: user_id }}
     )
-    .then(tg => {
-        console.log(tg);
-        bot.sendMessage(tlg_id, "Thank you for verifying! you will now receieve notifications with your meal is ready!");
-    })
 }
