@@ -1,4 +1,4 @@
-
+/*
 module.exports = {
     host: "bloopy.dyndns-home.com",
     //host: "diskstation",
@@ -7,7 +7,7 @@ module.exports = {
     password: "password",
     database: "ooadp"
 }
-/*
+*/
 module.exports = {
     host: "127.0.0.1",
     port: 3306,
@@ -15,4 +15,3 @@ module.exports = {
     password: "password",
     database: "project"
 }
-*/

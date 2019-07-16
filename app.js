@@ -16,7 +16,6 @@ const dbs = require('./config/db'); // db.js config file
 const mainRoute = require('./routes/main');
 const menuRoute = require('./routes/menu');
 const userRoute = require('./routes/user');
-
 const telegram = require('./helpers/telegramLogic')
 
 
@@ -48,7 +47,7 @@ app.use(session({
 	secret: 'tojiv',
 	store: new MySQLStore({
 	host: dbs.host,
-	port: 3307,
+	port: dbs.port,
 	user: dbs.user,
 	password: dbs.password,
 	database: dbs.database,
@@ -61,6 +60,7 @@ app.use(session({
 	resave: false,
 	saveUninitialized: false,
 }));
+
 app.use(flash());
 app.use(FlashMessenger.middleware);
 app.use(function (req, res, next) {
@@ -73,8 +73,6 @@ app.use(function (req, res, next) {
 app.use(function (req, res, next) {
 	next();
 });
-
-
 
 app.use('/', mainRoute);
 app.use('/menu', menuRoute);
