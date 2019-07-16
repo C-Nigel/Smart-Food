@@ -9,6 +9,7 @@ const flash = require('connect-flash');
 const FlashMessenger = require('flash-messenger');
 const MySQLStore = require('express-mysql-session');
 const dbs = require('./config/db'); // db.js config file
+const passport = require('passport');
 
 
 //const User = require("./models/User")
@@ -46,10 +47,11 @@ app.use(session({
 	secret: 'tojiv',
 	store: new MySQLStore({
 	host: dbs.host,
-	port: 3307,
+	port: dbs.port,
 	user: dbs.user,
 	password: dbs.password,
 	database: dbs.database,
+	// mysecret: "text123",
 	clearExpired: true,
 	// How frequently expired sessions will be cleared; milliseconds:
 	checkExpirationInterval: 900000,
@@ -59,7 +61,14 @@ app.use(session({
 	resave: false,
 	saveUninitialized: false,
 }));
+
+// Initilize Passport middleware
+app.use(passport.initialize());
+app.use(passport.session());
+
+
 app.use(flash());
+
 app.use(FlashMessenger.middleware);
 app.use(function (req, res, next) {
 	res.locals.success_msg = req.flash('success_msg');
@@ -90,14 +99,15 @@ const db = require('./config/DBConnection');
 // Connects to MySQL database
 db.setUpDB(false); // To set up database with new tables set (true)
 
-const port = 5000;
+const port = 4000;
 
 app.listen(port, () => {
 	console.log(`Server started on port ${port}`);
 });
 
-const bot = require("./config/telegramConfig");
+const bot = require("./config/telegram");
 const User = require("./class/user_class");
+
 
 
 // catch message
@@ -163,3 +173,8 @@ bot.onText(/\/verify (.+)/, (msg, match) => {
 	// send back the matched "whatever" to the chat
 	bot.sendMessage(chatId, "Thank you for verifying! you will now receieve notifications with your meal is ready!");
 });
+
+
+// Passport Config
+const authenticate = require('./config/passport');
+authenticate.localStrategy(passport);

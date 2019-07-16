@@ -18,19 +18,15 @@ router.get('/loginseller', (req, res) => {
 });
 
 router.get('/index', (req, res) => {
-	res.render('user/index') // renders views/user/loginuser.handlebars
+	res.render('index') // renders views/user/loginuser.handlebars
 });
 
 router.get('/loginadmin', (req,res) => {
-	res.render('user/loginadmin')
+	res.render('loginadmin')
 });
 
 router.get('/register', (req, res) => {
 	res.render('user/register') // renders views/user/register.handlebars
-});
-
-router.get('/forgetpw', (req, res) => {
-	res.render('user/forgetpw') // renders views/user/forgetpw.handlebars
 });
 
 router.get('/forgetpw', (req, res) => {
