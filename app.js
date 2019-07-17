@@ -17,7 +17,7 @@ const passport = require('passport');
 const mainRoute = require('./routes/main');
 const menuRoute = require('./routes/menu');
 const userRoute = require('./routes/user');
-const telegram = require('./helpers/telegramLogic')
+const ratingRoute = require('./routes/ratings')
 
 
 // fixing my issue with save btn from stallownerConfig
@@ -85,6 +85,7 @@ app.use(function (req, res, next) {
 app.use('/', mainRoute);
 app.use('/menu', menuRoute);
 app.use('/user', userRoute);
+app.use('/review', ratingRoute);
 
 
 /*
