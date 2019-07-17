@@ -10,8 +10,8 @@ ex.getUserChatByUserId = function(useradmin){
     })
 };
 
-ex.systemMsg = function(useradmin, msgs){
-    User.getUserByAdmin(useradmin)
+ex.systemMsg = function(telegram, msgs){
+    User.getUserByTelegram(telegram)
     .then(user => {
         ChatModel.create({
             sender: 'system',
@@ -22,8 +22,8 @@ ex.systemMsg = function(useradmin, msgs){
     })
 }
 
-ex.userMsg = function(useradmin, msgs){
-    User.getUserByAdmin(useradmin)
+ex.userMsg = function(telegram, msgs){
+    User.getUserByTelegram(telegram)
     .then(user => {
         ChatModel.create({
             sender: user.full_name,
