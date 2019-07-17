@@ -18,19 +18,22 @@
     <!-- Page Title -->
     <title>NYP Food Portal</title>
     <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="css/nigel/bootstrap.min.css">
+    <link rel="stylesheet" href="../css/nigel/bootstrap.min.css">
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,500,700,900" rel="stylesheet">
     <!-- Simple line Icon -->
-    <link rel="stylesheet" href="css/nigel/simple-line-icons.css">
+    <link rel="stylesheet" href="../css/nigel/simple-line-icons.css">
     <!-- Themify Icon -->
-    <link rel="stylesheet" href="css/nigel/themify-icons.css">
+    <link rel="stylesheet" href="../css/nigel/themify-icons.css">
     <!-- Hover Effects -->
-    <link rel="stylesheet" href="css/nigel/set1.css">
+    <link rel="stylesheet" href="../css/nigel/set1.css">
     <!-- Main CSS -->
-    <link rel="stylesheet" href="css/nigel/style.css">
+    <link rel="stylesheet" href="../css/nigel/style.css">
     <!-- star CSS -->
-    <link rel="stylesheet" href="css/nigel/rating.css" </head> <body>
+    <link rel="stylesheet" href="../css/nigel/rating.css">
+</head>
+
+<body>
     <!--============================= HEADER =============================-->
     <div class="nav-menu">
         <div class="bg transition">
@@ -121,25 +124,21 @@ raymond, the commented codes below is hamburger menu is for you to use incase yo
                         </div>
                         <div class="col-sm-12 col-md-12 col-lg-9">
                             <div class="row"> {{!-- subtitles, language... --}}
-                                <div class="col-sm-12 col-md-6 col-lg-3">
+                                <div class="col-sm-12 col-md-6 col-lg-4">
                                     <p class="font-italic">Ordered By</p>
                                     <p class="text-info">
                                         {{user_admin}}
                                     </p>
                                 </div>
-                                <div class="col-sm-12 col-md-6 col-lg-3">
+                                <div class="col-sm-12 col-md-6 col-lg-4">
                                     <p class="font-italic">item_id</p>
                                     <p class="text-info">
                                         {{item_id}}
                                     </p>
                                 </div>
-                                <div class="col-sm-12 col-md-6 col-lg-2">
+                                <div class="col-sm-12 col-md-6 col-lg-4">
                                     <p class="font-italic">Price</p>
                                     <p class="text-info">{{total_price}}</p>
-                                </div>
-                                <div class="col-sm-12 col-md-6 col-lg-3">
-                                    <p class="font-italic">Queue No.</p>
-                                    <p class="text-info">{{queue_no}}</p>
                                 </div>
                             </div>
                             <div class="row">
@@ -181,7 +180,9 @@ raymond, the commented codes below is hamburger menu is for you to use incase yo
         </div>
         <button type="button" onclick="alert('Hello world!')">Submit</button>
         {{else}}
+        <br><br><br><br>
         <h3>No orders made recently</h3>
+        <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
         {{/if}}
     </div>
     <!--============================= FOOTER =============================-->
@@ -217,6 +218,6 @@ raymond, the commented codes below is hamburger menu is for you to use incase yo
     <script src="js/nigel/bootstrap.min.js"></script>
     <script src="js/nigel/homepageJS.js"></script>
 
-    </body>
+</body>
 
 </html>

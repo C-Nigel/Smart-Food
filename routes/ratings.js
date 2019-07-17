@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const ensureAuthenticated = require('../helpers/auth');
-
+/*
 router.get('/review', ensureAuthenticated, (req, res) => {
 
     Video.findAll({
@@ -21,6 +21,10 @@ router.get('/review', ensureAuthenticated, (req, res) => {
         })
         .catch(err => console.log(err));
 
+});
+*/
+router.get('/180448w',(req,res)=>{
+	res.render('ratings')
 });
 
 module.exports = router;
