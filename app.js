@@ -16,7 +16,7 @@ const dbs = require('./config/db'); // db.js config file
 const mainRoute = require('./routes/main');
 const menuRoute = require('./routes/menu');
 const userRoute = require('./routes/user');
-const telegram = require('./helpers/telegramLogic')
+const ratingRoute = require('./routes/ratings')
 
 
 // fixing my issue with save btn from stallownerConfig
@@ -43,7 +43,7 @@ app.use(cookieParser());
 
 // Express session middleware - uses MySQL to store session
 app.use(session({
-	key: 'vidjot_session',
+	key: 'nypfood_session',
 	secret: 'tojiv',
 	store: new MySQLStore({
 	host: dbs.host,
@@ -77,6 +77,7 @@ app.use(function (req, res, next) {
 app.use('/', mainRoute);
 app.use('/menu', menuRoute);
 app.use('/user', userRoute);
+app.use('/review', ratingRoute);
 
 
 /*
