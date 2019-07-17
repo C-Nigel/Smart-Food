@@ -1,0 +1,24 @@
+<p>All our Chinese Food in NYP !</p>
+
+<br>
+
+<div class="container">
+    {{#if items}}
+    <div>
+        <h3>Chinese Menu</h3>
+        {{#each items}}
+            
+            <div class="item">
+                {{#if cat="chinese"}}
+                    <h2>Name: {{name}}</h2>
+                    <p>Price: {{price}}</p>
+                    <p>Outlet id: {{outlet_id}}</p>
+                {{/if}}
+            </div>
+
+        {{/each}}  
+    </div>
+</div>
+    {{else}}
+        <h3>No Chinese food items available at the moment !</h3>
+    {{/if}}
