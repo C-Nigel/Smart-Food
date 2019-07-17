@@ -16,6 +16,9 @@ ex.createOutlet = function(name1, description){
         name: name1,
         desc: description
     })
+    .then(result => {
+        console.log(result.id);
+    })
 }
 
 ex.deleteOutlet = function(x){
