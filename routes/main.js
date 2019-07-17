@@ -101,4 +101,9 @@ router.get('/addFav',(req,res)=>{
 	res.render('views/addFav')
 });
 
+// SO = Stall Owners
+router.get('/addSO', (req, res) => {
+	res.render('addStallOwners')
+});
+
 module.exports = router;
