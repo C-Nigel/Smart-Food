@@ -44,7 +44,7 @@ app.use(cookieParser());
 
 // Express session middleware - uses MySQL to store session
 app.use(session({
-	key: 'vidjot_session',
+	key: 'nypfood_session',
 	secret: 'tojiv',
 	store: new MySQLStore({
 	host: dbs.host,

@@ -7,4 +7,10 @@ const outlet = require('./outlet_class');
 const chat = require('./chat_class');
 
 // Connects to MySQL database
-db.setUpDB(true); // To set up database with new tables set (true)
+db.setUpDB(false); // To set up database with new tables set (true)
+
+for (var i=0 ; i<5; i++){
+    user.createUser('w12'+i.toString(), 'user'+i.toString(), 'pswd');
+}
+
+outlet.createOutlet('Chicken@North', null);
