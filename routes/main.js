@@ -1,5 +1,6 @@
 const express = require('express')
 const router = express.Router();
+const outlet = require('../class/outlet_class')
 
 router.get('/', (req, res) => {
     const title = 'Smart Food';
@@ -104,6 +105,10 @@ router.get('/addFav',(req,res)=>{
 // SO = Stall Owners
 router.get('/addSO', (req, res) => {
 	res.render('addStallOwners')
+});
+
+router.post('/addSO', (req, res) =>{
+	
 });
 
 module.exports = router;
