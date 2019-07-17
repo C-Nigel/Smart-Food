@@ -15,7 +15,6 @@ router.get('/MainMenu', (req, res) =>{
 })
 */
 
-
 router.post('/stallownerConfig', (req, res) => {
     let {name, price, cat, outlet_id} = req.body;
 
@@ -52,13 +51,24 @@ router.get('/MainMenu', (req, res) =>{
         raw: true
     }).then((items) =>{
         // passing object to MainMenu.handlebar
-        res.render('cart/MainMenu', {
+        res.render('menu/MainMenu', {
             items
         });
     })
     .catch(err => console.log(err));
 });
 
+
+router.get('/menuAlpha', (req, res) =>{
+    Item.findAll({
+        raw: true
+    }).then((items) =>{
+        res.render('menu/menuAlpha', {
+            items
+        });
+    })
+    .catch(err => console.log(err));
+});
 
 
 module.exports = router;
