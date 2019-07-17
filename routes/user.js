@@ -40,28 +40,39 @@ router.post('/profile', (req, res) => {
 });
 
 router.post('/loginuser', (req, res) => {
+    let errors = [];
     let { admin_no, password } = req.body;
-    User.findOne({
-        where: {
-            admin_no: admin_no,
-            password: password
-        }
-    }).then(user => {
-        if(user){
-            passport.authenticate('local', {
-                successRedirect: '/', // Route to /video/listVideos URL
-                failureRedirect: '/loginuser', // Route to /login URL
-                failureFlash: true
-                /* Setting the failureFlash option to true instructs Passport to flash an error
-                message using the message given by the strategy's verify callback, if any.
-                When a failure occur passport passes the message object as error */
-            })(req, res, next);
-        }
+    if (password.length < 4) {
+        errors.push({ text: 'Password must be at least 4 characters' });
+    }
 
-        
-    }).catch(err => {
-        console.log(err)
-    });
+    if (isNaN(admin_no.slice(0,6))){
+        errors.push({ text: 'Admin Number is not valid!' });
+    }
+    else
+    {
+        variable.getUserByAdmin(admin_no).then(user =>{
+            if (user == null)
+            {
+                res.redirect('/register');
+            }
+            else if(user.password == password)
+            {
+                passport.authenticate('local', {
+                    successRedirect: '/', // Route to /video/listVideos URL
+                    failureRedirect: '/loginuser', // Route to /login URL
+                    failureFlash: true
+                    /* Setting the failureFlash option to true instructs Passport to flash an error
+                    message using the message given by the strategy's verify callback, if any.
+                    When a failure occur passport passes the message object as error */
+                })(req, res, next);
+                
+
+            }
+        }).then(user => {
+            console.log(user);
+        })
+    } 
 });
 
 router.get('/profile', (req, res) => {
