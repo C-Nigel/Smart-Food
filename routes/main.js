@@ -1,5 +1,6 @@
 const express = require('express')
 const router = express.Router();
+const outlet = require('../class/outlet_class')
 
 router.get('/', (req, res) => {
     const title = 'Smart Food';
@@ -127,15 +128,24 @@ router.get('/logout', (req, res) => {
 });
 
 router.get('/admin', (req,res)=>{
-	res.render('user/admin')
+	res.render('views/admin')
 });
 
 router.get('/favourites',(req,res)=>{
-	res.render('user/favourites')
+	res.render('views/favourites')
 });
 
-router.get('/addFavourite',(req,res)=>{
-	res.render('user/addFavourite')
+router.get('/addFav',(req,res)=>{
+	res.render('views/addFav')
+});
+
+// SO = Stall Owners
+router.get('/addSO', (req, res) => {
+	res.render('addStallOwners')
+});
+
+router.post('/addSO', (req, res) =>{
+	
 });
 
 module.exports = router;
