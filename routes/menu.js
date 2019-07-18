@@ -6,15 +6,9 @@ const Item = require('../models/Item');
 
 console.log("Server Online!");
 
-// trying out tim's added feature
-/*
-router.get('/MainMenu', (req, res) =>{
-    var item_id = new ex();
-    item_id.getItemById();
-    item_id.setName();
-})
-*/
 
+
+// for stall owner to add in their new food items to menu
 router.post('/stallownerConfig', (req, res) => {
     let {name, price, cat, outlet_id} = req.body;
 
@@ -25,33 +19,21 @@ router.post('/stallownerConfig', (req, res) => {
         cat,
         outlet_id
     }).then((item) =>{    //this 'item' is from Item.js
-        res.redirect('/menu/MainMenu');
+        res.redirect('/menu/menu');
     })
     .catch(err => console.log(err))
 });
 
-/*
-// added this to show added items
-router.get('/showAddedItems', (req,res) =>{
-    res.render('stall/stallownerConfig',{
-        items: 'Added food items for menu'
-    });
-});
-*/
 
 // adding new food items from /stall/stallownerConfig
-router.get('/MainMenu', (req, res) =>{
+
+router.get('/menu', (req, res) =>{
     // never add a request yet, though having req now
     Item.findAll({
-        /*
-        order:[
-            ['name', 'ASC'] //setting the outlet to be in ascending order
-        ],
-        */
         raw: true
     }).then((items) =>{
         // passing object to MainMenu.handlebar
-        res.render('menu/MainMenu', {
+        res.render('menu/menu', {
             items
         });
     })
@@ -69,6 +51,36 @@ router.get('/menuAlpha', (req, res) =>{
     })
     .catch(err => console.log(err));
 });
+
+
+// for specificied cat. of food accessibility from home page
+
+router.get('/menu-chinese', (req, res) =>{
+    Item.findAll({
+        where:{
+            cat: 'chinese'
+        },
+        raw: true
+    }).then((items) =>{
+        res.render('menu/menu-chinese', {
+            items
+        });
+    }).catch(err => console.log(err));
+});
+
+router.get('/menu-malay', (req, res) =>{
+    Item.findAll({
+        where:{
+            cat: 'malay'
+        },
+        raw: true
+    }).then((items) =>{
+        res.render('menu/menu-malay', {
+            items
+        });
+    }).catch(err => console.log(err));
+});
+
 
 
 module.exports = router;

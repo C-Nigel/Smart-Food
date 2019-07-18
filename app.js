@@ -16,7 +16,7 @@ const dbs = require('./config/db'); // db.js config file
 const mainRoute = require('./routes/main');
 const menuRoute = require('./routes/menu');
 const userRoute = require('./routes/user');
-const ratingRoute = require('./routes/ratings')
+const ratingRoute = require('./routes/ratings');
 
 
 // fixing my issue with save btn from stallownerConfig
