@@ -8,7 +8,9 @@ bot.on('message', function (msg) {/* <function (msg)> or <(msg) => > */
 	// get sender id
 	var sender = msg.chat.id;
 	var content = msg.text;
-	Chat.userMsg(sender, content);
+	Chat.userMsg(sender, content).catch(err =>{
+		console.log(err);
+	});
 });
 
 bot.onText(/\/start/, (msg) => {

@@ -1,5 +1,6 @@
 const express = require('express')
 const router = express.Router();
+const outlet = require('../class/outlet_class')
 
 router.get('/', (req, res) => {
     const title = 'Smart Food';
@@ -49,8 +50,8 @@ router.get('/favicon', (req, res) => {
 // deon's cart + menu stuff
 
 
-router.get('/MainMenu', (req, res) =>{
-	res.render('menu/MainMenu')
+router.get('menu/menu', (req, res) =>{
+	res.render('menu/menu')
 });
 
 router.get('/stallownerConfig', (req, res) =>{
@@ -66,43 +67,43 @@ router.get('/menuAlpha', (req, res) =>{
 });
 
 // displaying only chinese menu 
-router.get('/menu-chinese', (req, res) =>{
+router.get('menu/menu-chinese', (req, res) =>{
 	res.render('menu/menu-chinese')
 });
 
 // displaying only muslim menu, including indian muslim 
-router.get('/menu-muslim', (req, res) =>{
-	res.render('menu/menu-muslim')
+router.get('menu/menu-malay', (req, res) =>{
+	res.render('menu/menu-malay')
 });
 
 // displaying only indian menu, non-halal
-router.get('/menu-indian', (req, res) =>{
+router.get('menu/menu-indian', (req, res) =>{
 	res.render('menu/menu-indian')
 });
 
 // displaying only western menu
-router.get('/menu-western', (req, res) =>{
+router.get('menu/menu-western', (req, res) =>{
 	res.render('menu/menu-western')
 });
 
 // displaying only fusion menu
-router.get('/menu-fusion', (req, res) =>{
+router.get('menu/menu-fusion', (req, res) =>{
 	res.render('menu/menu-fusion')
 });
 
 
 // displaying only desserts menu
-router.get('/menu-desserts', (req, res) =>{
+router.get('menu/menu-desserts', (req, res) =>{
 	res.render('menu/menu-desserts')
 });
 
 // displaying only drinks menu
-router.get('/menu-drinks', (req, res) =>{
+router.get('menu/menu-drinks', (req, res) =>{
 	res.render('menu/menu-drinks')
 });
 
 // displaying only vegetarian menu
-router.get('/menu-vegetarian', (req, res) =>{
+router.get('menu/menu-vegetarian', (req, res) =>{
 	res.render('menu/menu-vegetarian')
 });
 
@@ -127,15 +128,24 @@ router.get('/logout', (req, res) => {
 });
 
 router.get('/admin', (req,res)=>{
-	res.render('user/admin')
+	res.render('views/admin')
 });
 
 router.get('/favourites',(req,res)=>{
-	res.render('user/favourites')
+	res.render('views/favourites')
 });
 
-router.get('/addFavourite',(req,res)=>{
-	res.render('user/addFavourite')
+router.get('/addFav',(req,res)=>{
+	res.render('views/addFav')
+});
+
+// SO = Stall Owners
+router.get('/addSO', (req, res) => {
+	res.render('addStallOwners')
+});
+
+router.post('/addSO', (req, res) =>{
+	
 });
 
 module.exports = router;
