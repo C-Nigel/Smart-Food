@@ -25,15 +25,28 @@ bot.onText(/\/verify (.+)/, (msg, match) => {
 	var chatId = msg.chat.id;
 	var response = match[1]; // the captured user admin number
 
-	User.getUserByAdmin(response).then(user => {
-		if (user != null){
-			User.setTelegram(response, chatId);
-			bot.sendMessage(chatId, "Thank you for verifying! You will now receieve notifications with your meal is ready!");
+	User.getRepeatedTGUsers(chatId).then(count =>{
+		if(count>0){
+			bot.sendMessage(chatId, "Admin number linked to another phone. Unlink previous phone before verifying this phone.")
 		}
-		else {
-			bot.sendMessage(chatId, "No such admin number registered to user!");
+		else{
+			User.getUserByAdmin(response).then(user => {
+				if (user != null){
+					User.setTelegram(response, chatId);
+					bot.sendMessage(chatId, "Thank you for verifying! You will now receieve notifications with your meal is ready!");
+				}
+				else {
+					bot.sendMessage(chatId, "No such admin number registered to user!");
+				}
+			})
 		}
 	})
 });
+
+bot.onText(/\/unlink (.+)/, (msg, match) => {
+	var chatId = msg.chat.id;
+	var response = match[1]; // the captured user admin number
+	user.unlinkTelegram()
+})
 
 module.exports = bot;
