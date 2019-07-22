@@ -26,54 +26,6 @@ router.get('/', (req, res) => {
     res.render('home', {title: title}) // renders views/home.handlebars
 });
 
-router.post('/profile', (req, res) => {
-    let { full_name, admin_no, password, confirmpassword, phone_no, telegram_id } = req.body;
-    variable.setAdmin(user.id, admin_no)
-    /*con.connect(function(err) {
-        if (err) throw err;
-        var sql = "UPDATE user SET full_name = fullname WHERE address = 'Valley 345'";
-        con.query(sql, function (err, result) {
-          if (err) throw err;
-          console.log(result.affectedRows + " record(s) updated");
-        });
-    }); */
-});
-
-router.post('/loginuser', (req, res) => {
-    let errors = [];
-    let {admin_no, password} = req.body;
-    if (password.length < 4) {
-        errors.push({ text: 'Password must be at least 4 characters' });
-    }
-
-    if (isNaN(admin_no.slice(0,6))){
-        errors.push({ text: 'Admin Number is not valid!' });
-    }
-    else
-    {
-        variable.getUserByAdmin(admin_no).then(user =>{
-            console.log(user);
-
-            if (user == null)
-            {
-                res.redirect('/register');
-            }
-
-            passport.authenticate('local', {
-                successRedirect: '/', // Route to /video/listVideos URL
-                failureRedirect: '/loginuser', // Route to /login URL
-                failureFlash: true
-                 /* Setting the failureFlash option to true instructs Passport to flash an error
-                   message using the message given by the strategy's verify callback, if any.
-                When a failure occur passport passes the message object as error */
-            })(req, res, next);
-                
-
-            
-        })
-    } 
-});
-
 router.get('/profile', (req, res) => {
     User.findAll({
         admin_no: admin_no
@@ -82,27 +34,55 @@ router.get('/profile', (req, res) => {
     })
 });
 
-router.post('/forgetpw', (req, res) => {
-    let { admin_no } = req.body;
-    User.findOne({
-        where: {
-            admin_no: admin_no,
-        }
-    }).then(user => {
-        var email = admin_no + '@mymail.nyp.edu.sg';
-        sgMail.setApiKey('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');
-        const msg = {
-            to: email,
-            from: '180527e@mymail.nyp.edu.sg',
-            subject: 'Forget Password',
-            text: 'OOADP is such a struggle',
-            html: 'Nothing to see'
- 
-        };
-        sgMail.send(msg);
-        res.redirect('/loginuser');
-    })
+router.post('/profile', (req, res) => {
+    let errors = [];
+    let { full_name, admin_no, password, confirmpassword, phone_no, picture} = req.body;
+    if (password !== confirmpassword) {
+        errors.push({ text: 'Passwords do not match' });
+    }
+    if (errors.length > 0) {
+        res.render('user/profile', {
+            errors,
+            full_name,
+            admin_no,
+            phone_no,
+            picture
+        });
+    }
+    else{
+        variable.getUserByAdmin(admin_no).then(user =>{
+            console.log(user);
+
+            if (user == null)
+            {
+                res.redirect('/register');
+            }
+
+            else
+            {
+                User.update({
+                    full_name: full_name,
+                    phone_no: phone_no,
+                    picture: picture
+                }, {
+                    where: {admin_no: admin_no}
+                }
+                ).then(user => {
+                    console.log(user);
+                    res.render('user/profile',{
+                        admin_no,
+                        full_name,
+                        phone_no,
+                        picture
+                    });
+                })
+            }
+        });        //variable.updateAll(admin_no, full_name, phone_no, password, picture)
+    }
+    
+
 });
+
 router.post('/register', (req, res) => {
     let errors = [];
     
@@ -176,6 +156,7 @@ router.post('/register', (req, res) => {
                         phone_no,
                         password,
                         telegram_id: null,
+                        picture: null,
                         // Practical 11 Activity 04
                         admin_status: 0, // Add this statement – set verify to false
                     }).then(user => {
@@ -198,88 +179,77 @@ router.post('/register', (req, res) => {
             });
     }
 });
-    /*let errors = [];
-    let { full_name, admin_no, password, confirmpassword, phone_no, telegram_id } = req.body;
-    var randLetter = String.fromCharCode(65 + Math.floor(Math.random() * 26));
 
-    if (isNaN(admin_no.slice(6,7))){
-        if (isNaN(admin_no.slice(0,6))){
-            res.render('user/register', {
-                errors,
-                admin_no,
-                full_name,
-                password,
-                confirmpassword,
-                phone_no
-            });
-        }
-        else{
-            if (password == confirmpassword) {
-                if (password.length > 3){
-                    if (phone_no.length == 8){
-                        let token;
-                    // Encrypt the password
-                        User.create({
-                            admin_no,
-                            full_name,
-                            password,
-                            phone_no,
-                            telegram_id : 0,
-                            admin_status: 0
-                            // Practical 11 Activity 04
-                             // Add this statement – set verify to false
-                        })
-                        res.redirect('/loginuser');
-                        
-                        
-                    }
-                    else{
-                        res.render('user/register', {
-                            errors,
-                            admin_no,
-                            full_name,
-                            password,
-                            confirmpassword,
-                            phone_no
-                        });
-                    }
-                }
-                else{
-                    alertMessage(res, 'danger', 'Password not the same', 'fas fa-exclamation - circle', true);
-                    res.render('user/register', {
-                        errors,
-                        admin_no,
-                        full_name,
-                        password,
-                        confirmpassword,
-                        phone_no
-                    });
-                }
-            }
-            else{
-                errors.push({ text: 'Password not the same!' });
-                res.render('user/register', {
-                    error,
-                    admin_no,
-                    full_name,
-                    password,
-                    confirmpassword,
-                    phone_no
-                });
-            }
-        }
+router.post('/loginuser', (req, res) => {
+    let errors = [];
+    let {admin_no, password} = req.body;
+    if (password.length < 4) {
+        errors.push({ text: 'Password must be at least 4 characters' });
     }
-    else{
-        res.render('user/register', {
-            errors,
-            admin_no,
-            full_name,
-            password,
-            confirmpassword,
-            phone_no
-        });
-    }*/
-    
+
+    if (isNaN(admin_no.slice(0,6))){
+        errors.push({ text: 'Admin Number is not valid!' });
+    }
+    else
+    {
+        variable.getUserByAdmin(admin_no).then(user =>{
+            console.log(user);
+
+            if (user == null)
+            {
+                res.redirect('/register');
+            }
+
+            else
+            {
+                var full_name = user.full_name;
+                var phone_no = user.phone_no;
+                var picture = user.picture;
+                req.session.user = user;
+                res.render('user/profile', {
+                    full_name,
+                    admin_no,
+                    phone_no,
+                    picture
+                });
+                
+                /*passport.authenticate('local', {
+                successRedirect: '/', // Route to /video/listVideos URL
+                failureRedirect: '/loginuser', // Route to /login URL
+                failureFlash: true*/
+                 /* Setting the failureFlash option to true instructs Passport to flash an error
+                   message using the message given by the strategy's verify callback, if any.
+                When a failure occur passport passes the message object as error */
+                //})(req, res, next);
+            }    
+
+            
+        })
+    } 
+});
+
+router.post('/forgetpw', (req, res) => {
+    let { admin_no } = req.body;
+    User.findOne({
+        where: {
+            admin_no: admin_no,
+        }
+    }).then(user => {
+        var email = admin_no + '@mymail.nyp.edu.sg';
+        sgMail.setApiKey('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');
+        const msg = {
+            to: email,
+            from: '180527e@mymail.nyp.edu.sg',
+            subject: 'Forget Password',
+            text: 'OOADP is such a struggle',
+            html: 'Nothing to see'
+ 
+        };
+        sgMail.send(msg);
+        res.redirect('/loginuser');
+    })
+});
+
     /*let errors = [];
     // Retrieves fields from register page from request body
     let { full_name, admin_no, password, confirmpassword, phone_no } = req.body;
