@@ -13,4 +13,4 @@ for (var i=0 ; i<5; i++){
     user.createUser('w12'+i.toString(), 'user'+i.toString(), 'pswd');
 }
 
-outlet.createOutlet('Chicken@North', null);
+//outlet.createOutlet('Chicken@North', 'Added Chicken rice to my menu');

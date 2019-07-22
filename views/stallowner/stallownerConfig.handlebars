@@ -1,39 +1,94 @@
 
 <div class="container">
+
+<head>
+    <link rel="stylesheet" href="/css/stallownerconfig/stallownerconfig.css">
+    
+</head>
+
 <legend><p>Stall owner's lab: Upload your food items here!</p></legend>
 <fieldset>
 <form action="../menu/stallownerConfig" method="post" id="stallownerConfig">
-
+<body>
+    <!-- registering name of food item -->
     <div class="form-group">
-        <!-- registering name of food item -->
         <label class="font-italic" for="name">Name of Food Item: </label>
-        <textarea class="form-control" id="name" name="name" rows="1" onblur="ProperCase('name')">{{name}}</textarea>
+        <input class="form-control" id="name" name="name" rows="1" onblur="ProperCase('name')">{{name}}</textarea>
+        
     </div>
 
+    <!-- registering price of food item -->
     <div class="form-group">
-        <!-- registering price of food item -->
+        <br>
         <label class="font-italic" for="price">Price: </label>
-        <textarea class="form-control" id="price" name="price" rows="1">{{price}}</textarea>
+        <input class="form-control" id="price" name="price" rows="1">{{price}}</textarea>
     </div>
 
+    <!-- registering category of food item -->
+    
+    <!--
     <div class="form-group">
-        <!-- registering category of food item -->
         <label class="font-italic" for="cat">Food Category (Eg. Chinese/Malay Muslim ...): </label>
         <textarea class="form-control" id="cat" name="cat" rows="1">{{cat}}</textarea>
     </div>
+    -->
 
+    
     <div class="form-group">
-        <!-- registering category of food item -->
+        <br>
+
+        <label class="font-italic" for="cat">Food Category: </label>
+
+        <input class="form-control" type="radio" id="cat" name="cat" value="chinese">
+        <label class="form-control" for="chinese">chinese</label>
+
+        <!-- still testing a non-halal specification for registering chinese food item -->
+        <!--
+        <input class="form-control" type="radio" id="cat" name="cat" value="chinese-nonhalal">
+        <label class="form-control" for="chinese-nonhalal">chinese non-halal</label>
+        -->
+
+        <input class="form-control" type="radio" id="cat" name="cat" value="malay">
+        <label class="form-control" for="malay">malay</label>
+
+        <input class="form-control" type="radio" id="cat" name="cat" value="indian">
+        <label class="form-control" for="indian">indian</label>
+
+        <input class="form-control" type="radio" id="cat" name="cat" value="western">
+        <label class="form-control" for="western">western</label>
+
+        <input class="form-control" type="radio" id="cat" name="cat" value="fusion">
+        <label class="form-control" for="fusion">fusion</label>
+
+        <input class="form-control" type="radio" id="cat" name="cat" value="vegetarian">
+        <label class="form-control" for="vegetarian">vegetarian</label>
+
+        <input class="form-control" type="radio" id="cat" name="cat" value="desserts">
+        <label class="form-control" for="desserts">desserts</label>
+
+        <input class="form-control" type="radio" id="cat" name="cat" value="drinks">
+        <label class="form-control" for="drinks">drinks</label>
+    </div>
+    
+
+
+
+    <!-- registering category of food item -->
+    <div class="form-group">
+        <br>
         <label class="font-italic" for="outlet_id">Insert outlet id:  </label>
-        <textarea class="form-control" id="outlet_id" name="outlet_id" rows="1">{{outlet_id}}</textarea>
+        <input class="form-control" id="outlet_id" name="outlet_id" rows="1">{{outlet_id}}</textarea>
     </div>
 
-    <br>
     <!--<button id="butAddFoodItem" type="submit" class="btn btn-primary">Save</button>-->
+    <br>
     <button type="submit" disabled style="display: none" aria-hidden="true"></button>
     <input id="butAddVideo" class="btn btn-outline-primary" type="submit" value="Save">
 
+    
 
+</body>
 </form>
 </fieldset>
 </div>
+

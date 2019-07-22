@@ -81,6 +81,83 @@ router.get('/menu-malay', (req, res) =>{
     }).catch(err => console.log(err));
 });
 
+router.get('/menu-indian', (req, res) =>{
+    Item.findAll({
+        where:{
+            cat: 'indian'
+        },
+        raw: true
+    }).then((items) =>{
+        res.render('menu/menu-indian', {
+            items
+        });
+    }).catch(err => console.log(err));
+});
+
+router.get('/menu-western', (req, res) =>{
+    Item.findAll({
+        where:{
+            cat: 'western'
+        },
+        raw: true
+    }).then((items) =>{
+        res.render('menu/menu-western', {
+            items
+        });
+    }).catch(err => console.log(err));
+});
+
+router.get('/menu-fusion', (req, res) =>{
+    Item.findAll({
+        where:{
+            cat: 'fusion'
+        },
+        raw: true
+    }).then((items) =>{
+        res.render('menu/menu-fusion', {
+            items
+        });
+    }).catch(err => console.log(err));
+});
+
+router.get('/menu-vegetarian', (req, res) =>{
+    Item.findAll({
+        where:{
+            cat: 'vegetarian'
+        },
+        raw: true
+    }).then((items) =>{
+        res.render('menu/menu-vegetarian', {
+            items
+        });
+    }).catch(err => console.log(err));
+});
+
+router.get('/menu-desserts', (req, res) =>{
+    Item.findAll({
+        where:{
+            cat: 'desserts'
+        },
+        raw: true
+    }).then((items) =>{
+        res.render('menu/menu-desserts', {
+            items
+        });
+    }).catch(err => console.log(err));
+});
+
+router.get('/menu-drinks', (req, res) =>{
+    Item.findAll({
+        where:{
+            cat: 'drinks'
+        },
+        raw: true
+    }).then((items) =>{
+        res.render('menu/menu-drinks', {
+            items
+        });
+    }).catch(err => console.log(err));
+});
 
 
 module.exports = router;

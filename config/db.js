@@ -1,6 +1,6 @@
 module.exports = {
     host: "bloopy.dyndns-home.com",
-    port: 3307,
+    port: 23,
     user: "guest",
     password: "password",
     database: "ooadp"

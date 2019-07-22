@@ -1,0 +1,10 @@
+body{
+    background-image: url('/img/board.jpg');
+    background-repeat: no-repeat;
+    font-size: 20px;
+}
+
+fieldset{
+    background-color: whitesmoke;
+    opacity: 0.8;
+}
