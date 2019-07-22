@@ -18,7 +18,7 @@ const Rating = db.define("rating", {
         0 - 0 being the worst
         5 - 5 being the best
         */
-        allowNull: false
+        allowNull: true
     }
 });
 

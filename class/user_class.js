@@ -61,3 +61,20 @@ ex.setTelegram = function(user_id, tlg_id){
         {where: { admin_no: user_id }}
     )
 }
+
+ex.getRepeatedTGUsers = function(tlg_id){
+    return UserModel.countAll({
+        where: { telegram_id: tlg_id },
+        raw: true
+    })
+    .catch(err => {
+        console.log(err)
+    })
+};
+
+ex.unlinkTelegram = function(user_id){
+    UserModel.update(
+        {telegram_id: null},
+        {where: { admin_no: user_id }}
+    )
+}

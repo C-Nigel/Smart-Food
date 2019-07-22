@@ -17,7 +17,7 @@ const passport = require('passport');
 const mainRoute = require('./routes/main');
 const menuRoute = require('./routes/menu');
 const userRoute = require('./routes/user');
-const ratingRoute = require('./routes/ratings')
+const ratingRoute = require('./routes/ratings');
 
 
 // fixing my issue with save btn from stallownerConfig
