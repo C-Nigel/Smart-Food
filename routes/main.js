@@ -140,4 +140,8 @@ router.post('/addSO', (req, res) =>{
 	
 });
 
+router.get('/orders', (req, res) => {
+    res.render('orderList');
+});
+
 module.exports = router;

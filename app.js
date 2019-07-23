@@ -9,7 +9,7 @@ const flash = require('connect-flash');
 const FlashMessenger = require('flash-messenger');
 const MySQLStore = require('express-mysql-session');
 const dbs = require('./config/db'); // db.js config file
-const telegram = require('./helpers/telegramLogic');
+//const telegram = require('./helpers/telegramLogic');
 
 
 //const User = require("./models/User")
