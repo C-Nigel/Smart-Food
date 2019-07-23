@@ -21,7 +21,7 @@ bot.onText(/\/start/, (msg) => {
 	bot.sendMessage(msg.chat.id, 'eg. "/verify 1xxxxxxA"');
 
 });
-	
+
 bot.onText(/\/verify (.+)/, (msg, match) => {
 	// 'msg' is the received Message from Telegram
 	// 'match' is the result of executing the regexp above on the text content of the message
@@ -29,13 +29,13 @@ bot.onText(/\/verify (.+)/, (msg, match) => {
 	var chatId = msg.chat.id;
 	var response = match[1]; // the captured user admin number
 
-	User.getRepeatedTGUsers(chatId).then(count =>{
-		if(count>0){
+	User.getRepeatedTGUsers(chatId).then(count => {
+		if (count > 0) {
 			bot.sendMessage(chatId, "Admin number linked to another phone. Unlink previous phone before verifying this phone.")
 		}
-		else{
+		else {
 			User.getUserByAdmin(response).then(user => {
-				if (user != null){
+				if (user != null) {
 					User.setTelegram(response, chatId);
 					bot.sendMessage(chatId, "Thank you for verifying! You will now receieve notifications with your meal is ready!");
 				}

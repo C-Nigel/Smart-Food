@@ -53,7 +53,7 @@ ex.setTelegram = function(user_id, tlg_id){
 }
 
 ex.getRepeatedTGUsers = function(tlg_id){
-    return UserModel.countAll({
+    return UserModel.count({
         where: { telegram_id: tlg_id },
         raw: true
     })
