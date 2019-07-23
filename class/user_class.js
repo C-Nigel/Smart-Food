@@ -1,5 +1,4 @@
 const UserModel = require('../models/User');
-const bot = require("../config/telegram");
 var ex = module.exports = {};
 
 ex.getUserByAdmin = function(adminNo){

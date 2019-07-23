@@ -11,6 +11,26 @@ ex.getItemById = function(itemid){
     })
 }
 
+ex.getItemsByOutlet = function(outlet){
+    return ItemModel.findAll({
+        where: { outlet_id: outlet },
+        raw: true
+    })
+    .catch(err => {
+        console.log(err);
+    })
+}
+
+ex.getItemsByCat = function(cat_name){
+    return ItemModel.findAll({
+        where: { cat: cat_name },
+        raw: true
+    })
+    .catch(err => {
+        console.log(err);
+    })
+}
+
 ex.createItem = function(iname, icat, iprice, outletid){
     ItemModel.create({
         name: iname,

@@ -1,9 +1,10 @@
 const op = require('sequelize').Op;
 const OrderModel = require('../models/Order');
+const ItemClass = require('./item_class');
 var ex = module.exports = {};
 
 ex.getOrderByUser = function(userid){
-    OrderModel.findAll({
+    return OrderModel.findAll({
         where: { user_admin: userid },
         raw: true
     })
@@ -12,8 +13,8 @@ ex.getOrderByUser = function(userid){
     });
 }
 
-ex.getIncompleteOrderByUser = function(userid){
-    OrderModel.findAll({
+ex.getIncompleteOrdersForUser = function(userid){
+    return OrderModel.findAll({
         where: { 
             user_admin: userid,
             status: { 
@@ -27,15 +28,29 @@ ex.getIncompleteOrderByUser = function(userid){
     });
 }
 
-ex.createOrder = function(itemid, user){
-    OrderModel.create({
-        item_id: itemid,
-        user_admin: user,
-        status: 0
+ex.getOrdersForOutlets = function(outlet){
+    return OrderModel.findAll({
+        where: { outlet_id: outlet }
+    });
+}
+
+ex.createOrder = function(itemid, useradmin){
+    ItemClass.getItemById(itemid).then(item => {
+        if (item != null){
+            OrderModel.create({
+                item_id: itemid,
+                user_admin: useradmin,
+                outlet_id: item.outlet_id,
+                status: 0
+            })
+        }
+        else{
+            console.log("Item doesn't exist or wrong item id!");
+        }
     })
     .catch(err => {
         console.log(err);
-    })
+    });
 }
 
 ex.setOrderStatus = function(order_id, stat){
