@@ -1,6 +1,8 @@
 const express = require('express')
 const router = express.Router();
-const outlet = require('../class/outlet_class')
+const outlets = require('../class/outlet_class')
+const orders = require('../class/order_class');
+
 
 router.get('/', (req, res) => {
     const title = 'Smart Food';
@@ -141,7 +143,10 @@ router.post('/addSO', (req, res) =>{
 });
 
 router.get('/orders', (req, res) => {
-    res.render('orderList');
+	//let user = sessionStorage.getItem("user");
+	orders.getOrdersForOutlets(1).then(orders => {
+		res.render('orderList', {orders: orders})
+	})
 });
 
 module.exports = router;

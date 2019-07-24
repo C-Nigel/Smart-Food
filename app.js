@@ -9,6 +9,7 @@ const flash = require('connect-flash');
 const FlashMessenger = require('flash-messenger');
 const MySQLStore = require('express-mysql-session');
 const dbs = require('./config/db'); // db.js config file
+const passport = require('passport');
 //const telegram = require('./helpers/telegramLogic');
 
 
@@ -63,7 +64,13 @@ app.use(session({
 	saveUninitialized: false,
 }));
 
+// Initilize Passport middleware
+app.use(passport.initialize());
+app.use(passport.session());
+
+
 app.use(flash());
+
 app.use(FlashMessenger.middleware);
 app.use(function (req, res, next) {
 	res.locals.success_msg = req.flash('success_msg');
