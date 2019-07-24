@@ -50,7 +50,9 @@ bot.onText(/\/verify (.+)/, (msg, match) => {
 bot.onText(/\/unlink (.+)/, (msg, match) => {
 	var chatId = msg.chat.id;
 	var response = match[1]; // the captured user admin number
-	user.unlinkTelegram()
+	User.getUserByAdmin(response).then(user => {
+		User.unlinkTelegram(user)
+	})
 })
 
 module.exports = bot;
