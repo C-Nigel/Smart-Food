@@ -10,6 +10,10 @@ const Order = db.define("order", {
         type: Sequelize.STRING,
         allowNull: false
     },
+    outlet_id: {
+        type: Sequelize.INTEGER,
+        allowNull: false
+    },
     status: {
         type: Sequelize.TINYINT,
         max: 2,

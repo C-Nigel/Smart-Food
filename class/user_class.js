@@ -1,5 +1,4 @@
 const UserModel = require('../models/User');
-const bot = require("../config/telegram");
 var ex = module.exports = {};
 
 ex.getUserByAdmin = function(adminNo){
@@ -54,7 +53,7 @@ ex.setTelegram = function(user_id, tlg_id){
 }
 
 ex.getRepeatedTGUsers = function(tlg_id){
-    return UserModel.countAll({
+    return UserModel.count({
         where: { telegram_id: tlg_id },
         raw: true
     })

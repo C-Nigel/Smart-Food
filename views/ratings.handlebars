@@ -1,37 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
-
-    <!-- *********************************************************************************************
-    Just add your CSS file down below if you need
-***********************************************************************************************-->
-
-
-    <!-- Required meta tags -->
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="author" content="Colorlib">
-    <meta name="description" content="#">
-    <meta name="keywords" content="#">
-    <!-- Page Title -->
-    <title>NYP Food Portal</title>
-    <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="../css/nigel/bootstrap.min.css">
-    <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,500,700,900" rel="stylesheet">
-    <!-- Simple line Icon -->
-    <link rel="stylesheet" href="../css/nigel/simple-line-icons.css">
-    <!-- Themify Icon -->
-    <link rel="stylesheet" href="../css/nigel/themify-icons.css">
-    <!-- Hover Effects -->
-    <link rel="stylesheet" href="../css/nigel/set1.css">
-    <!-- Main CSS -->
-    <link rel="stylesheet" href="../css/nigel/style.css">
-    <!-- star CSS -->
-    <link rel="stylesheet" href="../css/nigel/rating.css">
-</head>
+    
+{{>_head}}
 
 <body>
     {{>_navbar}}
@@ -80,15 +50,15 @@
                                         best):</p>
                                 </div>
                                 <div class="form-group col-sm-12 col-md-6 col-lg-5 rate">
-                                    <input type="radio" id="star5" name="rate" value="5" />
+                                    <input type="radio" id="star5" name={{id}} value="5" />
                                     <label for="star5" title="Excellent">5</label>
-                                    <input type="radio" id="star4" name="rate" value="4" />
+                                    <input type="radio" id="star4" name={{id}} value="4" />
                                     <label for="star4" title="Very Good">4</label>
-                                    <input type="radio" id="star3" name="rate" value="3" />
+                                    <input type="radio" id="star3" name={{id}} value="3" />
                                     <label for="star3" title="Normal">3</label>
-                                    <input type="radio" id="star2" name="rate" value="2" />
+                                    <input type="radio" id="star2" name={{id}} value="2" />
                                     <label for="star2" title="Somewhat Poor">2</label>
-                                    <input type="radio" id="star1" name="rate" value="1" />
+                                    <input type="radio" id="star1" name={{id}} value="1" />
                                     <label for="star1" title="Very Poor">1</label>
                                 </div>
                             </div>
