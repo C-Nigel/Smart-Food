@@ -26,11 +26,26 @@ router.get('/', (req, res) => {
     res.render('home', {title: title}) // renders views/home.handlebars
 });
 
+// router.get('/:admin_no', (req, res) =>{
+//     variable.getUserByAdmin(admin_no).then(user =>{
+//         console.log(user);
+//         res.render('user/profile',{
+//             user
+//             //picture
+//         });
+//     });
+// });
 router.get('/profile', (req, res) => {
-    User.findAll({
-        admin_no: admin_no
-    }).then(user => {
-        res.render('user/profile', user)
+    variable.getUserByAdmin(admin_no).then(user =>{
+        console.log(user);
+        res.render('user/profile',{
+            admin_no,
+            full_name,
+            phone_no,
+            telegram_id,
+            picture
+        }
+        );
     })
 });
 
@@ -193,6 +208,18 @@ router.post('/loginuser', (req, res) => {
     else
     {
         variable.getUserByAdmin(admin_no).then(user =>{
+            passport.serializeUser((user, done) => {
+                done(null, user.admin_no); // user.id is used to identify authenticated user
+            });
+            passport.deserializeUser((admin_no, done) => {
+                User.findByPk(admin_no)
+                    .then((user) => {
+                        done(null, user); // user object saved in req.session
+                    })
+                    .catch((done) => { // No user found, not stored in req.session
+                        console.log(done);
+                    });
+            });
             console.log(user);
 
             if (user == null)
@@ -202,25 +229,27 @@ router.post('/loginuser', (req, res) => {
 
             else
             {
+                var admin_no = user.admin_no
                 var full_name = user.full_name;
                 var phone_no = user.phone_no;
                 var picture = user.picture;
+                var telegram_id = user.telegram_id;
                 req.session.user = user;
-                res.render('user/profile', {
-                    full_name,
+                res.render('user/profile',{
                     admin_no,
+                    full_name,
                     phone_no,
-                    picture
+                    picture,
+                    telegram_id
                 });
-                
-                /*passport.authenticate('local', {
-                successRedirect: '/', // Route to /video/listVideos URL
-                failureRedirect: '/loginuser', // Route to /login URL
-                failureFlash: true*/
-                 /* Setting the failureFlash option to true instructs Passport to flash an error
-                   message using the message given by the strategy's verify callback, if any.
-                When a failure occur passport passes the message object as error */
-                //})(req, res, next);
+                // passport.authenticate('local', {
+                // successRedirect: '/profile', // Route to /video/listVideos URL
+                // failureRedirect: '/loginuser', // Route to /login URL
+                // failureFlash: true
+                //  /* Setting the failureFlash option to true instructs Passport to flash an error
+                //    message using the message given by the strategy's verify callback, if any.
+                // When a failure occur passport passes the message object as error */
+                // })(req, res, next);
             }    
 
             
