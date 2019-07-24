@@ -10,6 +10,7 @@ var malique = '573547962';
 */
 
 var TelegramBot = require('node-telegram-bot-api');
+// token
 //var token = '807750194:AAEd6To8ZonJwSUiCf0rSUh9Vqcz-_pTswg';
 var token = "";
 // polling option
