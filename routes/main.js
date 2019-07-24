@@ -136,12 +136,23 @@ router.get('/addSO', (req, res) => {
 	res.render('addStallOwners')
 });
 
-router.post('/addSO', (req, res) =>{
-	
-});
-
 router.get('/orders', (req, res) => {
     res.render('orderList');
+});
+
+router.post('/addSO', (req, res) =>{
+	let name = req.body.name;
+	let desc = req.body.desc;
+	outlets.update({
+		name,
+		desc
+	}, {
+		where: {
+			id: req.params.id
+		}
+	}).then(() => {
+		res.redirect('addStallOwners');
+	})
 });
 
 module.exports = router;
