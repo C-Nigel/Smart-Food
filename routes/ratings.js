@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const rating = require('../models/Rating');
+const item_class = require('../class/item_class');
 const ensureAuthenticated = require('../helpers/auth');
 
 router.get('/:user_admin', (req, res) => {
@@ -11,17 +12,17 @@ router.get('/:user_admin', (req, res) => {
         },
         raw: true
     })
-        .then((ratings) => {
-            // pass object to listVideos.handlebar
-            res.render('../views/ratings', {
-                ratings: ratings
-            });
-        })
-        .catch(err => console.log(err));
+    .then((ratings) => {
+        // pass object to listVideos.handlebar
+        res.render('../views/ratings', {
+            ratings: ratings
+        });
+    })
+    .catch(err => console.log(err));
 
 });
 
-router.put('/saveRating/:id', (req, res) => {
+router.post('/saveRating/:id', (req, res) => {
     let rating_given = req.body.rate;
 
 	/* console.log(`\n++++++++ Video from session: ${req.session.video.title}`);

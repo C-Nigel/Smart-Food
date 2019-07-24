@@ -9,18 +9,6 @@ const Sequelize = require('sequelize');
 const sgMail = require('@sendgrid/mail');
 const variable = require('../class/user_class');
 
-/* var mysql = require('mysql2');
-
-var con = mysql.createConnection({
-    host: "bloopy.dyndns-home.com",
-    //host: "diskstation",
-    port: 3307,
-    user: "guest",
-    password: "password",
-    database: "ooadp"
-  }); */
-  
-
 router.get('/', (req, res) => {
     const title = 'Smart Food';
     res.render('home', {title: title}) // renders views/home.handlebars

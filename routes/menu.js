@@ -12,16 +12,8 @@ console.log("Server Online!");
 router.post('/stallownerConfig', (req, res) => {
     let {name, price, cat, outlet_id} = req.body;
 
-    Item.create({
-        name,
-        //description,
-        price,
-        cat,
-        outlet_id
-    }).then((item) =>{    //this 'item' is from Item.js
-        res.redirect('/menu/menu');
-    })
-    .catch(err => console.log(err))
+    item_class.createItem(name, car, price, outlet_id);
+    res.redirect('/menu/menu');
 });
 
 
@@ -55,33 +47,14 @@ router.get('/menuAlpha', (req, res) =>{
 
 // for specificied cat. of food accessibility from home page
 
-router.get('/menu-chinese', (req, res) =>{
-    Item.findAll({
-        where:{
-            cat: 'chinese'
-        },
-        raw: true
-    }).then((items) =>{
-        res.render('menu/menu-chinese', {
-            items
-        });
-    }).catch(err => console.log(err));
-});
-
-router.get('/menu-malay', (req, res) =>{
-    Item.findAll({
-        where:{
-            cat: 'malay'
-        },
-        raw: true
-    }).then((items) =>{
-        res.render('menu/menu-malay', {
-            items
-        });
-    }).catch(err => console.log(err));
+router.get('/menu/:category', (req, res) =>{
+    var cat = req.params.category;
+    item_class.getItemsByCat(cat)
+    .then((items) =>{
+        res.render('menu/menu', {items});
+    })
 });
 
 
 
 module.exports = router;
-

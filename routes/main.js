@@ -1,6 +1,8 @@
 const express = require('express')
 const router = express.Router();
-const outlet = require('../class/outlet_class')
+const outlets = require('../class/outlet_class')
+const orders = require('../class/order_class');
+
 
 router.get('/', (req, res) => {
     const title = 'Smart Food';
@@ -11,11 +13,11 @@ router.get('/', (req, res) => {
 
 
 router.get('/loginuser', (req, res) => {
-	res.render('user/loginuser') // renders views/user/loginuser.handlebars
+	res.render('loginuser') // renders views/user/loginuser.handlebars
 });
 
 router.get('/loginseller', (req, res) => {
-	res.render('user/loginseller') // renders views/user/loginseller.handlebars
+	res.render('loginseller') // renders views/user/loginseller.handlebars
 });
 
 router.get('/index', (req, res) => {
@@ -27,19 +29,15 @@ router.get('/loginadmin', (req,res) => {
 });
 
 router.get('/register', (req, res) => {
-	res.render('user/register') // renders views/user/register.handlebars
+	res.render('register') // renders views/user/register.handlebars
 });
 
 router.get('/forgetpw', (req, res) => {
-	res.render('user/forgetpw') // renders views/user/forgetpw.handlebars
+	res.render('forgetpw') // renders views/user/forgetpw.handlebars
 });
 
 router.get('/profile', (req, res) => {
-	res.render('user/profile') // renders views/user/loginuser.handlebars
-});
-
-router.get('/favicon', (req, res) => {
-	res.render('malique/favicon') // renders views/user/forgetpw.handlebars
+	res.render('profile') // renders views/user/loginuser.handlebars
 });
 
 
@@ -142,6 +140,13 @@ router.get('/addSO', (req, res) => {
 
 router.post('/addSO', (req, res) =>{
 	
+});
+
+router.get('/orders', (req, res) => {
+	//let user = sessionStorage.getItem("user");
+	orders.getOrdersForOutlets(1).then(orders => {
+		res.render('orderList', {orders: orders})
+	})
 });
 
 module.exports = router;

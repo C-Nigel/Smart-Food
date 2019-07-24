@@ -10,6 +10,7 @@ const FlashMessenger = require('flash-messenger');
 const MySQLStore = require('express-mysql-session');
 const dbs = require('./config/db'); // db.js config file
 const passport = require('passport');
+//const telegram = require('./helpers/telegramLogic');
 
 
 //const User = require("./models/User")
@@ -45,19 +46,19 @@ app.use(cookieParser());
 // Express session middleware - uses MySQL to store session
 app.use(session({
 	key: 'nypfood_session',
-	secret: 'tojiv',
+	secret: 'secret',
 	store: new MySQLStore({
-	host: dbs.host,
-	port: dbs.port,
-	user: dbs.user,
-	password: dbs.password,
-	database: dbs.database,
-	// mysecret: "text123",
-	clearExpired: true,
-	// How frequently expired sessions will be cleared; milliseconds:
-	checkExpirationInterval: 900000,
-	// The maximum age of a valid session; milliseconds:
-	expiration: 900000,
+		host: dbs.host,
+		port: dbs.port,
+		user: dbs.user,
+		password: dbs.password,
+		database: dbs.database,
+		clearExpired: true,
+		// How frequently expired sessions will be cleared; milliseconds:
+		checkExpirationInterval: 900000,
+		// The maximum age of a valid session; milliseconds:
+		expiration: 900000,
+		cookie: { secure: true }
 	}),
 	resave: false,
 	saveUninitialized: false,
@@ -87,13 +88,6 @@ app.use('/menu', menuRoute);
 app.use('/user', userRoute);
 app.use('/review', ratingRoute);
 
-
-/*
-app.use('/stall', stallRoute);
-*/
-//app.use('/profile', profileRoute);
-
-// This code is to create DataBase
 // Bring in database connection
 const db = require('./config/DBConnection');
 // Connects to MySQL database
