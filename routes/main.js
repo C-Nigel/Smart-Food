@@ -68,10 +68,12 @@ router.get('menu/menu-chinese', (req, res) =>{
 });
 
 
-// displaying only muslim menu, including indian muslim 
+// displaying only malay food
+/*
 router.get('menu/menu-malay', (req, res) =>{
 	res.render('menu/menu-malay')
 });
+*/
 
 // displaying only indian menu, non-halal
 router.get('menu/menu-indian', (req, res) =>{

@@ -17,7 +17,36 @@ router.post('/stallownerConfig', (req, res) => {
 });
 
 
-// adding new food items from /stall/stallownerConfig
+
+// for specificied cat. of food accessibility from home page
+// testing in progress..
+
+/*
+router.get('/menu/:category', (req, res) =>{
+    var cat = req.params.category;
+    item_class.getItemsByCat(cat)
+    .then((items) =>{
+        res.render('menu/:category', {items});
+    })
+});
+*/
+
+/*
+router.get('/menu/:cat', (req, res) =>{
+    Item.findOne({
+        where:{
+            cat: req.params.cat
+        }
+    }).then((items) =>{
+        res.render('menu/Alpha', {
+            items
+        });
+    }).catch(err => console.log(err));
+});
+*/
+
+
+// showing new food items added from /stall/stallownerConfig
 
 router.get('/menu', (req, res) =>{
     // never add a request yet, though having req now
@@ -32,6 +61,7 @@ router.get('/menu', (req, res) =>{
     .catch(err => console.log(err));
 });
 
+// this shows all orders
 
 router.get('/menuAlpha', (req, res) =>{
     Item.findAll({
@@ -45,31 +75,6 @@ router.get('/menuAlpha', (req, res) =>{
 });
 
 
-// for specificied cat. of food accessibility from home page
-// testing in progress..
-
-router.get('/menu/:category', (req, res) =>{
-    var cat = req.params.category;
-    item_class.getItemsByCat(cat)
-    .then((items) =>{
-        res.render('menu/menu', {items});
-    })
-});
-*/
-
-
-/*
-router.get('/menu-:category', (req, res) =>{
-    Item.findAll({
-        where: {
-            cat: 
-        },
-        raw: true
-    }).then((items) =>{
-        res.render('menu/menu-{{cat}}', {items});
-    }).catch(err => console.log(err));
-});
-*/
 
 router.get('/menu-chinese', (req, res) =>{
     Item.findAll({
@@ -83,6 +88,22 @@ router.get('/menu-chinese', (req, res) =>{
         });
     }).catch(err => console.log(err));
 });
+
+
+
+router.get('/menu-malay', (req, res) =>{
+    Item.findAll({
+        where:{
+            cat: 'malay'
+        },
+        raw: true
+    }).then((items) =>{
+        res.render('menu/menu-malay', {
+            items
+        });
+    }).catch(err => console.log(err));
+});
+
 
 router.get('/menu-indian', (req, res) =>{
     Item.findAll({
