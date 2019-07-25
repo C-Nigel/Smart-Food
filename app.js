@@ -13,20 +13,11 @@ const passport = require('passport');
 //const telegram = require('./helpers/telegramLogic');
 
 
-//const User = require("./models/User")
-
 const mainRoute = require('./routes/main');
 const menuRoute = require('./routes/menu');
 const userRoute = require('./routes/user');
 const ratingRoute = require('./routes/ratings');
 
-
-// fixing my issue with save btn from stallownerConfig
-/*
-const stallRoute = require('./views/stall');
-*/
-
-//const profileRoute = require('./routes/profile');
 
 const app = express();
 
@@ -91,7 +82,7 @@ app.use('/review', ratingRoute);
 // Bring in database connection
 const db = require('./config/DBConnection');
 // Connects to MySQL database
-db.setUpDB(true); // To set up database with new tables set (true)
+db.setUpDB(false); // To set up database with new tables set (true)
 
 const port = 5000;
 
