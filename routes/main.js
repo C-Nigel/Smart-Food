@@ -9,8 +9,10 @@ const storage = require('node-sessionstorage');
 
 
 router.get('/', (req, res) => {
+	var User = storage.getItem("user");
     const title = 'Smart Food';
-    res.render('home', {title: title}) // renders views/home.handlebars
+	res.render('home', {title: title,
+		User}); // renders views/home.handlebars
 });
 
 // testing the feature for the menu of different canteen
