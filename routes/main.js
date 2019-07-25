@@ -58,10 +58,13 @@ router.get('/menuAlpha', (req, res) =>{
 	res.render('menu/menuAlpha')
 });
 
+// testing in progress
+
 // displaying only chinese menu 
 router.get('menu/menu-chinese', (req, res) =>{
 	res.render('menu/menu-chinese')
 });
+
 
 // displaying only muslim menu, including indian muslim 
 router.get('menu/menu-malay', (req, res) =>{
@@ -98,6 +101,14 @@ router.get('menu/menu-drinks', (req, res) =>{
 router.get('menu/menu-vegetarian', (req, res) =>{
 	res.render('menu/menu-vegetarian')
 });
+
+
+// testing 1 handlebar menu 
+/*
+router.get('menu/menu-{{cat}}', (req, res) =>{
+	res.render('menu/menu-{{cat}}')
+});
+*/
 
 /*
 router.get('/showAddedItems', (req, res) =>{

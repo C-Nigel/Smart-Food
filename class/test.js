@@ -14,3 +14,7 @@ for (var i=0 ; i<5; i++){
 }
 
 //outlet.createOutlet('Chicken@North', 'Added Chicken rice to my menu');
+/*
+outlet.createOutlet('Spicy Fried Rice @ South', 'Added Spicy Fried Rice menu to the stall');
+item.createItem('Spicy Fried Rice','malay', 4.50, 5)
+*/
