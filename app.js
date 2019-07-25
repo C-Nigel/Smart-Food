@@ -13,20 +13,11 @@ const passport = require('passport');
 //const telegram = require('./helpers/telegramLogic');
 
 
-//const User = require("./models/User")
-
 const mainRoute = require('./routes/main');
 const menuRoute = require('./routes/menu');
 const userRoute = require('./routes/user');
 const ratingRoute = require('./routes/ratings');
 
-
-// fixing my issue with save btn from stallownerConfig
-/*
-const stallRoute = require('./views/stall');
-*/
-
-//const profileRoute = require('./routes/profile');
 
 const app = express();
 
