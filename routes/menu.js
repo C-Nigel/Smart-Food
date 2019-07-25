@@ -48,12 +48,11 @@ router.get('/menuAlpha', (req, res) =>{
 // for specificied cat. of food accessibility from home page
 // testing in progress..
 
-/*
-router.get('/menu-:category', (req, res) =>{
+router.get('/menu/:category', (req, res) =>{
     var cat = req.params.category;
     item_class.getItemsByCat(cat)
     .then((items) =>{
-        res.render('menu/menu-chinese', {items});
+        res.render('menu/menu', {items});
     })
 });
 */

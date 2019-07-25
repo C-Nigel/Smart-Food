@@ -45,6 +45,15 @@ ex.setAdmin = function(user_id, admin){
     )
 };
 
+ex.updateAll = function(admin, name, phone, pass, pic){
+    UserModel.update(
+        {full_name: name,
+        phone_no: phone,
+        picture: pic},
+        {where : { admin_no: admin, password: pass }}
+    )
+};
+
 ex.setTelegram = function(user_id, tlg_id){
     UserModel.update(
         {telegram_id: tlg_id},
@@ -64,7 +73,7 @@ ex.getRepeatedTGUsers = function(tlg_id){
 
 ex.unlinkTelegram = function(user_id){
     UserModel.update(
-        {telegram_id: null},
+        {telegram_id: ""},
         {where: { admin_no: user_id }}
     )
 }

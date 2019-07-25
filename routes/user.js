@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const User = require('../models/User');
 var bcrypt = require('bcryptjs');
+const passport = require('passport');
 const alertMessage = require('../helpers/messenger');
 const jwt = require('jsonwebtoken');
 const Sequelize = require('sequelize');
@@ -13,30 +14,235 @@ router.get('/', (req, res) => {
     res.render('home', {title: title}) // renders views/home.handlebars
 });
 
+// router.get('/:admin_no', (req, res) =>{
+//     variable.getUserByAdmin(admin_no).then(user =>{
+//         console.log(user);
+//         res.render('user/profile',{
+//             user
+//             //picture
+//         });
+//     });
+// });
+router.get('/profile', (req, res) => {
+    variable.getUserByAdmin(admin_no).then(user =>{
+        console.log(user);
+        res.render('user/profile',{
+            admin_no,
+            full_name,
+            phone_no,
+            telegram_id,
+            picture
+        }
+        );
+    })
+});
+
 router.post('/profile', (req, res) => {
-    let { full_name, admin_no, password, confirmpassword, phone_no, telegram_id } = req.body;
-    variable.setAdmin(user.id, admin_no)
-    /*con.connect(function(err) {
-        if (err) throw err;
-        var sql = "UPDATE user SET full_name = fullname WHERE address = 'Valley 345'";
-        con.query(sql, function (err, result) {
-          if (err) throw err;
-          console.log(result.affectedRows + " record(s) updated");
+    let errors = [];
+    let { full_name, admin_no, password, confirmpassword, phone_no, picture} = req.body;
+    if (password !== confirmpassword) {
+        errors.push({ text: 'Passwords do not match' });
+    }
+    if (errors.length > 0) {
+        res.render('user/profile', {
+            errors,
+            full_name,
+            admin_no,
+            phone_no,
+            picture
         });
-    }); */
+    }
+    else{
+        variable.getUserByAdmin(admin_no).then(user =>{
+            console.log(user);
+
+            if (user == null)
+            {
+                res.redirect('/register');
+            }
+
+            else
+            {
+                User.update({
+                    full_name: full_name,
+                    phone_no: phone_no,
+                    picture: picture
+                }, {
+                    where: {admin_no: admin_no}
+                }
+                ).then(user => {
+                    console.log(user);
+                    res.render('user/profile',{
+                        admin_no,
+                        full_name,
+                        phone_no,
+                        picture
+                    });
+                })
+            }
+        });        //variable.updateAll(admin_no, full_name, phone_no, password, picture)
+    }
+    
+
+});
+
+router.post('/register', (req, res) => {
+    let errors = [];
+    
+    // Retrieves fields from register page from request body
+    let { full_name, admin_no, phone_no, password, confirmpassword } = req.body;
+    var email = admin_no + "@mymail.nyp.edu.sg";
+
+    // Checks if both passwords entered are the same
+    if (password !== confirmpassword) {
+        errors.push({ text: 'Passwords do not match' });
+    }
+
+    // Checks that password length is more than 4
+    if (password.length < 4) {
+        errors.push({ text: 'Password must be at least 4 characters' });
+    }
+
+    if (isNaN(admin_no.slice(0,6))){
+        errors.push({ text: 'Admin Number is not valid!' });
+    }
+
+    if (phone_no.length != 8){
+        errors.push({ text: 'Invalid phone number!' });
+    }
+
+    if (errors.length > 0) {
+        res.render('user/register', {
+            errors,
+            full_name,
+            admin_no,
+            phone_no,
+            password,
+            confirmpassword
+        });
+    } else {
+        // If all is well, checks if user is already registered
+        User.findOne({ where: { admin_no: req.body.admin_no } })
+            .then(user => {
+                if (user) {
+                    // If user is found, that means email has already been
+                    // registered
+                    res.render('user/register', {
+                        error: user.admin_no + ' already registered',
+                        full_name,
+                        admin_no,
+                        phone_no,
+                        password,
+                        confirmpassword
+                    });
+                } else {
+                    // Practical 11 Activity 04
+                    // Generate JWT token
+                    let token;
+                    // Encrypt the password
+                    var salt = bcrypt.genSaltSync(10);
+                    var hashedPassword = bcrypt.hashSync(password, salt);
+                    password = hashedPassword;
+
+
+                    jwt.sign(email, hashedPassword, (err, jwtoken) => {
+                        if (err) {
+                            console.log('Error generating Token: ' + err);
+                        }
+                        token = jwtoken;
+                    });
+
+                    // Create new user record
+                    User.create({
+                        admin_no,
+                        full_name,
+                        phone_no,
+                        password,
+                        telegram_id: null,
+                        picture: null,
+                        // Practical 11 Activity 04
+                        admin_status: 0, // Add this statement – set verify to false
+                    }).then(user => {
+                        // Practical 11 Activity 04
+                        /*sendEmail(user.id, user.email, token) // Add this to call sendEmail function
+                            .then(msg => { // Send email success
+                                alertMessage(res, 'success', user.name + ' added. Please logon to ' +
+                                    user.email + ' to verify account.',
+                                    'fas fa-sign-in-alt', true);
+                                res.redirect('/showLogin');
+                            }).catch(err => { // Send email fail
+                                alertMessage(res, 'warning', 'Error sending to ' + user.email,
+                                    'fas fa-sign-in-alt', true);*/
+                        res.redirect('/loginuser');
+
+                    }).catch(err => {
+                        console.log(err)
+                    });
+                }
+            });
+    }
 });
 
 router.post('/loginuser', (req, res) => {
-    let { admin_no, password } = req.body;
-    User.findOne({
-        where: {
-            admin_no: admin_no,
-            password: password
-        }
-    }).then(user => {
-        res.redirect('/');
-    })
+    let errors = [];
+    let {admin_no, password} = req.body;
+    if (password.length < 4) {
+        errors.push({ text: 'Password must be at least 4 characters' });
+    }
 
+    if (isNaN(admin_no.slice(0,6))){
+        errors.push({ text: 'Admin Number is not valid!' });
+    }
+    else
+    {
+        variable.getUserByAdmin(admin_no).then(user =>{
+            passport.serializeUser((user, done) => {
+                done(null, user.admin_no); // user.id is used to identify authenticated user
+            });
+            passport.deserializeUser((admin_no, done) => {
+                User.findByPk(admin_no)
+                    .then((user) => {
+                        done(null, user); // user object saved in req.session
+                    })
+                    .catch((done) => { // No user found, not stored in req.session
+                        console.log(done);
+                    });
+            });
+            console.log(user);
+
+            if (user == null)
+            {
+                res.redirect('/register');
+            }
+
+            else
+            {
+                var admin_no = user.admin_no
+                var full_name = user.full_name;
+                var phone_no = user.phone_no;
+                var picture = user.picture;
+                var telegram_id = user.telegram_id;
+                req.session.user = user;
+                res.render('user/profile',{
+                    admin_no,
+                    full_name,
+                    phone_no,
+                    picture,
+                    telegram_id
+                });
+                // passport.authenticate('local', {
+                // successRedirect: '/profile', // Route to /video/listVideos URL
+                // failureRedirect: '/loginuser', // Route to /login URL
+                // failureFlash: true
+                //  /* Setting the failureFlash option to true instructs Passport to flash an error
+                //    message using the message given by the strategy's verify callback, if any.
+                // When a failure occur passport passes the message object as error */
+                // })(req, res, next);
+            }    
+
+            
+        })
+    } 
 });
 
 router.post('/forgetpw', (req, res) => {
@@ -60,87 +266,101 @@ router.post('/forgetpw', (req, res) => {
         res.redirect('/loginuser');
     })
 });
-router.post('/register', (req, res) => {
-    let errors = [];
-    let { full_name, admin_no, password, confirmpassword, phone_no, telegram_id } = req.body;
-    var randLetter = String.fromCharCode(65 + Math.floor(Math.random() * 26));
 
-    if (isNaN(admin_no.slice(6,7))){
-        if (isNaN(admin_no.slice(0,6))){
-            res.render('user/register', {
-                admin_no,
-                full_name,
-                password,
-                confirmpassword,
-                phone_no
-            });
-        }
-        else{
-            if (password == confirmpassword) {
-                if (password.length > 3){
-                    if (phone_no.length == 8){
-                        let token;
-                    // Encrypt the password
-                        User.create({
-                            admin_no,
-                            full_name,
-                            password,
-                            phone_no,
-                            telegram_id : 0,
-                            admin_status: 0
-                            // Practical 11 Activity 04
-                             // Add this statement – set verify to false
-                        })
-                        res.redirect('/loginuser');
-                        
-                        
-                    }
-                    else{
-                        res.render('user/register', {
-                            admin_no,
-                            full_name,
-                            password,
-                            confirmpassword,
-                            phone_no
-                        });
-                    }
-                }
-                else{
-                    alertMessage(res, 'danger', 'Password not the same', 'fas fa-exclamation - circle', true);
-                    res.render('user/register', {
-                        admin_no,
-                        full_name,
-                        password,
-                        confirmpassword,
-                        phone_no
-                    });
-                }
-            }
-            else{
-                errors.push({ text: 'Password must be at least 4 characters' });
-                res.render('user/register', {
-                    error,
-                    admin_no,
-                    full_name,
-                    password,
-                    confirmpassword,
-                    phone_no
-                });
-            }
-        }
+    /*let errors = [];
+    // Retrieves fields from register page from request body
+    let { full_name, admin_no, password, confirmpassword, phone_no } = req.body;
+    var randLetter = String.fromCharCode(65 + Math.floor(Math.random() * 26));
+    var user_id = randLetter + Date.now(); 
+    var email = admin_no + "@mymail.nyp.edu.sg"
+    // Checks if both passwords entered are the same
+    if (password !== confirmpassword) {
+        errors.push({ text: 'Passwords do not match' });
     }
-    else{
+
+    // Checks that password length is more than 4
+    if (password.length < 4) {
+        errors.push({ text: 'Password must be at least 4 characters' });
+    }
+    if (isNaN(phone_no)) {
+        errors.push({ text: 'Phone number must be in digits' });
+    }
+    if (phone_no.length < 9) {
+        errors.push({ text: 'Phone number must be 8 digits' });
+    }
+    if (errors.length > 0) {
         res.render('user/register', {
+            errors,
+            user_id,
             admin_no,
             full_name,
             password,
             confirmpassword,
             phone_no
         });
-    }
-    
+    } else {
+        // If all is well, checks if user is already registered
+        User.findOne({ where: { admin_no: req.body.admin_no } })
+            .then(user => {
+                if (user) {
+                    // If user is found, that means email has already been
+                    // registered
+                    res.render('user/register', {
+                        error: user.admin_no + ' already registered',
+                        user_id,
+                        admin_no,
+                        full_name,
+                        password,
+                        confirmpassword,
+                        phone_no
+                    });
+                } else {
+                    // Practical 11 Activity 04
+                    // Generate JWT token
+                    let token;
+                    // Encrypt the password
+                    var salt = bcrypt.genSaltSync(10);
+                    var hashedPassword = bcrypt.hashSync(password, salt);
+                    password = hashedPassword;
 
-});
+
+                    jwt.sign(email, hashedPassword, (err, jwtoken) => {
+                        if (err) {
+                            console.log('Error generating Token: ' + err);
+                        }
+                        token = jwtoken;
+                    });
+
+                    // Create new user record
+                    User.create({
+                        user_id,
+                        admin_no,
+                        full_name,
+                        password,
+                        phone_no,
+                        telegram_id,
+                        // Practical 11 Activity 04
+                         // Add this statement – set verify to false
+                    }).then(user => {
+                        // Practical 11 Activity 04
+                        sendEmail(user.id, email, token) // Add this to call sendEmail function
+                            .then(msg => { // Send email success
+                                alertMessage(res, 'success', user.full_name + ' added. Please logon to ' +
+                                    email + ' to verify account.',
+                                    'fas fa-sign-in-alt', true);
+                                res.redirect('/loginuser');
+                            }).catch(err => { // Send email fail
+                                alertMessage(res, 'warning', 'Error sending to ' + user.email,
+                                    'fas fa-sign-in-alt', true);
+                                res.redirect('/loginuser');
+                            });
+                    }).catch(err => {
+                        console.log(err)
+                    });
+                }
+            });
+    } */
+
 
 
 module.exports = router;

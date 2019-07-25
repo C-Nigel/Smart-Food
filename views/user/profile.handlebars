@@ -1,3 +1,4 @@
+{{>_navbar}}
 <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
 <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
 <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
@@ -21,7 +22,8 @@
         background-image: url(https://backgrounddownload.com/wp-content/uploads/2018/09/background-for-food-website-3.jpg) ;
     }
     #hii {
-            width: 500px;
+            width: 700px;
+            height: 600px;
             background:white;
             border-radius: 10px;
             overflow: hidden;
@@ -43,11 +45,11 @@
     <div class="row">
   		<div class="col-sm-3"><!--left col-->
               
-
+    <form class="form" action="../user/profile/{{user.admin_no}}" method="post" id="registrationForm">
       <div class="text-center">
-        <img src="http://ssl.gstatic.com/accounts/ui/avatar_2x.png" class="avatar img-circle img-thumbnail" alt="avatar">
+        <img src="{{picture}}" class="avatar img-circle img-thumbnail" alt="avatar" name="picture">
         <h6>Upload a different photo...</h6>
-        <input type="file" class="text-center center-block file-upload" >
+        <input type="file" class="text-center center-block file-upload" name="picture">
         </div></hr><br>
 
                
@@ -76,25 +78,26 @@
     	<div class="col-sm-9">
             <ul class="nav nav-tabs">
                 <li class="active"><a data-toggle="tab" href="#home">Home</a></li>
+                <li class="active"><a data-toggle="tab" href="#messages">Change Password</a></li>
               </ul>
 
               
           <div class="tab-content">
             <div class="tab-pane active" id="home">
                 <hr>
-                  <form class="form" action="../user/profile" method="post" id="registrationForm">
+                  
                       <div class="form-group">
                           
                           <div class="col-xs-6">
                               <label for="full_name"><h4>Name</h4></label>
-                              <input type="text" class="form-control" name="full_name" id="full_name" placeholder="Name" title="Change your name">
+                              <input type="text" class="form-control" name="full_name" id="full_name" placeholder="Name" title="Change your name" value="{{full_name}}">
                           </div>
                       </div>
                       <div class="form-group">
                           
                           <div class="col-xs-6">
                             <label for="admin_no"><h4>Admin number</h4></label>
-                              <input type="text" class="form-control" name="admin_no" id="admin_no" placeholder="Admin Number" title="Change your admin number">
+                              <input type="text" class="form-control" name="admin_no" id="admin_no" placeholder="Admin Number" title="Admin number cannot be changed" value="{{admin_no}}" readonly>
                           </div>
                       </div>
           
@@ -102,14 +105,14 @@
                           
                           <div class="col-xs-6">
                               <label for="phone_no"><h4>Phone Number</h4></label>
-                              <input type="text" class="form-control" name="phone_no" id="phone_no" placeholder="Phone number" title="Change your phone number">
+                              <input type="text" class="form-control" name="phone_no" id="phone_no" placeholder="Phone number" title="Change your phone number" value="{{phone_no}}">
                           </div>
                       </div>
           
                       <div class="form-group">
                           <div class="col-xs-6">
                              <label for="telegram_id"><h4>Telegram id</h4></label>
-                              <input type="text" class="form-control" name="telegram_id" id="telegram_id" placeholder="Telegram id" title="Add Telegram ID">
+                              <input type="text" class="form-control" name="telegram_id" id="telegram_id" placeholder="Telegram id" title="Telegram id cannot be changed" value="{{telegram_id}}" readonly>
                           </div>
                       </div>
 
@@ -124,7 +127,7 @@
                           
                           <div class="col-xs-6">
                             <label for="password2"><h4>Verify</h4></label>
-                              <input type="password" class="form-control" name="confirmpassword" id="password2" placeholder="confirmpassword" title="enter your password2.">
+                              <input type="password" class="form-control" name="confirmpassword" id="password2" placeholder="confirm password" title="reenter your password.">
                           </div>
                       </div>
                       <div class="form-group">
