@@ -1,5 +1,6 @@
 const express = require('express')
 const router = express.Router();
+const sessionStorage = require('node-sessionstorage');
 const outlets = require('../class/outlet_class')
 const orders = require('../class/order_class');
 const User = require('../models/User');
@@ -163,9 +164,10 @@ router.post('/addSO', (req, res) =>{
 });
 
 router.get('/orders', (req, res) => {
-	//let user = sessionStorage.getItem("user");
+	let user = sessionStorage.getItem("user");
 	orders.getOrdersForOutlets(1).then(orders => {
-		res.render('orderList', {orders: orders})
+		console.log(orders);
+		res.render('orderList', {orders: orders});
 	})
 });
 

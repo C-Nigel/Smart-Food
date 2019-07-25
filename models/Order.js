@@ -6,6 +6,9 @@ const Order = db.define("order", {
         type: Sequelize.INTEGER,
         allowNull: false
     },
+    item_name: {
+        type: Sequelize.STRING
+    },
     user_admin: {
         type: Sequelize.STRING,
         allowNull: false
