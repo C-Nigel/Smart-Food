@@ -18,7 +18,7 @@ ex.getIncompleteOrdersForUser = function(userid){
 		where: { 
 			user_admin: userid,
 			status: { 
-				[Op.or]: [1, 2]
+				[Op.or]: [0, 1]
 			}
 		},
 		raw: true
@@ -30,7 +30,16 @@ ex.getIncompleteOrdersForUser = function(userid){
 
 ex.getOrdersForOutlets = function(outlet){
 	return OrderModel.findAll({
-		where: { outlet_id: outlet }
+		where: {
+			outlet_id: outlet,
+			status: { 
+				[Op.or]: [0, 1]
+			}
+		},
+		raw: true
+	})
+	.catch(err => {
+		console.log(err);
 	});
 }
 
@@ -38,7 +47,10 @@ ex.getOrdersByUserForOutlet = function(user, outlet){
 	return OrderModel.findAll({
 		where: {
 			user_admin: user,
-			outlet_id: outlet
+			outlet_id: outlet,
+			status: { 
+				[Op.or]: [0, 1]
+			}
 		},
 		raw: true
 	})

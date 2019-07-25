@@ -22,9 +22,9 @@ const Order = db.define("order", {
         max: 2,
         min: 0,
         /*
-        0 - order received
-        1 - being prepared
-        2 - ready
+        0 - being prepared
+        1 - ready
+        2 - collected
         */
        allowNull: false
     }
