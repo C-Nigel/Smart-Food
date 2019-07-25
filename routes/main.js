@@ -3,6 +3,9 @@ const router = express.Router();
 const sessionStorage = require('node-sessionstorage');
 const outlets = require('../class/outlet_class')
 const orders = require('../class/order_class');
+const User = require('../models/User');
+const variable = require('../class/user_class');
+const storage = require('node-sessionstorage');
 
 
 router.get('/', (req, res) => {
@@ -14,11 +17,11 @@ router.get('/', (req, res) => {
 
 
 router.get('/loginuser', (req, res) => {
-	res.render('loginuser') // renders views/user/loginuser.handlebars
+	res.render('user/loginuser') // renders views/user/loginuser.handlebars
 });
 
 router.get('/loginseller', (req, res) => {
-	res.render('loginseller') // renders views/user/loginseller.handlebars
+	res.render('user/loginseller') // renders views/user/loginseller.handlebars
 });
 
 router.get('/index', (req, res) => {
@@ -30,15 +33,32 @@ router.get('/loginadmin', (req,res) => {
 });
 
 router.get('/register', (req, res) => {
-	res.render('register') // renders views/user/register.handlebars
+	res.render('user/register') // renders views/user/register.handlebars
 });
 
 router.get('/forgetpw', (req, res) => {
-	res.render('forgetpw') // renders views/user/forgetpw.handlebars
+	res.render('user/forgetpw') // renders views/user/forgetpw.handlebars
 });
 
 router.get('/profile', (req, res) => {
-	res.render('profile') // renders views/user/loginuser.handlebars
+    var admin = storage.getItem("user");
+    console.log(admin);
+    variable.getUserByAdmin(admin).then(user =>{
+        console.log(user);
+        var admin_no = user.admin_no;
+        var full_name = user.full_name;
+        var phone_no = user.phone_no;
+        var telegram_id = user.telegram_id;
+        var picture = user.picture;
+        res.render('user/profile',{
+            admin_no,
+            full_name,
+            phone_no,
+            telegram_id,
+            picture
+        }
+        );
+    })
 });
 
 
