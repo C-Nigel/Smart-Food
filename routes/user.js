@@ -8,6 +8,7 @@ const jwt = require('jsonwebtoken');
 const Sequelize = require('sequelize');
 const sgMail = require('@sendgrid/mail');
 const variable = require('../class/user_class');
+const storage = require('node-sessionstorage');
 
 router.get('/', (req, res) => {
     const title = 'Smart Food';
@@ -15,31 +16,36 @@ router.get('/', (req, res) => {
 });
 
 // router.get('/:admin_no', (req, res) =>{
-//     variable.getUserByAdmin(admin_no).then(user =>{
+//     res.send('admin_no: ' + req.params.admin_no)
+//     //  variable.getUserByAdmin(admin_no).then(user =>{
+//     //      console.log(user);
+         
+//     //  });
+//  });
+// router.get('/profile', (req, res) => {
+//     var admin = storage.getItem("user");
+//     console.log(admin);
+//     variable.getUserByAdmin(admin).then(user =>{
 //         console.log(user);
-//         res.render('user/profile',{
-//             user
-//             //picture
-//         });
-//     });
+//         var admin_no = user.admin_no;
+//         var full_name = user.full_name;
+//         var phone_no = user.phone_no;
+//         var telegram_id = user.telegram_id;
+//         var picture = user.picture;
+//         res.render('/profile',{
+//             admin_no,
+//             full_name,
+//             phone_no,
+//             telegram_id,
+//             picture
+//         }
+//         );
+//     })
 // });
-router.get('/profile', (req, res) => {
-    variable.getUserByAdmin(admin_no).then(user =>{
-        console.log(user);
-        res.render('user/profile',{
-            admin_no,
-            full_name,
-            phone_no,
-            telegram_id,
-            picture
-        }
-        );
-    })
-});
 
 router.post('/profile', (req, res) => {
     let errors = [];
-    let { full_name, admin_no, password, confirmpassword, phone_no, picture} = req.body;
+    let {admin_no, full_name, password, confirmpassword, phone_no, picture} = req.body;
     if (password !== confirmpassword) {
         errors.push({ text: 'Passwords do not match' });
     }
@@ -196,18 +202,8 @@ router.post('/loginuser', (req, res) => {
     else
     {
         variable.getUserByAdmin(admin_no).then(user =>{
-            passport.serializeUser((user, done) => {
-                done(null, user.admin_no); // user.id is used to identify authenticated user
-            });
-            passport.deserializeUser((admin_no, done) => {
-                User.findByPk(admin_no)
-                    .then((user) => {
-                        done(null, user); // user object saved in req.session
-                    })
-                    .catch((done) => { // No user found, not stored in req.session
-                        console.log(done);
-                    });
-            });
+            storage.setItem("user", user.admin_no);
+            console.log(storage.getItem("user"));
             console.log(user);
 
             if (user == null)
@@ -223,13 +219,14 @@ router.post('/loginuser', (req, res) => {
                 var picture = user.picture;
                 var telegram_id = user.telegram_id;
                 req.session.user = user;
-                res.render('user/profile',{
-                    admin_no,
-                    full_name,
-                    phone_no,
-                    picture,
-                    telegram_id
-                });
+                // res.render('user/profile',{
+                //     admin_no,
+                //     full_name,
+                //     phone_no,
+                //     picture,
+                //     telegram_id
+                // });
+                res.redirect('/');
                 // passport.authenticate('local', {
                 // successRedirect: '/profile', // Route to /video/listVideos URL
                 // failureRedirect: '/loginuser', // Route to /login URL
@@ -247,19 +244,17 @@ router.post('/loginuser', (req, res) => {
 
 router.post('/forgetpw', (req, res) => {
     let { admin_no } = req.body;
-    User.findOne({
-        where: {
-            admin_no: admin_no,
-        }
-    }).then(user => {
+    variable.getUserByAdmin(admin_no).then(user =>{
+        console.log(user);
         var email = admin_no + '@mymail.nyp.edu.sg';
-        sgMail.setApiKey('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');
+        sgMail.setApiKey('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');
         const msg = {
             to: email,
             from: '180527e@mymail.nyp.edu.sg',
             subject: 'Forget Password',
             text: 'OOADP is such a struggle',
-            html: 'Nothing to see'
+            html: `TPlease refer to this link <a href="http://localhost:5000/user/profile"> to reset your password `
+            //html: 'Your password is ' + user.password
  
         };
         sgMail.send(msg);
