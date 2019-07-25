@@ -17,7 +17,7 @@ ex.createOutlet = function(name1, description){
         desc: description
     })
     .then(result => {
-        console.log(result.id);
+        //console.log(result.id);
     })
 }
 
