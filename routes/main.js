@@ -42,10 +42,14 @@ router.get('/forgetpw', (req, res) => {
 	res.render('user/forgetpw') // renders views/user/forgetpw.handlebars
 });
 
+router.get('/changepassword', (req, res) => {
+	res.render('user/profile') // renders views/user/forgetpw.handlebars
+});
+
 router.get('/profile', (req, res) => {
-    var admin = storage.getItem("user");
-    console.log(admin);
-    variable.getUserByAdmin(admin).then(user =>{
+	var User = storage.getItem("user");
+    console.log(User);
+    variable.getUserByAdmin(User).then(user =>{
         console.log(user);
         var admin_no = user.admin_no;
         var full_name = user.full_name;
@@ -53,6 +57,7 @@ router.get('/profile', (req, res) => {
         var telegram_id = user.telegram_id;
         var picture = user.picture;
         res.render('user/profile',{
+			User,
             admin_no,
             full_name,
             phone_no,
@@ -153,7 +158,7 @@ router.get('/stallownerConfig', (req, res) =>{
 
 
 router.get('/logout', (req, res) => {
-	req.logout();
+	storage.removeItem("user");
 	res.redirect('/');
 });
 

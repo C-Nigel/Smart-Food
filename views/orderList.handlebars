@@ -8,9 +8,9 @@
 	<div class="container">
 		<h3 class="text-left">Orders</h3>
 		<div class="row">
+			<br>
 			{{#if orders}}
 			{{#each orders}}
-			<br>
 			<div class="col-sm-12 col-md-6 col-lg-4" style="padding-top: 15px;">
 				<div class="card bg-light mb-3">
 					<div class="card-body">
@@ -29,6 +29,8 @@
 				</div>
 			</div>
 			{{/each}}
+			{{else}}
+				
 			{{/if}}
 		</div>
 	</div>
