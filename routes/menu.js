@@ -12,7 +12,7 @@ console.log("Server Online!");
 router.post('/stallownerConfig', (req, res) => {
     let {name, price, cat, outlet_id} = req.body;
 
-    item_class.createItem(name, car, price, outlet_id);
+    item_class.createItem(name, cat, price, outlet_id);
     res.redirect('/menu/menu');
 });
 
