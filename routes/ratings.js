@@ -32,7 +32,7 @@ router.post('/saveRating/:id', (req, res) => {
         rating_given
     }, {
             where: {
-                id: 1 //need to update back to req.params.id
+                id: req.params.id //need to update back to req.params.id
             }
         }).then(() => {
             res.redirect('/'); // redirect to call router.get(/listVideos...) to retrieve all updated

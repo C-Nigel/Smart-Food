@@ -25,11 +25,16 @@ ex.systemMsg = function(telegram, msgs){
 ex.userMsg = function(telegram, msgs){
     User.getUserByTelegram(telegram)
     .then(user => {
-        ChatModel.create({
-            sender: user.full_name,
-            recipient: 'system',
-            msg: msgs,
-            user_admin: useradmin
-        })
+        if (user != null){
+            ChatModel.create({
+                sender: user.full_name,
+                recipient: 'system',
+                msg: msgs,
+                user_admin: useradmin
+            })
+        }
+        else{
+            console.log("not working")
+        }
     })
 }
