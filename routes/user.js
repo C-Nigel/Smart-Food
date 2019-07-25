@@ -42,7 +42,41 @@ router.get('/', (req, res) => {
 //         );
 //     })
 // });
-
+router.post('/changepassword', (req, res) => {
+    let errors = [];
+    let {old_password, new_password, confirmpassword} = req.body;
+    var admin = storage.getItem("user");
+    var salt = bcrypt.genSaltSync(10);
+    var hashedPassword = bcrypt.hashSync(old_password, salt);
+    variable.getUserByAdmin(admin).then(user =>{
+        console.log(user);
+        if(user.password != hashedPassword){
+            errors.push({ text: 'Old password not correct!' });
+        }
+        if (new_password != confirmpassword) {
+            errors.push({ text: 'New passwords do not match!' });
+        }
+        if (errors.length > 0) {
+            res.render('user/profile', {
+                errors
+            });
+        }
+       else{
+            var hashednewPassword = bcrypt.hashSync(new_password, salt);
+            User.update({
+                password: hashednewPassword
+            }, {
+                where: {admin_no: admin}
+            }
+            ).then(user => {
+                console.log(user);
+                res.render('/',{
+                });
+        })
+       }
+    });
+    
+});
 router.post('/profile', (req, res) => {
     let errors = [];
     let {admin_no, full_name, password, confirmpassword, phone_no, picture} = req.body;
