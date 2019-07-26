@@ -43,29 +43,35 @@ router.get('/forgetpw', (req, res) => {
 });
 
 router.get('/changepassword', (req, res) => {
-	res.render('user/profile') // renders views/user/forgetpw.handlebars
+	res.render('user/changepassword') // renders views/user/forgetpw.handlebars
 });
 
 router.get('/profile', (req, res) => {
 	var User = storage.getItem("user");
-    console.log(User);
-    variable.getUserByAdmin(User).then(user =>{
-        console.log(user);
-        var admin_no = user.admin_no;
-        var full_name = user.full_name;
-        var phone_no = user.phone_no;
-        var telegram_id = user.telegram_id;
-        var picture = user.picture;
-        res.render('user/profile',{
-			User,
-            admin_no,
-            full_name,
-            phone_no,
-            telegram_id,
-            picture
-        }
-        );
-    })
+	console.log(User);
+	if(User){
+		variable.getUserByAdmin(User).then(user =>{
+			console.log(user);
+			var admin_no = user.admin_no;
+			var full_name = user.full_name;
+			var phone_no = user.phone_no;
+			var telegram_id = user.telegram_id;
+			var picture = user.picture;
+			res.render('user/profile',{
+				User,
+				admin_no,
+				full_name,
+				phone_no,
+				telegram_id,
+				picture
+			}
+			);
+		})
+	}
+	else{
+		res.render('user/profile');
+	}
+    
 });
 
 
