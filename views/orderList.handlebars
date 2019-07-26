@@ -7,34 +7,82 @@
 
 	<div class="container">
 		<h3 class="text-left">Orders</h3>
-		<div class="row">
+		<div class="row" id="listOrders">
 			<br>
 			{{#if orders}}
 			{{#each orders}}
-			<div class="col-sm-12 col-md-6 col-lg-4" style="padding-top: 15px;">
-				<div class="card bg-light mb-3">
-					<div class="card-body">
-						<h5 class="card-title">Order: {{item_name}}</h5>
-						<h6 class="card-subtitle mb-2">Ordered by: {{user_admin}}</h6>
-					</div>
-					<div class="card-body">
-						<p>Item ID: {{item_id}}</p>
-						<p>Time: {{createdAt}}</p>
-					</div>
-					<div class="card-body">
-						<button type="button" class="btn btn-primary">Preparing</button>
-						<button type="button" class="btn btn-outline-dark">Ready</button>
-						<button type="button" class="btn btn-outline-dark">Collected</button>
+				<div class="col-sm-12 col-md-6 col-lg-4" style="padding-top: 15px;">
+					<div id={{id}} class="card bg-light mb-3">
+						<div class="card-body">
+							<h5 class="card-title">Order: {{item_name}}</h5>
+							<h6 class="card-subtitle mb-2">Ordered by: {{user_admin}}</h6>
+						</div>
+						<div class="card-body">
+							<p>Item ID: {{item_id}}</p>
+							<p>Time: {{createdAt}}</p>
+						</div>
+						<div class="card-body">
+							{{#ifeq status 0}}
+							<button type="button" id="{{id}}/0" onclick="changeStatus(id)"
+								class="btn btn-primary">Preparing</button>
+							{{else}}
+							<button type="button" id="{{id}}/0" onclick="changeStatus(id)"
+								class="btn btn-outline-dark">Preparing</button>
+							{{/ifeq}}
+							
+							{{#ifeq status 1}}
+							<button type="button" id="{{id}}/1" onclick="changeStatus(id)"
+								class="btn btn-primary">Ready</button>
+							{{else}}
+							<button type="button" id="{{id}}/1" onclick="changeStatus(id)"
+								class="btn btn-outline-dark">Ready</button>
+							{{/ifeq}}
+							
+							{{#ifeq status 2}}
+							<button type="button" id="{{id}}/2" onclick="changeStatus(id)"
+								class="btn btn-primary">Collected</button>
+							{{else}}
+							<button type="button" id="{{id}}/2" onclick="changeStatus(id)"
+								class="btn btn-outline-dark">Collected</button>
+							{{/ifeq}}
+						</div>
 					</div>
 				</div>
-			</div>
+			</form>
 			{{/each}}
 			{{else}}
-				
+			<div class="col">
+				<h4 class="text-center">
+					Hmm,no orders yet...
+					<br>
+					Try refreshing in a bit.
+				</h4>
+			</div>
 			{{/if}}
 		</div>
 	</div>
 	{{>_footer}}
 </body>
+
+<script>
+	function changeStatus(element_id) {
+		var childs = document.getElementById(element_id).parentNode.childNodes;
+		for (var i = 0; i < childs.length; i++) {
+			childs[i].className = "btn btn-outline-dark";
+		}
+		document.getElementById(element_id).className = "btn btn-primary";
+
+		var dat = element_id.split("/");
+		$('.statusBtn').on('click', () => {
+			$.ajax({
+				url: '/orders/' + dat[0] + '/' + dat[1] + '/',
+				type: 'PUT',
+				'success': (data) => {
+					$('#listOrders').attr('value', "data.orders");
+				}
+			})
+		})
+	}
+</script>
 
 </html>

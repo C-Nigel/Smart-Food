@@ -13,23 +13,35 @@ ex.getUserChatByUserId = function(useradmin){
 ex.systemMsg = function(telegram, msgs){
     User.getUserByTelegram(telegram)
     .then(user => {
-        ChatModel.create({
-            sender: 'system',
-            recipient: user.full_name,
-            msg: msgs,
-            user_admin: useradmin
-        })
+        if(user != null){
+            ChatModel.create({
+                sender: 'system',
+                recipient: user.full_name,
+                msg: msgs,
+                user_admin: user.admin_no
+            })
+        }
+        else{
+            console.log("System failed to register message (" + msgs + ") into database to an unregistered user!")
+        }
     })
 }
 
 ex.userMsg = function(telegram, msgs){
     User.getUserByTelegram(telegram)
     .then(user => {
-        ChatModel.create({
-            sender: user.full_name,
-            recipient: 'system',
-            msg: msgs,
-            user_admin: useradmin
-        })
+        if (user != null){
+            ChatModel.create({
+                sender: user.full_name,
+                recipient: 'system',
+                msg: msgs,
+                user_admin: user.admin_no
+            })
+        }
+        else{
+            console.log(" User " + user.full_name + " (" + user.admin_no + ") not found in DB and failed to register message (" + msgs + " into database!")
+        }
+    }).catch(err =>{
+        console.log("User did not provide admin number!")
     })
 }
