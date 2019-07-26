@@ -1,7 +1,6 @@
 const express = require('express')
 const router = express.Router();
 const sessionStorage = require('node-sessionstorage');
-const outlets = require('../class/outlet_class')
 const orders = require('../class/order_class');
 const User = require('../models/User');
 const variable = require('../class/user_class');
