@@ -47,21 +47,23 @@ router.post('/changepassword', (req, res) => {
     let {old_password, new_password, confirmpassword} = req.body;
     var admin = storage.getItem("user");
     var salt = bcrypt.genSaltSync(10);
-    var hashedPassword = bcrypt.hashSync(old_password, salt);
+    console.log(admin);
     variable.getUserByAdmin(admin).then(user =>{
+        var isSame = bcrypt.compareSync(old_password, user.password);
+        console.log(isSame);
         console.log(user);
-        if(user.password != hashedPassword){
+        if(isSame == false){
             errors.push({ text: 'Old password not correct!' });
         }
         if (new_password != confirmpassword) {
             errors.push({ text: 'New passwords do not match!' });
         }
         if (errors.length > 0) {
-            res.render('user/profile', {
+            res.render('user/changepassword', {
                 errors
             });
         }
-       else{
+       if(isSame == true){
             var hashednewPassword = bcrypt.hashSync(new_password, salt);
             User.update({
                 password: hashednewPassword
@@ -70,7 +72,9 @@ router.post('/changepassword', (req, res) => {
             }
             ).then(user => {
                 console.log(user);
-                res.render('/',{
+                var User = user;
+                res.redirect('/', {
+                    User
                 });
         })
        }
@@ -83,6 +87,9 @@ router.post('/profile', (req, res) => {
     if (password !== confirmpassword) {
         errors.push({ text: 'Passwords do not match' });
     }
+    if (phone_no.length != 8) {
+        errors.push({ text: 'Phone number invalid' });
+    }
     if (errors.length > 0) {
         res.render('user/profile', {
             errors,
@@ -94,32 +101,45 @@ router.post('/profile', (req, res) => {
     }
     else{
         variable.getUserByAdmin(admin_no).then(user =>{
-            console.log(user);
-
-            if (user == null)
-            {
-                res.redirect('/register');
+            var isSame = bcrypt.compareSync(password, user.password);;
+            if(!isSame){
+                res.render('user/profile', {
+                    full_name,
+                    admin_no,
+                    phone_no,
+                    picture,
+                    telegram_id
+                });
             }
+            else{
+                console.log(user);
 
-            else
-            {
-                User.update({
-                    full_name: full_name,
-                    phone_no: phone_no,
-                    picture: picture
-                }, {
-                    where: {admin_no: admin_no}
+                if (user == null)
+                {
+                    res.redirect('/register');
                 }
-                ).then(user => {
-                    console.log(user);
-                    res.render('user/profile',{
-                        admin_no,
-                        full_name,
-                        phone_no,
-                        picture
-                    });
-                })
+    
+                else
+                {
+                    User.update({
+                        full_name: full_name,
+                        phone_no: phone_no,
+                        picture: picture
+                    }, {
+                        where: {admin_no: admin_no}
+                    }
+                    ).then(user => {
+                        console.log(user);
+                        res.render('user/profile',{
+                            admin_no,
+                            full_name,
+                            phone_no,
+                            picture
+                        });
+                    })
+                }
             }
+           
         });        //variable.updateAll(admin_no, full_name, phone_no, password, picture)
     }
     
@@ -226,6 +246,7 @@ router.post('/register', (req, res) => {
 router.post('/loginuser', (req, res) => {
     let errors = [];
     let {admin_no, password} = req.body;
+    var pass = password;
     if (password.length < 4) {
         errors.push({ text: 'Password must be at least 4 characters' });
     }
@@ -233,43 +254,63 @@ router.post('/loginuser', (req, res) => {
     if (isNaN(admin_no.slice(0,6))){
         errors.push({ text: 'Admin Number is not valid!' });
     }
+    if (errors.length > 0) {
+        res.render('user/loginuser', {
+            errors,
+            admin_no,
+            password
+        });
+    }
     else
     {
         variable.getUserByAdmin(admin_no).then(user =>{
-            storage.setItem("user", user.admin_no);
-            console.log(storage.getItem("user"));
-            console.log(user);
-
-            if (user == null)
-            {
-                res.redirect('/register');
+            var isSame = bcrypt.compareSync(pass, user.password);;
+            console.log(user.password);
+            if(!isSame){
+                res.render('user/loginuser', {
+                    full_name,
+                    admin_no,
+                    phone_no,
+                    picture
+                });
             }
-
-            else
-            {
-                var admin_no = user.admin_no
-                var full_name = user.full_name;
-                var phone_no = user.phone_no;
-                var picture = user.picture;
-                var telegram_id = user.telegram_id;
-                req.session.user = user;
-                // res.render('user/profile',{
-                //     admin_no,
-                //     full_name,
-                //     phone_no,
-                //     picture,
-                //     telegram_id
-                // });
-                res.redirect('/');
-                // passport.authenticate('local', {
-                // successRedirect: '/profile', // Route to /video/listVideos URL
-                // failureRedirect: '/loginuser', // Route to /login URL
-                // failureFlash: true
-                //  /* Setting the failureFlash option to true instructs Passport to flash an error
-                //    message using the message given by the strategy's verify callback, if any.
-                // When a failure occur passport passes the message object as error */
-                // })(req, res, next);
-            }    
+            else{
+                storage.setItem("user", user.admin_no);
+                console.log(storage.getItem("user"));
+                console.log(user);
+    
+                if (user == null)
+                {
+                    res.redirect('/register');
+                }
+    
+                else
+                {
+                    var admin_no = user.admin_no
+                    var full_name = user.full_name;
+                    var phone_no = user.phone_no;
+                    var picture = user.picture;
+                    var telegram_id = user.telegram_id;
+                    req.session.user = user;
+                    // res.render('user/profile',{
+                    //     admin_no,
+                    //     full_name,
+                    //     phone_no,
+                    //     picture,
+                    //     telegram_id
+                    // });
+                    res.redirect('/');
+                    // passport.authenticate('local', {
+                    // successRedirect: '/profile', // Route to /video/listVideos URL
+                    // failureRedirect: '/loginuser', // Route to /login URL
+                    // failureFlash: true
+                    //  /* Setting the failureFlash option to true instructs Passport to flash an error
+                    //    message using the message given by the strategy's verify callback, if any.
+                    // When a failure occur passport passes the message object as error */
+                    // })(req, res, next);
+                }    
+            }
+           
 
             
         })

@@ -84,7 +84,7 @@ const db = require('./config/DBConnection');
 // Connects to MySQL database
 db.setUpDB(false); // To set up database with new tables set (true)
 
-const port = 5000;
+const port = 4000;
 
 app.listen(port, () => {
 	console.log(`Server started on port ${port}`);
