@@ -73,7 +73,10 @@ ex.getRepeatedTGUsers = function(tlg_id){
 
 ex.unlinkTelegram = function(user_id){
     UserModel.update(
-        {telegram_id: ""},
-        {where: { admin_no: user_id }}
-    )
-}
+        {telegram_id: null},
+        {where: {admin_no: user_id},
+        raw: true    
+    }).catch(err => {
+        console.log(err)
+    })
+};
