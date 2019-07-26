@@ -17,6 +17,7 @@ const mainRoute = require('./routes/main');
 const menuRoute = require('./routes/menu');
 const userRoute = require('./routes/user');
 const ratingRoute = require('./routes/ratings');
+const outletRoute = require('./routes/outlet');
 
 
 const app = express();
@@ -78,6 +79,7 @@ app.use('/', mainRoute);
 app.use('/menu', menuRoute);
 app.use('/user', userRoute);
 app.use('/review', ratingRoute);
+app.use('/outlet', outletRoute);
 
 // Bring in database connection
 const db = require('./config/DBConnection');

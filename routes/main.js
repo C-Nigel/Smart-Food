@@ -156,7 +156,11 @@ router.get('/admin', (req, res) => {
 	res.render('admin');
 });
 
-router.get('/addSO', (req, res) => {
+router.get('outlet/outlet', (req, res) => {
+	res.render('outlet/outlet')
+});
+
+router.get('/addStallOwners', (req, res) =>{
 	res.render('addStallOwners')
 });
 
