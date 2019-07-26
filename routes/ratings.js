@@ -23,7 +23,7 @@ router.get('/:user_admin', (req, res) => {
 });
 
 router.post('/saveRating/:id', (req, res) => {
-    let rating_given = req.body.stars;
+    let rating_given = req.body.stars2;
 
 	/* console.log(`\n++++++++ Video from session: ${req.session.video.title}`);
 	 console.log(`\n++++++++ All videos from session: ${req.session.allVideos}`); */

@@ -16,7 +16,7 @@ const setUpDB = (drop) => {
             order.belongsTo(user, {foreignKey: 'user_admin'});
             order.belongsTo(item, {foreignKey: 'item_id'});
             item.belongsTo(outlet, {foreignKey: 'outlet_id'});
-            chat.belongsTo(user, {foreignKey: 'telegrad_id'});
+            chat.belongsTo(user, {foreignKey: 'user_admin'});
             rating.belongsTo(user, {foreignKey: 'user_admin'});
             rating.belongsTo(item, {foreignKey: 'item_id'});
             
