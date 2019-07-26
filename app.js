@@ -10,7 +10,7 @@ const FlashMessenger = require('flash-messenger');
 const MySQLStore = require('express-mysql-session');
 const dbs = require('./config/db'); // db.js config file
 const passport = require('passport');
-//const telegram = require('./helpers/telegramLogic');
+const telegram = require('./helpers/telegramLogic');
 
 
 const mainRoute = require('./routes/main');
@@ -84,7 +84,7 @@ const db = require('./config/DBConnection');
 // Connects to MySQL database
 db.setUpDB(false); // To set up database with new tables set (true)
 
-const port = 4000;
+const port = 5000;
 
 app.listen(port, () => {
 	console.log(`Server started on port ${port}`);

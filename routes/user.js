@@ -83,7 +83,7 @@ router.post('/changepassword', (req, res) => {
 });
 router.post('/profile', (req, res) => {
     let errors = [];
-    let {admin_no, full_name, password, confirmpassword, phone_no, picture} = req.body;
+    let {admin_no, full_name, password,telegram_id, confirmpassword, phone_no, picture} = req.body;
     if (password !== confirmpassword) {
         errors.push({ text: 'Passwords do not match' });
     }
@@ -96,7 +96,8 @@ router.post('/profile', (req, res) => {
             full_name,
             admin_no,
             phone_no,
-            picture
+            picture,
+            telegram_id
         });
     }
     else{
@@ -134,7 +135,8 @@ router.post('/profile', (req, res) => {
                             admin_no,
                             full_name,
                             phone_no,
-                            picture
+                            picture,
+                            telegram_id
                         });
                     })
                 }

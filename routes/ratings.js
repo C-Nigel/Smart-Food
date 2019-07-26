@@ -3,6 +3,7 @@ const router = express.Router();
 const rating = require('../models/Rating');
 const item_class = require('../class/item_class');
 const ensureAuthenticated = require('../helpers/auth');
+const orders = require('../class/order_class');
 
 router.get('/:user_admin', (req, res) => {
 
@@ -13,7 +14,8 @@ router.get('/:user_admin', (req, res) => {
         raw: true
     })
     .then((ratings) => {
-        // pass object to listVideos.handlebar
+        // orders.getOrderByUser()
+        // pass object to ratings.handlebar
         res.render('../views/ratings', {
             ratings: ratings
         });
