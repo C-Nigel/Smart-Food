@@ -39,7 +39,7 @@ ex.createItem = function(iname, icat, iprice, outletid){
         outlet_id: outletid
     })
     .then(result => {
-        console.log(result.id);
+        //console.log(result.id);
     })
     .catch(err => {
         console.log(err);

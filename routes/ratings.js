@@ -23,16 +23,16 @@ router.get('/:user_admin', (req, res) => {
 });
 
 router.post('/saveRating/:id', (req, res) => {
-    let rating_given = req.body.rate;
+    let rating_given = req.body.stars;
 
 	/* console.log(`\n++++++++ Video from session: ${req.session.video.title}`);
 	 console.log(`\n++++++++ All videos from session: ${req.session.allVideos}`); */
     console.log(rating_given);
-    Rating.update({
+    rating.update({
         rating_given
     }, {
             where: {
-                id: req.params.id //need to update back to req.params.id
+                id: 1 //need to update back to req.params.id
             }
         }).then(() => {
             res.redirect('/'); // redirect to call router.get(/listVideos...) to retrieve all updated

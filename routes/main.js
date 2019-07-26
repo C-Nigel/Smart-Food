@@ -1,22 +1,29 @@
 const express = require('express')
 const router = express.Router();
+const sessionStorage = require('node-sessionstorage');
 const outlets = require('../class/outlet_class')
-const Outlet = require('../models/Outlet')
+const orders = require('../class/order_class');
+const User = require('../models/User');
+const variable = require('../class/user_class');
+const storage = require('node-sessionstorage');
+
 
 router.get('/', (req, res) => {
+	var User = storage.getItem("user");
     const title = 'Smart Food';
-    res.render('home', {title: title}) // renders views/home.handlebars
+	res.render('home', {title: title,
+		User}); // renders views/home.handlebars
 });
 
 // testing the feature for the menu of different canteen
 
 
 router.get('/loginuser', (req, res) => {
-	res.render('loginuser') // renders views/user/loginuser.handlebars
+	res.render('user/loginuser') // renders views/user/loginuser.handlebars
 });
 
 router.get('/loginseller', (req, res) => {
-	res.render('loginseller') // renders views/user/loginseller.handlebars
+	res.render('user/loginseller') // renders views/user/loginseller.handlebars
 });
 
 router.get('/index', (req, res) => {
@@ -28,15 +35,37 @@ router.get('/loginadmin', (req,res) => {
 });
 
 router.get('/register', (req, res) => {
-	res.render('register') // renders views/user/register.handlebars
+	res.render('user/register') // renders views/user/register.handlebars
 });
 
 router.get('/forgetpw', (req, res) => {
-	res.render('forgetpw') // renders views/user/forgetpw.handlebars
+	res.render('user/forgetpw') // renders views/user/forgetpw.handlebars
+});
+
+router.get('/changepassword', (req, res) => {
+	res.render('user/profile') // renders views/user/forgetpw.handlebars
 });
 
 router.get('/profile', (req, res) => {
-	res.render('profile') // renders views/user/loginuser.handlebars
+	var User = storage.getItem("user");
+    console.log(User);
+    variable.getUserByAdmin(User).then(user =>{
+        console.log(user);
+        var admin_no = user.admin_no;
+        var full_name = user.full_name;
+        var phone_no = user.phone_no;
+        var telegram_id = user.telegram_id;
+        var picture = user.picture;
+        res.render('user/profile',{
+			User,
+            admin_no,
+            full_name,
+            phone_no,
+            telegram_id,
+            picture
+        }
+        );
+    })
 });
 
 
@@ -116,7 +145,7 @@ router.get('/stallownerConfig', (req, res) =>{
 
 
 router.get('/logout', (req, res) => {
-	req.logout();
+	storage.removeItem("user");
 	res.redirect('/');
 });
 
@@ -129,7 +158,15 @@ router.get('/admin', (req, res) => {
 });
 
 router.get('/addSO', (req, res) => {
-	res.render('addStallOwners');
+	res.render('addStallOwners')
+});
+
+router.get('/orders', (req, res) => {
+	let user = sessionStorage.getItem("user");
+	orders.getOrdersForOutlets(1).then(orders => {
+		console.log(orders);
+		res.render('orderList', {orders: orders});
+	})
 });
 
 module.exports = router;

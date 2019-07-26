@@ -1,17 +1,17 @@
 // ============================== For navbar fade in ===========================//
-$(window).scroll(function () {
-    // 100 = The point you would like to fade the nav in.
+// $(window).scroll(function () {
+//     // 100 = The point you would like to fade the nav in.
 
-    if ($(window).scrollTop() > 100) {
+//     if ($(window).scrollTop() > 100) {
 
-        $('.fixed').addClass('is-sticky');
+//         $('.fixed').addClass('is-sticky');
 
-    } else {
+//     } else {
 
-        $('.fixed').removeClass('is-sticky');
+//         $('.fixed').removeClass('is-sticky');
 
-    };
-});
+//     };
+// });
 
 // ============================== For homepage slideshow ===========================//
 (function ($) {

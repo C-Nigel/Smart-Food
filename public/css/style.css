@@ -61,48 +61,6 @@ p {
 .dark-bg {
   background: #252a33; }
 
-/* ==============================================================
-   HEADER
-   ============================================================== */
-.nav-menu {
-  position: absolute;
-  z-index: 1;
-  top: 0;
-  right: 0;
-  left: 0;
-  margin: 0 auto; }
-
-.nav-menu-2 {
-  position: inherit; }
-
-.navbar {
-  padding: .5rem 0; }
-
-.navbar-brand {
-  font-size: 31px; }
-
-.navbar-light .navbar-brand {
-  color: #fff; }
-  .navbar-light .navbar-brand:hover {
-    color: #fff; }
-
-.navbar-light .navbar-nav .show > .nav-link {
-  color: #fff; }
-
-.navbar-light .navbar-nav .active > .nav-link {
-  color: #fff; }
-
-.navbar-light .navbar-nav .nav-link {
-  font-size: 16px;
-  font-weight: 300;
-  color: #fff; }
-  .navbar-light .navbar-nav .nav-link:hover, .navbar-light .navbar-nav .nav-link:focus {
-    color: #fff;
-    outline: none; }
-
-.navbar-light .navbar-toggler {
-  color: #fff;
-  border-color: #fff; }
 
 @media (max-width: 992px) {
   .navbar-nav {
@@ -159,7 +117,7 @@ p {
 
 
 .slider {
-  background: url(../../img/nigel/loading.jpg) no-repeat;
+  background: url(../../img/loading.jpg) no-repeat;
   background-size: cover;
   min-height: 800px; 
   transition: background-image 1s;}

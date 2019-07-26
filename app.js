@@ -9,23 +9,15 @@ const flash = require('connect-flash');
 const FlashMessenger = require('flash-messenger');
 const MySQLStore = require('express-mysql-session');
 const dbs = require('./config/db'); // db.js config file
+const passport = require('passport');
 //const telegram = require('./helpers/telegramLogic');
 
-
-//const User = require("./models/User")
 
 const mainRoute = require('./routes/main');
 const menuRoute = require('./routes/menu');
 const userRoute = require('./routes/user');
 const ratingRoute = require('./routes/ratings');
 
-
-// fixing my issue with save btn from stallownerConfig
-/*
-const stallRoute = require('./views/stall');
-*/
-
-//const profileRoute = require('./routes/profile');
 
 const app = express();
 
@@ -63,7 +55,13 @@ app.use(session({
 	saveUninitialized: false,
 }));
 
+// Initilize Passport middleware
+app.use(passport.initialize());
+app.use(passport.session());
+
+
 app.use(flash());
+
 app.use(FlashMessenger.middleware);
 app.use(function (req, res, next) {
 	res.locals.success_msg = req.flash('success_msg');
