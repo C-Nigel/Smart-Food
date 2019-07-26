@@ -199,12 +199,8 @@ router.get('/orders', (req, res) => {
 
 router.put('/orders/:id/:status', (req, res) => {
 	let id = req.params.id;
-	let status = req.params.id;
-
-	console.log(id);
-	console.log(status);
-	//orders.setOrderStatus(id, status);
-	
+	let status = req.params.status;
+	orders.setOrderStatus(id, status);
 })
 
 module.exports = router;
