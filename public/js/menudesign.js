@@ -1,3 +1,6 @@
+//testing adding price
+
+
 var itemCount = 0;
 var totalSum = 0;
 
@@ -5,13 +8,19 @@ $('.tocart').on('click', function () {
     var cart = $('.cart');
     var imgtodrag = $(this).parent('.item').find("img").eq(0);
 
-    // trying adding num icon to cart
+    //  adding num icon to cart
     itemCount ++;
     $('#itemCount').text(itemCount).css('display', 'block');
 
-    var price = parseInt($(this).siblings().find('.price').text());
+    //$(this).siblings().clone().appendTo('#cartItems').append('<button class="removeItem">Remove Item</button>');
+    $('.infoforcart').clone().appendTo('#cartItems').append('<button class="removeItem">Remove Item</button>');
 
-    totalSum += price;
+
+
+    var price = parseFloat($(this).siblings().find('.price').text());
+    
+
+    totalSum+= price;
     $('#cartTotal').text("Total: $" + totalSum);
 
     if (imgtodrag) {
@@ -54,6 +63,9 @@ $('.tocart').on('click', function () {
     var input = $('#modifyingChanges');
     input.val(parseFloat(input.val()) * 0);
 
+    if(input.val() == 0){
+        document.getElementsByClassName("tocart").readOnly = true;
+    }
 });
 
 $('#modifyingChanges_Add').on('click', function(){
@@ -83,13 +95,15 @@ $('.back').click(function(){
 });
 
 // Testing to remove item from court
+
+
 $('#shoppingCart').on('click', '.removeItem', function()
 {
     $(this).parent().remove();
     itemCount --;
     $('#itemCount').text(itemCount);
 
-    var price = parseInt($(this).siblings().find('.price').text());
+    var price = parseFloat($(this).siblings().find('.price').text());
     totalSum -= price;
     $('#cartTotal').text("Total: $" + totalSum);
 
@@ -97,3 +111,10 @@ $('#shoppingCart').on('click', '.removeItem', function()
         $('#itemCount').css('display', 'none');
     }
 });
+
+
+/*
+$('.openCart').click(function(){
+    $('#shoppingCart').toggle();
+});
+*/

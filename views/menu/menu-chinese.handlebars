@@ -7,10 +7,8 @@
         <link rel="stylesheet" href="/css/menu/menu.css">
         <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.2/themes/smoothness/jquery-ui.css">
     </head>
-    
-    {{>_navbar}}
     <body>
-
+        {{>_navbar}}
         
         <br>
         <div class="container">
@@ -28,10 +26,17 @@
                 {{#each items}}
                 <div class="items">
                     <div class="item">
+
+                        <div class="infoforcart">
                         <h2>Name: {{name}}</h2>
-                        <p>Price: <span class="price">$ {{price}}</span></p>
+                        <br>
+                        <p>Price: $<span class="price">{{price}}</span></p>
                         <p>Category: {{cat}}</p>
                         <p>Owned By Food Outlet: {{outlet_id}}</p>
+                        </div>
+
+                        <img src="/img/chickenricemod1.jpg"/>
+                        <br>
                         <p>Quantity: <input type="text" value=0 size="2" id="modifyingChanges"></p>
                         <div class="quantity-operator">
                             <button type="button" id="modifyingChanges_Add">+</button>
@@ -40,6 +45,7 @@
                         <br>
                         <br>
                         <button class="tocart" type="button">Add to Cart</button>
+
                     </div>
                 {{/each}}
 
@@ -47,15 +53,13 @@
                     <div id="shoppingCart">
                         <div id="cartContainer">
                             <h2>Selected Items</h2>
+                            <!--<i class="fa fa-times-circle-o fa-3x openCart" aria-hidden="true"></i>-->
                                 <div id="cartItems"></div>
                                 <span id="cartTotal"></span>
                                 <br>
                                 <button type="button" class="back">Back to selection</button>
                         </div>
-                    </div>
-                    
-
-                    
+                    </div>                
                 </div>
             </div>
         </div>
@@ -68,7 +72,7 @@
                     <br>
                     <h3>No Chinese Cuisine available at the moment !</h3>
                 {{/if}}
- 
+    
     </body>
     
 </html>
