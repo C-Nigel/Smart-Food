@@ -26,7 +26,7 @@ const setUpDB = (drop) => {
                 () => {
                     //console.log('Create tables if none exists')
                 }
-            ).catch(err => console.log(err))
+            ).catch(err => console.log(err));
         }
     ).catch(err => console.log('Error: ' + err));
 };
