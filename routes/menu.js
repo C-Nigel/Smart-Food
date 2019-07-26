@@ -10,9 +10,9 @@ console.log("Server Online!");
 
 // for stall owner to add in their new food items to menu
 router.post('/stallownerConfig', (req, res) => {
-    let {name, price, car, outlet_id} = req.body;
+    let {name, price, cat, outlet_id} = req.body;
 
-    item_class.createItem(name, car, price, outlet_id);
+    item_class.createItem(name, cat, price, outlet_id);
     res.redirect('/menu/menu');
 });
 
