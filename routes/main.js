@@ -94,15 +94,20 @@ router.get('/menuAlpha', (req, res) =>{
 	res.render('menu/menuAlpha')
 });
 
+// testing in progress
+
 // displaying only chinese menu 
 router.get('menu/menu-chinese', (req, res) =>{
 	res.render('menu/menu-chinese')
 });
 
-// displaying only muslim menu, including indian muslim 
+
+// displaying only malay food
+/*
 router.get('menu/menu-malay', (req, res) =>{
 	res.render('menu/menu-malay')
 });
+*/
 
 // displaying only indian menu, non-halal
 router.get('menu/menu-indian', (req, res) =>{
@@ -134,6 +139,14 @@ router.get('menu/menu-drinks', (req, res) =>{
 router.get('menu/menu-vegetarian', (req, res) =>{
 	res.render('menu/menu-vegetarian')
 });
+
+
+// testing 1 handlebar menu 
+/*
+router.get('menu/menu-{{cat}}', (req, res) =>{
+	res.render('menu/menu-{{cat}}')
+});
+*/
 
 /*
 router.get('/showAddedItems', (req, res) =>{
@@ -177,11 +190,21 @@ router.post('/addSO', (req, res) =>{
 });
 
 router.get('/orders', (req, res) => {
-	let user = sessionStorage.getItem("user");
+	let outletid = sessionStorage.getItem("user");
 	orders.getOrdersForOutlets(1).then(orders => {
 		console.log(orders);
 		res.render('orderList', {orders: orders});
 	})
 });
+
+router.put('/orders/:id/:status', (req, res) => {
+	let id = req.params.id;
+	let status = req.params.id;
+
+	console.log(id);
+	console.log(status);
+	//orders.setOrderStatus(id, status);
+	
+})
 
 module.exports = router;

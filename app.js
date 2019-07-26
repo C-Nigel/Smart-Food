@@ -18,11 +18,11 @@ const menuRoute = require('./routes/menu');
 const userRoute = require('./routes/user');
 const ratingRoute = require('./routes/ratings');
 
-
 const app = express();
 
 app.engine('handlebars', exphbs({
 	// Specify default template views/user/home.handlebar
+	helpers: require('./helpers/handlebars-helpers')
 })); 
 app.set('view engine', 'handlebars');
 app.use(bodyParser.urlencoded({

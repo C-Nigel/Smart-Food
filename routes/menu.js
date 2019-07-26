@@ -12,12 +12,41 @@ console.log("Server Online!");
 router.post('/stallownerConfig', (req, res) => {
     let {name, price, cat, outlet_id} = req.body;
 
-    item_class.createItem(name, car, price, outlet_id);
+    item_class.createItem(name, cat, price, outlet_id);
     res.redirect('/menu/menu');
 });
 
 
-// adding new food items from /stall/stallownerConfig
+
+// for specificied cat. of food accessibility from home page
+// testing in progress..
+
+/*
+router.get('/menu/:category', (req, res) =>{
+    var cat = req.params.category;
+    item_class.getItemsByCat(cat)
+    .then((items) =>{
+        res.render('menu/:category', {items});
+    })
+});
+*/
+
+/*
+router.get('/menu/:cat', (req, res) =>{
+    Item.findOne({
+        where:{
+            cat: req.params.cat
+        }
+    }).then((items) =>{
+        res.render('menu/Alpha', {
+            items
+        });
+    }).catch(err => console.log(err));
+});
+*/
+
+
+// showing new food items added from /stall/stallownerConfig
 
 router.get('/menu', (req, res) =>{
     // never add a request yet, though having req now
@@ -32,6 +61,7 @@ router.get('/menu', (req, res) =>{
     .catch(err => console.log(err));
 });
 
+// this shows all orders
 
 router.get('/menuAlpha', (req, res) =>{
     Item.findAll({
@@ -45,16 +75,113 @@ router.get('/menuAlpha', (req, res) =>{
 });
 
 
-// for specificied cat. of food accessibility from home page
 
-router.get('/menu/:category', (req, res) =>{
-    var cat = req.params.category;
-    item_class.getItemsByCat(cat)
-    .then((items) =>{
-        res.render('menu/menu', {items});
-    })
+router.get('/menu-chinese', (req, res) =>{
+    Item.findAll({
+        where:{
+            cat: 'chinese'
+        },
+        raw: true
+    }).then((items) =>{
+        res.render('menu/menu-chinese', {
+            items
+        });
+    }).catch(err => console.log(err));
 });
 
+
+
+router.get('/menu-malay', (req, res) =>{
+    Item.findAll({
+        where:{
+            cat: 'malay'
+        },
+        raw: true
+    }).then((items) =>{
+        res.render('menu/menu-malay', {
+            items
+        });
+    }).catch(err => console.log(err));
+});
+
+
+router.get('/menu-indian', (req, res) =>{
+    Item.findAll({
+        where:{
+            cat: 'indian'
+        },
+        raw: true
+    }).then((items) =>{
+        res.render('menu/menu-indian', {
+            items
+        });
+    }).catch(err => console.log(err));
+});
+
+router.get('/menu-western', (req, res) =>{
+    Item.findAll({
+        where:{
+            cat: 'western'
+        },
+        raw: true
+    }).then((items) =>{
+        res.render('menu/menu-western', {
+            items
+        });
+    }).catch(err => console.log(err));
+});
+
+router.get('/menu-fusion', (req, res) =>{
+    Item.findAll({
+        where:{
+            cat: 'fusion'
+        },
+        raw: true
+    }).then((items) =>{
+        res.render('menu/menu-fusion', {
+            items
+        });
+    }).catch(err => console.log(err));
+});
+
+router.get('/menu-vegetarian', (req, res) =>{
+    Item.findAll({
+        where:{
+            cat: 'vegetarian'
+        },
+        raw: true
+    }).then((items) =>{
+        res.render('menu/menu-vegetarian', {
+            items
+        });
+    }).catch(err => console.log(err));
+});
+
+router.get('/menu-desserts', (req, res) =>{
+    Item.findAll({
+        where:{
+            cat: 'desserts'
+        },
+        raw: true
+    }).then((items) =>{
+        res.render('menu/menu-desserts', {
+            items
+        });
+    }).catch(err => console.log(err));
+});
+
+router.get('/menu-drinks', (req, res) =>{
+    Item.findAll({
+        where:{
+            cat: 'drinks'
+        },
+        raw: true
+    }).then((items) =>{
+        res.render('menu/menu-drinks', {
+            items
+        });
+    }).catch(err => console.log(err));
+});
 
 
 module.exports = router;
