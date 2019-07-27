@@ -21,9 +21,8 @@ const User = db.define('user', {
         type: Sequelize.INTEGER,
         length: 8
     },
-    picture: {
-        type: Sequelize.INTEGER,
-        length: 8
+    picture_url: {
+        type: Sequelize.STRING
     },
     admin_status: {
         type: Sequelize.BOOLEAN,

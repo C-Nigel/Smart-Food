@@ -3,7 +3,8 @@ const User = require("../class/user_class");
 const Chat = require("../class/chat_class")
 
 // catch message
-bot.on('message', function (msg) {/* <function (msg)> or <(msg) => > */
+bot.on('message', function (msg) {
+	/* <function (msg)> or <(msg) => > */
 	console.log(msg);
 	// get sender id
 	var chatId = msg.chat.id;
@@ -32,30 +33,29 @@ bot.onText(/\/verify (.+)/, (msg, match) => { // this is where users connect the
 	var chatId = msg.chat.id;
 	var response = match[1]; // the captured user admin number
 	User.getUserByAdmin(response).then(user => {
-		if (user.telegram_id == chatId) {
-			bot.sendMessage(chatId, "This phone is already linked to your account.")
-			Chat.systemMsg(chatId, "This phone is already linked to your account.");
-		}
-		else {
+		if (user && user.telegram_id != chatId) {
 			User.getRepeatedTGUsers(chatId).then(count => {
 				if (count > 0) {
 					bot.sendMessage(chatId, "Admin number linked to another phone. Unlink previous phone before verifying this phone.")
 					Chat.systemMsg(chatId, "Admin number linked to another phone. Unlink previous phone before verifying this phone.");
-				}
+				} 
 				else {
-					User.getUserByAdmin(response).then(user => {
-						if (user != null) {
-							User.setTelegram(response, chatId);
-							bot.sendMessage(chatId, "Thank you for verifying! You will now receieve notifications with your meal is ready!");
-							Chat.systemMsg(chatId, "Thank you for verifying! You will now receieve notifications with your meal is ready!");
-						}
-						else {
-							bot.sendMessage(chatId, "No such admin number registered to user!");
-							Chat.systemMsg(chatId, "No such admin number registered to user!");
-						}
-					})
+					User.setTelegram(response, chatId);
+					bot.sendMessage(chatId, "Thank you for verifying! You will now receieve notifications with your meal is ready!");
+					Chat.systemMsg(chatId, "Thank you for verifying! You will now receieve notifications with your meal is ready!");
 				}
 			})
+		}
+		else if (!user) {
+			bot.sendMessage(chatId, "No such admin number registered to user!");
+			Chat.systemMsg(chatId, "No such admin number registered to user!");
+		} 
+		else if (user.telegram_id == chatId) {
+			bot.sendMessage(chatId, "This phone is already linked to your account.");
+			Chat.systemMsg(chatId, "This phone is already linked to your account.");
+		} 
+		else {
+			console.log("Reached undocumented behavior condition telegramLogic");
 		}
 	});
 
@@ -66,7 +66,7 @@ bot.onText(/\/unlink (.+)/, (msg, match) => { // this is where users unlink thei
 	var chatId = msg.chat.id;
 	var response = match[1]; // the captured user admin number
 	User.getUserByAdmin(response).then(user => {
-		User.unlinkTelegram(user.admin_no);
+		User.setTelegram(user.admin_no, null);
 		bot.sendMessage(chatId, "Unlink successful. You will no longer recieve notification.");
 		Chat.systemMsg(chatId, "Unlink successful. You will no longer recieve notification.");
 	})

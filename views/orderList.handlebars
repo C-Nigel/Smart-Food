@@ -18,6 +18,7 @@
 						<h6 class="card-subtitle mb-2">Ordered by: {{user_admin}}</h6>
 					</div>
 					<div class="card-body">
+						<p>Order ID: {{id}}</p>
 						<p>Item ID: {{item_id}}</p>
 						<p>Time: {{createdAt}}</p>
 					</div>
@@ -53,8 +54,8 @@
 			{{else}}
 			<div class="col">
 				<h4 class="text-center">
-					Hmm,no orders yet...
-					<br>
+					Hmm, no orders yet...
+					<br><br>
 					Try refreshing in a bit.
 				</h4>
 			</div>
@@ -80,14 +81,11 @@
 			var dat = element.split("/");
 			$.ajax({
 				url: '/orders/' + dat[0] + '/' + dat[1] + '/',
-				type: 'PUT',
-				'success': (data) => {
-					$('#listOrders').attr('value', "data.orders");
-				}
-			})
-			
-			if (dat[1] == 2){
-				document.getElementById(element).parentNode.parentNode.remove();
+				type: 'PUT'
+			});
+
+			if (dat[1] == 2) {
+				location.reload();
 			}
 		});
 	});
