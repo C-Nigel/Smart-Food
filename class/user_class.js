@@ -2,10 +2,7 @@ const UserModel = require('../models/User');
 var ex = module.exports = {};
 
 ex.getUserByAdmin = function(adminNo){
-    return UserModel.findOne({
-        where: { admin_no: adminNo },
-        raw: true
-    })
+    return UserModel.findByPk(adminNo)
     .catch(err => {
         console.log(err)
     });
@@ -67,16 +64,6 @@ ex.getRepeatedTGUsers = function(tlg_id){
         raw: true
     })
     .catch(err => {
-        console.log(err)
-    })
-};
-
-ex.unlinkTelegram = function(user_id){
-    UserModel.update(
-        {telegram_id: null},
-        {where: {admin_no: user_id},
-        raw: true    
-    }).catch(err => {
         console.log(err)
     })
 };

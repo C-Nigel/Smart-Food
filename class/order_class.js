@@ -3,6 +3,11 @@ const OrderModel = require('../models/Order');
 const ItemClass = require('./item_class');
 var ex = module.exports = {};
 
+
+ex.getOrder = function(itemid){
+	return OrderModel.findByPk(itemid);
+}
+
 ex.getOrderByUser = function(userid){
 	return OrderModel.findAll({
 		where: { user_admin: userid },

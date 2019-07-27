@@ -3,13 +3,12 @@ const router = express.Router();
 const sessionStorage = require('node-sessionstorage');
 const outlets = require('../class/outlet_class')
 const orders = require('../class/order_class');
-const User = require('../models/User');
-const variable = require('../class/user_class');
-const storage = require('node-sessionstorage');
+const users = require('../class/user_class');
+const bot = require('../config/telegram');
 
 
 router.get('/', (req, res) => {
-	var User = storage.getItem("user");
+	var User = sessionStorage.getItem("user");
     const title = 'Smart Food';
 	res.render('home', {title: title,
 		User}); // renders views/home.handlebars
@@ -192,7 +191,6 @@ router.post('/addSO', (req, res) =>{
 router.get('/orders', (req, res) => {
 	let outletid = sessionStorage.getItem("user");
 	orders.getOrdersForOutlets(1).then(orders => {
-		console.log(orders);
 		res.render('orderList', {orders: orders});
 	})
 });
@@ -201,6 +199,17 @@ router.put('/orders/:id/:status', (req, res) => {
 	let id = req.params.id;
 	let status = req.params.status;
 	orders.setOrderStatus(id, status);
+	orders.getOrder(id).then(order => {
+		users.getUserByAdmin(order.user_admin).then(user => {
+			if (status == 1 && user.telegram_id){
+				bot.sendMessage(user.telegram_id, "Your order for " + order.item_name + " (order id: " + order.id + ") is ready for collection!");
+			}
+			else if (status == 2 && user.telegram_id){
+				bot.sendMessage(user.telegram_id, "Your order (order id: " + order.id + ") has been collected. Thank you for shopping with us!");
+				//res.redirect('/orders');
+			}
+		})
+	})
 })
 
 module.exports = router;
