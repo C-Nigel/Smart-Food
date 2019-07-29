@@ -11,12 +11,13 @@ ex.getOutletById = function(x){
     });
 }
 
-ex.createOutlet = function(name1, description){
+ex.createOutlet = function(name1, pswd, description){
     OutletModel.create({
         name: name1,
+        password: pswd,
         desc: description
     })
-    .then(result => {
+    .catch(err => {
         //console.log(result.id);
     })
 }

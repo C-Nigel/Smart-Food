@@ -1,7 +1,7 @@
 <html>
 {{>_header}}
 
-<body>
+<body style="background-image: url('img/orders_background.jpg'); background-size: cover;">
 	{{>_navbar}}
 	<br>
 
@@ -53,11 +53,16 @@
 			{{/each}}
 			{{else}}
 			<div class="col">
-				<h4 class="text-center">
-					Hmm, no orders yet...
-					<br><br>
-					Try refreshing in a bit.
-				</h4>
+				<div class="card bg-light mb-3">
+					<div class="card-body">
+						<h4 class="text-center">
+							Hmm, no orders yet...
+							<br><br>
+							Try <a href="/orders">refreshing</a> in a bit.
+						</h4>
+					</div>
+				</div>
+
 			</div>
 			{{/if}}
 		</div>
@@ -78,13 +83,12 @@
 		$("button").click(function () {
 			console.log("Ajax Active");
 			var element = event.target.id;
-			var dat = element.split("/");
 			$.ajax({
-				url: '/orders/' + dat[0] + '/' + dat[1] + '/',
+				url: '/orders/' + element,
 				type: 'PUT'
 			});
-
-			if (dat[1] == 2) {
+			
+			if (element.split("/")[1] == 2) {
 				location.reload();
 			}
 		});
