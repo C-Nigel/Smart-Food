@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+    {{>_header}}
+    <head>
+        <meta charset="utf-8">
+        <link rel="stylesheet" href="/css/menu/menu.css">
+        <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.2/themes/smoothness/jquery-ui.css">
+    </head>
+    <body>
+        {{>_navbar}}
+        <br>
+        <div class="container">
+            <div class="wrapper">
+                <h1>Our Drinks @ NYP</h1>
+                <br>
+                <div class="items">
+                {{#if items}}
+                <span id="itemCount"></span>
+                <span id="tag"><a href="#"><i class="cart"></i></a></span>
+                <br>
+                <br>
+                
+                {{#each items}}
+                    <div class="item">
+                        <h2>Name: {{name}}</h2>
+                        <p>Price: <em>$ {{price}}</em></p>
+                        <p>Category: {{cat}}</p>
+                        <p>Owned By Food Outlet: {{outlet_id}}</p>
+                        <p>Quantity: <input type="text" value=0 size="2" </p>
+                        <div class="quantity-operator">
+                            <button type="button">+</button>
+                            <button type="button">-</button>
+                        </div>
+                        <br>
+                        <br>
+                        <button id="btn" class="tocart" type="button">Add to Cart</button>
+                    </div>
+                {{/each}}
+
+                    <div id="shoppingCart">
+                        <div id="cartContainer">
+                            <h2>Selected Items</h2>
+                            <div id="cartItems"></div>
+                            <span id="cartTotal"></span>
+                            <br>
+                            <button type="button" class="back">Back to selection</button>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.2/jquery-ui.min.js"></script>
+        <script src="/js/designmenu.js"></script>
+
+                
+                {{else}}
+                    <br>
+                    <h3>No Drinks available at the moment !</h3>
+                {{/if}}
+
+    </body>
+</html>

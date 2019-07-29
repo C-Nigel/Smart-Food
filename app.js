@@ -10,7 +10,7 @@ const FlashMessenger = require('flash-messenger');
 const MySQLStore = require('express-mysql-session');
 const dbs = require('./config/db'); // db.js config file
 const passport = require('passport');
-//const telegram = require('./helpers/telegramLogic');
+const telegram = require('./helpers/telegramLogic');
 
 
 const mainRoute = require('./routes/main');
@@ -19,11 +19,11 @@ const userRoute = require('./routes/user');
 const ratingRoute = require('./routes/ratings');
 const outletRoute = require('./routes/outlet');
 
-
 const app = express();
 
 app.engine('handlebars', exphbs({
 	// Specify default template views/user/home.handlebar
+	helpers: require('./helpers/handlebars-helpers')
 })); 
 app.set('view engine', 'handlebars');
 app.use(bodyParser.urlencoded({

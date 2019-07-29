@@ -1,11 +1,29 @@
-const op = require('sequelize').Op;
+const Op = require('sequelize').Op;
 const OrderModel = require('../models/Order');
 const ItemClass = require('./item_class');
 var ex = module.exports = {};
 
+
+ex.getOrder = function(itemid){
+	return OrderModel.findByPk(itemid);
+}
+
 ex.getOrderByUser = function(userid){
 	return OrderModel.findAll({
 		where: { user_admin: userid },
+		raw: true
+	})
+	.catch(err => {
+		console.log(err);
+	});
+}
+
+ex.getCompletedOrdersByUser = function(userid){
+	return OrderModel.findAll({
+		where: { 
+			user_admin: userid,
+			status: 2
+		},
 		raw: true
 	})
 	.catch(err => {
