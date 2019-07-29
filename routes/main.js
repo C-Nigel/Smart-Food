@@ -5,6 +5,7 @@ const outlets = require('../class/outlet_class')
 const orders = require('../class/order_class');
 const users = require('../class/user_class');
 const bot = require('../config/telegram');
+const variable = require('../class/user_class');
 
 
 router.get('/', (req, res) => {
@@ -46,7 +47,7 @@ router.get('/changepassword', (req, res) => {
 });
 
 router.get('/profile', (req, res) => {
-	var User = storage.getItem("user");
+	var User = sessionStorage.getItem("user");
 	console.log(User);
 	if(User){
 		variable.getUserByAdmin(User).then(user =>{

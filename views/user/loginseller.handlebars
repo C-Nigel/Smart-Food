@@ -19,7 +19,7 @@
 					</span>
 					
 					<a href="/loginuser" id="buttons">Student/Staff</a>
-					<a href="/loginseller" id="buttonss">Seller</a>
+					<a href="/loginseller" id="buttonss">Stall Owner</a>
 					<a href="/loginadmin" id="buttonsa">Admin</a> 
                     <style>
 						#buttonss {
@@ -28,14 +28,14 @@
 					</style>
 				
 					
-					<div class="wrap-input100 validate-input" data-validate = "Valid email is required: ex@abc.xyz">
-						<input class="input100" type="text" name="email" placeholder="Email Seller">
-						<span class="focus-input100-1"></span>
-						<span class="focus-input100-2"></span>
+					<div class="wrap-input100 validate-input" data-validate = "ID must be a number">
+							<input class="input100" type="text" name="stall_id" id="stall_id" placeholder="stall_id" value="{{stall_id}}" required/><span id="errrmsg"></span>
+							<span class="focus-input100-1"></span>
+							<span class="focus-input100-2"></span>
 					</div>
 
 					<div class="wrap-input100 rs1 validate-input" data-validate="Password is required">
-						<input class="input100" type="password" name="pass" placeholder="Password">
+						<input class="input100" type="password" name="password" placeholder="Password" required/>
 						<span class="focus-input100-1"></span>
 						<span class="focus-input100-2"></span>
 					</div>
@@ -45,7 +45,7 @@
 							Sign in
 						</button>
 						<label>
-        					<input type="checkbox" id="me" checked="checked" name="remember"> Remember me
+        					<input type="checkbox" id="remember" checked="checked" name="remember"> Remember me
       					</label>
 					</div>
 
