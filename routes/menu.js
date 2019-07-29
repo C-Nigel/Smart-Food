@@ -2,6 +2,8 @@ const express = require('express');
 const router = express.Router();
 const item_class = require('../class/item_class')
 const Item = require('../models/Item');
+const sessionStorage = require('node-sessionstorage');
+
 // const outlet = require('../models/Outlet');
 
 console.log("Server Online!");
@@ -77,6 +79,8 @@ router.get('/menuAlpha', (req, res) =>{
 
 
 router.get('/menu-chinese', (req, res) =>{
+    var User = sessionStorage.getItem("user");
+    console.log(User);
     Item.findAll({
         where:{
             cat: 'chinese'
@@ -84,6 +88,7 @@ router.get('/menu-chinese', (req, res) =>{
         raw: true
     }).then((items) =>{
         res.render('menu/menu-chinese', {
+            User,
             items
         });
     }).catch(err => console.log(err));

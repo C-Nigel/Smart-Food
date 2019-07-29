@@ -163,7 +163,7 @@ router.get('/stallownerConfig', (req, res) =>{
 
 
 router.get('/logout', (req, res) => {
-	storage.removeItem("user");
+	sessionStorage.removeItem("user");
 	res.redirect('/');
 });
 

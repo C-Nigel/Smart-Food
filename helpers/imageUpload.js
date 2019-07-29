@@ -19,6 +19,17 @@ const upload = multer({
     checkFileType(file, callback);
  }
 }).single('posterUpload'); // Must be the name as the HTML file upload input
+
+// testing the feature of allowing stall owners to add img of food items
+const uploadOfFoodImg = multer({
+    storage: storage,
+    limits:{
+        fileSize: 1000000
+    },
+    fileFilter: (req, file, callback) =>{
+        checkFileType(file, callback);
+    }
+}).single('fooditemImgUpload')
 // Check File Type
 function checkFileType(file, callback) {
     // Allowed file extensions
