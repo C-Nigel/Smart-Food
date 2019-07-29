@@ -1,7 +1,6 @@
 const express = require('express')
 const router = express.Router();
 const sessionStorage = require('node-sessionstorage');
-const outlets = require('../class/outlet_class')
 const orders = require('../class/order_class');
 const users = require('../class/user_class');
 const bot = require('../config/telegram');
@@ -9,7 +8,8 @@ const bot = require('../config/telegram');
 
 router.get('/', (req, res) => {
 	var User = sessionStorage.getItem("user");
-    const title = 'Smart Food';
+	const title = 'Smart Food';
+	
 	res.render('home', {title: title,
 		User}); // renders views/home.handlebars
 });
@@ -167,25 +167,20 @@ router.get('/logout', (req, res) => {
 	res.redirect('/');
 });
 
-router.get('/admin', (req,res)=>{
-	res.render('views/admin')
+router.get('/orders', (req, res) => {
+    res.render('orderList');
 });
 
-router.get('/favourites',(req,res)=>{
-	res.render('views/favourites')
+router.get('/admin', (req, res) => {
+	res.render('admin');
 });
 
-router.get('/addFav',(req,res)=>{
-	res.render('views/addFav')
+router.get('outlet/outlet', (req, res) => {
+	res.render('outlet/outlet')
 });
 
-// SO = Stall Owners
-router.get('/addSO', (req, res) => {
+router.get('/addStallOwners', (req, res) =>{
 	res.render('addStallOwners')
-});
-
-router.post('/addSO', (req, res) =>{
-	
 });
 
 router.get('/orders', (req, res) => {

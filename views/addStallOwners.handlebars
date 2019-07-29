@@ -1,28 +1,31 @@
-<section class="main-box">
+{{>_header}}
+{{>_navbar}}
+<section class="main-box float-center">
     <div class="row" style="margin-top:  50px">
-        <div class="col-md-6 col-md-offset-3 form-container">
+        <div class="col-md-6 col-md-offset-3 form-container float-right">
             <h2>Add Stall Owners</h2>
-            <form role="form" method="post"></form>
-                    <div class="row">
-                        <div class="col-sm-6 form-group">
-                            <label for="name">
-                                Stall Owner Name:</label>
-                            <input type="text" class="form-control" id="name" name="name" value={{name}}>
-                        </div>
-                        <div class="col-sm-12 form-group">
-                            <label for="description">
-                                Description:</label>
-                                <br>
-                            <textarea class="form-control" type="textarea" name="description" id="description" placeholder="Stall Owner Description" maxlength="6000" rows="7" value={{desc}} ></textarea>
-                        </div>
+            
+            <form  action='/outlet/addSO' method="post" id="addStallOwners">
+                <div class="row">
+                    <div class="col-sm-6 form-group">
+                        <label for="name">
+                            Stall Owner Name:</label>
+                        <input type="text" class="form-control" id="name" name="name" value={{name}}>
                     </div>
-                    <div class="row">
-                        <div class="col-sm-12 form-group">
-                            <button type="submit" class="btn btn-lg btn-warning btn-block" >Add Stall Owners </button>
-                        </div>
+                    <div class="col-sm-12 form-group">
+                        <label for="desc">
+                            Description: </label>
+                            <br>
+                        <textarea class="form-control" type="textarea" name="desc" id="desc" placeholder="Stall Owner Description" maxlength="6000" rows="5" value={{desc}}></textarea>
+                    </div>
+                    <!--<button type="submit" formmethod="POST" class="btn btn-lg btn-warning btn-block" >Add Stall Owners </button>-->
+                       <button type="submit" disabled style="display: none" aria-hidden="true"></button>
+                        <input  class="btn btn-outline-primary" type="submit" value="Save">
+
+
                 </div>
             </form>
         </div>
     </div>
 </section>
-
+{{>_footer}}
