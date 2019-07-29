@@ -9,7 +9,8 @@ const bot = require('../config/telegram');
 
 router.get('/', (req, res) => {
 	var User = sessionStorage.getItem("user");
-    const title = 'Smart Food';
+	const title = 'Smart Food';
+	
 	res.render('home', {title: title,
 		User}); // renders views/home.handlebars
 });

@@ -5,6 +5,7 @@ const item_class = require('../class/item_class');
 const ensureAuthenticated = require('../helpers/auth');
 const orders = require('../class/order_class');
 
+
 router.get('/:user_admin', (req, res) => {
 
     rating.findAll({
@@ -41,4 +42,6 @@ router.post('/saveRating/:id', (req, res) => {
             // videos
         }).catch(err => console.log(err));
 });
+
+
 module.exports = router;
