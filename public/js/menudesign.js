@@ -13,7 +13,7 @@ $('.tocart').on('click', function () {
     $('#itemCount').text(itemCount).css('display', 'block');
 
     //$(this).siblings().clone().appendTo('#cartItems').append('<button class="removeItem">Remove Item</button>');
-    $('.infoforcart').clone().appendTo('#cartItems').append('<button class="removeItem">Remove Item</button>');
+    // $('.infoforcart').clone().appendTo('#cartItems').append('<button class="removeItem">Remove Item</button>');
 
 
 

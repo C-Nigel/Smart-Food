@@ -9,6 +9,7 @@ const storage = multer.diskStorage({
         callback(null, req.user.id + '-'+Date.now()+ path.extname(file.originalname));
     }
 });
+
 // Initialise Upload
 const upload = multer({
     storage: storage,
@@ -20,16 +21,22 @@ const upload = multer({
  }
 }).single('posterUpload'); // Must be the name as the HTML file upload input
 
+
 // testing the feature of allowing stall owners to add img of food items
-const uploadOfFoodImg = multer({
-    storage: storage,
-    limits:{
-        fileSize: 1000000
-    },
-    fileFilter: (req, file, callback) =>{
-        checkFileType(file, callback);
-    }
-}).single('fooditemImgUpload')
+
+// const uploadOfFoodImg = multer({
+//     storage: storage,
+//     limits:{
+//         fileSize: 1000000
+//     },
+//     fileFilter: (req, file, callback) =>{
+//         checkFileType(file, callback);
+//     }
+// }).single('fooditemImgUpload');
+
+
+
+
 // Check File Type
 function checkFileType(file, callback) {
     // Allowed file extensions

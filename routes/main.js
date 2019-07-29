@@ -9,7 +9,6 @@ const bot = require('../config/telegram');
 router.get('/', (req, res) => {
 	var User = sessionStorage.getItem("user");
 	const title = 'Smart Food';
-	
 	res.render('home', {title: title,
 		User}); // renders views/home.handlebars
 });
@@ -46,7 +45,7 @@ router.get('/changepassword', (req, res) => {
 });
 
 router.get('/profile', (req, res) => {
-	var User = storage.getItem("user");
+	var User = sessionStorage.getItem("user");
 	console.log(User);
 	if(User){
 		variable.getUserByAdmin(User).then(user =>{
@@ -167,10 +166,6 @@ router.get('/logout', (req, res) => {
 	res.redirect('/');
 });
 
-router.get('/orders', (req, res) => {
-    res.render('orderList');
-});
-
 router.get('/admin', (req, res) => {
 	res.render('admin');
 });
@@ -184,7 +179,7 @@ router.get('/addStallOwners', (req, res) =>{
 });
 
 router.get('/orders', (req, res) => {
-	let outletid = sessionStorage.getItem("user");
+	//let outletid = sessionStorage.getItem("user");
 	orders.getOrdersForOutlets(1).then(orders => {
 		res.render('orderList', {orders: orders});
 	})

@@ -4,6 +4,10 @@ const item_class = require('../class/item_class')
 const Item = require('../models/Item');
 const sessionStorage = require('node-sessionstorage');
 
+// testing for adding food img by stall owners
+// const fs = require('fs');
+// const uploadOfFoodImg = require('../helpers/imageUpload');
+
 // const outlet = require('../models/Outlet');
 
 console.log("Server Online!");

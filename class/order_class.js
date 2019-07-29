@@ -4,8 +4,8 @@ const ItemClass = require('./item_class');
 var ex = module.exports = {};
 
 
-ex.getOrder = function(itemid){
-	return OrderModel.findByPk(itemid);
+ex.getOrder = function(orderid){
+	return OrderModel.findByPk(orderid);
 }
 
 ex.getOrderByUser = function(userid){
