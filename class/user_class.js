@@ -35,10 +35,10 @@ ex.createUser = function(adminNo, fullName, pswd){
     })
 };
 
-ex.setAdmin = function(user_id, admin){
+ex.setName = function(user_id, name){
     UserModel.update(
-        {admin_no: admin},
-        {where : { id: user_id }}
+        {full_name: name},
+        {where : { admin_no: user_id }}
     )
 };
 
@@ -58,7 +58,7 @@ ex.setTelegram = function(user_id, tlg_id){
     )
 }
 
-ex.getRepeatedTGUsers = function(tlg_id){
+ex.getRepeatedTGid = function(tlg_id){
     return UserModel.count({
         where: { telegram_id: tlg_id },
         raw: true

@@ -206,7 +206,6 @@ router.put('/orders/:id/:status', (req, res) => {
 			}
 			else if (status == 2 && user.telegram_id){
 				bot.sendMessage(user.telegram_id, "Your order (order id: " + order.id + ") has been collected. Thank you for shopping with us!");
-				//res.redirect('/orders');
 			}
 		})
 	})

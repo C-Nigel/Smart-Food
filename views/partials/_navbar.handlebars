@@ -1,43 +1,41 @@
 <div class="nav-menu">
-	<div class="bg transition">
-		<div class="container-fluid fixed is-sticky">
-			<div class="row">
-				<div class="col-md-12">
-					<nav class="navbar navbar-expand-lg navbar-dark">
-						<a class="navbar-brand" href="/">NYP Smart Food</a>
-						<button class="navbar-toggler" type="button" data-toggle="collapse"
-							data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
-							aria-expanded="false" aria-label="Toggle navigation">
-							<span class="navbar-toggler-icon"></span>
-						</button>
+	<div class="container-fluid fixed is-sticky">
+		<div class="row">
+			<div class="col-md-12">
+				<nav class="navbar navbar-expand-lg navbar-dark">
+					<a class="navbar-brand" href="/">NYP Smart Food</a>
+					<button class="navbar-toggler" type="button" data-toggle="collapse"
+						data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+						aria-expanded="false" aria-label="Toggle navigation">
+						<span class="navbar-toggler-icon"></span>
+					</button>
 
-						<div class="collapse navbar-collapse" id="navbarSupportedContent">
-							<ul class="navbar-nav ml-auto">
+					<div class="collapse navbar-collapse" id="navbarSupportedContent">
+						<ul class="navbar-nav ml-auto">
 							{{#if User}}
-								<li class="nav-item">
-									<a class="nav-link" href="/">Home</a>
-								</li>
-								<li class="nav-item">
-									<a class="nav-link" href="/profile">Profile</a>
-								</li>
-								<li class="nav-item">
-									<a class="nav-link" href="/logout">Logout</a>
-								</li>
+							<li class="nav-item">
+								<a class="nav-link" href="/">Home</a>
+							</li>
+							<li class="nav-item">
+								<a class="nav-link" href="/profile">Profile</a>
+							</li>
+							<li class="nav-item">
+								<a class="nav-link" href="/logout">Logout</a>
+							</li>
 							{{else}}
-								<li class="nav-item">
-									<a class="nav-link" href="/">Home</a>
-								</li>
-								<li class="nav-item">
-									<a class="nav-link" href="/register">Register</a>
-								</li>
-								<li class="nav-item">
-									<a class="nav-link" href="/loginuser">Login</a>
-								</li>
+							<li class="nav-item">
+								<a class="nav-link" href="/">Home</a>
+							</li>
+							<li class="nav-item">
+								<a class="nav-link" href="/register">Register</a>
+							</li>
+							<li class="nav-item">
+								<a class="nav-link" href="/loginuser">Login</a>
+							</li>
 							{{/if}}
-							</ul>
-						</div>
-					</nav>
-				</div>
+						</ul>
+					</div>
+				</nav>
 			</div>
 		</div>
 	</div>

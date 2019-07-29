@@ -34,10 +34,10 @@ bot.onText(/\/verify (.+)/, (msg, match) => { // this is where users connect the
 	var response = match[1]; // the captured user admin number
 	User.getUserByAdmin(response).then(user => {
 		if (user && user.telegram_id != chatId) {
-			User.getRepeatedTGUsers(chatId).then(count => {
+			User.getRepeatedTGid(chatId).then(count => {
 				if (count > 0) {
-					bot.sendMessage(chatId, "Admin number linked to another phone. Unlink previous phone before verifying this phone.")
-					Chat.systemMsg(chatId, "Admin number linked to another phone. Unlink previous phone before verifying this phone.");
+					bot.sendMessage(chatId, "This telegram client is already associated with another user account. Unlink from other user account before verifying this phone.")
+					Chat.systemMsg(chatId, "This telegram client is already associated with another user account. Unlink from other user account before verifying this phone.");
 				} 
 				else {
 					User.setTelegram(response, chatId);
@@ -66,9 +66,12 @@ bot.onText(/\/unlink (.+)/, (msg, match) => { // this is where users unlink thei
 	var chatId = msg.chat.id;
 	var response = match[1]; // the captured user admin number
 	User.getUserByAdmin(response).then(user => {
-		User.setTelegram(user.admin_no, null);
-		bot.sendMessage(chatId, "Unlink successful. You will no longer recieve notification.");
-		Chat.systemMsg(chatId, "Unlink successful. You will no longer recieve notification.");
+		if (user){
+			User.setTelegram(user.admin_no, null);
+			bot.sendMessage(chatId, "Unlink successful. You will no longer recieve notification.");
+		}
+		
+		//Chat.systemMsg(chatId, "Unlink successful. You will no longer recieve notification.");
 	})
 });
 
