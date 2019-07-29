@@ -16,7 +16,7 @@ setTimeout(function () {
     }
 
     //user.createUser("w369", 'tashi', "hashbrowns");
-    user.createUser("w370", "nigel", "gaypt1");
+    user.createUser("180448W", "nigel", "gaypt1");
     user.createUser("w371", "raymond", "gaypt2");
     user.createUser("w372", "deon", "penguin");
     user.createUser("w373", "malique", "tank");
@@ -36,7 +36,7 @@ setTimeout(function () {
         //item.createItem("")
 
         user.setTelegram("w369", "340756470");
-        user.setTelegram("w370", "239513475");
+        user.setTelegram("180448W", "239513475");
         user.setTelegram("w371", "328373671");
         user.setTelegram("w372", "574678173");
         user.setTelegram("w373", "573547962");
