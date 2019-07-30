@@ -1,29 +1,16 @@
-//testing adding price
+var selectedItemCounter = 0;
+var totalPrice = 0;
 
+$('.tocart').on('click', function(){
+    var myCart = $('.cart');
+    var imgtodrag = $(this).find('img').eq(0);
+    selectedItemCounter ++;
+    $('#selectedItemCounter').text(selectedItemCounter).css('display', 'block');
+    var itemPrice = parseFloat($(this).siblings().find('.price').text());
+    totalPrice+=itemPrice;
+    $('#cartTotal').text("Total: $"+ totalPrice);
 
-var itemCount = 0;
-var totalSum = 0;
-
-$('.tocart').on('click', function () {
-    var cart = $('.cart');
-    var imgtodrag = $(this).parent('.item').find("img").eq(0);
-
-    //  adding num icon to cart
-    itemCount ++;
-    $('#itemCount').text(itemCount).css('display', 'block');
-
-    //$(this).siblings().clone().appendTo('#cartItems').append('<button class="removeItem">Remove Item</button>');
-    // $('.infoforcart').clone().appendTo('#cartItems').append('<button class="removeItem">Remove Item</button>');
-
-
-
-    var price = parseFloat($(this).siblings().find('.price').text());
-    
-
-    totalSum+= price;
-    $('#cartTotal').text("Total: $" + totalSum);
-
-    if (imgtodrag) {
+    if(imgtodrag){
         var imgclone = imgtodrag.clone()
         .offset({
             top: imgtodrag.offset().top,
@@ -36,22 +23,18 @@ $('.tocart').on('click', function () {
             'width': '150px',
             'z-index': '100'
         })
-
         .appendTo($('body'))
-
         .animate({
-            'top': cart.offset().top + 10,
-            'left': cart.offset().left + 10,
+            'top': myCart.offset().top + 10,
+            'left': myCart.offset().left + 10,
             'width': 75,
             'height': 75
         }, 1000, 'easeInOutExpo');
-
         setTimeout(function (){
-            cart.effect("shake", {
+            myCart.effect("shake", {
                 times: 2
             }, 200);
         }, 1500);
-
         imgclone.animate({
             'width': 0,
             'height': 0
@@ -59,62 +42,55 @@ $('.tocart').on('click', function () {
             $(this).detach()
         });
     }
-    // clearing input for quantity after adding to cart
-    var input = $('#modifyingChanges');
-    input.val(parseFloat(input.val()) * 0);
-
-    if(input.val() == 0){
-        document.getElementsByClassName("tocart").readOnly = true;
-    }
+    var inputQuantity = $('#modifyingChanges');
+    inputQuantity.val(parseFloat(inputQuantity.val()) * 0);
 });
 
-$('#modifyingChanges_Add').on('click', function(){
-    var input = $('#modifyingChanges');
-    input.val(parseFloat(input.val())+1);
+
+$('.selection').on('click', function(){
+    $('#modification').toggle();
+})
+
+$('.back').click(function(){
+    $('#modification').toggle();
 })
 
 $('#modifyingChanges_Minus').on('click', function(){
-    var input = $('#modifyingChanges');
-    if(input.val() > 0) {
-        input.val(parseFloat(input.val())-1);
+    var inputQuantity = $('#modifyingChanges');
+    if(inputQuantity.val()>0){
+        inputQuantity.val(parseFloat(inputQuantity.val()) - 1);
     }else{
-        input.val(parseFloat(input.val()) = 0);
+        inputQuantity.val(parseFloat(inputQuantity.val()) = 0);
     }
+})
+
+$('#modifyingChanges_Add').on('click', function(){
+    var inputQuantity = $('#modifyingChanges');
+    inputQuantity.val(parseFloat(inputQuantity.val()) + 1);
 })
 
 document.getElementById("modifyingChanges").readOnly = true;
 
 
-$('.cart').click(function(){
+$('.cart').on('click', function(){
+    $('#shoppingCart').toggle();
+})
+
+$('.return').on('click', function(){
     $('#shoppingCart').toggle();
 });
 
-// for closing cart, going back to selection
-$('.back').click(function(){
-    $('#shoppingCart').toggle();
-});
+// $('#shoppingCart').on('click', '.removeItem', function()
+// {
+//     $(this).parent().remove();
+//     selectedItemCounter --;
+//     $('#selectedItemCounter').text(selectedItemCounter);
 
-// Testing to remove item from court
+//     var itemPrice = parseFloat($(this).siblings().find('.card-subtitle mb-2 itemPrice').text());
+//     totalPrice -= itemPrice;
+//     $('#cartTotal').text("Total: $" + totalPrice);
 
-
-$('#shoppingCart').on('click', '.removeItem', function()
-{
-    $(this).parent().remove();
-    itemCount --;
-    $('#itemCount').text(itemCount);
-
-    var price = parseFloat($(this).siblings().find('.price').text());
-    totalSum -= price;
-    $('#cartTotal').text("Total: $" + totalSum);
-
-    if(itemCount == 0){
-        $('#itemCount').css('display', 'none');
-    }
-});
-
-
-/*
-$('.openCart').click(function(){
-    $('#shoppingCart').toggle();
-});
-*/
+//     if(selectedItemCounter == 0){
+//         $('#selectedItemCounter').css('display', 'none');
+//     }
+// });

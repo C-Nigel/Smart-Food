@@ -94,7 +94,12 @@ router.get('/menuAlpha', (req, res) =>{
 
 // testing in progress
 
-// displaying only chinese menu 
+// displaying old chinese menu 
+router.get('menu/menu-chinese-old', (req, res) =>{
+	res.render('menu/menu-chinese-old')
+});
+
+// working on smth new for chinese menu
 router.get('menu/menu-chinese', (req, res) =>{
 	res.render('menu/menu-chinese')
 });

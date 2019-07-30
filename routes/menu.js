@@ -16,9 +16,9 @@ console.log("Server Online!");
 
 // for stall owner to add in their new food items to menu
 router.post('/stallownerConfig', (req, res) => {
-    let {name, price, cat, outlet_id} = req.body;
+    let {name, price, cat, outlet_id, picture_url} = req.body;
 
-    item_class.createItem(name, cat, price, outlet_id);
+    item_class.createItem(name, cat, price, outlet_id, picture_url);
     res.redirect('/menu/menu');
 });
 
@@ -81,10 +81,26 @@ router.get('/menuAlpha', (req, res) =>{
 });
 
 
+// this is old menu-chinese, testing smth new....
+router.get('/menu-chinese-old', (req, res) =>{
+    var User = sessionStorage.getItem("user");
+    // console.log(User);
+    Item.findAll({
+        where:{
+            cat: 'chinese'
+        },
+        raw: true
+    }).then((items) =>{
+        res.render('menu/menu-chinese-old', {
+            User,
+            items
+        });
+    }).catch(err => console.log(err));
+});
 
 router.get('/menu-chinese', (req, res) =>{
     var User = sessionStorage.getItem("user");
-    console.log(User);
+    // console.log(User);
     Item.findAll({
         where:{
             cat: 'chinese'
@@ -97,7 +113,6 @@ router.get('/menu-chinese', (req, res) =>{
         });
     }).catch(err => console.log(err));
 });
-
 
 
 router.get('/menu-malay', (req, res) =>{
