@@ -4,13 +4,17 @@ const sessionStorage = require('node-sessionstorage');
 const orders = require('../class/order_class');
 const users = require('../class/user_class');
 const bot = require('../config/telegram');
+const variable = require('../class/user_class');
 
 
 router.get('/', (req, res) => {
 	var User = sessionStorage.getItem("user");
+	var Owners = sessionStorage.getItem("owners");
 	const title = 'Smart Food';
 	res.render('home', {title: title,
-		User}); // renders views/home.handlebars
+		User,
+		Owners
+	}); // renders views/home.handlebars
 });
 
 // testing the feature for the menu of different canteen
@@ -26,6 +30,10 @@ router.get('/loginseller', (req, res) => {
 
 router.get('/index', (req, res) => {
 	res.render('index') // renders views/user/loginuser.handlebars
+});
+
+router.get('/history', (req, res) => {
+	res.render('history')
 });
 
 router.get('/loginadmin', (req,res) => {
