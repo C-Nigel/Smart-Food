@@ -21,7 +21,7 @@ const Item = db.define('item', {
         allowNull: false
     },
     average_rating: {
-        type: Sequelize.TINYINT,
+        type: Sequelize.FLOAT,
         max: 5,
         min: 0,
         /*

@@ -13,12 +13,21 @@ ex.getUserByAdmin = function (adminNo) {
 ex.averageRating = function (entityID) {
     return RatingModel.sum('rating_given', {
         where: { item_id: entityID }
-    }).then(sum => {//stop here
+    }).then(sum => {
         RatingModel.count({
             where: { item_id: entityID },
             raw: true
         }).then(count => {
-            ((sum / count).toFixed(1))
+            if (count != 0) {
+                var average_rating = (sum / count).toFixed(1)
+                itemModel.update({
+                    average_rating
+                }, {
+                        where: { id: entityID },
+                        raw: true
+                    })
+            }
+
 
         }).catch(err => {
             console.log(err)
@@ -36,10 +45,3 @@ ex.countTotalItems = function () {
     })
 };
 
-ex.minItemID = function () {
-    return itemModel.min('id')
-};
-
-ex.maxItemID = function () {
-    return itemModel.count({ raw: true })
-};

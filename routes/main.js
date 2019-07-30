@@ -14,30 +14,12 @@ router.get('/', (req, res) => {
 	var User = sessionStorage.getItem("user");
 	var Owners = sessionStorage.getItem("owners");
 	const title = 'Smart Food';
-	rating.countTotalItems().then(num =>{
-		for (var i = 1; i <= num; i++){
-			ratingModel.sum('rating_given', {
-				where: {item_id: i},
-				raw: true
-			}).then(sum => {
-				ratingModel.count({
-					where: {item_id: i},
-					raw: true
-				}).then (count => {
-					var average_rating = (sum / count).toFixed(1)
-					console.log(average_rating)
-					itemModel.update({
-						average_rating
-					}, {
-						where: {
-							id: i
-						}
-					})
-				})
-			})
+	rating.countTotalItems().then(num => {
+		for (var i = 1; i <= num; i++) {
+			rating.averageRating(i)
 		}
 	})
-	res.render('home', { 
+	res.render('home', {
 		title: title,
 		User,
 		Owners
@@ -63,7 +45,7 @@ router.get('/history', (req, res) => {
 	res.render('history')
 });
 
-router.get('/loginadmin', (req,res) => {
+router.get('/loginadmin', (req, res) => {
 	res.render('loginadmin')
 });
 
@@ -130,12 +112,12 @@ router.get('/menuAlpha', (req, res) => {
 // testing in progress
 
 // displaying old chinese menu 
-router.get('menu/menu-chinese-old', (req, res) =>{
+router.get('menu/menu-chinese-old', (req, res) => {
 	res.render('menu/menu-chinese-old')
 });
 
 // working on smth new for chinese menu
-router.get('menu/menu-chinese', (req, res) =>{
+router.get('menu/menu-chinese', (req, res) => {
 	res.render('menu/menu-chinese')
 });
 
