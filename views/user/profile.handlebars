@@ -1,5 +1,4 @@
-{{>_header}}
-{{>_navbar}}
+
 <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
 <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
 <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
@@ -9,8 +8,10 @@
 <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
 <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <!------ Include the above in your HEAD tag ---------->
-
+{{>_header}}
+{{>_navbar}}
 <head>
+    
   <title>Bootstrap Example</title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -18,16 +19,19 @@
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 </head>
+
 <style>
     #hi {
         background-image: url(https://backgrounddownload.com/wp-content/uploads/2018/09/background-for-food-website-3.jpg) ;
+        align-items: center;
     }
     #hii {
             width: 700px;
-            height: 600px;
+            height: 880px;
             background:white;
             border-radius: 10px;
             overflow: hidden;
+            align-items: center;
         
             box-shadow: 0 3px 20px 0px rgba(0, 0, 0, 0.1);
             -moz-box-shadow: 0 3px 20px 0px rgba(0, 0, 0, 0.1);
@@ -40,6 +44,9 @@
 <hr>
 
 <div class="container bootstrap snippet" id="hii">
+    </br>
+    </br>
+ 
     <div class="row">
   		<div class="col-sm-10"><h1>Profile</h1></div>
     </div>
@@ -48,8 +55,8 @@
               
     <form class="form" action="../user/upload" method="post">
       <div class="text-center">
-          <img id="poster" src="/img/no-image.jpg" alt="" class="avatar img-circle img-thumbnail">
-          <input type="file" id="posterUpload" name="picture">
+          <img id="poster" src="/img/no-image.jpg" alt="" class="border img-circle img-fluid" style="height:100px; width:100px;">
+          <input type="file" id="posterUpload" name="picture" accept = "image/png,image/jpeg,image/jpg,image/gif">
         {{!-- <img src="{{picture}}" class="avatar img-circle img-thumbnail" alt="avatar" name="picture">
         <h6>Upload a different photo...</h6>
         <input type="file" class="text-center center-block file-upload" name="picture"> --}}

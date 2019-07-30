@@ -3,6 +3,8 @@
 	<title>Login</title>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
+{{>_header}}
+{{>_navbar}}
 <!--===============================================================================================-->	
 	<link rel="stylesheet" type="text/css" href="/css/usercss/util.css">
 	<link rel="stylesheet" type="text/css" href="/css/usercss/main.css">
@@ -19,7 +21,7 @@
 					</span>
 					
 					<a href="/loginuser" id="buttons">Student/Staff</a>
-					<a href="/loginseller" id="buttonss">Stall Owner</a>
+					<a href="/loginseller" id="buttonss">Sellers</a>
 					<a href="/loginadmin" id="buttonsa">Admin</a> 
                     <style>
 						#buttonss {
@@ -29,7 +31,7 @@
 				
 					
 					<div class="wrap-input100 validate-input" data-validate = "ID must be a number">
-							<input class="input100" type="text" name="stall_id" id="stall_id" placeholder="stall_id" value="{{stall_id}}" required/><span id="errrmsg"></span>
+							<input class="input100" type="text" name="stall_id" id="stall_id" placeholder="Stall ID" value="{{stall_id}}" required/><span id="errrmsg"></span>
 							<span class="focus-input100-1"></span>
 							<span class="focus-input100-2"></span>
 					</div>

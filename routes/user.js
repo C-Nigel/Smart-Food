@@ -159,42 +159,42 @@ router.post('/upload', (req, res) => {
     }
    
     upload(req, res, (err) => {
-    if (err) {
-    res.json({file: '/img/no-image.jpg', err: err});
-    } else {
-    if (req.file === undefined) {
-    res.json({file: '/img/no-image.jpg', err: err});
-    } else {
     res.json({file: `/uploads/${req.file.filename}`});
-    }
-    }
+    
     });
    });
 
 
 router.post('/register', (req, res) => {
-    let errors = [];
-    
     // Retrieves fields from register page from request body
-    let { full_name, admin_no, phone_no, password, confirmpassword } = req.body;
+    let { full_name, admin_no, phone_no, password, confirmpassword} = req.body;
     var email = admin_no + "@mymail.nyp.edu.sg";
 
     // Checks if both passwords entered are the same
-    if (password !== confirmpassword) {
-        errors.push({ text: 'Passwords do not match' });
+    if (password != confirmpassword) {
+        var errors = 'Password do not match!';
+        storage.setItem("error", errors);
+        var error = storage.getItem("error")
+        res.render('user/register', {
+            error,
+            full_name,
+            admin_no,
+            phone_no,
+            password
+        });
+        
     }
 
     // Checks that password length is more than 4
     if (password.length < 4) {
-        errors.push({ text: 'Password must be at least 4 characters' });
+        
     }
 
     if (isNaN(admin_no.slice(0,6))){
-        errors.push({ text: 'Admin Number is not valid!' });
+        
     }
-
     if (phone_no.length != 8){
-        errors.push({ text: 'Invalid phone number!' });
+        
     }
 
     if (errors.length > 0) {
@@ -213,8 +213,9 @@ router.post('/register', (req, res) => {
                 if (user) {
                     // If user is found, that means email has already been
                     // registered
+                    y.type= "text";
                     res.render('user/register', {
-                        error: user.admin_no + ' already registered',
+                        errors,
                         full_name,
                         admin_no,
                         phone_no,
@@ -245,7 +246,7 @@ router.post('/register', (req, res) => {
                         phone_no,
                         password,
                         telegram_id: null,
-                        picture: null,
+                        picture_url: null,
                         // Practical 11 Activity 04
                         admin_status: 0, // Add this statement – set verify to false
                     }).then(user => {
@@ -397,16 +398,17 @@ router.post('/loginseller', (req, res) => {
     else
     {
         svariable.getOutletById(stall_id).then(user =>{
-            var isSame = bcrypt.compareSync(pass, user.password);;
+            //var isSame = bcrypt.compareSync(pass, user.password); ************need uncomment once malique can create stall ownerr user
             console.log(user.password);
-            if(!isSame){
-                res.render('user/logiseller', {
+            //if(!isSame){
+            if(pass != user.password){
+                res.render('user/loginseller', {
                     stall_id
                 });
             }
             else{
                 storage.setItem("owners", user.id);
-                console.log(storage.getItem("user"));
+                console.log(storage.getItem("owners"));
                 console.log(user);
     
                 if (user == null)
@@ -429,7 +431,7 @@ router.post('/loginseller', (req, res) => {
                     //     picture,
                     //     telegram_id
                     // });
-                    res.redirect('/orderList');
+                    res.redirect('/orders');
                     // passport.authenticate('local', {
                     // successRedirect: '/profile', // Route to /video/listVideos URL
                     // failureRedirect: '/loginuser', // Route to /login URL
