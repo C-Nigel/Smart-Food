@@ -8,6 +8,9 @@ const jwt = require('jsonwebtoken');
 const Sequelize = require('sequelize');
 const sgMail = require('@sendgrid/mail');
 const variable = require('../class/user_class');
+const svariable = require('../class/outlet_class');
+const fs = require('fs');
+const upload = require('../helpers/imageUpload');
 const storage = require('node-sessionstorage');
 
 router.get('/', (req, res) => {
@@ -148,29 +151,50 @@ router.post('/profile', (req, res) => {
 
 });
 
-router.post('/register', (req, res) => {
-    let errors = [];
+
+router.post('/upload', (req, res) => {
+    // Creates user id directory for upload if not exist
+    if (!fs.existsSync('./public/uploads')){
+    fs.mkdirSync('./public/uploads');
+    }
+   
+    upload(req, res, (err) => {
+    res.json({file: `/uploads/${req.file.filename}`});
     
+    });
+   });
+
+
+router.post('/register', (req, res) => {
     // Retrieves fields from register page from request body
-    let { full_name, admin_no, phone_no, password, confirmpassword } = req.body;
+    let { full_name, admin_no, phone_no, password, confirmpassword} = req.body;
     var email = admin_no + "@mymail.nyp.edu.sg";
 
     // Checks if both passwords entered are the same
-    if (password !== confirmpassword) {
-        errors.push({ text: 'Passwords do not match' });
+    if (password != confirmpassword) {
+        var errors = 'Password do not match!';
+        storage.setItem("error", errors);
+        var error = storage.getItem("error")
+        res.render('user/register', {
+            error,
+            full_name,
+            admin_no,
+            phone_no,
+            password
+        });
+        
     }
 
     // Checks that password length is more than 4
     if (password.length < 4) {
-        errors.push({ text: 'Password must be at least 4 characters' });
+        
     }
 
     if (isNaN(admin_no.slice(0,6))){
-        errors.push({ text: 'Admin Number is not valid!' });
+        
     }
-
     if (phone_no.length != 8){
-        errors.push({ text: 'Invalid phone number!' });
+        
     }
 
     if (errors.length > 0) {
@@ -189,8 +213,9 @@ router.post('/register', (req, res) => {
                 if (user) {
                     // If user is found, that means email has already been
                     // registered
+                    y.type= "text";
                     res.render('user/register', {
-                        error: user.admin_no + ' already registered',
+                        errors,
                         full_name,
                         admin_no,
                         phone_no,
@@ -221,7 +246,7 @@ router.post('/register', (req, res) => {
                         phone_no,
                         password,
                         telegram_id: null,
-                        picture: null,
+                        picture_url: null,
                         // Practical 11 Activity 04
                         admin_status: 0, // Add this statement – set verify to false
                     }).then(user => {
@@ -270,10 +295,7 @@ router.post('/loginuser', (req, res) => {
             console.log(user.password);
             if(!isSame){
                 res.render('user/loginuser', {
-                    full_name,
-                    admin_no,
-                    phone_no,
-                    picture
+                    admin_no
                 });
             }
             else{
@@ -322,116 +344,110 @@ router.post('/loginuser', (req, res) => {
 router.post('/forgetpw', (req, res) => {
     let { admin_no } = req.body;
     variable.getUserByAdmin(admin_no).then(user =>{
-        console.log(user);
-        var email = admin_no + '@mymail.nyp.edu.sg';
-        sgMail.setApiKey('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');
-        const msg = {
-            to: email,
-            from: '180527e@mymail.nyp.edu.sg',
-            subject: 'Forget Password',
-            text: 'OOADP is such a struggle',
-            html: `TPlease refer to this link <a href="http://localhost:5000/user/profile"> to reset your password `
-            //html: 'Your password is ' + user.password
- 
-        };
-        sgMail.send(msg);
-        res.redirect('/loginuser');
+        if(user == null)
+        {
+            res.render('user/forgetpw');
+        }
+        else{
+            console.log(user);
+            var newpass = Math.random().toString(36).replace('0.', '') .substr(0, 8);
+            console.log(newpass)
+            var salt = bcrypt.genSaltSync(10);
+            var hashednewPassword = bcrypt.hashSync(newpass, salt);
+            User.update({
+                password: hashednewPassword
+            }, {
+                where: {admin_no: admin_no}
+            }
+            ).then(user => {
+                console.log(user);
+                var email = admin_no + '@mymail.nyp.edu.sg';
+                sgMail.setApiKey('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');
+                const msg = {
+                    to: email,
+                    from: '180527e@mymail.nyp.edu.sg',
+                    subject: 'Forget Password',
+                    text: 'Generated password',
+                    html: `This is your new password ` + newpass + ` </br> Please use this random generated password to login<a href="http://localhost:5000/loginuser"> here `
+                    //html: 'Your password is ' + user.password
+        
+                };
+                sgMail.send(msg);
+                res.redirect('/loginuser');
+            })
+        }
+        
     })
 });
 
-    /*let errors = [];
-    // Retrieves fields from register page from request body
-    let { full_name, admin_no, password, confirmpassword, phone_no } = req.body;
-    var randLetter = String.fromCharCode(65 + Math.floor(Math.random() * 26));
-    var user_id = randLetter + Date.now(); 
-    var email = admin_no + "@mymail.nyp.edu.sg"
-    // Checks if both passwords entered are the same
-    if (password !== confirmpassword) {
-        errors.push({ text: 'Passwords do not match' });
-    }
+router.post('/loginseller', (req, res) => {
+    let errors = [];
+    let {stall_id, password} = req.body;
+    var pass = password;
 
-    // Checks that password length is more than 4
-    if (password.length < 4) {
-        errors.push({ text: 'Password must be at least 4 characters' });
-    }
-    if (isNaN(phone_no)) {
-        errors.push({ text: 'Phone number must be in digits' });
-    }
-    if (phone_no.length < 9) {
-        errors.push({ text: 'Phone number must be 8 digits' });
+    if (isNaN(stall_id)){
+        errors.push({ text: 'Stall id invalid!' });
     }
     if (errors.length > 0) {
-        res.render('user/register', {
+        res.render('user/loginuser', {
             errors,
-            user_id,
             admin_no,
-            full_name,
-            password,
-            confirmpassword,
-            phone_no
+            password
         });
-    } else {
-        // If all is well, checks if user is already registered
-        User.findOne({ where: { admin_no: req.body.admin_no } })
-            .then(user => {
-                if (user) {
-                    // If user is found, that means email has already been
-                    // registered
-                    res.render('user/register', {
-                        error: user.admin_no + ' already registered',
-                        user_id,
-                        admin_no,
-                        full_name,
-                        password,
-                        confirmpassword,
-                        phone_no
-                    });
-                } else {
-                    // Practical 11 Activity 04
-                    // Generate JWT token
-                    let token;
-                    // Encrypt the password
-                    var salt = bcrypt.genSaltSync(10);
-                    var hashedPassword = bcrypt.hashSync(password, salt);
-                    password = hashedPassword;
-
-
-                    jwt.sign(email, hashedPassword, (err, jwtoken) => {
-                        if (err) {
-                            console.log('Error generating Token: ' + err);
-                        }
-                        token = jwtoken;
-                    });
-
-                    // Create new user record
-                    User.create({
-                        user_id,
-                        admin_no,
-                        full_name,
-                        password,
-                        phone_no,
-                        telegram_id,
-                        // Practical 11 Activity 04
-                         // Add this statement – set verify to false
-                    }).then(user => {
-                        // Practical 11 Activity 04
-                        sendEmail(user.id, email, token) // Add this to call sendEmail function
-                            .then(msg => { // Send email success
-                                alertMessage(res, 'success', user.full_name + ' added. Please logon to ' +
-                                    email + ' to verify account.',
-                                    'fas fa-sign-in-alt', true);
-                                res.redirect('/loginuser');
-                            }).catch(err => { // Send email fail
-                                alertMessage(res, 'warning', 'Error sending to ' + user.email,
-                                    'fas fa-sign-in-alt', true);
-                                res.redirect('/loginuser');
-                            });
-                    }).catch(err => {
-                        console.log(err)
-                    });
+    }
+    else
+    {
+        svariable.getOutletById(stall_id).then(user =>{
+            //var isSame = bcrypt.compareSync(pass, user.password); ************need uncomment once malique can create stall ownerr user
+            console.log(user.password);
+            //if(!isSame){
+            if(pass != user.password){
+                res.render('user/loginseller', {
+                    stall_id
+                });
+            }
+            else{
+                storage.setItem("owners", user.id);
+                console.log(storage.getItem("owners"));
+                console.log(user);
+    
+                if (user == null)
+                {
+                    res.redirect('/register');
                 }
-            });
-    } */
+    
+                else
+                {
+                    var admin_no = user.admin_no
+                    var full_name = user.full_name;
+                    var phone_no = user.phone_no;
+                    var picture = user.picture;
+                    var telegram_id = user.telegram_id;
+                    req.session.user = user;
+                    // res.render('user/profile',{
+                    //     admin_no,
+                    //     full_name,
+                    //     phone_no,
+                    //     picture,
+                    //     telegram_id
+                    // });
+                    res.redirect('/orders');
+                    // passport.authenticate('local', {
+                    // successRedirect: '/profile', // Route to /video/listVideos URL
+                    // failureRedirect: '/loginuser', // Route to /login URL
+                    // failureFlash: true
+                    //  /* Setting the failureFlash option to true instructs Passport to flash an error
+                    //    message using the message given by the strategy's verify callback, if any.
+                    // When a failure occur passport passes the message object as error */
+                    // })(req, res, next);
+                }    
+            }
+           
+
+            
+        })
+    } 
+});
 
 
 

@@ -2,6 +2,12 @@ const express = require('express');
 const router = express.Router();
 const item_class = require('../class/item_class')
 const Item = require('../models/Item');
+const sessionStorage = require('node-sessionstorage');
+
+// testing for adding food img by stall owners
+// const fs = require('fs');
+// const uploadOfFoodImg = require('../helpers/imageUpload');
+
 // const outlet = require('../models/Outlet');
 
 console.log("Server Online!");
@@ -10,9 +16,9 @@ console.log("Server Online!");
 
 // for stall owner to add in their new food items to menu
 router.post('/stallownerConfig', (req, res) => {
-    let {name, price, cat, outlet_id} = req.body;
+    let {name, price, cat, outlet_id, picture_url} = req.body;
 
-    item_class.createItem(name, cat, price, outlet_id);
+    item_class.createItem(name, cat, price, outlet_id, picture_url);
     res.redirect('/menu/menu');
 });
 
@@ -75,8 +81,26 @@ router.get('/menuAlpha', (req, res) =>{
 });
 
 
+// this is old menu-chinese, testing smth new....
+router.get('/menu-chinese-old', (req, res) =>{
+    var User = sessionStorage.getItem("user");
+    // console.log(User);
+    Item.findAll({
+        where:{
+            cat: 'chinese'
+        },
+        raw: true
+    }).then((items) =>{
+        res.render('menu/menu-chinese-old', {
+            User,
+            items
+        });
+    }).catch(err => console.log(err));
+});
 
 router.get('/menu-chinese', (req, res) =>{
+    var User = sessionStorage.getItem("user");
+    // console.log(User);
     Item.findAll({
         where:{
             cat: 'chinese'
@@ -84,11 +108,11 @@ router.get('/menu-chinese', (req, res) =>{
         raw: true
     }).then((items) =>{
         res.render('menu/menu-chinese', {
+            User,
             items
         });
     }).catch(err => console.log(err));
 });
-
 
 
 router.get('/menu-malay', (req, res) =>{

@@ -7,10 +7,12 @@ const bot = require('../config/telegram');
 const rating = require('../class/rating_class');
 const itemModel = require('../models/Item');
 const ratingModel = require('../models/Rating');
+const variable = require('../class/user_class');
 
 
 router.get('/', (req, res) => {
 	var User = sessionStorage.getItem("user");
+	var Owners = sessionStorage.getItem("owners");
 	const title = 'Smart Food';
 	rating.countTotalItems().then(num =>{
 		for (var i = 1; i <= num; i++){
@@ -37,7 +39,8 @@ router.get('/', (req, res) => {
 	})
 	res.render('home', { 
 		title: title,
-		User
+		User,
+		Owners
 	}); // renders views/home.handlebars
 });
 
@@ -56,7 +59,11 @@ router.get('/index', (req, res) => {
 	res.render('index') // renders views/user/loginuser.handlebars
 });
 
-router.get('/loginadmin', (req, res) => {
+router.get('/history', (req, res) => {
+	res.render('history')
+});
+
+router.get('/loginadmin', (req,res) => {
 	res.render('loginadmin')
 });
 
@@ -73,7 +80,7 @@ router.get('/changepassword', (req, res) => {
 });
 
 router.get('/profile', (req, res) => {
-	var User = storage.getItem("user");
+	var User = sessionStorage.getItem("user");
 	console.log(User);
 	if (User) {
 		variable.getUserByAdmin(User).then(user => {
@@ -122,8 +129,13 @@ router.get('/menuAlpha', (req, res) => {
 
 // testing in progress
 
-// displaying only chinese menu 
-router.get('menu/menu-chinese', (req, res) => {
+// displaying old chinese menu 
+router.get('menu/menu-chinese-old', (req, res) =>{
+	res.render('menu/menu-chinese-old')
+});
+
+// working on smth new for chinese menu
+router.get('menu/menu-chinese', (req, res) =>{
 	res.render('menu/menu-chinese')
 });
 
@@ -190,12 +202,8 @@ router.get('/stallownerConfig', (req, res) =>{
 
 
 router.get('/logout', (req, res) => {
-	storage.removeItem("user");
+	sessionStorage.removeItem("user");
 	res.redirect('/');
-});
-
-router.get('/orders', (req, res) => {
-	res.render('orderList');
 });
 
 router.get('/admin', (req, res) => {
@@ -211,7 +219,7 @@ router.get('/addStallOwners', (req, res) => {
 });
 
 router.get('/orders', (req, res) => {
-	let outletid = sessionStorage.getItem("user");
+	//let outletid = sessionStorage.getItem("user");
 	orders.getOrdersForOutlets(1).then(orders => {
 		res.render('orderList', { orders: orders });
 	})
