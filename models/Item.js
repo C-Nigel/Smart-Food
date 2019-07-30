@@ -11,7 +11,10 @@ const Item = db.define('item', {
         type: Sequelize.STRING
     },
     price: {
-        type: Sequelize.DOUBLE
+        type: Sequelize.DECIMAL
+    },
+    picture_url: {
+        type: Sequelize.STRING
     },
     outlet_id: {
         type: Sequelize.INTEGER,

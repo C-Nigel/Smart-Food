@@ -11,7 +11,6 @@ router.get('/', (req, res) => {
 	var User = sessionStorage.getItem("user");
 	var Owners = sessionStorage.getItem("owners");
 	const title = 'Smart Food';
-	
 	res.render('home', {title: title,
 		User,
 		Owners
@@ -171,12 +170,8 @@ router.get('/stallownerConfig', (req, res) =>{
 
 
 router.get('/logout', (req, res) => {
-	storage.removeItem("user");
+	sessionStorage.removeItem("user");
 	res.redirect('/');
-});
-
-router.get('/orders', (req, res) => {
-    res.render('orderList');
 });
 
 router.get('/admin', (req, res) => {
@@ -192,7 +187,7 @@ router.get('/addStallOwners', (req, res) =>{
 });
 
 router.get('/orders', (req, res) => {
-	let outletid = sessionStorage.getItem("user");
+	//let outletid = sessionStorage.getItem("user");
 	orders.getOrdersForOutlets(1).then(orders => {
 		res.render('orderList', {orders: orders});
 	})
