@@ -16,6 +16,16 @@ const Item = db.define('item', {
     outlet_id: {
         type: Sequelize.INTEGER,
         allowNull: false
+    },
+    average_rating: {
+        type: Sequelize.TINYINT,
+        max: 5,
+        min: 0,
+        /*
+        0 - 0 being the worst
+        5 - 5 being the best
+        */
+        allowNull: true
     }
 });
 

@@ -1,5 +1,6 @@
 const RatingModel = require('../models/Rating');
 const op = require('sequelize').Op;
+const itemModel = require('../models/Item')
 var ex = module.exports = {};
 
 ex.getUserByAdmin = function (adminNo) {
@@ -12,12 +13,13 @@ ex.getUserByAdmin = function (adminNo) {
 ex.averageRating = function (entityID) {
     return RatingModel.sum('rating_given', {
         where: { item_id: entityID }
-    }).then(sum => {
+    }).then(sum => {//stop here
         RatingModel.count({
             where: { item_id: entityID },
             raw: true
         }).then(count => {
-            console.log((sum / count).toFixed(1))
+            ((sum / count).toFixed(1))
+
         }).catch(err => {
             console.log(err)
         })
@@ -26,6 +28,18 @@ ex.averageRating = function (entityID) {
 
 ex.count = function () {
     return RatingModel.count({
-
     })
-}
+};
+
+ex.countTotalItems = function () {
+    return itemModel.count({
+    })
+};
+
+ex.minItemID = function () {
+    return itemModel.min('id')
+};
+
+ex.maxItemID = function () {
+    return itemModel.count({ raw: true })
+};
