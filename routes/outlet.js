@@ -17,11 +17,17 @@ router.post('/addSO', (req,res) => {
     res.render('outlet');
 });
 
-router.get('/outlet', (req, res) =>{
+router.get('/outlet/addSO', (req, res) =>{
     Outlet.findAll({
+        where: {
+            name: req.body.name,
+            des: req.body.desc
+        },
+
         raw: true
-    }).then((outlets)=>{
-        res.render('outlet/outlet', {
+    }).then((outlets) => 
+    {
+        res.render('outlet/addSO', {
             outlets
         });
     })
