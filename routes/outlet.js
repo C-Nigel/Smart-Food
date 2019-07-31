@@ -10,7 +10,7 @@ router.post('/addSO', (req,res) => {
     let name = req.body.name;
     
     let password = req.body.password;
-    var hashPass = bcrypt.hashSync(password)
+    var hashPass = bcrypt.hashSync(password, salt)
     let desc = req.body.desc;
 
     outlet_class.createOutlet(name , hashPass , desc);
