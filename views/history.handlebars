@@ -1,99 +1,298 @@
-<link rel="stylesheet" type="text/css" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css">
-<link rel="stylesheet" type="text/css" href="../css/history.css">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <!--  This file has been downloaded from https://bootdey.com  -->
+    <!--  All snippets are MIT license https://bootdey.com/license -->
+{{>_header}}
+{{>_navbar}}
+</br>
+</br>
+    <title>Order History</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+    <link href="http://netdna.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
+    <style type="text/css">
+    	body{
+    margin-top:20px;
+    background:#eee;
+}
+/* My Account */
+.payments-item img.mr-3 {
+    width: 47px;
+}
+.order-list .btn {
+    border-radius: 2px;
+    min-width: 121px;
+    font-size: 13px;
+    padding: 7px 0 7px 0;
+}
+.osahan-account-page-left .nav-link {
+    padding: 18px 20px;
+    border: none;
+    font-weight: 600;
+    color: #535665;
+}
+.osahan-account-page-left .nav-link i {
+    width: 28px;
+    height: 28px;
+    background: #535665;
+    display: inline-block;
+    text-align: center;
+    line-height: 29px;
+    font-size: 15px;
+    border-radius: 50px;
+    margin: 0 7px 0 0px;
+    color: #fff;
+}
+.osahan-account-page-left .nav-link.active {
+    background: #f3f7f8;
+    color: #282c3f !important;
+}
+.osahan-account-page-left .nav-link.active i {
+    background: #282c3f !important;
+}
+.osahan-user-media img {
+    width: 90px;
+}
+.card offer-card h5.card-title {
+    border: 2px dotted #000;
+}
+.card.offer-card h5 {
+    border: 1px dotted #daceb7;
+    display: inline-table;
+    color: #17a2b8;
+    margin: 0 0 19px 0;
+    font-size: 15px;
+    padding: 6px 10px 6px 6px;
+    border-radius: 2px;
+    background: #fffae6;
+    position: relative;
+}
+.card.offer-card h5 img {
+    height: 22px;
+    object-fit: cover;
+    width: 22px;
+    margin: 0 8px 0 0;
+    border-radius: 2px;
+}
+.card.offer-card h5:after {
+    border-left: 4px solid transparent;
+    border-right: 4px solid transparent;
+    border-bottom: 4px solid #daceb7;
+    content: "";
+    left: 30px;
+    position: absolute;
+    bottom: 0;
+}
+.card.offer-card h5:before {
+    border-left: 4px solid transparent;
+    border-right: 4px solid transparent;
+    border-top: 4px solid #daceb7;
+    content: "";
+    left: 30px;
+    position: absolute;
+    top: 0;
+}
+.payments-item .media {
+    align-items: center;
+}
+.payments-item .media img {
+    margin: 0 40px 0 11px !important;
+}
+.reviews-members .media .mr-3 {
+    width: 56px;
+    height: 56px;
+    object-fit: cover;
+}
+.order-list img.mr-4 {
+    width: 70px;
+    height: 70px;
+    object-fit: cover;
+    box-shadow: 0 .125rem .25rem rgba(0, 0, 0, .075)!important;
+    border-radius: 2px;
+}
+.osahan-cart-item p.text-gray.float-right {
+    margin: 3px 0 0 0;
+    font-size: 12px;
+}
+.osahan-cart-item .food-item {
+    vertical-align: bottom;
+}
 
-<div class="panel panel-default panel-order">
-  <div class="panel-heading">
-      <strong>Order history</strong>
-      <div class="btn-group pull-right">
-          <div class="btn-group">
-			<button type="button" class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown">
-			  Filter history <i class="fa fa-filter"></i>
-			</button>
-			<ul class="dropdown-menu dropdown-menu-right">
-			  <li><a href="#">Approved orders</a></li>
-			  <li><a href="#">Pending orders</a></li>
-			</ul>
-		  </div>
-		</div>
-  </div>
+.h1, .h2, .h3, .h4, .h5, .h6, h1, h2, h3, h4, h5, h6 {
+    color: #000000;
+}
 
-<div class="panel-body">
-  	<div class="row">
-	  <div class="col-md-1"><img src="https://bootdey.com/img/Content/user_3.jpg" class="media-object img-thumbnail"></div>
-	  <div class="col-md-11">
-		<div class="row">
-		  <div class="col-md-12">
-			<div class="pull-right"><label class="label label-danger">rejected</label> </div>
-			<span><strong>Order name</strong></span> <span class="label label-info">group name</span><br>
-			Quantity : 2, cost: $323.13 <br>
-			<a data-placement="top" class="btn btn-success btn-xs glyphicon glyphicon-ok" href="#" title="View"></a>
-			<a data-placement="top" class="btn btn-danger  btn-xs glyphicon glyphicon-trash" href="#" title="Danger"></a>
-			<a data-placement="top" class="btn btn-info  btn-xs glyphicon glyphicon-usd" href="#" title="Danger"></a>
-		  </div>
-		  <div class="col-md-12">
-			order made on: 05/31/2014 by <a href="#">Jane Doe </a>
-		  </div>
-		</div>
-	  </div>
-	</div>
+.shadow-sm {
+    box-shadow: 0 .125rem .25rem rgba(0,0,0,.075)!important;
+}
 
+.rounded-pill {
+    border-radius: 50rem!important;
+}
+a:hover{
+    text-decoration:none;
+}
+    </style>
+</head>
+
+<body>
+<link rel="stylesheet" href="https://allyoucan.cloud/cdn/icofont/1.0.1/icofont.css" integrity="sha384-jbCTJB16Q17718YM9U22iJkhuGbS0Gd2LjaWb4YJEZToOPmnKDjySVa323U+W7Fv" crossorigin="anonymous">
+
+<div class="container">
     <div class="row">
-	  <div class="col-md-1"><img src="https://bootdey.com/img/Content/user_1.jpg" class="media-object img-thumbnail"></div>
-	  <div class="col-md-11">
-		<div class="row">
-		  <div class="col-md-12">
-			<div class="pull-right"><label class="label label-info">pending</label> </div>
-			<span><strong>Order name</strong></span> <span class="label label-info">group name</span><br>
-			Quantity : 12, cost: $12623.13<br>
-			<a data-placement="top" class="btn btn-success btn-xs glyphicon glyphicon-ok" href="#" title="View"></a>
-			<a data-placement="top" class="btn btn-danger  btn-xs glyphicon glyphicon-trash" href="#" title="Danger"></a>
-			<a data-placement="top" class="btn btn-info  btn-xs glyphicon glyphicon-usd" href="#" title="Danger"></a>
-		  </div>
-		  <div class="col-md-12">
-			order made on: 06/12/2014 by <a href="#">Jane Doe </a>
-		  </div>
-		</div>
-	  </div>
-	</div>
+        <div class="col-md-3">
+            <div class="osahan-account-page-left shadow-sm bg-white h-100">
+                <div class="border-bottom p-4">
+                    <div class="osahan-user text-center">
+                        <div class="osahan-user-media">
+                            <img class="mb-3 rounded-pill shadow-sm mt-1" src="https://bootdey.com/img/Content/avatar/avatar1.png" alt="gurdeep singh osahan">
+                            <div class="osahan-user-media-body">
+                                <h6 class="mb-2">{{full_name}}</h6>
+                                <p class="mb-1">{{admin_no}}</p>
+                                <p>{{phone_no}}</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <ul class="nav nav-tabs flex-column border-0 pt-4 pl-4 pb-4" id="myTab" role="tablist">
+                    <li class="nav-item">
+                        <a class="nav-link" id="orders-tab" data-toggle="tab" href="#orders" role="tab" aria-controls="orders" aria-selected="false"><i class="icofont-food-cart"></i> Orders</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="col-md-9">
+            <div class="osahan-account-page-right shadow-sm bg-white p-4 h-100">
+                <form action="../history">
+                <div class="tab-content" id="myTabContent">
+                    <div class="tab-pane  fade  active show" id="orders" role="tabpanel" aria-labelledby="orders-tab">
+                        <h4 class="font-weight-bold mt-0 mb-4">Past Orders</h4>
+                        <div class="bg-white card mb-4 order-list shadow-sm">
+                            <div class="gold-members p-4">
+                                <a href="#">
+                                </a>
+                                {{#if orders}}
+			                    {{#each orders}}
+                                    <div class="media">
+                                        {{!-- <a href="#">
+                                            <img class="mr-4" src="https://bootdey.com/img/Content/avatar/avatar2.png" alt="Generic placeholder image">
+                                        </a> --}}
+                                        <div class="media-body">
+                                            <a href="#">
+                                                <span class="float-right text-info">Delivered on Mon, Nov 12, 7:18 PM <i class="icofont-check-circled text-success"></i></span>
+                                            </a>
+                                            <h6 class="mb-2">
+                                                <a href="#"></a>
+                                                <a href="#" class="text-black">Gus's World Famous Fried Chicken</a>
+                                            </h6>
+                                            <p class="text-gray mb-1"><i class="icofont-location-arrow"></i> 730 S Mendenhall Rd, Memphis, TN 38117, USA
+                                            </p>
+                                            <p class="text-gray mb-3"><i class="icofont-list"></i> ORDER #25102589748 <i class="icofont-clock-time ml-2"></i> Mon, Nov 12, 6:26 PM</p>
+                                            <p class="text-dark">Veg Masala Roll x 1, Veg Burger x 1, Veg Penne Pasta in Red Sauce x 1
+                                            </p>
+                                            <hr>
+                                            <div class="float-right">
+                                                <a class="btn btn-sm btn-outline-primary" href="#"><i class="icofont-headphone-alt"></i> HELP</a>
+                                                <a class="btn btn-sm btn-primary" href="#"><i class="icofont-refresh"></i> REORDER</a>
+                                            </div>
+                                            <p class="mb-0 text-black text-primary pt-2"><span class="text-black font-weight-bold"> Total Paid:</span> $300
+                                            </p>
+                                        </div>
+                                    </div>
+                                {{/each}}
+                                {{else}}
+                                    <div class="col">
+                                        <div class="card bg-light mb-3">
+                                            <div class="card-body">
+                                                <h4 class="text-center">
+                                                    No history found
+                                                    <br><br>
+                                                </h4>
+                                            </div>
+                                        </div>
+                                    </div>
+                                {{/if}}
 
-    <div class="row">
-	  <div class="col-md-1"><img src="https://bootdey.com/img/Content/user_3.jpg" class="media-object img-thumbnail"></div>
-	  <div class="col-md-11">
-		<div class="row">
-		  <div class="col-md-12">
-			<div class="pull-right"><label class="label label-success">Approved</label> </div>
-			<span><strong>Order name</strong></span> <span class="label label-info">group name</span><br>
-			Quantity : 4, cost: $523.13<br>
-			<a data-placement="top" class="btn btn-success btn-xs glyphicon glyphicon-ok" href="#" title="View"></a>
-			<a data-placement="top" class="btn btn-danger  btn-xs glyphicon glyphicon-trash" href="#" title="Danger"></a>
-			<a data-placement="top" class="btn btn-info  btn-xs glyphicon glyphicon-usd" href="#" title="Danger"></a>
-		  </div>
-		  <div class="col-md-12">
-			order made on: 06/20/2014 by <a href="#">Jane Doe</a>
-		  </div>
-		</div>
-	  </div>
-	</div>
+                            </div>
+                        </div>
+                        <div class="bg-white card mb-4 order-list shadow-sm">
+                            <div class="gold-members p-4">
+                                <a href="#">
+                                </a>
+                                <div class="media">
+                                    {{!-- <a href="#">
+                                        <img class="mr-4" src="https://bootdey.com/img/Content/avatar/avatar3.png" alt="Generic placeholder image">
+                                    </a> --}}
+                                    <div class="media-body">
+                                        <a href="#">
+                                            <span class="float-right text-info">Delivered on Mon, Nov 12, 7:18 PM <i class="icofont-check-circled text-success"></i></span>
+                                        </a>
+                                        <h6 class="mb-2">
+                                            <a href="#"></a>
+                                            <a href="#" class="text-black">Jimmy's Famous American Tavern</a>
+                                        </h6>
+                                        <p class="text-gray mb-1"><i class="icofont-location-arrow"></i> 1733 Ocean Ave, Santa Monica, CA 90401, USA
+                                        </p>
+                                        <p class="text-gray mb-3"><i class="icofont-list"></i> ORDER #25102589748 <i class="icofont-clock-time ml-2"></i> Mon, Nov 12, 6:26 PM</p>
+                                        <p class="text-dark">Veg Masala Roll x 5, Veg Burger x 1, Veg Penne Pasta in Red Sauce x 1
+                                        </p>
+                                        <hr>
+                                        <div class="float-right">
+                                            <a class="btn btn-sm btn-outline-primary" href="#"><i class="icofont-headphone-alt"></i> HELP</a>
+                                            <a class="btn btn-sm btn-primary" href="#"><i class="icofont-refresh"></i> REORDER</a>
+                                        </div>
+                                        <p class="mb-0 text-black text-primary pt-2"><span class="text-black font-weight-bold"> Total Paid:</span> $500
+                                        </p>
+                                    </div>
+                                </div>
 
-    <div class="row">
-	  <div class="col-md-1"><img src="https://bootdey.com/img/Content/user_2.jpg" class="media-object img-thumbnail"></div>
-	  <div class="col-md-11">
-		<div class="row">
-		  <div class="col-md-12">
-			<div class="pull-right"><label class="label label-info">pending</label> </div>
-			<span><strong>Order name</strong></span> <span class="label label-info">group name</span><br>
-			Quantity : 4, cost: $523.13<br>
-			<a data-placement="top" class="btn btn-success btn-xs glyphicon glyphicon-ok" href="#" title="View"></a>
-			<a data-placement="top" class="btn btn-danger  btn-xs glyphicon glyphicon-trash" href="#" title="Danger"></a>
-			<a data-placement="top" class="btn btn-info  btn-xs glyphicon glyphicon-usd" href="#" title="Danger"></a>
-		  </div>
-		  <div class="col-md-12">
-			order made on: 06/20/2014 by <a href="#">Jane Doe</a>
-		  </div>
-		</div>
-	  </div>
-	</div>
-
+                            </div>
+                        </div>
+                        <div class="bg-white card  order-list shadow-sm">
+                            <div class="gold-members p-4">
+                                <a href="#">
+                                </a>
+                                <div class="media">
+                                    {{!-- <a href="#">
+                                        <img class="mr-4" src="https://bootdey.com/img/Content/avatar/avatar4.png" alt="Generic placeholder image">
+                                    </a> --}}
+                                    <div class="media-body">
+                                        <a href="#">
+                                            <span class="float-right text-info">Delivered on Mon, Nov 12, 7:18 PM <i class="icofont-check-circled text-success"></i></span>
+                                        </a>
+                                        <h6 class="mb-2">
+                                            <a href="#"></a>
+                                            <a href="#" class="text-black">The Famous Restaurant</a>   
+                                        </h6>
+                                        <p class="text-gray mb-1"><i class="icofont-location-arrow"></i> 953 S Main St, Centerville, OH 45459, USA
+                                        </p>
+                                        <p class="text-gray mb-3"><i class="icofont-list"></i> ORDER #25102589748 <i class="icofont-clock-time ml-2"></i> Mon, Nov 12, 6:26 PM</p>
+                                        <p class="text-dark">Veg Masala Roll x 5, Veg Penne Pasta in Red Sauce x 1
+                                        </p>
+                                        <hr>
+                                        <div class="float-right">
+                                            <a class="btn btn-sm btn-outline-primary" href="#"><i class="icofont-headphone-alt"></i> HELP</a>
+                                            <a class="btn btn-sm btn-primary" href="#"><i class="icofont-refresh"></i> REORDER</a>
+                                        </div>
+                                        <p class="mb-0 text-black text-primary pt-2"><span class="text-black font-weight-bold"> Total Paid:</span> $420
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                </form>
+            </div>
+        </div>
+    </div>
 </div>
-<div class="panel-footer">Put here some note for example: bootdey si a gallery of free bootstrap snippets</div>
-</div>                    
+
+<script src="http://netdna.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+<script type="text/javascript">
+	
+</script>
+</body>
+</html>
