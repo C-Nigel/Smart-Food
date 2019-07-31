@@ -3,6 +3,8 @@
 	<title>Login</title>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
+{{>_header}}
+{{>_navbar}}
 <!--===============================================================================================-->	
 	<link rel="stylesheet" type="text/css" href="/css/usercss/util.css">
 	<link rel="stylesheet" type="text/css" href="/css/usercss/main.css">
@@ -29,13 +31,13 @@
 					</style>
 					
 					<div class="wrap-input100 validate-input" data-validate = "Valid admin number is required: 123456A">
-							<input class="input100" type="text" name="admin_no" placeholder="Admin number" />
+							<input class="input100" type="text" name="admin_no" placeholder="Admin number" required/>
 							<span class="focus-input100-1"></span>
 							<span class="focus-input100-2"></span>
 						</div>
 
 					<div class="wrap-input100 rs1 validate-input" data-validate="Password is required">
-						<input class="input100" type="password" name="password" placeholder="Password" />
+						<input class="input100" type="password" name="password" placeholder="Password" required/>
 						<span class="focus-input100-1"></span>
 						<span class="focus-input100-2"></span>
 					</div>

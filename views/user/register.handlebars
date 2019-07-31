@@ -2,11 +2,13 @@
 	<title>Register</title>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
+{{>_header}}
+{{>_navbar}}
 <!--===============================================================================================-->	
 	<link rel="stylesheet" type="text/css" href="/css/usercss/util.css">
 	<link rel="stylesheet" type="text/css" href="/css/usercss/main.css">
 <!--===============================================================================================-->
-
+	<body>
 	<div class="limiter">
 
 		<div class="container-login100">
@@ -28,7 +30,7 @@
 						</div>
 
 						<div class="wrap-input100 validate-input" data-validate = "Valid number is required: 12345678">
-							<input class="input100" type="text" name="phone_no" id="phoneNo" placeholder="Phone Number" value="{{phone_no}}"/><span id="errrmsg"></span>
+							<input class="input100" type="text" name="phone_no" id="phoneNo" placeholder="Phone Number" value="{{phone_no}}" required/><span id="errrmsg"></span>
 							<span class="focus-input100-1"></span>
 							<span class="focus-input100-2"></span>
 						</div>
@@ -62,8 +64,10 @@
 								Sign up
 							</button>
 						</div>
-	
-
+						{{#if error}}
+ 							<div class="alert alert-danger">{{error}}</div>
+						{{/if}}
+						</br>
 					<div class="text-center p-t-45 p-b-4">
 						<span class="txt1">
 							Forgot
@@ -87,5 +91,6 @@
 			</div>
 		</div>
 	</div>
+	</body>
 
 

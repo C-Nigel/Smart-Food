@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+{{>_header}}
+
+<head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="/css/menu/menu.css">
+    <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.2/themes/smoothness/jquery-ui.css">
+</head>
+<body>
+    {{>_navbar}}
+
+    <br>
+    <div class="container">
+        {{!-- <form action="../menu/menu-chinese" method="GET" > --}}
+        <div class="wrapper">
+            <h1>Our Chinese Cuisine @ NYP</h1>
+            <br>
+
+            {{#if items}}
+                
+                <span id="itemCount"></span>
+                <span id="tag"><a href="#"><i class="cart"></i></a></span>
+                
+            <br>
+            <br>
+            
+
+            {{#each items}}
+            <div class="items">
+                <div class="item">
+
+                    <div class="infoforcart">
+                        
+                        <h2>Name: {{name}}</h2>
+                        <br>
+                        <p>Price: $<span class="price">{{price}}</span></p>
+                        <p>Category: {{cat}}</p>
+                        <p>Owned By Food Outlet: {{outlet_id}}</p>
+                    </div>
+
+                    <img src="/img/chickenricemod1.jpg" />
+                    <br>
+
+                    
+                    <p>Quantity: <input type="text" value=0 size="2" id="modifyingChanges"></p>
+                    <div class="quantity-operator">
+                        <button type="button" id="modifyingChanges_Add">+</button>
+                        <button type="button" id="modifyingChanges_Minus">-</button>
+                    </div>
+                    <br>
+                    <br>
+                    <button class="tocart" type="button">Add to Cart</button>
+                    
+                </div>
+            {{/each}}
+
+
+                <div id="shoppingCart">
+                    <div id="cartContainer">
+                        <h2>Selected Items</h2>
+                        <!--<i class="fa fa-times-circle-o fa-3x openCart" aria-hidden="true"></i>-->
+                        <div id="cartItems"></div>
+                        <span id="cartTotal"></span>
+                        <br>
+                        <button type="button" class="back">Back to selection</button>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        </form>
+    </div>
+
+
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.2/jquery-ui.min.js"></script>
+        <script src="/js/oldmenudesign.js"></script>
+
+            {{else}}
+            <br>
+            <h3>No Chinese Cuisine available at the moment !</h3>
+            {{/if}}
+    {{!-- {{>_footer}} --}}
+</body>
+
+</html>
