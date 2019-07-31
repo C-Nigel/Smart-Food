@@ -4,6 +4,9 @@ const sessionStorage = require('node-sessionstorage');
 const orders = require('../class/order_class');
 const users = require('../class/user_class');
 const bot = require('../config/telegram');
+const rating = require('../class/rating_class');
+const itemModel = require('../models/Item');
+const ratingModel = require('../models/Rating');
 const variable = require('../class/user_class');
 
 
@@ -11,8 +14,13 @@ router.get('/', (req, res) => {
 	var User = sessionStorage.getItem("user");
 	var Owners = sessionStorage.getItem("owners");
 	const title = 'Smart Food';
-	
-	res.render('home', {title: title,
+	rating.countTotalItems().then(num => {
+		for (var i = 1; i <= num; i++) {
+			rating.averageRating(i)
+		}
+	})
+	res.render('home', {
+		title: title,
 		User,
 		Owners
 	}); // renders views/home.handlebars
@@ -37,7 +45,7 @@ router.get('/history', (req, res) => {
 	res.render('history') 
 });
 
-router.get('/loginadmin', (req,res) => {
+router.get('/loginadmin', (req, res) => {
 	res.render('loginadmin')
 });
 
@@ -56,15 +64,15 @@ router.get('/changepassword', (req, res) => {
 router.get('/profile', (req, res) => {
 	var User = sessionStorage.getItem("user");
 	console.log(User);
-	if(User){
-		variable.getUserByAdmin(User).then(user =>{
+	if (User) {
+		variable.getUserByAdmin(User).then(user => {
 			console.log(user);
 			var admin_no = user.admin_no;
 			var full_name = user.full_name;
 			var phone_no = user.phone_no;
 			var telegram_id = user.telegram_id;
 			var picture = user.picture;
-			res.render('user/profile',{
+			res.render('user/profile', {
 				User,
 				admin_no,
 				full_name,
@@ -75,36 +83,41 @@ router.get('/profile', (req, res) => {
 			);
 		})
 	}
-	else{
+	else {
 		res.render('user/profile');
 	}
-    
+
 });
 
 
 // deon's cart + menu stuff
 
 
-router.get('menu/menu', (req, res) =>{
+router.get('menu/menu', (req, res) => {
 	res.render('menu/menu')
 });
 
-router.get('/stallownerConfig', (req, res) =>{
+router.get('/stallownerConfig', (req, res) => {
 	res.render('stallowner/stallownerConfig')
 });
 
-router.get('/menuDemo', (req, res) =>{
+router.get('/menuDemo', (req, res) => {
 	res.render('menu/menuDemo')
 });
 
-router.get('/menuAlpha', (req, res) =>{
+router.get('/menuAlpha', (req, res) => {
 	res.render('menu/menuAlpha')
 });
 
 // testing in progress
 
-// displaying only chinese menu 
-router.get('menu/menu-chinese', (req, res) =>{
+// displaying old chinese menu 
+router.get('menu/menu-chinese-old', (req, res) => {
+	res.render('menu/menu-chinese-old')
+});
+
+// working on smth new for chinese menu
+router.get('menu/menu-chinese', (req, res) => {
 	res.render('menu/menu-chinese')
 });
 
@@ -117,33 +130,33 @@ router.get('menu/menu-malay', (req, res) =>{
 */
 
 // displaying only indian menu, non-halal
-router.get('menu/menu-indian', (req, res) =>{
+router.get('menu/menu-indian', (req, res) => {
 	res.render('menu/menu-indian')
 });
 
 // displaying only western menu
-router.get('menu/menu-western', (req, res) =>{
+router.get('menu/menu-western', (req, res) => {
 	res.render('menu/menu-western')
 });
 
 // displaying only fusion menu
-router.get('menu/menu-fusion', (req, res) =>{
+router.get('menu/menu-fusion', (req, res) => {
 	res.render('menu/menu-fusion')
 });
 
 
 // displaying only desserts menu
-router.get('menu/menu-desserts', (req, res) =>{
+router.get('menu/menu-desserts', (req, res) => {
 	res.render('menu/menu-desserts')
 });
 
 // displaying only drinks menu
-router.get('menu/menu-drinks', (req, res) =>{
+router.get('menu/menu-drinks', (req, res) => {
 	res.render('menu/menu-drinks')
 });
 
 // displaying only vegetarian menu
-router.get('menu/menu-vegetarian', (req, res) =>{
+router.get('menu/menu-vegetarian', (req, res) => {
 	res.render('menu/menu-vegetarian')
 });
 
@@ -187,14 +200,14 @@ router.get('outlet/outlet', (req, res) => {
 	res.render('outlet/outlet')
 });
 
-router.get('/addStallOwners', (req, res) =>{
+router.get('/addStallOwners', (req, res) => {
 	res.render('addStallOwners')
 });
 
 router.get('/orders', (req, res) => {
 	let outletid = sessionStorage.getItem("user");
 	orders.getOrdersForOutlets(1).then(orders => {
-		res.render('orderList', {orders: orders});
+		res.render('orderList', { orders: orders });
 	})
 });
 
@@ -204,10 +217,10 @@ router.put('/orders/:id/:status', (req, res) => {
 	orders.setOrderStatus(id, status);
 	orders.getOrder(id).then(order => {
 		users.getUserByAdmin(order.user_admin).then(user => {
-			if (status == 1 && user.telegram_id){
+			if (status == 1 && user.telegram_id) {
 				bot.sendMessage(user.telegram_id, "Your order for " + order.item_name + " (order id: " + order.id + ") is ready for collection!");
 			}
-			else if (status == 2 && user.telegram_id){
+			else if (status == 2 && user.telegram_id) {
 				bot.sendMessage(user.telegram_id, "Your order (order id: " + order.id + ") has been collected. Thank you for shopping with us!");
 			}
 		})
