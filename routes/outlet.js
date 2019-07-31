@@ -13,7 +13,7 @@ router.post('/addSO', (req,res) => {
 
     let {name, desc} = req.body;
 
-    outlet_class.createOutlet(name , desc);
+    outlet_class.createOutlet(name , password , desc);
     res.render('outlet');
 });
 
