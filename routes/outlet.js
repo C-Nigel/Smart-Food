@@ -14,20 +14,16 @@ router.post('/addSO', (req,res) => {
     let desc = req.body.desc;
 
     outlet_class.createOutlet(name , hashPass , desc);
-    res.render('outlet');
+    res.redirect('outlet/addSO');
 });
 
 router.get('/outlet/addSO', (req, res) =>{
     Outlet.findAll({
-        where: {
-            name: req.body.name,
-            des: req.body.desc
-        },
-
-        raw: true
+        
     }).then((outlets) => 
     {
-        res.render('outlet/addSO', {
+        console.log(outlets);
+        res.render('outlet', {
             outlets
         });
     })

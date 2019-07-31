@@ -37,6 +37,10 @@ router.get('/loginseller', (req, res) => {
 	res.render('user/loginseller') // renders views/user/loginseller.handlebars
 });
 
+router.get('/loginadmin', (req, res) => {
+	res.render('user/loginadmin')
+});
+
 router.get('/index', (req, res) => {
 	res.render('index') // renders views/user/loginuser.handlebars
 });
