@@ -27,7 +27,7 @@
     }
     #hii {
             width: 700px;
-            height: 880px;
+            height: 680px;
             background:white;
             border-radius: 10px;
             overflow: hidden;
@@ -55,11 +55,11 @@
               
     <form class="form" action="../user/upload" method="post">
       <div class="text-center">
-          <img id="poster" src="/img/no-image.jpg" alt="" class="border img-circle img-fluid" style="height:100px; width:100px;">
-          <input type="file" id="posterUpload" name="picture" accept = "image/png,image/jpeg,image/jpg,image/gif">
-        {{!-- <img src="{{picture}}" class="avatar img-circle img-thumbnail" alt="avatar" name="picture">
+          {{!-- <img id="poster" src="/img/no-image.jpg" alt="" class="border img-circle img-fluid" style="height:100px; width:100px;">
+          <input type="file" id="posterUpload" name="picture" accept = "image/png,image/jpeg,image/jpg,image/gif"> --}}
+        <img src="{{picture}}" class="avatar img-circle img-thumbnail" alt="avatar" name="picture">
         <h6>Upload a different photo...</h6>
-        <input type="file" class="text-center center-block file-upload" name="picture"> --}}
+        <input type="file" class="text-center center-block file-upload" name="picture">
         </div></hr><br>
     </form>
   
@@ -67,7 +67,7 @@
         </div><!--/col-3-->
     	<div class="col-sm-9">
             <ul class="nav nav-tabs">
-                <li class="active"><a data-toggle="tab" href="#home">Home</a></li>
+                <li class="active"><a data-toggle="tab" href="#home">Particulars</a></li>
                 <li class="active"><a data-toggle="tab" href="#messages">Change Password</a></li>
               </ul>
 
@@ -116,7 +116,7 @@
                       <div class="form-group">
                           
                           <div class="col-xs-6">
-                            <label for="password2"><h4>Verify</h4></label>
+                            <label for="password2"><h4>Re-enter Password</h4></label>
                               <input type="password" class="form-control" name="confirmpassword" id="password2" placeholder="confirm password" title="reenter your password." required>
                           </div>
                       </div>
@@ -127,6 +127,11 @@
                                	<button class="btn btn-lg" type="reset"><i class="glyphicon glyphicon-repeat"></i> Reset</button>
                             </div>
                       </div>
+                      <div class="container">
+						{{> _msg}} {{!-- views/partials/_msg.handlebars --}}
+						{{> _errors}} {{!-- views/partials/_errors.handlebars --}}
+						{{{body}}}
+					</div>
     </form>
               
               <hr>

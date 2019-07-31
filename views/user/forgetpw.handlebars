@@ -15,6 +15,11 @@
 		<div class="container-login100">
 			<div class="wrap-login100 p-l-55 p-r-55 p-t-65 p-b-50">
 				<form method="post" action="../user/forgetpw" class="login100-form validate-form">
+					<div class="container">
+						{{> _msg}} {{!-- views/partials/_msg.handlebars --}}
+						{{> _errors}} {{!-- views/partials/_errors.handlebars --}}
+						{{{body}}}
+					</div>
 					<span class="login100-form-title p-b-33">
 						Password Recovery
 					</span>

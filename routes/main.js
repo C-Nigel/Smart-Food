@@ -11,6 +11,7 @@ router.get('/', (req, res) => {
 	var User = sessionStorage.getItem("user");
 	var Owners = sessionStorage.getItem("owners");
 	const title = 'Smart Food';
+	
 	res.render('home', {title: title,
 		User,
 		Owners
@@ -33,7 +34,7 @@ router.get('/index', (req, res) => {
 });
 
 router.get('/history', (req, res) => {
-	res.render('history')
+	res.render('history') 
 });
 
 router.get('/loginadmin', (req,res) => {
@@ -174,6 +175,10 @@ router.get('/logout', (req, res) => {
 	res.redirect('/');
 });
 
+router.get('/orders', (req, res) => {
+    res.render('orderList');
+});
+
 router.get('/admin', (req, res) => {
 	res.render('admin');
 });
@@ -187,7 +192,7 @@ router.get('/addStallOwners', (req, res) =>{
 });
 
 router.get('/orders', (req, res) => {
-	//let outletid = sessionStorage.getItem("user");
+	let outletid = sessionStorage.getItem("user");
 	orders.getOrdersForOutlets(1).then(orders => {
 		res.render('orderList', {orders: orders});
 	})
@@ -208,5 +213,10 @@ router.put('/orders/:id/:status', (req, res) => {
 		})
 	})
 })
-
+router.get('/history', (req, res) => {
+	let outletid = sessionStorage.getItem("user");
+	orders.getOrdersForOutlets(1).then(orders => {
+		res.render('history', {orders: orders}); 
+	})
+});
 module.exports = router;

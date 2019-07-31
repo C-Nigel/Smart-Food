@@ -256,7 +256,7 @@ button  {
   .wrap-login100 {
     width: 500px;
     background:white;
-    border-radius: 10px;
+    border-radius: 9px;
     overflow: hidden;
   
     box-shadow: 0 3px 20px 0px rgba(0, 0, 0, 0.1);
