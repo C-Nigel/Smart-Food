@@ -5,23 +5,32 @@ Author: Surjith S M
 -------------------------------------------------------------------*/
 
 /* ==============================================================
-   GLOBAL STYLES
+  GLOBAL STYLES
    ============================================================== */
+.wrapper {
+  text-align: center;
+}
+
+.button {
+  position: absolute;
+  top: 50%;
+}
+
 .pinkline {
-    width:100%;
-    height:5px;
-    background:#ff3a6d;
+  width: 100%;
+  height: 5px;
+  background: #ff3a6d;
 }
 
 #slidercss {
-    height: 91vh;
-    min-height: 350px;
-    background: no-repeat center center scroll;
-    -webkit-background-size: cover;
-    -moz-background-size: cover;
-    -o-background-size: cover;
-    background-size: cover;
-  }
+  height: 91vh;
+  min-height: 350px;
+  background: no-repeat center center scroll;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+}
 
 #pwb-carousel-bg {
   background-color: white;

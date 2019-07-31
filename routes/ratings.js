@@ -49,7 +49,7 @@ router.post('/saveRating/:admin_no', (req, res) => {
                             id: i
                         }
                     }).then(() => {
-                        res.redirect('/'); // redirect to call router.get(/listVideos...) to retrieve all updated
+                        res.redirect('/complete'); // redirect to call router.get(/listVideos...) to retrieve all updated
                         // videos
                     }).catch(err => console.log(err));
             }

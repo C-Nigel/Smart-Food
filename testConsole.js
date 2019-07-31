@@ -33,6 +33,9 @@ setTimeout(function () {
         item.createItem("Char Siew", "Chinese", 2.6, 1);
         item.createItem("Pecan Jam", "Western", 4.5, 2);
         item.createItem("Cheesecake", "Western", 2.9, 2);
+        item.createItem("Double Cheeseburger", "Western", 5, 2);
+        item.createItem("Chicken Chop", "Western", 4, 2);
+        item.createItem("Fish Porridge", "Chinese", 1.5, 1);
         //item.createItem("")
 
         user.setTelegram("w369", "340756470");
