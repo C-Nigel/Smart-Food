@@ -7,10 +7,17 @@
             
             <form  action='/outlet/addSO' method="post" id="addStallOwners">
                 <div class="row">
-                    <div class="col-sm-6 form-group">
+                    <div class="col-sm-7 form-group">
                         <label for="name">
                             Stall Owner Name:</label>
-                        <input type="text" class="form-control" id="name" name="name" value={{name}} required />
+                        <input required type="text" class="form-control" id="name" name="name"  value={{name}}>
+                    </div>
+                    <br>
+                    <div class="col-sm-7 form-group">
+                        <label for="password">
+                            Enter Password:</label>
+                            <br>
+                        <input required type="text" class="form-control" id="password" name="password" value={{password}}>
                     </div>
                     <div class="col-sm-12 form-group">
                         <label for="desc">
