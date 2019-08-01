@@ -189,40 +189,33 @@ router.get('/listItems', (req, res) => {
 	}
 })
 
-router.get('/addItem', (req, res) => {
-	let outletid = sessionStorage.getItem("Owner");
-	if (outletid) {
-		res.render('stallowner/addItem', {
-			outlet: outletid,
-			Owner: true
-		});
-	} else {
-		res.redirect('/');
-	}
+router.get('/newItem', (req, res) => {
+	let outletid = sessionStorage.getItem('owner');
+	console.log(outletid);
+	res.render('stallowner/newItem', {
+		outlet: outletid,
+		Owner: true
+	});
 });
 
-router.post('/addItem', (req, res) => {
-	if (sessionStorage.getItem("owner")) {
-		let {
-			itemName,
-			itemPrice,
-			itemCategory,
-			outletid
-		} = req.body;
-		items.createItem(itemName, itemCategory, itemPrice, null, outletid);
-		res.redirect('/listItems');
-	}
+router.post('/newItem', (req, res) => {
+	let {
+		itemName,
+		itemPrice,
+		itemCategory,
+		outletid
+	} = req.body;
+	items.createItem(itemName, itemCategory, itemPrice, null, outletid);
+	res.redirect('/listItems');
 });
 
 router.get('/editItem/:id', (req, res) => {
-	if (sessionStorage.getItem("owner")) {
-		items.getItemById(req.params.id).then(item => {
-			res.render('stallowner/editItem', {
-				item: item,
-				Owner: true
-			});
+	items.getItemById(req.params.id).then(item => {
+		res.render('stallowner/editItem', {
+			item: item,
+			Owner: true
 		});
-	}
+	});
 });
 
 router.post('/editItem/:id', (req, res) => {
@@ -231,10 +224,8 @@ router.post('/editItem/:id', (req, res) => {
 		itemPrice,
 		itemCategory
 	} = req.body;
-	if (sessionStorage.getItem("owner")) {
-		items.updateItem(req.params.id, itemName, itemCategory, itemPrice);
-		res.redirect('/listItems');
-	}
+	items.updateItem(req.params.id, itemName, itemCategory, itemPrice);
+	res.redirect('/listItems');
 });
 
 router.get('/history', (req, res) => {

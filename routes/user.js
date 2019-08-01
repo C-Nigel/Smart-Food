@@ -392,7 +392,7 @@ router.post('/loginseller', (req, res) => {
     } else {
         outlet.getOutletById(stall_id).then(user => {
             var isSame = bcrypt.compareSync(pass, user.password); //************need uncomment once malique can create stall ownerr user
-            console.log(user.password);
+            //console.log(user.password);
             //if(!isSame){
             if (pass != user.password) {
                 errors.push({
