@@ -11,10 +11,10 @@ const db = require('../config/DBConfig')
 
 router.get('/', (req, res) => {
 	var User = sessionStorage.getItem("user");
-	var Owners = sessionStorage.getItem("owners");
+	var Owner = sessionStorage.getItem("owner");
 	const title = 'Smart Food';
 	var listNumbers = [];
-
+	
 	
 	rating.countTotalItems().then(num => {
 		for (var i = 1; i <= num; i++) {
@@ -57,7 +57,7 @@ router.get('/', (req, res) => {
 									itemsList5,
 									itemsList6,
 									User,
-									Owners
+									Owner
 								});
 							})
 						})
@@ -130,11 +130,9 @@ router.get('/profile', (req, res) => {
 				phone_no,
 				telegram_id,
 				picture
-			}
-			);
+			});
 		})
-	}
-	else {
+	} else {
 		res.render('user/profile');
 	}
 
@@ -142,6 +140,7 @@ router.get('/profile', (req, res) => {
 
 router.get('/logout', (req, res) => {
 	sessionStorage.removeItem("user");
+	sessionStorage.removeItem("owner");
 	res.redirect('/');
 });
 
@@ -158,13 +157,21 @@ router.get('/addStallOwners', (req, res) => {
 });
 
 router.get('/orders', (req, res) => {
-	let outletid = sessionStorage.getItem("user");
-	orders.getOrdersForOutlets(1).then(orders => {
-		res.render('stallowner/orderList', { orders: orders });
-	})
+	let outletid = sessionStorage.getItem("owner");
+	if (outletid) {
+		orders.getOrdersForOutlets(outletid).then(orders => {
+			res.render('stallowner/orderList', {
+				orders: orders,
+				Owner: true
+			});
+		})
+	} else {
+		res.redirect('/');
+	}
+
 });
 
-router.put('/orders/:id/:status', (req, res) => {
+router.post('/orders/:id/:status', (req, res) => {
 	let id = req.params.id;
 	let status = req.params.status;
 	orders.setOrderStatus(id, status);
@@ -172,34 +179,70 @@ router.put('/orders/:id/:status', (req, res) => {
 		users.getUserByAdmin(order.user_admin).then(user => {
 			if (status == 1 && user.telegram_id) {
 				bot.sendMessage(user.telegram_id, "Your order for " + order.item_name + " (order id: " + order.id + ") is ready for collection!");
-			}
-			else if (status == 2 && user.telegram_id) {
+			} else if (status == 2 && user.telegram_id) {
 				bot.sendMessage(user.telegram_id, "Your order (order id: " + order.id + ") has been collected. Thank you for shopping with us!");
 			}
 		})
 	})
 });
 
-router.get('/itemList', (req, res) => {
-	res.render('stallowner/itemList');
+router.get('/listItems', (req, res) => {
+	let outletid = sessionStorage.getItem("owner");
+	if (outletid) {
+		items.getItemsByOutlet(outletid).then(items => {
+			res.render('stallowner/listItems', {
+				items: items,
+				Owner: true
+			});
+		})
+	}
 })
 
-router.get('/stallownerConfig', (req, res) => {
-	let user;
-	res.render('stallowner/stallownerConfig', { outlet: 2 });
+router.get('/newItem', (req, res) => {
+	let outletid = sessionStorage.getItem('owner');
+	console.log(outletid);
+	res.render('stallowner/newItem', {
+		outlet: outletid,
+		Owner: true
+	});
 });
 
-router.post('/stallownerConfig', (req, res) => {
-	let { itemName, itemPrice, itemCategory, outletid } = req.body;
+router.post('/newItem', (req, res) => {
+	let {
+		itemName,
+		itemPrice,
+		itemCategory,
+		outletid
+	} = req.body;
 	items.createItem(itemName, itemCategory, itemPrice, null, outletid);
-	//console.log(itemCategory);
-	//res.redirect('/');
+	res.redirect('/listItems');
+});
+
+router.get('/editItem/:id', (req, res) => {
+	items.getItemById(req.params.id).then(item => {
+		res.render('stallowner/editItem', {
+			item: item,
+			Owner: true
+		});
+	});
+});
+
+router.post('/editItem/:id', (req, res) => {
+	let {
+		itemName,
+		itemPrice,
+		itemCategory
+	} = req.body;
+	items.updateItem(req.params.id, itemName, itemCategory, itemPrice);
+	res.redirect('/listItems');
 });
 
 router.get('/history', (req, res) => {
 	let outletid = sessionStorage.getItem("user");
 	orders.getOrdersForOutlets(1).then(orders => {
-		res.render('history', { orders: orders });
+		res.render('history', {
+			orders: orders
+		});
 	})
 });
 module.exports = router;

@@ -1,0 +1,56 @@
+<html>
+{{>_header}}
+
+<body style="background-image: url('img/list_background.jpg'); background-size: cover;">
+    {{>_navbar}}
+    <div class="container" style="padding-top: 5rem;">
+        <h3 class="text-left">List of Items available
+            <a href="/newItem" class="btn btn-primary float-right">Add new item</a>
+        </h3>
+        {{#if items}}
+        {{#each items}}
+        <div class="card text-white bg-dark mt-3 mb-3">
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-12 col-lg-8">
+                        <h5 class="card-title">{{name}}</h5>
+                    </div>
+                    <div class="col">
+                        <div class="float-right">
+                            <a href="/editItem/{{id}}" class="btn btn-outline-primary">Edit</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="row mt-1">
+                    <div class="col-12 col-lg-3">
+                        <p class="card-text">Item ID: {{id}}</p>
+                    </div>
+                    <div class="col-12 col-lg-3">
+                        <p class="card-text">Price: ${{price}}</p>
+                    </div>
+                    <div class="col-12 col-lg-3">
+                        <p class="card-text">Category: {{cat}}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {{/each}}
+        {{else}}
+        <div class="row">
+            <div class="col">
+				<div class="card bg-light mb-3">
+					<div class="card-body">
+						<h4 class="text-center">
+							Hmm, no items yet...
+							<br><br>
+							Try <a href="/newItem">creating</a> an item to get more customers.
+						</h4>
+					</div>
+				</div>
+			</div>
+        </div>
+        {{/if}}
+    </div>
+</body>
+
+</html>
