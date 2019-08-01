@@ -65,6 +65,7 @@ router.post('/changepassword', (req, res) => {
         }
     });
 });
+
 router.post('/profile', (req, res) => {
     let errors = [];
     let {
@@ -160,88 +161,88 @@ router.post('/upload', (req, res) => {
 
 
 router.post('/register', (req, res) => {
-let errors = [];
-let success_msg = 'User successfully registered!';
-// Retrieves fields from register page from request body
-let {
-    full_name,
-    admin_no,
-    phone_no,
-    password,
-    confirmpassword
-} = req.body;
-var email = admin_no + "@mymail.nyp.edu.sg";
-
-// Checks if both passwords entered are the same
-if (password != confirmpassword) {
-    errors.push({
-        text: 'Passwords do not match'
-    });
-    alertMessage(res, 'success', 'Passwords do not match!.',
-        'fas fa-sign-in-alt', true);
-
-}
-
-// Checks that password length is more than 4
-if (password.length < 4) {
-    errors.push({
-        text: 'Password must be at least 4 characters'
-    });
-}
-
-if (isNaN(admin_no.slice(0, 6))) {
-    errors.push({
-        text: 'Password must be at least 4 characters'
-    });
-}
-if (phone_no.length != 8) {
-    errors.push({
-        text: 'Password must be at least 4 characters'
-    });
-}
-
-if (errors.length > 0) {
-    console.log(errors);
-    res.render('user/register', {
-        errors,
+    let errors = [];
+    let success_msg = 'User successfully registered!';
+    // Retrieves fields from register page from request body
+    let {
         full_name,
         admin_no,
         phone_no,
         password,
         confirmpassword
-    });
-} else {
-    let token;
-    // Encrypt the password
-    var salt = bcrypt.genSaltSync(10);
-    var hashedPassword = bcrypt.hashSync(password, salt);
-    password = hashedPassword;
+    } = req.body;
+    var email = admin_no + "@mymail.nyp.edu.sg";
 
-
-    jwt.sign(email, hashedPassword, (err, jwtoken) => {
-        if (err) {
-            console.log('Error generating Token: ' + err);
-        }
-        token = jwtoken;
-    });
-
-    user.createUser(admin_no, full_name, password, phone_no)
-        .then(user => {
-            res.render('user/loginuser', {
-                success_msg
-            });
-        }).catch(err => {
-            console.log(err)
-            res.render('user/register', {
-                errors,
-                full_name,
-                admin_no,
-                phone_no,
-                password,
-                confirmpassword
-            });
+    // Checks if both passwords entered are the same
+    if (password != confirmpassword) {
+        errors.push({
+            text: 'Passwords do not match'
         });
-}
+        alertMessage(res, 'success', 'Passwords do not match!.',
+            'fas fa-sign-in-alt', true);
+
+    }
+
+    // Checks that password length is more than 4
+    if (password.length < 4) {
+        errors.push({
+            text: 'Password must be at least 4 characters'
+        });
+    }
+
+    if (isNaN(admin_no.slice(0, 6))) {
+        errors.push({
+            text: 'Password must be at least 4 characters'
+        });
+    }
+    if (phone_no.length != 8) {
+        errors.push({
+            text: 'Password must be at least 4 characters'
+        });
+    }
+
+    if (errors.length > 0) {
+        console.log(errors);
+        res.render('user/register', {
+            errors,
+            full_name,
+            admin_no,
+            phone_no,
+            password,
+            confirmpassword
+        });
+    } else {
+        let token;
+        // Encrypt the password
+        var salt = bcrypt.genSaltSync(10);
+        var hashedPassword = bcrypt.hashSync(password, salt);
+        password = hashedPassword;
+
+
+        jwt.sign(email, hashedPassword, (err, jwtoken) => {
+            if (err) {
+                console.log('Error generating Token: ' + err);
+            }
+            token = jwtoken;
+        });
+
+        user.createUser(admin_no, full_name, password, phone_no)
+            .then(user => {
+                res.render('user/loginuser', {
+                    success_msg
+                });
+            }).catch(err => {
+                console.log(err)
+                res.render('user/register', {
+                    errors,
+                    full_name,
+                    admin_no,
+                    phone_no,
+                    password,
+                    confirmpassword
+                });
+            });
+    }
 });
 
 router.post('/loginuser', (req, res) => {
@@ -272,7 +273,7 @@ router.post('/loginuser', (req, res) => {
     } else {
         user.getUserByAdmin(admin_no).then(user => {
             var isSame = bcrypt.compareSync(pass, user.password);;
-            console.log(user.password);
+            //console.log(user.password);
             if (!isSame) {
                 errors.push({
                     text: 'Password is incorrect!'
@@ -283,7 +284,7 @@ router.post('/loginuser', (req, res) => {
                 });
             } else {
                 storage.setItem("user", user.admin_no);
-                console.log(storage.getItem("user"));
+                //console.log(storage.getItem("user"));
                 //console.log(user);
 
                 if (user == null) {
@@ -390,7 +391,7 @@ router.post('/loginseller', (req, res) => {
         });
     } else {
         outlet.getOutletById(stall_id).then(user => {
-            //var isSame = bcrypt.compareSync(pass, user.password); ************need uncomment once malique can create stall ownerr user
+            var isSame = bcrypt.compareSync(pass, user.password); //************need uncomment once malique can create stall ownerr user
             console.log(user.password);
             //if(!isSame){
             if (pass != user.password) {
@@ -402,8 +403,8 @@ router.post('/loginseller', (req, res) => {
                     stall_id
                 });
             } else {
-                storage.setItem("owners", user.id);
-                console.log(storage.getItem("owners"));
+                storage.setItem("owner", user.id);
+                //console.log(storage.getItem("owner"));
                 console.log(user);
 
                 if (user == null) {
@@ -425,14 +426,11 @@ router.post('/loginseller', (req, res) => {
 router.post('/loginadmin', (req, res) => {
     var pass = password;
 
-    if(Admin_ID == SFAdmin && pass == SFAd45)
-    {
+    if (Admin_ID == SFAdmin && pass == SFAd45) {
         res.redirect('/admin')
-    }
-    else
-    {
+    } else {
         res.redirect('/home');
-    } 
+    }
 });
 
 

@@ -9,11 +9,11 @@ const rating = require('../class/rating_class');
 
 
 router.get('/', (req, res) => {
-	var Users = sessionStorage.getItem("user");
-	var Owners = sessionStorage.getItem("owners");
+	var User = sessionStorage.getItem("user");
+	var Owner = sessionStorage.getItem("owner");
 	const title = 'Smart Food';
 	var listNumbers = [];
-	
+
 
 	rating.countTotalItems().then(num => {
 		for (var i = 1; i <= num; i++) {
@@ -22,18 +22,16 @@ router.get('/', (req, res) => {
 		}
 	});
 
-	rating.countTotalItems({
-	}).then((totalNumber) => {
-		for (var i = 1; i < 10; i++){
+	rating.countTotalItems({}).then((totalNumber) => {
+		for (var i = 1; i < 10; i++) {
 			var integer = Math.round(Math.random() * (totalNumber - 1 + 1) + 1);
-			if (listNumbers.includes(integer) || integer > totalNumber){
+			if (listNumbers.includes(integer) || integer > totalNumber) {
 				i -= 1;
-			}
-			else{
+			} else {
 				listNumbers.push(integer);
 			}
 		}
-	}).then ( undefined => {
+	}).then(undefined => {
 		//console.log(listNumbers);
 		rating.getItems(listNumbers[0]).then((itemsList1) => {
 			rating.getItems(listNumbers[1], listNumbers[2]).then((itemsList2) => {
@@ -50,8 +48,8 @@ router.get('/', (req, res) => {
 									itemsList4,
 									itemsList5,
 									itemsList6,
-									Users,
-									Owners
+									User,
+									Owner
 								});
 							})
 						})
@@ -86,7 +84,7 @@ router.get('/index', (req, res) => {
 });
 
 router.get('/history', (req, res) => {
-	res.render('history') 
+	res.render('history')
 });
 
 router.get('/loginadmin', (req, res) => {
@@ -123,11 +121,9 @@ router.get('/profile', (req, res) => {
 				phone_no,
 				telegram_id,
 				picture
-			}
-			);
+			});
 		})
-	}
-	else {
+	} else {
 		res.render('user/profile');
 	}
 
@@ -135,6 +131,7 @@ router.get('/profile', (req, res) => {
 
 router.get('/logout', (req, res) => {
 	sessionStorage.removeItem("user");
+	sessionStorage.removeItem("owner");
 	res.redirect('/');
 });
 
@@ -151,10 +148,18 @@ router.get('/addStallOwners', (req, res) => {
 });
 
 router.get('/orders', (req, res) => {
-	let outletid = sessionStorage.getItem("user");
-	orders.getOrdersForOutlets(1).then(orders => {
-		res.render('stallowner/orderList', { orders: orders });
-	})
+	let outletid = sessionStorage.getItem("owner");
+	if (outletid) {
+		orders.getOrdersForOutlets(outletid).then(orders => {
+			res.render('stallowner/orderList', {
+				orders: orders,
+				Owner: true
+			});
+		})
+	} else {
+		res.redirect('/');
+	}
+
 });
 
 router.post('/orders/:id/:status', (req, res) => {
@@ -165,8 +170,7 @@ router.post('/orders/:id/:status', (req, res) => {
 		users.getUserByAdmin(order.user_admin).then(user => {
 			if (status == 1 && user.telegram_id) {
 				bot.sendMessage(user.telegram_id, "Your order for " + order.item_name + " (order id: " + order.id + ") is ready for collection!");
-			}
-			else if (status == 2 && user.telegram_id) {
+			} else if (status == 2 && user.telegram_id) {
 				bot.sendMessage(user.telegram_id, "Your order (order id: " + order.id + ") has been collected. Thank you for shopping with us!");
 			}
 		})
@@ -174,38 +178,71 @@ router.post('/orders/:id/:status', (req, res) => {
 });
 
 router.get('/listItems', (req, res) => {
-	items.getItemsByOutlet(1).then(items => {
-		res.render('stallowner/listItems', {items: items});
-	})
+	let outletid = sessionStorage.getItem("owner");
+	if (outletid) {
+		items.getItemsByOutlet(outletid).then(items => {
+			res.render('stallowner/listItems', {
+				items: items,
+				Owner: true
+			});
+		})
+	}
 })
 
 router.get('/addItem', (req, res) => {
-	let user;
-	res.render('stallowner/addItem', {outlet: 2});
+	let outletid = sessionStorage.getItem("Owner");
+	if (outletid) {
+		res.render('stallowner/addItem', {
+			outlet: outletid,
+			Owner: true
+		});
+	} else {
+		res.redirect('/');
+	}
 });
 
 router.post('/addItem', (req, res) => {
-	let {itemName, itemPrice, itemCategory, outletid} = req.body;
-	items.createItem(itemName, itemCategory, itemPrice, null, outletid);
-	res.redirect('/listItems');
+	if (sessionStorage.getItem("owner")) {
+		let {
+			itemName,
+			itemPrice,
+			itemCategory,
+			outletid
+		} = req.body;
+		items.createItem(itemName, itemCategory, itemPrice, null, outletid);
+		res.redirect('/listItems');
+	}
 });
 
 router.get('/editItem/:id', (req, res) => {
-	items.getItemById(req.params.id).then(item => {
-		res.render('stallowner/editItem', {item: item});
-	});
+	if (sessionStorage.getItem("owner")) {
+		items.getItemById(req.params.id).then(item => {
+			res.render('stallowner/editItem', {
+				item: item,
+				Owner: true
+			});
+		});
+	}
 });
 
 router.post('/editItem/:id', (req, res) => {
-	let {itemName, itemPrice, itemCategory} = req.body;
-	items.updateItem(req.params.id, itemName, itemCategory, itemPrice);
-	res.redirect('/listItems');
+	let {
+		itemName,
+		itemPrice,
+		itemCategory
+	} = req.body;
+	if (sessionStorage.getItem("owner")) {
+		items.updateItem(req.params.id, itemName, itemCategory, itemPrice);
+		res.redirect('/listItems');
+	}
 });
 
 router.get('/history', (req, res) => {
 	let outletid = sessionStorage.getItem("user");
 	orders.getOrdersForOutlets(1).then(orders => {
-		res.render('history', {orders: orders}); 
+		res.render('history', {
+			orders: orders
+		});
 	})
 });
 module.exports = router;

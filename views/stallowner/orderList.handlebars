@@ -17,7 +17,7 @@
 				<div id={{id}} class="card bg-light mb-3">
 					<div class="card-body">
 						<h5 class="card-title">Order: {{item_name}}</h5>
-						<h6 class="card-subtitle mb-2">Ordered by: {{user_admin}}</h6>
+						<h6 class="card-subtitle mt-2">Ordered by: {{user_admin}}</h6>
 					</div>
 					<div class="card-body">
 						<p>Order ID: {{id}}</p>
@@ -25,29 +25,29 @@
 						<p>Time: {{createdAt}}</p>
 					</div>
 					<div class="card-body">
-						{{#ifeq status 0}}
+						{{#if (eq status 0)}}
 						<button type="button" id="{{id}}/0" onclick="changeStatus(id)"
 							class="btn btn-primary">Preparing</button>
 						{{else}}
 						<button type="button" id="{{id}}/0" onclick="changeStatus(id)"
 							class="btn btn-outline-dark">Preparing</button>
-						{{/ifeq}}
+						{{/if}}
 
-						{{#ifeq status 1}}
+						{{#if (eq status 1)}}
 						<button type="button" id="{{id}}/1" onclick="changeStatus(id)"
 							class="btn btn-primary">Ready</button>
 						{{else}}
 						<button type="button" id="{{id}}/1" onclick="changeStatus(id)"
 							class="btn btn-outline-dark">Ready</button>
-						{{/ifeq}}
+						{{/if}}
 
-						{{#ifeq status 2}}
+						{{#if (eq status 2)}}
 						<button type="button" id="{{id}}/2" onclick="changeStatus(id)"
 							class="btn btn-primary">Collected</button>
 						{{else}}
 						<button type="button" id="{{id}}/2" onclick="changeStatus(id)"
 							class="btn btn-outline-dark">Collected</button>
-						{{/ifeq}}
+						{{/if}}
 					</div>
 				</div>
 			</div>
