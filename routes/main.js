@@ -12,17 +12,47 @@ router.get('/', (req, res) => {
 	var User = sessionStorage.getItem("user");
 	var Owners = sessionStorage.getItem("owners");
 	const title = 'Smart Food';
+	var items1;
 	rating.countTotalItems().then(num => {
 		for (var i = 1; i <= num; i++) {
-			rating.averageRating(i)
+			rating.averageRating(i);
+			rating.countTotalRates(i);
 		}
+	});
+
+	rating.countTotalItems({
+
+	}).then((totalNumber) => {
+		rating.getItems(1).then((itemsList1) => {
+			rating.getItems(2, 3).then((itemsList2) => {
+				rating.getItems(4).then((itemsList3) => {
+					rating.getItems(5, 6).then((itemsList4) => {
+						rating.getItems(7).then((itemsList5) => {
+							rating.getItems(8, 9).then((itemsList6) => {
+								// renders views/home.handlebars
+								res.render('home', {
+									title: title,
+									itemsList1,
+									itemsList2,
+									itemsList3,
+									itemsList4,
+									itemsList5,
+									itemsList6,
+									User,
+									Owners
+								});
+							})
+						})
+					})
+				})
+			})
+		})
 	})
-	res.render('home', {
-		title: title,
-		User,
-		Owners
-	}); // renders views/home.handlebars
 });
+
+router.get('/complete', (req, res) => {
+	res.render('ratingsComplete')
+})
 
 // testing the feature for the menu of different canteen
 

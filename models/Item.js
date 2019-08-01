@@ -29,7 +29,12 @@ const Item = db.define('item', {
         5 - 5 being the best
         */
         allowNull: true
+    },
+    total_rating: {
+        type: Sequelize.INTEGER,
+        allowNull: true
     }
+
 });
 
 module.exports = Item;
