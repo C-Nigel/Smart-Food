@@ -1,5 +1,5 @@
 const RatingModel = require('../models/Rating');
-const op = require('sequelize').Op;
+const Op = require('sequelize').Op;
 const itemModel = require('../models/Item')
 var ex = module.exports = {};
 
@@ -27,12 +27,23 @@ ex.averageRating = function (entityID) {
                         raw: true
                     })
             }
-
-
         }).catch(err => {
             console.log(err)
         })
     })
+};
+
+ex.countTotalRates = function(entityID) {
+    return RatingModel.count({
+        where: {item_id: entityID}
+    }).then(total_rating => {
+        itemModel.update({
+            total_rating
+        }, {
+            where:{id: entityID},
+            raw: true
+        })
+    }) 
 };
 
 ex.count = function () {
@@ -44,4 +55,25 @@ ex.countTotalItems = function () {
     return itemModel.count({
     })
 };
+
+ex.randomNumber = function (low, high) {
+    return Math.random() * (high - low) + low
+};
+
+ex.getItems = function (index1, index2) {
+    if (index2 != undefined){
+        return itemModel.findAll({
+            where: {
+                [Op.or]: [{id: index1}, {id: index2}]
+            }
+        })
+    }
+    else
+    {
+        return itemModel.findAll({
+            where: {id: index1}
+        })
+    }
+    
+}
 

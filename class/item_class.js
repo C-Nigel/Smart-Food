@@ -31,11 +31,12 @@ ex.getItemsByCat = function(cat_name){
     })
 }
 
-ex.createItem = function(iname, icat, iprice, outletid){
+ex.createItem = function(iname, icat, iprice, jpg_url, outletid){
     ItemModel.create({
         name: iname,
         cat: icat,
         price: iprice,
+        picture_url: jpg_url,
         outlet_id: outletid
     })
     .then(result => {

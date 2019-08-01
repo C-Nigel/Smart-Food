@@ -1,6 +1,6 @@
 const bot = require("../config/telegram");
 const User = require("../class/user_class");
-const Chat = require("../class/chat_class")
+const Chat = require("../class/chat_class");
 
 // catch message
 bot.on('message', function (msg) {
@@ -33,18 +33,16 @@ bot.onText(/\/verify (.+)/, (msg, match) => { // this is where users connect the
 	var chatId = msg.chat.id;
 	var response = match[1]; // the captured user admin number
 	User.getUserByAdmin(response).then(user => {
-		if (user && user.telegram_id != chatId) {
-			User.getRepeatedTGid(chatId).then(count => {
-				if (count > 0) {
-					bot.sendMessage(chatId, "This telegram client is already associated with another user account. Unlink from other user account before verifying this phone.")
-					Chat.systemMsg(chatId, "This telegram client is already associated with another user account. Unlink from other user account before verifying this phone.");
-				} 
-				else {
-					User.setTelegram(response, chatId);
-					bot.sendMessage(chatId, "Thank you for verifying! You will now receieve notifications with your meal is ready!");
-					Chat.systemMsg(chatId, "Thank you for verifying! You will now receieve notifications with your meal is ready!");
-				}
+		if (user && user.telegram_id == null) 
+		{
+			User.setTelegram(response, chatId)
+			.then(() => {
+				bot.sendMessage(chatId, "Thank you for verifying! You will now receieve notifications with your meal is ready!");
+				Chat.systemMsg(chatId, "Thank you for verifying! You will now receieve notifications with your meal is ready!");
 			})
+			.catch(err => {
+				bot.sendMessage(chatId, "It seems like you have already registered this phone with another account!");
+			});
 		}
 		else if (!user) {
 			bot.sendMessage(chatId, "No such admin number registered to user!");
@@ -53,7 +51,10 @@ bot.onText(/\/verify (.+)/, (msg, match) => { // this is where users connect the
 		else if (user.telegram_id == chatId) {
 			bot.sendMessage(chatId, "This phone is already linked to your account.");
 			Chat.systemMsg(chatId, "This phone is already linked to your account.");
-		} 
+		}
+		else if (user.telegram_id != null){
+			bot.sendMessage(chatId, "There already is a phone registered with this account!");
+		}
 		else {
 			console.log("Reached undocumented behavior condition telegramLogic");
 		}

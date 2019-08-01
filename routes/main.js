@@ -3,28 +3,56 @@ const router = express.Router();
 const sessionStorage = require('node-sessionstorage');
 const orders = require('../class/order_class');
 const users = require('../class/user_class');
+const items = require('../class/item_class');
 const bot = require('../config/telegram');
 const rating = require('../class/rating_class');
-const itemModel = require('../models/Item');
-const ratingModel = require('../models/Rating');
-const variable = require('../class/user_class');
 
 
 router.get('/', (req, res) => {
 	var User = sessionStorage.getItem("user");
 	var Owners = sessionStorage.getItem("owners");
 	const title = 'Smart Food';
+	var items1;
 	rating.countTotalItems().then(num => {
 		for (var i = 1; i <= num; i++) {
-			rating.averageRating(i)
+			rating.averageRating(i);
+			rating.countTotalRates(i);
 		}
+	});
+
+	rating.countTotalItems({
+
+	}).then((totalNumber) => {
+		rating.getItems(1).then((itemsList1) => {
+			rating.getItems(2, 3).then((itemsList2) => {
+				rating.getItems(4).then((itemsList3) => {
+					rating.getItems(5, 6).then((itemsList4) => {
+						rating.getItems(7).then((itemsList5) => {
+							rating.getItems(8, 9).then((itemsList6) => {
+								// renders views/home.handlebars
+								res.render('home', {
+									title: title,
+									itemsList1,
+									itemsList2,
+									itemsList3,
+									itemsList4,
+									itemsList5,
+									itemsList6,
+									User,
+									Owners
+								});
+							})
+						})
+					})
+				})
+			})
+		})
 	})
-	res.render('home', {
-		title: title,
-		User,
-		Owners
-	}); // renders views/home.handlebars
 });
+
+router.get('/complete', (req, res) => {
+	res.render('ratingsComplete')
+})
 
 // testing the feature for the menu of different canteen
 
@@ -46,7 +74,7 @@ router.get('/index', (req, res) => {
 });
 
 router.get('/history', (req, res) => {
-	res.render('history')
+	res.render('history') 
 });
 
 router.get('/loginadmin', (req, res) => {
@@ -69,7 +97,7 @@ router.get('/profile', (req, res) => {
 	var User = sessionStorage.getItem("user");
 	console.log(User);
 	if (User) {
-		variable.getUserByAdmin(User).then(user => {
+		users.getUserByAdmin(User).then(user => {
 			console.log(user);
 			var admin_no = user.admin_no;
 			var full_name = user.full_name;
@@ -93,100 +121,6 @@ router.get('/profile', (req, res) => {
 
 });
 
-
-// deon's cart + menu stuff
-
-
-router.get('menu/menu', (req, res) => {
-	res.render('menu/menu')
-});
-
-router.get('/stallownerConfig', (req, res) => {
-	res.render('stallowner/stallownerConfig')
-});
-
-router.get('/menuDemo', (req, res) => {
-	res.render('menu/menuDemo')
-});
-
-router.get('/menuAlpha', (req, res) => {
-	res.render('menu/menuAlpha')
-});
-
-// testing in progress
-
-// displaying old chinese menu 
-router.get('menu/menu-chinese-old', (req, res) => {
-	res.render('menu/menu-chinese-old')
-});
-
-// working on smth new for chinese menu
-router.get('menu/menu-chinese', (req, res) => {
-	res.render('menu/menu-chinese')
-});
-
-
-// displaying only malay food
-/*
-router.get('menu/menu-malay', (req, res) =>{
-	res.render('menu/menu-malay')
-});
-*/
-
-// displaying only indian menu, non-halal
-router.get('menu/menu-indian', (req, res) => {
-	res.render('menu/menu-indian')
-});
-
-// displaying only western menu
-router.get('menu/menu-western', (req, res) => {
-	res.render('menu/menu-western')
-});
-
-// displaying only fusion menu
-router.get('menu/menu-fusion', (req, res) => {
-	res.render('menu/menu-fusion')
-});
-
-
-// displaying only desserts menu
-router.get('menu/menu-desserts', (req, res) => {
-	res.render('menu/menu-desserts')
-});
-
-// displaying only drinks menu
-router.get('menu/menu-drinks', (req, res) => {
-	res.render('menu/menu-drinks')
-});
-
-// displaying only vegetarian menu
-router.get('menu/menu-vegetarian', (req, res) => {
-	res.render('menu/menu-vegetarian')
-});
-
-
-// testing 1 handlebar menu 
-/*
-router.get('menu/menu-{{cat}}', (req, res) =>{
-	res.render('menu/menu-{{cat}}')
-});
-*/
-
-/*
-router.get('/showAddedItems', (req, res) =>{
-	res.render('cart/MainMenu')
-});
-*/
-
-// Setting up Stall Owner Config after clearing directory
-/*
-router.get('/stallownerConfig', (req, res) =>{
-	res.render('stallowner/stallownerConfig') 
-	// renders views/stallowner/stallownerConfig.handlebars
-});
-*/
-
-
 router.get('/logout', (req, res) => {
 	sessionStorage.removeItem("user");
 	res.redirect('/');
@@ -205,9 +139,9 @@ router.get('/addStallOwners', (req, res) => {
 });
 
 router.get('/orders', (req, res) => {
-	//let outletid = sessionStorage.getItem("user");
+	let outletid = sessionStorage.getItem("user");
 	orders.getOrdersForOutlets(1).then(orders => {
-		res.render('orderList', { orders: orders });
+		res.render('stallowner/orderList', { orders: orders });
 	})
 });
 
@@ -225,6 +159,28 @@ router.put('/orders/:id/:status', (req, res) => {
 			}
 		})
 	})
+});
+
+router.get('/itemList', (req, res) => {
+	res.render('stallowner/itemList');
 })
 
+router.get('/stallownerConfig', (req, res) => {
+	let user;
+	res.render('stallowner/stallownerConfig', {outlet: 2});
+});
+
+router.post('/stallownerConfig', (req, res) => {
+	let {itemName, itemPrice, itemCategory, outletid} = req.body;
+	items.createItem(itemName, itemCategory, itemPrice, null, outletid);
+	//console.log(itemCategory);
+	//res.redirect('/');
+});
+
+router.get('/history', (req, res) => {
+	let outletid = sessionStorage.getItem("user");
+	orders.getOrdersForOutlets(1).then(orders => {
+		res.render('history', {orders: orders}); 
+	})
+});
 module.exports = router;

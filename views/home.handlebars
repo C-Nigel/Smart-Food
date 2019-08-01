@@ -34,14 +34,14 @@
             <!-- Slide Three - Set the background image for this slide in the line below -->
             <div class="carousel-item" id="slidercss" style="background-image: url('img/south_canteen.jpg')">
                 <div class="carousel-caption d-none d-md-block">
-                    <h2 class="display-4">The Canopy</h2>
+                    <h2 class="display-4">South Canteen</h2>
                     <p class="lead">Coffee Shop With Great Pricing</p>
                 </div>
             </div>
             <!-- Slide four - Set the background image for this slide in the line below -->
             <div class="carousel-item" id="slidercss" style="background-image: url('img/north_canteen.jpg')">
                 <div class="carousel-caption d-none d-md-block">
-                    <h2 class="display-4">North Canteen</h2>
+                    <h2 class="display-4">The Canopy</h2>
                     <p class="lead">Coffee Shop With Good Space</p>
                 </div>
             </div>
@@ -674,16 +674,79 @@
             <div class="row">
 
                 {{!-- first list of slides --}}
-                <div id="carouselExampleIndicators" class="carousel slide col-md-4 featured-responsive"
-                    data-ride="carousel">
+                <div id="slides1" class="carousel slide col-md-4 featured-responsive" data-ride="carousel">
                     <ol class="carousel-indicators">
-                        <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
-                        <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
-                        <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
+                        <li data-target="#slides1" data-slide-to="0" class="active"></li>
+                        <li data-target="#slides1" data-slide-to="1"></li>
+                        <li data-target="#slides1" data-slide-to="2"></li>
                     </ol>
                     <div class="carousel-inner">
+                        {{#each itemsList1}}
                         <div class="carousel-item active">
+                            <div class="featured-place-wrap">
+                                <a href="detail.html">
+                                    <img src="img/featured1.jpg" class="img-fluid" alt="#">
+                                    <span class="featured-rating-orange">{{average_rating}}</span>
+                                    <div class="featured-title-box">
+                                        <h6>{{name}}</h6>
+                                        <p>Restaurant </p> <span>• </span>
+                                        <p>{{total_rating}} Reviews</p> <span> • </span>
+                                        <p1><span>$</span>{{price}}</p1>
+                                        <ul>
+                                            <li><span class="icon-location-pin"></span>
+                                                <p>1301 Avenue, Brooklyn, NY 11230</p>
+                                            </li>
+                                            <li><span class="icon-screen-smartphone"></span>
+                                                <p>+44 20 7336 8898</p>
+                                            </li>
+                                            <li><span class="icon-link"></span>
+                                                <p>https://burgerandlobster.com</p>
+                                            </li>
 
+                                        </ul>
+                                        <div class="bottom-icons">
+                                            <div class="closed-now">CLOSED NOW</div>
+                                            <span class="ti-heart"></span>
+                                            <span class="ti-bookmark"></span>
+                                        </div>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+                        {{/each}}
+                        {{#each itemsList2}}
+                        <div class="carousel-item">
+                            <div class="featured-place-wrap">
+                                <a href="detail.html">
+                                    <img src="img/featured3.jpg" class="img-fluid" alt="#">
+                                    <span class="featured-rating">{{average_rating}}</span>
+                                    <div class="featured-title-box">
+                                        <h6>{{name}}</h6>
+                                        <p>Restaurant </p> <span>• </span>
+                                        <p>{{total_rating}} Reviews</p> <span> • </span>
+                                        <p1><span>$</span>{{price}}</p1>
+                                        <ul>
+                                            <li><span class="icon-location-pin"></span>
+                                                <p>1301 Avenue, Brooklyn, NY 11230</p>
+                                            </li>
+                                            <li><span class="icon-screen-smartphone"></span>
+                                                <p>+44 20 7336 8898</p>
+                                            </li>
+                                            <li><span class="icon-link"></span>
+                                                <p>https://burgerandlobster.com</p>
+                                            </li>
+                                        </ul>
+                                        <div class="bottom-icons">
+                                            <div class="open-now">OPEN NOW</div>
+                                            <span class="ti-heart"></span>
+                                            <span class="ti-bookmark"></span>
+                                        </div>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+                        {{/each}}
+                        {{!-- <div class="carousel-item active">
                             <div class="featured-place-wrap">
                                 <a href="detail.html">
                                     <img src="img/featured1.jpg" class="img-fluid" alt="#">
@@ -773,13 +836,13 @@
                                     </div>
                                 </a>
                             </div>
-                        </div>
+                        </div> --}}
                     </div>
-                    <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+                    <a class="carousel-control-prev" href="#slides1" role="button" data-slide="prev">
                         <span class="carousel-control-prev-icon" aria-hidden="true"></span>
                         <span class="sr-only">Previous</span>
                     </a>
-                    <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+                    <a class="carousel-control-next" href="#slides1" role="button" data-slide="next">
                         <span class="carousel-control-next-icon" aria-hidden="true"></span>
                         <span class="sr-only">Next</span>
                     </a>
@@ -794,11 +857,75 @@
                         <li data-target="#slides2" data-slide-to="2"></li>
                     </ol>
                     <div class="carousel-inner">
+                        {{#each itemsList3}}
                         <div class="carousel-item active">
                             <div class="featured-place-wrap">
                                 <a href="detail.html">
                                     <img src="img/featured2.jpg" class="img-fluid" alt="#">
-                                    <span class="featured-rating-green">9.5</span>
+                                    <span class="featured-rating-green">{{average_rating}}</span>
+                                    <div class="featured-title-box">
+                                        <h6>{{name}}</h6>
+                                        <p>Restaurant </p> <span>• </span>
+                                        <p>{{total_rating}} Reviews</p> <span> • </span>
+                                        <p1><span>$</span>{{price}}</p1>
+                                        <ul>
+                                            <li><span class="icon-location-pin"></span>
+                                                <p>1301 Avenue, Brooklyn, NY 11230</p>
+                                            </li>
+                                            <li><span class="icon-screen-smartphone"></span>
+                                                <p>+44 20 7336 8898</p>
+                                            </li>
+                                            <li><span class="icon-link"></span>
+                                                <p>https://burgerandlobster.com</p>
+                                            </li>
+                                        </ul>
+                                        <div class="bottom-icons">
+                                            <div class="closed-now">CLOSED NOW</div>
+                                            <span class="ti-heart"></span>
+                                            <span class="ti-bookmark"></span>
+                                        </div>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+                        {{/each}}
+                        {{#each itemsList4}}
+                        <div class="carousel-item">
+                            <div class="featured-place-wrap">
+                                <a href="detail.html">
+                                    <img src="img/featured1.jpg" class="img-fluid" alt="#">
+                                    <span class="featured-rating-orange">{{average_rating}}</span>
+                                    <div class="featured-title-box">
+                                        <h6>{{name}}</h6>
+                                        <p>Restaurant </p> <span>• </span>
+                                        <p>{{total_rating}} Reviews</p> <span> • </span>
+                                        <p1><span>$</span>{{price}}</p1>
+                                        <ul>
+                                            <li><span class="icon-location-pin"></span>
+                                                <p>1301 Avenue, Brooklyn, NY 11230</p>
+                                            </li>
+                                            <li><span class="icon-screen-smartphone"></span>
+                                                <p>+44 20 7336 8898</p>
+                                            </li>
+                                            <li><span class="icon-link"></span>
+                                                <p>https://burgerandlobster.com</p>
+                                            </li>
+                                        </ul>
+                                        <div class="bottom-icons">
+                                            <div class="closed-now">CLOSED NOW</div>
+                                            <span class="ti-heart"></span>
+                                            <span class="ti-bookmark"></span>
+                                        </div>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+                        {{/each}}
+                        {{!-- <div class="carousel-item active">
+                            <div class="featured-place-wrap">
+                                <a href="detail.html">
+                                    <img src="img/featured2.jpg" class="img-fluid" alt="#">
+                                    <span class="featured-rating-green">{{items.average_rating}}</span>
                                     <div class="featured-title-box">
                                         <h6>Mee Rebus</h6>
                                         <p>Restaurant </p> <span>• </span>
@@ -883,7 +1010,7 @@
                                     </div>
                                 </a>
                             </div>
-                        </div>
+                        </div> --}}
                     </div>
                     <a class="carousel-control-prev" href="#slides2" role="button" data-slide="prev">
                         <span class="carousel-control-prev-icon" aria-hidden="true"></span>
@@ -904,7 +1031,71 @@
                         <li data-target="#slides3" data-slide-to="2"></li>
                     </ol>
                     <div class="carousel-inner">
+                        {{#each itemsList5}}
                         <div class="carousel-item active">
+                            <div class="featured-place-wrap">
+                                <a href="detail.html">
+                                    <img src="img/featured3.jpg" class="img-fluid" alt="#">
+                                    <span class="featured-rating">{{average_rating}}</span>
+                                    <div class="featured-title-box">
+                                        <h6>{{name}}</h6>
+                                        <p>Restaurant </p> <span>• </span>
+                                        <p>{{total_rating}} Reviews</p> <span> • </span>
+                                        <p1><span>$</span>{{price}}</p1>
+                                        <ul>
+                                            <li><span class="icon-location-pin"></span>
+                                                <p>1301 Avenue, Brooklyn, NY 11230</p>
+                                            </li>
+                                            <li><span class="icon-screen-smartphone"></span>
+                                                <p>+44 20 7336 8898</p>
+                                            </li>
+                                            <li><span class="icon-link"></span>
+                                                <p>https://burgerandlobster.com</p>
+                                            </li>
+                                        </ul>
+                                        <div class="bottom-icons">
+                                            <div class="open-now">OPEN NOW</div>
+                                            <span class="ti-heart"></span>
+                                            <span class="ti-bookmark"></span>
+                                        </div>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+                        {{/each}}
+                        {{#each itemsList6}}
+                        <div class="carousel-item">
+                            <div class="featured-place-wrap">
+                                <a href="detail.html">
+                                    <img src="img/featured2.jpg" class="img-fluid" alt="#">
+                                    <span class="featured-rating-green">{{average_rating}}</span>
+                                    <div class="featured-title-box">
+                                        <h6>{{name}}</h6>
+                                        <p>Restaurant </p> <span>• </span>
+                                        <p>{{total_rating}} Reviews</p> <span> • </span>
+                                        <p1><span>$</span>{{price}}</p1>
+                                        <ul>
+                                            <li><span class="icon-location-pin"></span>
+                                                <p>1301 Avenue, Brooklyn, NY 11230</p>
+                                            </li>
+                                            <li><span class="icon-screen-smartphone"></span>
+                                                <p>+44 20 7336 8898</p>
+                                            </li>
+                                            <li><span class="icon-link"></span>
+                                                <p>https://burgerandlobster.com</p>
+                                            </li>
+                                        </ul>
+                                        <div class="bottom-icons">
+                                            <div class="closed-now">CLOSED NOW</div>
+                                            <span class="ti-heart"></span>
+                                            <span class="ti-bookmark"></span>
+                                        </div>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+                        {{/each}}
+                        {{!-- <div class="carousel-item active">
                             <div class="featured-place-wrap">
                                 <a href="detail.html">
                                     <img src="img/featured3.jpg" class="img-fluid" alt="#">
@@ -993,7 +1184,7 @@
                                     </div>
                                 </a>
                             </div>
-                        </div>
+                        </div> --}}
                     </div>
                     <a class="carousel-control-prev" href="#slides3" role="button" data-slide="prev">
                         <span class="carousel-control-prev-icon" aria-hidden="true"></span>
@@ -1006,14 +1197,14 @@
                 </div>
             </div>
             <div class="row justify-content-center">
-            <div class="col-md-4">
-                <div class="featured-btn-wrap">
-                    <a href="#" class="btn btn-danger">VIEW ALL</a>
+                <div class="col-md-4">
+                    <div class="featured-btn-wrap">
+                        <a href="#" class="btn btn-danger">VIEW ALL</a>
+                    </div>
                 </div>
             </div>
         </div>
-        </div>
-        
+
         </div>
 
     </section>
