@@ -4,14 +4,30 @@
 <div class="container">
     {{#if outlets}}
     <div>
-    <h3>Stall onwer info lab</h3>
+    <h3>Stall onwer List</h3>
     {{#each outlets}}
         <div class="outlet">
-            <h2>Name: {{name}} </h2>
-            <p>Description: {{desc}} </p>        
-           
-            
+            <h2>Name: 
+                {{name}} </h2>
+            <p>Description: 
+                {{desc}} </p>
+
+                <p class="font-italic">
+						<a href="" class="card-link">
+                            <button type="button">
+                                <i class="fas fa-pencil-alt"></i>
+							    Edit
+                            </button>
+						</a>
+						<a href="" class="card-link">
+                            <button type="button">
+                                <i class="far fa-trash-alt"></i>
+                                     Delete
+                            </button>
+						</a>
+                        </p>
         </div>
+        
     {{/each}}
     </div>
     
@@ -19,3 +35,28 @@
     {{else}}
         <h3>No stall owners info added ! Please Add more info</h3>
     {{/if}}
+
+
+<style>
+    .outlet {
+        border-style: solid ;
+        border-width: 3px;
+        padding: 40px;
+    }
+
+    button {
+        background-color: black; 
+        border: none;
+        color: white;
+        padding: 5px 15px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        margin-right: 10px;
+    }
+
+    a{
+        text-decoration: none;
+    }
+
+</style>
