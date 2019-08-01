@@ -56,10 +56,6 @@ ex.countTotalItems = function () {
     })
 };
 
-ex.randomNumber = function (low, high) {
-    return Math.random() * (high - low) + low
-};
-
 ex.getItems = function (index1, index2) {
     if (index2 != undefined){
         return itemModel.findAll({

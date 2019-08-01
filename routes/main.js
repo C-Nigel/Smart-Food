@@ -12,7 +12,9 @@ router.get('/', (req, res) => {
 	var User = sessionStorage.getItem("user");
 	var Owners = sessionStorage.getItem("owners");
 	const title = 'Smart Food';
-	var items1;
+	var listNumbers = [];
+	
+
 	rating.countTotalItems().then(num => {
 		for (var i = 1; i <= num; i++) {
 			rating.averageRating(i);
@@ -21,14 +23,24 @@ router.get('/', (req, res) => {
 	});
 
 	rating.countTotalItems({
-
 	}).then((totalNumber) => {
-		rating.getItems(1).then((itemsList1) => {
-			rating.getItems(2, 3).then((itemsList2) => {
-				rating.getItems(4).then((itemsList3) => {
-					rating.getItems(5, 6).then((itemsList4) => {
-						rating.getItems(7).then((itemsList5) => {
-							rating.getItems(8, 9).then((itemsList6) => {
+		for (var i = 1; i < 10; i++){
+			var integer = Math.round(Math.random() * (totalNumber - 1 + 1) + 1);
+			if (listNumbers.includes(integer) || integer > totalNumber){
+				i -= 1;
+			}
+			else{
+				listNumbers.push(integer);
+			}
+		}
+	}).then ( undefined => {
+		console.log(listNumbers);
+		rating.getItems(listNumbers[0]).then((itemsList1) => {
+			rating.getItems(listNumbers[1], listNumbers[2]).then((itemsList2) => {
+				rating.getItems(listNumbers[3]).then((itemsList3) => {
+					rating.getItems(listNumbers[4], listNumbers[5]).then((itemsList4) => {
+						rating.getItems(listNumbers[6]).then((itemsList5) => {
+							rating.getItems(listNumbers[7], listNumbers[8]).then((itemsList6) => {
 								// renders views/home.handlebars
 								res.render('home', {
 									title: title,
