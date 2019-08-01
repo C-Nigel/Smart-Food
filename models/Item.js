@@ -11,7 +11,7 @@ const Item = db.define('item', {
         type: Sequelize.STRING
     },
     price: {
-        type: Sequelize.DECIMAL
+        type: Sequelize.DOUBLE
     },
     picture_url: {
         type: Sequelize.STRING
@@ -21,7 +21,7 @@ const Item = db.define('item', {
         allowNull: false
     },
     average_rating: {
-        type: Sequelize.FLOAT,
+        type: Sequelize.DOUBLE,
         max: 5,
         min: 0,
         /*

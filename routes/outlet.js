@@ -4,14 +4,7 @@ const Outlet = require('../models/Outlet')
 const outlet_class = require('../class/outlet_class')
 
 
-router.post('/addSO', (req,res) => {
-    /*
-    let name = req.body.name;
-    let desc = req.body.desc;
-    */
-    
-
-    let {name, desc} = req.body;
+router.post('/addSO', (req,res) => {let {name, desc} = req.body;
 
     outlet_class.createOutlet(name , desc);
     res.render('outlet');

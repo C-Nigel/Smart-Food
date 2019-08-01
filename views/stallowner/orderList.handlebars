@@ -1,6 +1,8 @@
 <html>
 {{>_header}}
-
+{{#unless orders}}
+<meta http-equiv="refresh" content="10" >
+{{/unless}}
 <body style="background-image: url('img/orders_background.jpg'); background-size: cover;">
 	{{>_navbar}}
 	<br>
@@ -67,7 +69,6 @@
 			{{/if}}
 		</div>
 	</div>
-	{{>_footer}}
 </body>
 
 <script>
