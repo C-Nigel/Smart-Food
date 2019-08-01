@@ -689,23 +689,24 @@
                                     <span class="featured-rating-orange">{{average_rating}}</span>
                                     <div class="featured-title-box">
                                         <h6>{{name}}</h6>
-                                        <p>Restaurant </p> <span>• </span>
+                                        <p>{{cat}}</p> <span>• </span>
                                         <p>{{total_rating}} Reviews</p> <span> • </span>
-                                        <p1><span>$</span>{{price}}</p1>
                                         <ul>
-                                            <li><span class="icon-location-pin"></span>
-                                                <p>1301 Avenue, Brooklyn, NY 11230</p>
+                                            <li class="lilist"><span class="icon-wallet"></span>
+                                                <p1>$ {{price}}</p1>
                                             </li>
-                                            <li><span class="icon-screen-smartphone"></span>
-                                                <p>+44 20 7336 8898</p>
+                                            <li class="lilist"><span class="icon-location-pin"></span>
+                                                <p>{{location}}</p>
                                             </li>
-                                            <li><span class="icon-link"></span>
-                                                <p>https://burgerandlobster.com</p>
+                                            <li class="lilist"><span class="icon-menu"></span>
+                                                <p>Description:</p>
                                             </li>
-
+                                            <li class="lilist">
+                                                <textarea class="textboxarea">{{desc}}</textarea>
+                                            </li>
                                         </ul>
                                         <div class="bottom-icons">
-                                            <div class="closed-now">CLOSED NOW</div>
+                                            <div class="open-now">OPEN NOW</div>
                                             <span class="ti-heart"></span>
                                             <span class="ti-bookmark"></span>
                                         </div>
@@ -722,18 +723,20 @@
                                     <span class="featured-rating">{{average_rating}}</span>
                                     <div class="featured-title-box">
                                         <h6>{{name}}</h6>
-                                        <p>Restaurant </p> <span>• </span>
+                                        <p>{{cat}}</p> <span>• </span>
                                         <p>{{total_rating}} Reviews</p> <span> • </span>
-                                        <p1><span>$</span>{{price}}</p1>
                                         <ul>
-                                            <li><span class="icon-location-pin"></span>
-                                                <p>1301 Avenue, Brooklyn, NY 11230</p>
+                                            <li class="lilist"><span class="icon-wallet"></span>
+                                                <p1>$ {{price}}</p1>
                                             </li>
-                                            <li><span class="icon-screen-smartphone"></span>
-                                                <p>+44 20 7336 8898</p>
+                                            <li class="lilist"><span class="icon-location-pin"></span>
+                                                <p>{{location}}</p>
                                             </li>
-                                            <li><span class="icon-link"></span>
-                                                <p>https://burgerandlobster.com</p>
+                                            <li class="lilist"><span class="icon-menu"></span>
+                                                <p>Description:</p>
+                                            </li>
+                                            <li class="lilist">
+                                                <textarea class="textboxarea">{{desc}}</textarea>
                                             </li>
                                         </ul>
                                         <div class="bottom-icons">
@@ -746,97 +749,6 @@
                             </div>
                         </div>
                         {{/each}}
-                        {{!-- <div class="carousel-item active">
-                            <div class="featured-place-wrap">
-                                <a href="detail.html">
-                                    <img src="img/featured1.jpg" class="img-fluid" alt="#">
-                                    <span class="featured-rating-orange">6.5</span>
-                                    <div class="featured-title-box">
-                                        <h6>Porridge</h6>
-                                        <p>Restaurant </p> <span>• </span>
-                                        <p>3 Reviews</p> <span> • </span>
-                                        <p><span>$$$</span>$$</p>
-                                        <ul>
-                                            <li><span class="icon-location-pin"></span>
-                                                <p>1301 Avenue, Brooklyn, NY 11230</p>
-                                            </li>
-                                            <li><span class="icon-screen-smartphone"></span>
-                                                <p>+44 20 7336 8898</p>
-                                            </li>
-                                            <li><span class="icon-link"></span>
-                                                <p>https://burgerandlobster.com</p>
-                                            </li>
-
-                                        </ul>
-                                        <div class="bottom-icons">
-                                            <div class="closed-now">CLOSED NOW</div>
-                                            <span class="ti-heart"></span>
-                                            <span class="ti-bookmark"></span>
-                                        </div>
-                                    </div>
-                                </a>
-                            </div>
-                        </div>
-                        <div class="carousel-item">
-                            <div class="featured-place-wrap">
-                                <a href="detail.html">
-                                    <img src="img/featured3.jpg" class="img-fluid" alt="#">
-                                    <span class="featured-rating">3.2</span>
-                                    <div class="featured-title-box">
-                                        <h6>Chicken Rice</h6>
-                                        <p>Restaurant </p> <span>• </span>
-                                        <p>3 Reviews</p> <span> • </span>
-                                        <p><span>$$$</span>$$</p>
-                                        <ul>
-                                            <li><span class="icon-location-pin"></span>
-                                                <p>1301 Avenue, Brooklyn, NY 11230</p>
-                                            </li>
-                                            <li><span class="icon-screen-smartphone"></span>
-                                                <p>+44 20 7336 8898</p>
-                                            </li>
-                                            <li><span class="icon-link"></span>
-                                                <p>https://burgerandlobster.com</p>
-                                            </li>
-                                        </ul>
-                                        <div class="bottom-icons">
-                                            <div class="open-now">OPEN NOW</div>
-                                            <span class="ti-heart"></span>
-                                            <span class="ti-bookmark"></span>
-                                        </div>
-                                    </div>
-                                </a>
-                            </div>
-                        </div>
-                        <div class="carousel-item">
-                            <div class="featured-place-wrap">
-                                <a href="detail.html">
-                                    <img src="img/featured2.jpg" class="img-fluid" alt="#">
-                                    <span class="featured-rating-green">9.5</span>
-                                    <div class="featured-title-box">
-                                        <h6>Duck Rice</h6>
-                                        <p>Restaurant </p> <span>• </span>
-                                        <p>3 Reviews</p> <span> • </span>
-                                        <p><span>$$$</span>$$</p>
-                                        <ul>
-                                            <li><span class="icon-location-pin"></span>
-                                                <p>1301 Avenue, Brooklyn, NY 11230</p>
-                                            </li>
-                                            <li><span class="icon-screen-smartphone"></span>
-                                                <p>+44 20 7336 8898</p>
-                                            </li>
-                                            <li><span class="icon-link"></span>
-                                                <p>https://burgerandlobster.com</p>
-                                            </li>
-                                        </ul>
-                                        <div class="bottom-icons">
-                                            <div class="closed-now">CLOSED NOW</div>
-                                            <span class="ti-heart"></span>
-                                            <span class="ti-bookmark"></span>
-                                        </div>
-                                    </div>
-                                </a>
-                            </div>
-                        </div> --}}
                     </div>
                     <a class="carousel-control-prev" href="#slides1" role="button" data-slide="prev">
                         <span class="carousel-control-prev-icon" aria-hidden="true"></span>
@@ -865,22 +777,24 @@
                                     <span class="featured-rating-green">{{average_rating}}</span>
                                     <div class="featured-title-box">
                                         <h6>{{name}}</h6>
-                                        <p>Restaurant </p> <span>• </span>
+                                        <p>{{cat}}</p> <span>• </span>
                                         <p>{{total_rating}} Reviews</p> <span> • </span>
-                                        <p1><span>$</span>{{price}}</p1>
                                         <ul>
-                                            <li><span class="icon-location-pin"></span>
-                                                <p>1301 Avenue, Brooklyn, NY 11230</p>
+                                            <li class="lilist"><span class="icon-wallet"></span>
+                                                <p1>$ {{price}}</p1>
                                             </li>
-                                            <li><span class="icon-screen-smartphone"></span>
-                                                <p>+44 20 7336 8898</p>
+                                            <li class="lilist"><span class="icon-location-pin"></span>
+                                                <p>{{location}}</p>
                                             </li>
-                                            <li><span class="icon-link"></span>
-                                                <p>https://burgerandlobster.com</p>
+                                            <li class="lilist"><span class="icon-menu"></span>
+                                                <p>Description:</p>
+                                            </li>
+                                            <li class="lilist">
+                                                <textarea class="textboxarea">{{desc}}</textarea>
                                             </li>
                                         </ul>
                                         <div class="bottom-icons">
-                                            <div class="closed-now">CLOSED NOW</div>
+                                            <div class="open-now">OPEN NOW</div>
                                             <span class="ti-heart"></span>
                                             <span class="ti-bookmark"></span>
                                         </div>
@@ -897,109 +811,20 @@
                                     <span class="featured-rating-orange">{{average_rating}}</span>
                                     <div class="featured-title-box">
                                         <h6>{{name}}</h6>
-                                        <p>Restaurant </p> <span>• </span>
+                                        <p>{{cat}}</p> <span>• </span>
                                         <p>{{total_rating}} Reviews</p> <span> • </span>
-                                        <p1><span>$</span>{{price}}</p1>
                                         <ul>
-                                            <li><span class="icon-location-pin"></span>
-                                                <p>1301 Avenue, Brooklyn, NY 11230</p>
+                                            <li class="lilist"><span class="icon-wallet"></span>
+                                                <p1>$ {{price}}</p1>
                                             </li>
-                                            <li><span class="icon-screen-smartphone"></span>
-                                                <p>+44 20 7336 8898</p>
+                                            <li class="lilist"><span class="icon-location-pin"></span>
+                                                <p>{{location}}</p>
                                             </li>
-                                            <li><span class="icon-link"></span>
-                                                <p>https://burgerandlobster.com</p>
+                                            <li class="lilist"><span class="icon-menu"></span>
+                                                <p>Description:</p>
                                             </li>
-                                        </ul>
-                                        <div class="bottom-icons">
-                                            <div class="closed-now">CLOSED NOW</div>
-                                            <span class="ti-heart"></span>
-                                            <span class="ti-bookmark"></span>
-                                        </div>
-                                    </div>
-                                </a>
-                            </div>
-                        </div>
-                        {{/each}}
-                        {{!-- <div class="carousel-item active">
-                            <div class="featured-place-wrap">
-                                <a href="detail.html">
-                                    <img src="img/featured2.jpg" class="img-fluid" alt="#">
-                                    <span class="featured-rating-green">{{items.average_rating}}</span>
-                                    <div class="featured-title-box">
-                                        <h6>Mee Rebus</h6>
-                                        <p>Restaurant </p> <span>• </span>
-                                        <p>3 Reviews</p> <span> • </span>
-                                        <p><span>$$$</span>$$</p>
-                                        <ul>
-                                            <li><span class="icon-location-pin"></span>
-                                                <p>1301 Avenue, Brooklyn, NY 11230</p>
-                                            </li>
-                                            <li><span class="icon-screen-smartphone"></span>
-                                                <p>+44 20 7336 8898</p>
-                                            </li>
-                                            <li><span class="icon-link"></span>
-                                                <p>https://burgerandlobster.com</p>
-                                            </li>
-                                        </ul>
-                                        <div class="bottom-icons">
-                                            <div class="closed-now">CLOSED NOW</div>
-                                            <span class="ti-heart"></span>
-                                            <span class="ti-bookmark"></span>
-                                        </div>
-                                    </div>
-                                </a>
-                            </div>
-                        </div>
-                        <div class="carousel-item">
-                            <div class="featured-place-wrap">
-                                <a href="detail.html">
-                                    <img src="img/featured1.jpg" class="img-fluid" alt="#">
-                                    <span class="featured-rating-orange">6.5</span>
-                                    <div class="featured-title-box">
-                                        <h6>Mee Siam</h6>
-                                        <p>Restaurant </p> <span>• </span>
-                                        <p>3 Reviews</p> <span> • </span>
-                                        <p><span>$$$</span>$$</p>
-                                        <ul>
-                                            <li><span class="icon-location-pin"></span>
-                                                <p>1301 Avenue, Brooklyn, NY 11230</p>
-                                            </li>
-                                            <li><span class="icon-screen-smartphone"></span>
-                                                <p>+44 20 7336 8898</p>
-                                            </li>
-                                            <li><span class="icon-link"></span>
-                                                <p>https://burgerandlobster.com</p>
-                                            </li>
-                                        </ul>
-                                        <div class="bottom-icons">
-                                            <div class="closed-now">CLOSED NOW</div>
-                                            <span class="ti-heart"></span>
-                                            <span class="ti-bookmark"></span>
-                                        </div>
-                                    </div>
-                                </a>
-                            </div>
-                        </div>
-                        <div class="carousel-item">
-                            <div class="featured-place-wrap">
-                                <a href="detail.html">
-                                    <img src="img/featured3.jpg" class="img-fluid" alt="#">
-                                    <span class="featured-rating">3.2</span>
-                                    <div class="featured-title-box">
-                                        <h6>Mee Soto</h6>
-                                        <p>Restaurant </p> <span>• </span>
-                                        <p>3 Reviews</p> <span> • </span>
-                                        <p><span>$$$</span>$$</p>
-                                        <ul>
-                                            <li><span class="icon-location-pin"></span>
-                                                <p>1301 Avenue, Brooklyn, NY 11230</p>
-                                            </li>
-                                            <li><span class="icon-screen-smartphone"></span>
-                                                <p>+44 20 7336 8898</p>
-                                            </li>
-                                            <li><span class="icon-link"></span>
-                                                <p>https://burgerandlobster.com</p>
+                                            <li class="lilist">
+                                                <textarea class="textboxarea">{{desc}}</textarea>
                                             </li>
                                         </ul>
                                         <div class="bottom-icons">
@@ -1010,7 +835,8 @@
                                     </div>
                                 </a>
                             </div>
-                        </div> --}}
+                        </div>
+                        {{/each}}
                     </div>
                     <a class="carousel-control-prev" href="#slides2" role="button" data-slide="prev">
                         <span class="carousel-control-prev-icon" aria-hidden="true"></span>
@@ -1039,18 +865,20 @@
                                     <span class="featured-rating">{{average_rating}}</span>
                                     <div class="featured-title-box">
                                         <h6>{{name}}</h6>
-                                        <p>Restaurant </p> <span>• </span>
+                                        <p>{{cat}}</p> <span>• </span>
                                         <p>{{total_rating}} Reviews</p> <span> • </span>
-                                        <p1><span>$</span>{{price}}</p1>
                                         <ul>
-                                            <li><span class="icon-location-pin"></span>
-                                                <p>1301 Avenue, Brooklyn, NY 11230</p>
+                                            <li class="lilist"><span class="icon-wallet"></span>
+                                                <p1>$ {{price}}</p1>
                                             </li>
-                                            <li><span class="icon-screen-smartphone"></span>
-                                                <p>+44 20 7336 8898</p>
+                                            <li class="lilist"><span class="icon-location-pin"></span>
+                                                <p>{{location}}</p>
                                             </li>
-                                            <li><span class="icon-link"></span>
-                                                <p>https://burgerandlobster.com</p>
+                                            <li class="lilist"><span class="icon-menu"></span>
+                                                <p>Description:</p>
+                                            </li>
+                                            <li class="lilist">
+                                                <textarea class="textboxarea">{{desc}}</textarea>
                                             </li>
                                         </ul>
                                         <div class="bottom-icons">
@@ -1071,49 +899,20 @@
                                     <span class="featured-rating-green">{{average_rating}}</span>
                                     <div class="featured-title-box">
                                         <h6>{{name}}</h6>
-                                        <p>Restaurant </p> <span>• </span>
+                                        <p>{{cat}}</p> <span>• </span>
                                         <p>{{total_rating}} Reviews</p> <span> • </span>
-                                        <p1><span>$</span>{{price}}</p1>
                                         <ul>
-                                            <li><span class="icon-location-pin"></span>
-                                                <p>1301 Avenue, Brooklyn, NY 11230</p>
+                                            <li class="lilist"><span class="icon-wallet"></span>
+                                                <p1>$ {{price}}</p1>
                                             </li>
-                                            <li><span class="icon-screen-smartphone"></span>
-                                                <p>+44 20 7336 8898</p>
+                                            <li class="lilist"><span class="icon-location-pin"></span>
+                                                <p>{{location}}</p>
                                             </li>
-                                            <li><span class="icon-link"></span>
-                                                <p>https://burgerandlobster.com</p>
+                                            <li class="lilist"><span class="icon-menu"></span>
+                                                <p>Description:</p>
                                             </li>
-                                        </ul>
-                                        <div class="bottom-icons">
-                                            <div class="closed-now">CLOSED NOW</div>
-                                            <span class="ti-heart"></span>
-                                            <span class="ti-bookmark"></span>
-                                        </div>
-                                    </div>
-                                </a>
-                            </div>
-                        </div>
-                        {{/each}}
-                        {{!-- <div class="carousel-item active">
-                            <div class="featured-place-wrap">
-                                <a href="detail.html">
-                                    <img src="img/featured3.jpg" class="img-fluid" alt="#">
-                                    <span class="featured-rating">3.2</span>
-                                    <div class="featured-title-box">
-                                        <h6>Nasi Lemak</h6>
-                                        <p>Restaurant </p> <span>• </span>
-                                        <p>3 Reviews</p> <span> • </span>
-                                        <p><span>$$$</span>$$</p>
-                                        <ul>
-                                            <li><span class="icon-location-pin"></span>
-                                                <p>1301 Avenue, Brooklyn, NY 11230</p>
-                                            </li>
-                                            <li><span class="icon-screen-smartphone"></span>
-                                                <p>+44 20 7336 8898</p>
-                                            </li>
-                                            <li><span class="icon-link"></span>
-                                                <p>https://burgerandlobster.com</p>
+                                            <li class="lilist">
+                                                <textarea class="textboxarea">{{desc}}</textarea>
                                             </li>
                                         </ul>
                                         <div class="bottom-icons">
@@ -1125,66 +924,7 @@
                                 </a>
                             </div>
                         </div>
-                        <div class="carousel-item">
-                            <div class="featured-place-wrap">
-                                <a href="detail.html">
-                                    <img src="img/featured2.jpg" class="img-fluid" alt="#">
-                                    <span class="featured-rating-green">9.5</span>
-                                    <div class="featured-title-box">
-                                        <h6>Ayam Penyet</h6>
-                                        <p>Restaurant </p> <span>• </span>
-                                        <p>3 Reviews</p> <span> • </span>
-                                        <p><span>$$$</span>$$</p>
-                                        <ul>
-                                            <li><span class="icon-location-pin"></span>
-                                                <p>1301 Avenue, Brooklyn, NY 11230</p>
-                                            </li>
-                                            <li><span class="icon-screen-smartphone"></span>
-                                                <p>+44 20 7336 8898</p>
-                                            </li>
-                                            <li><span class="icon-link"></span>
-                                                <p>https://burgerandlobster.com</p>
-                                            </li>
-                                        </ul>
-                                        <div class="bottom-icons">
-                                            <div class="closed-now">CLOSED NOW</div>
-                                            <span class="ti-heart"></span>
-                                            <span class="ti-bookmark"></span>
-                                        </div>
-                                    </div>
-                                </a>
-                            </div>
-                        </div>
-                        <div class="carousel-item">
-                            <div class="featured-place-wrap">
-                                <a href="detail.html">
-                                    <img src="img/featured1.jpg" class="img-fluid" alt="#">
-                                    <span class="featured-rating-orange">6.5</span>
-                                    <div class="featured-title-box">
-                                        <h6>Seafood Tom Yum</h6>
-                                        <p>Restaurant </p> <span>• </span>
-                                        <p>3 Reviews</p> <span> • </span>
-                                        <p><span>$$$</span>$$</p>
-                                        <ul>
-                                            <li><span class="icon-location-pin"></span>
-                                                <p>1301 Avenue, Brooklyn, NY 11230</p>
-                                            </li>
-                                            <li><span class="icon-screen-smartphone"></span>
-                                                <p>+44 20 7336 8898</p>
-                                            </li>
-                                            <li><span class="icon-link"></span>
-                                                <p>https://burgerandlobster.com</p>
-                                            </li>
-                                        </ul>
-                                        <div class="bottom-icons">
-                                            <div class="closed-now">CLOSED NOW</div>
-                                            <span class="ti-heart"></span>
-                                            <span class="ti-bookmark"></span>
-                                        </div>
-                                    </div>
-                                </a>
-                            </div>
-                        </div> --}}
+                        {{/each}}
                     </div>
                     <a class="carousel-control-prev" href="#slides3" role="button" data-slide="prev">
                         <span class="carousel-control-prev-icon" aria-hidden="true"></span>

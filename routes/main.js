@@ -6,6 +6,7 @@ const users = require('../class/user_class');
 const items = require('../class/item_class');
 const bot = require('../config/telegram');
 const rating = require('../class/rating_class');
+const db = require('../config/DBConfig')
 
 
 router.get('/', (req, res) => {
@@ -13,8 +14,8 @@ router.get('/', (req, res) => {
 	var Owners = sessionStorage.getItem("owners");
 	const title = 'Smart Food';
 	var listNumbers = [];
-	
 
+	
 	rating.countTotalItems().then(num => {
 		for (var i = 1; i <= num; i++) {
 			rating.averageRating(i);
@@ -24,23 +25,28 @@ router.get('/', (req, res) => {
 
 	rating.countTotalItems({
 	}).then((totalNumber) => {
-		for (var i = 1; i < 10; i++){
+		for (var i = 1; i < 10; i++) {
 			var integer = Math.round(Math.random() * (totalNumber - 1 + 1) + 1);
-			if (listNumbers.includes(integer) || integer > totalNumber){
+			if (listNumbers.includes(integer) || integer > totalNumber) {
 				i -= 1;
 			}
-			else{
+			else {
 				listNumbers.push(integer);
 			}
 		}
-	}).then ( undefined => {
-		console.log(listNumbers);
-		rating.getItems(listNumbers[0]).then((itemsList1) => {
-			rating.getItems(listNumbers[1], listNumbers[2]).then((itemsList2) => {
-				rating.getItems(listNumbers[3]).then((itemsList3) => {
-					rating.getItems(listNumbers[4], listNumbers[5]).then((itemsList4) => {
-						rating.getItems(listNumbers[6]).then((itemsList5) => {
-							rating.getItems(listNumbers[7], listNumbers[8]).then((itemsList6) => {
+	}).then(undefined => {
+		db.query('SELECT items.id, items.name, items.cat, items.price, items.picture_url, items.outlet_id, outlets.name AS location, outlets.desc, items.average_rating, items.total_rating FROM ooadp.items, ooadp.outlets WHERE items.outlet_id = outlets.id AND items.id = ' + listNumbers[0])
+		.then(([itemsList1, metadata]) => {
+			db.query('SELECT items.id, items.name, items.cat, items.price, items.picture_url, items.outlet_id, outlets.name AS location, outlets.desc, items.average_rating, items.total_rating FROM ooadp.items, ooadp.outlets WHERE items.outlet_id = outlets.id AND items.id IN ('+ listNumbers[1] + ',' + listNumbers[2] + ')')
+			.then(([itemsList2, metadata]) => {
+				db.query('SELECT items.id, items.name, items.cat, items.price, items.picture_url, items.outlet_id, outlets.name AS location, outlets.desc, items.average_rating, items.total_rating FROM ooadp.items, ooadp.outlets WHERE items.outlet_id = outlets.id AND items.id = '+ listNumbers[3])
+				.then(([itemsList3, metadata]) => {
+					db.query('SELECT items.id, items.name, items.cat, items.price, items.picture_url, items.outlet_id, outlets.name AS location, outlets.desc, items.average_rating, items.total_rating FROM ooadp.items, ooadp.outlets WHERE items.outlet_id = outlets.id AND items.id IN ('+ listNumbers[4] + ',' + listNumbers[5] + ')')
+					.then(([itemsList4, metadata]) => {
+						db.query('SELECT items.id, items.name, items.cat, items.price, items.picture_url, items.outlet_id, outlets.name AS location, outlets.desc, items.average_rating, items.total_rating FROM ooadp.items, ooadp.outlets WHERE items.outlet_id = outlets.id AND items.id = ' + listNumbers[6])
+						.then(([itemsList5, metadata]) => {
+							db.query('SELECT items.id, items.name, items.cat, items.price, items.picture_url, items.outlet_id, outlets.name AS location, outlets.desc, items.average_rating, items.total_rating FROM ooadp.items, ooadp.outlets WHERE items.outlet_id = outlets.id AND items.id IN ('+ listNumbers[7] + ',' + listNumbers[8] + ')')
+							.then(([itemsList6, metadata]) => {
 								// renders views/home.handlebars
 								res.render('home', {
 									title: title,
@@ -61,6 +67,7 @@ router.get('/', (req, res) => {
 		})
 	})
 });
+
 
 router.get('/complete', (req, res) => {
 	res.render('ratingsComplete')
@@ -86,7 +93,7 @@ router.get('/index', (req, res) => {
 });
 
 router.get('/history', (req, res) => {
-	res.render('history') 
+	res.render('history')
 });
 
 router.get('/loginadmin', (req, res) => {
@@ -179,11 +186,11 @@ router.get('/itemList', (req, res) => {
 
 router.get('/stallownerConfig', (req, res) => {
 	let user;
-	res.render('stallowner/stallownerConfig', {outlet: 2});
+	res.render('stallowner/stallownerConfig', { outlet: 2 });
 });
 
 router.post('/stallownerConfig', (req, res) => {
-	let {itemName, itemPrice, itemCategory, outletid} = req.body;
+	let { itemName, itemPrice, itemCategory, outletid } = req.body;
 	items.createItem(itemName, itemCategory, itemPrice, null, outletid);
 	//console.log(itemCategory);
 	//res.redirect('/');
@@ -192,7 +199,7 @@ router.post('/stallownerConfig', (req, res) => {
 router.get('/history', (req, res) => {
 	let outletid = sessionStorage.getItem("user");
 	orders.getOrdersForOutlets(1).then(orders => {
-		res.render('history', {orders: orders}); 
+		res.render('history', { orders: orders });
 	})
 });
 module.exports = router;
