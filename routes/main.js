@@ -9,7 +9,7 @@ const rating = require('../class/rating_class');
 
 
 router.get('/', (req, res) => {
-	var User = sessionStorage.getItem("user");
+	var Users = sessionStorage.getItem("user");
 	var Owners = sessionStorage.getItem("owners");
 	const title = 'Smart Food';
 	var listNumbers = [];
@@ -34,7 +34,7 @@ router.get('/', (req, res) => {
 			}
 		}
 	}).then ( undefined => {
-		console.log(listNumbers);
+		//console.log(listNumbers);
 		rating.getItems(listNumbers[0]).then((itemsList1) => {
 			rating.getItems(listNumbers[1], listNumbers[2]).then((itemsList2) => {
 				rating.getItems(listNumbers[3]).then((itemsList3) => {
@@ -50,7 +50,7 @@ router.get('/', (req, res) => {
 									itemsList4,
 									itemsList5,
 									itemsList6,
-									User,
+									Users,
 									Owners
 								});
 							})

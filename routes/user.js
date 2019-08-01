@@ -256,12 +256,13 @@ router.post('/loginuser', (req, res) => {
             text: 'Password must be at least 4 characters'
         });
     }
-
+    /*
     if (isNaN(admin_no.slice(0, 6))) {
         errors.push({
             text: 'Admin Number is not valid!'
         });
     }
+    */
     if (errors.length > 0) {
         res.render('user/loginuser', {
             errors,
@@ -283,7 +284,7 @@ router.post('/loginuser', (req, res) => {
             } else {
                 storage.setItem("user", user.admin_no);
                 console.log(storage.getItem("user"));
-                console.log(user);
+                //console.log(user);
 
                 if (user == null) {
                     res.redirect('/register');
