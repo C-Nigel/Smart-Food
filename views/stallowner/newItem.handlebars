@@ -1,4 +1,4 @@
-<link rel="stylesheet" href="/css/stallownerconfig/stallownerconfig.css">
+<html>
 {{>_header}}
 
 <body>
@@ -7,20 +7,21 @@
         <div class="card card-body mx-auto">
             <h3>Create New Food Item</h3>
             <br>
-            <form action="/stallownerConfig" method="post">
-            <input type="hidden" name="outletid" value="{{outlet}}">
+            <form action="/newItem" method="post">
+                <input type="hidden" name="outletid" value="{{outlet_id}}">
                 <div class="row mb-2">
                     <div class="col-lg-9">
                         <div class="form-group">
                             <label for="itemName">Name of food item:</label>
-                            <input type="text" class="form-control" id="itemName" name="itemName" placeholder="Enter name">
+                            <input type="text" class="form-control" id="itemName" name="itemName"
+                                placeholder="Enter name">
                         </div>
                         <div class="row">
                             <div class="col-6">
                                 <div class="form-group">
                                     <label for="itemPrice">Price of food item:</label>
-                                    <input type="number" step="any" min="0" class="form-control" id="itemPrice" name="itemPrice"
-                                        placeholder="Enter price">
+                                    <input type="number" step="any" min="0" class="form-control" id="itemPrice"
+                                        name="itemPrice" placeholder="Enter price">
                                 </div>
                             </div>
                             <div class="col-6">
@@ -55,3 +56,5 @@
         </div>
     </div>
 </body>
+
+</html>

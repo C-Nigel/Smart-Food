@@ -157,7 +157,7 @@ router.get('/orders', (req, res) => {
 	})
 });
 
-router.put('/orders/:id/:status', (req, res) => {
+router.post('/orders/:id/:status', (req, res) => {
 	let id = req.params.id;
 	let status = req.params.status;
 	orders.setOrderStatus(id, status);
@@ -173,20 +173,33 @@ router.put('/orders/:id/:status', (req, res) => {
 	})
 });
 
-router.get('/itemList', (req, res) => {
-	res.render('stallowner/itemList');
+router.get('/listItems', (req, res) => {
+	items.getItemsByOutlet(1).then(items => {
+		res.render('stallowner/listItems', {items: items});
+	})
 })
 
-router.get('/stallownerConfig', (req, res) => {
+router.get('/addItem', (req, res) => {
 	let user;
-	res.render('stallowner/stallownerConfig', {outlet: 2});
+	res.render('stallowner/addItem', {outlet: 2});
 });
 
-router.post('/stallownerConfig', (req, res) => {
+router.post('/addItem', (req, res) => {
 	let {itemName, itemPrice, itemCategory, outletid} = req.body;
 	items.createItem(itemName, itemCategory, itemPrice, null, outletid);
-	//console.log(itemCategory);
-	//res.redirect('/');
+	res.redirect('/listItems');
+});
+
+router.get('/editItem/:id', (req, res) => {
+	items.getItemById(req.params.id).then(item => {
+		res.render('stallowner/editItem', {item: item});
+	});
+});
+
+router.post('/editItem/:id', (req, res) => {
+	let {itemName, itemPrice, itemCategory} = req.body;
+	items.updateItem(req.params.id, itemName, itemCategory, itemPrice);
+	res.redirect('/listItems');
 });
 
 router.get('/history', (req, res) => {
