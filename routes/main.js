@@ -3,12 +3,9 @@ const router = express.Router();
 const sessionStorage = require('node-sessionstorage');
 const orders = require('../class/order_class');
 const users = require('../class/user_class');
+const items = require('../class/item_class');
 const bot = require('../config/telegram');
 const rating = require('../class/rating_class');
-const itemModel = require('../models/Item');
-const ratingModel = require('../models/Rating');
-const variable = require('../class/user_class');
-const Op = require('sequelize').Op;
 
 
 router.get('/', (req, res) => {
@@ -68,6 +65,10 @@ router.get('/loginseller', (req, res) => {
 	res.render('user/loginseller') // renders views/user/loginseller.handlebars
 });
 
+router.get('/loginadmin', (req, res) => {
+	res.render('user/loginadmin')
+});
+
 router.get('/index', (req, res) => {
 	res.render('index') // renders views/user/loginuser.handlebars
 });
@@ -96,7 +97,7 @@ router.get('/profile', (req, res) => {
 	var User = sessionStorage.getItem("user");
 	console.log(User);
 	if (User) {
-		variable.getUserByAdmin(User).then(user => {
+		users.getUserByAdmin(User).then(user => {
 			console.log(user);
 			var admin_no = user.admin_no;
 			var full_name = user.full_name;
@@ -120,107 +121,9 @@ router.get('/profile', (req, res) => {
 
 });
 
-
-// deon's cart + menu stuff
-
-
-router.get('menu/menu', (req, res) => {
-	res.render('menu/menu')
-});
-
-router.get('/stallownerConfig', (req, res) => {
-	res.render('stallowner/stallownerConfig')
-});
-
-router.get('/menuDemo', (req, res) => {
-	res.render('menu/menuDemo')
-});
-
-router.get('/menuAlpha', (req, res) => {
-	res.render('menu/menuAlpha')
-});
-
-// testing in progress
-
-// displaying old chinese menu 
-router.get('menu/menu-chinese-old', (req, res) => {
-	res.render('menu/menu-chinese-old')
-});
-
-// working on smth new for chinese menu
-router.get('menu/menu-chinese', (req, res) => {
-	res.render('menu/menu-chinese')
-});
-
-
-// displaying only malay food
-/*
-router.get('menu/menu-malay', (req, res) =>{
-	res.render('menu/menu-malay')
-});
-*/
-
-// displaying only indian menu, non-halal
-router.get('menu/menu-indian', (req, res) => {
-	res.render('menu/menu-indian')
-});
-
-// displaying only western menu
-router.get('menu/menu-western', (req, res) => {
-	res.render('menu/menu-western')
-});
-
-// displaying only fusion menu
-router.get('menu/menu-fusion', (req, res) => {
-	res.render('menu/menu-fusion')
-});
-
-
-// displaying only desserts menu
-router.get('menu/menu-desserts', (req, res) => {
-	res.render('menu/menu-desserts')
-});
-
-// displaying only drinks menu
-router.get('menu/menu-drinks', (req, res) => {
-	res.render('menu/menu-drinks')
-});
-
-// displaying only vegetarian menu
-router.get('menu/menu-vegetarian', (req, res) => {
-	res.render('menu/menu-vegetarian')
-});
-
-
-// testing 1 handlebar menu 
-/*
-router.get('menu/menu-{{cat}}', (req, res) =>{
-	res.render('menu/menu-{{cat}}')
-});
-*/
-
-/*
-router.get('/showAddedItems', (req, res) =>{
-	res.render('cart/MainMenu')
-});
-*/
-
-// Setting up Stall Owner Config after clearing directory
-/*
-router.get('/stallownerConfig', (req, res) =>{
-	res.render('stallowner/stallownerConfig') 
-	// renders views/stallowner/stallownerConfig.handlebars
-});
-*/
-
-
 router.get('/logout', (req, res) => {
 	sessionStorage.removeItem("user");
 	res.redirect('/');
-});
-
-router.get('/orders', (req, res) => {
-    res.render('orderList');
 });
 
 router.get('/admin', (req, res) => {
@@ -238,7 +141,7 @@ router.get('/addStallOwners', (req, res) => {
 router.get('/orders', (req, res) => {
 	let outletid = sessionStorage.getItem("user");
 	orders.getOrdersForOutlets(1).then(orders => {
-		res.render('orderList', { orders: orders });
+		res.render('stallowner/orderList', { orders: orders });
 	})
 });
 
@@ -256,7 +159,24 @@ router.put('/orders/:id/:status', (req, res) => {
 			}
 		})
 	})
+});
+
+router.get('/itemList', (req, res) => {
+	res.render('stallowner/itemList');
 })
+
+router.get('/stallownerConfig', (req, res) => {
+	let user;
+	res.render('stallowner/stallownerConfig', {outlet: 2});
+});
+
+router.post('/stallownerConfig', (req, res) => {
+	let {itemName, itemPrice, itemCategory, outletid} = req.body;
+	items.createItem(itemName, itemCategory, itemPrice, null, outletid);
+	//console.log(itemCategory);
+	//res.redirect('/');
+});
+
 router.get('/history', (req, res) => {
 	let outletid = sessionStorage.getItem("user");
 	orders.getOrdersForOutlets(1).then(orders => {

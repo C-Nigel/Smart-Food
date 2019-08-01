@@ -1,102 +1,57 @@
+<link rel="stylesheet" href="/css/stallownerconfig/stallownerconfig.css">
+{{>_header}}
 
-<div class="container">
-
-<head>
-    <link rel="stylesheet" href="/css/stallownerconfig/stallownerconfig.css">
-    
-</head>
-
-<legend><p>Stall owner's lab: Upload your food items here!</p></legend>
-<fieldset>
-<form action="../menu/stallownerConfig" method="post" id="stallownerConfig">
 <body>
-    <!-- registering name of food item -->
-    <div class="form-group">
-        <label class="font-italic" for="name">Name of Food Item: </label>
-        <input class="form-control" id="name" name="name" rows="1" onblur="ProperCase('name')">{{name}}</textarea>
-        
+    {{>_navbar}}
+    <div class="container" style="padding-top: 6rem;">
+        <div class="card card-body mx-auto">
+            <h3>Create New Food Item</h3>
+            <br>
+            <form action="/stallownerConfig" method="post">
+            <input type="hidden" name="outletid" value="{{outlet}}">
+                <div class="row mb-2">
+                    <div class="col-lg-9">
+                        <div class="form-group">
+                            <label for="itemName">Name of food item:</label>
+                            <input type="text" class="form-control" id="itemName" name="itemName" placeholder="Enter name">
+                        </div>
+                        <div class="row">
+                            <div class="col-6">
+                                <div class="form-group">
+                                    <label for="itemPrice">Price of food item:</label>
+                                    <input type="number" step="any" min="0" class="form-control" id="itemPrice" name="itemPrice"
+                                        placeholder="Enter price">
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <div class="form-group">
+                                    <label for="itemCategory">Category of food item:</label>
+                                    <select class="form-control" id="itemCategory" name="itemCategory">
+                                        <option>Chinese</option>
+                                        <option>Malay</option>
+                                        <option>Indian</option>
+                                        <option>Western</option>
+                                        <option>Fusion</option>
+                                        <option>Vegetarian</option>
+                                        <option>Desserts</option>
+                                        <option>Drinks</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 mb-4">
+                        <div class="form-group">
+                            <label for="itemImage">Add image to item (optional)</label>
+                            <input type="file" id="fooditemImgUpload" name="fooditemImgUpload"
+                                accept="image/png, image/jpg, image/jpeg, image/gif">
+                            <img id="fooditemImgUpload" src="/img/no-img.png" alt=""
+                                class="border img-thumbnail img-fluid" style="height:40%">
+                        </div>
+                    </div>
+                </div>
+                <input class="btn btn-outline-primary" type="submit" value="Save">
+            </form>
+        </div>
     </div>
-
-    <!-- registering price of food item -->
-    <div class="form-group">
-        <br>
-        <label class="font-italic" for="price">Price: $</label>
-        <input class="form-control" id="price" name="price" rows="1">{{price}}</textarea>
-    </div>
-
-    <!-- registering category of food item -->
-    
-    <!--
-    <div class="form-group">
-        <label class="font-italic" for="cat">Food Category (Eg. Chinese/Malay Muslim ...): </label>
-        <textarea class="form-control" id="cat" name="cat" rows="1">{{cat}}</textarea>
-    </div>
-    -->
-
-    
-    <div class="form-group">
-        <br>
-
-        <label class="font-italic" for="cat">Food Category: </label>
-
-        <input class="form-control" type="radio" id="cat" name="cat" value="chinese">
-        <label class="form-control" for="chinese">chinese</label>
-
-        <!-- still testing a non-halal specification for registering chinese food item -->
-        <!--
-        <input class="form-control" type="radio" id="cat" name="cat" value="chinese-nonhalal">
-        <label class="form-control" for="chinese-nonhalal">chinese non-halal</label>
-        -->
-
-        <input class="form-control" type="radio" id="cat" name="cat" value="malay">
-        <label class="form-control" for="malay">malay</label>
-
-        <input class="form-control" type="radio" id="cat" name="cat" value="indian">
-        <label class="form-control" for="indian">indian</label>
-
-        <input class="form-control" type="radio" id="cat" name="cat" value="western">
-        <label class="form-control" for="western">western</label>
-
-        <input class="form-control" type="radio" id="cat" name="cat" value="fusion">
-        <label class="form-control" for="fusion">fusion</label>
-
-        <input class="form-control" type="radio" id="cat" name="cat" value="vegetarian">
-        <label class="form-control" for="vegetarian">vegetarian</label>
-
-        <input class="form-control" type="radio" id="cat" name="cat" value="desserts">
-        <label class="form-control" for="desserts">desserts</label>
-
-        <input class="form-control" type="radio" id="cat" name="cat" value="drinks">
-        <label class="form-control" for="drinks">drinks</label>
-    </div>
-    
-    <br>
-    <!-- haven't add name & id yet -->
-    <label class="font-italic">Add image to my new food item(optional): </label>
-    <br>
-    <br>
-    <!--<input type="file" id="fooditemImgUpload" name="fooditemImgUpload" accept="image/png, image/jpg, image/jpeg, image/gif">-->
-    <input type="file" id="fooditemImgUpload" name="fooditemImgUpload" accept="image/png, image/jpg, image/jpeg, image/gif">
-    <div class="font-weight-bold text-danger small" id="posterErr" style="display: none"></div>
-    <br>
-    <br>
-    <img id="fooditemImgUpload" src="/img/no-img.png" alt="" class="border img-thumbnail img-fluid" style="height:40%;width:30%">
-    <!-- registering category of food item -->
-    <div class="form-group">
-        <br>
-        <label class="font-italic" for="outlet_id">Insert outlet id:  </label>
-        <input class="form-control" id="outlet_id" name="outlet_id" rows="1">{{outlet_id}}</textarea>
-    </div>
-
-    <!--<button id="butAddFoodItem" type="submit" class="btn btn-primary">Save</button>-->
-    <br>
-    <button type="submit" disabled style="display: none" aria-hidden="true"></button>
-    <input class="btn btn-outline-primary" type="submit" value="Save">
-
-    
-
 </body>
-</form>
-</fieldset>
-</div>
-

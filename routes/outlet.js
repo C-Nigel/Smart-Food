@@ -2,26 +2,28 @@ const express = require('express');
 const router = express.Router();
 const Outlet = require('../models/Outlet')
 const outlet_class = require('../class/outlet_class')
-
+var bcrypt = require('bcryptjs');
+var salt = bcrypt.genSaltSync(10);
 
 router.post('/addSO', (req,res) => {
-    /*
-    let name = req.body.name;
-    let desc = req.body.desc;
-    */
     
+    let name = req.body.name;
+    
+    let password = req.body.password;
+    var hashPass = bcrypt.hashSync(password, salt)
+    let desc = req.body.desc;
 
-    let {name, desc} = req.body;
-
-    outlet_class.createOutlet(name , desc);
-    res.render('outlet');
+    outlet_class.createOutlet(name , hashPass , desc);
+    res.redirect('outlet/addSO');
 });
 
-router.get('/outlet', (req, res) =>{
+router.get('/outlet/addSO', (req, res) =>{
     Outlet.findAll({
-        raw: true
-    }).then((outlets)=>{
-        res.render('outlet/outlet', {
+        
+    }).then((outlets) => 
+    {
+        console.log(outlets);
+        res.render('outlet', {
             outlets
         });
     })

@@ -64,7 +64,6 @@ router.post('/changepassword', (req, res) => {
             })
         }
     });
-
 });
 router.post('/profile', (req, res) => {
     let errors = [];
@@ -180,16 +179,6 @@ if (password != confirmpassword) {
     });
     alertMessage(res, 'success', 'Passwords do not match!.',
         'fas fa-sign-in-alt', true);
-    // var errors = 'Password do not match!';
-    // storage.setItem("error", errors);
-    // var error = storage.getItem("error")
-    // res.render('user/register', {
-    //     error,
-    //     full_name,
-    //     admin_no,
-    //     phone_no,
-    //     password
-    // });
 
 }
 
@@ -425,30 +414,26 @@ router.post('/loginseller', (req, res) => {
                     var picture = user.picture;
                     var telegram_id = user.telegram_id;
                     req.session.user = user;
-                    // res.render('user/profile',{
-                    //     admin_no,
-                    //     full_name,
-                    //     phone_no,
-                    //     picture,
-                    //     telegram_id
-                    // });
                     res.redirect('/orders');
-                    // passport.authenticate('local', {
-                    // successRedirect: '/profile', // Route to /video/listVideos URL
-                    // failureRedirect: '/loginuser', // Route to /login URL
-                    // failureFlash: true
-                    //  /* Setting the failureFlash option to true instructs Passport to flash an error
-                    //    message using the message given by the strategy's verify callback, if any.
-                    // When a failure occur passport passes the message object as error */
-                    // })(req, res, next);
                 }
             }
-
-
-
         })
     }
 });
+
+router.post('/loginadmin', (req, res) => {
+    var pass = password;
+
+    if(Admin_ID == SFAdmin && pass == SFAd45)
+    {
+        res.redirect('/admin')
+    }
+    else
+    {
+        res.redirect('/home');
+    } 
+});
+
 
 
 
