@@ -1,13 +1,12 @@
 {{>_header}}
 {{>_navbar}}
-<section class="main-box float-center">
-    <div class="row" style="margin-top:  50px">
-        <div class="col-md-6 col-md-offset-3 form-container float-right">
+<section class="main-box">
+    <div class="row">
+        <div class="col-md-6 col-md-offset-3 form-container">
             <h2>Add Stall Owners</h2>
-            
             <form  action='/outlet/addSO' method="post" id="addStallOwners">
                 <div class="row">
-                    <div class="col-sm-7 form-group">
+                    <div class="col-sm-7 form-group" id='labels'>
                         <label for="name">
                             Stall Owner Name:</label>
                         <input required type="text" class="form-control" id="name" name="name"  value={{name}}>
@@ -34,3 +33,16 @@
     </div>
 </section>
 {{>_footer}}
+
+<style>
+    section {
+        padding: 120px;
+    }
+
+    form {
+        margin: 20px;
+        border: solid;
+        padding: 50px;
+    }
+
+</style>
