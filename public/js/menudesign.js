@@ -15,6 +15,7 @@ $('.return').on('click', function(){
     $('#shoppingCart').toggle();
 });
 
+var count = -1;
 var selectedItemCounter = 0;
 var totalPrice = 0;
 var orders = [];
@@ -39,8 +40,12 @@ $('.tocart').on('click', function(){
     $('#cartTotal').text("Total: $" + totalPrice.toFixed(2));
 
     $('.row > div').on('click', function() {
+        count += 1;
         var val = $('input[id^="itemid_"]', this).val();
-        // orders.push(val);
+        orders.push(val);
+        // for (var i = 0; i < count; i++){
+        //     orders.pop();
+        // }
         console.log(val);
     });
     
@@ -130,10 +135,10 @@ $('#shoppingCart').on('click', '.removeItem', function(){
 $('.submitOrders').on('click', function(){
     var admin = $('#adminNo').val();
     for (var i=0; i<orders.length; i++){
-        // $.ajax({
-        //     url: '/menu/menu-order/' + admin + '/' + orders[i],
-        //     type: 'POST'
-        // })
+        $.ajax({
+            url: '/menu/menu-order/' + admin + '/' + orders[i],
+            type: 'POST'
+        })
         console.log("outside:" + orders[i]);
     }
 });

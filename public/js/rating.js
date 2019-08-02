@@ -1,8 +1,8 @@
 $(document).ready(function () {
 
     var mc = {
-        '0-1.2': 'featured-rating',
-        '1.2-2.2': 'featured-rating-orange',
+        '0-1': 'featured-rating',
+        '2-3': 'featured-rating-orange',
         '4-5': 'featured-rating-green'
     };
 
