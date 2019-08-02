@@ -2,9 +2,9 @@
 
 
 
-$('.back').click(function(){
-    $('.modification').toggle();
-})
+// $('.back').click(function(){
+//     $('.modification').toggle();
+// })
 
 
 $('.cart').on('click', function(){
@@ -38,8 +38,12 @@ $('.tocart').on('click', function(){
     // $('#cartTotal').text("Total: $" + parseFloat(totalPrice));
     $('#cartTotal').text("Total: $" + totalPrice.toFixed(2));
 
+    $('.row > div').on('click', function() {
+        var val = $('input[id^="itemid_"]', this).val();
+        // orders.push(val);
+        console.log(val);
+    });
     
-    orders.push($('#itemid').val());
     
 
     if (imgtodrag) {
@@ -126,13 +130,13 @@ $('#shoppingCart').on('click', '.removeItem', function(){
 $('.submitOrders').on('click', function(){
     var admin = $('#adminNo').val();
     for (var i=0; i<orders.length; i++){
-        $.ajax({
-            url: '/menu/menu-order/' + admin + '/' + orders[i],
-            type: 'POST'
-        })
-    console.log(orders[i]);
+        // $.ajax({
+        //     url: '/menu/menu-order/' + admin + '/' + orders[i],
+        //     type: 'POST'
+        // })
+        console.log("outside:" + orders[i]);
     }
-})
+});
 
 
 
