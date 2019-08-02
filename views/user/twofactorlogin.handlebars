@@ -1,0 +1,44 @@
+
+	<title>Register</title>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+{{>_header}}
+{{>_navbar}}
+
+<!--===============================================================================================-->	
+	<link rel="stylesheet" type="text/css" href="/css/usercss/util.css">
+	<link rel="stylesheet" type="text/css" href="/css/usercss/main.css">
+<!--===============================================================================================-->
+	<body>
+	<div class="limiter">
+		<div class="container-login100">
+			<div class="wrap-login100 p-l-55 p-r-55 p-t-65 p-b-50">
+				<form action="../user/twofactorlogin" method="post" id="regForm" class="login100-form validate-form">
+					<div class="container">
+						{{> _msg}} {{!-- views/partials/_msg.handlebars --}}
+						{{> _errors}} {{!-- views/partials/_errors.handlebars --}}
+						{{{body}}}
+					</div>
+					<span class="login100-form-title p-b-33">
+						Two Factor Authetication
+					</span>
+
+						<div class="wrap-input100 validate-input" data-validate = "Valid 6 digit number required!">
+							<input class="input100" type="text" name="code" id="code" placeholder="Authetication Code" value="{{code}}" required/><span id="errrmsg"></span>
+							<span class="focus-input100-1"></span>
+							<span class="focus-input100-2"></span>
+						</div>
+
+						<div class="container-login100-form-btn m-t-20">
+							<button class="login100-form-btn">
+								Enter
+							</button>
+						</div>
+				
+				</form>
+			</div>
+		</div>
+	</div>
+	</body>
+
+

@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const User = require('../models/User');
+const Order = require('../models/Order');
 var bcrypt = require('bcryptjs');
 const passport = require('passport');
 const alertMessage = require('../helpers/messenger');
@@ -12,39 +13,80 @@ const svariable = require('../class/outlet_class');
 const fs = require('fs');
 const upload = require('../helpers/imageUpload');
 const storage = require('node-sessionstorage');
+var counter = 0;
 
 router.get('/', (req, res) => {
     const title = 'Smart Food';
     res.render('home', {title: title}) // renders views/home.handlebars
 });
 
-// router.get('/:admin_no', (req, res) =>{
-//     res.send('admin_no: ' + req.params.admin_no)
-//     //  variable.getUserByAdmin(admin_no).then(user =>{
-//     //      console.log(user);
-         
-//     //  });
-//  });
-// router.get('/profile', (req, res) => {
-//     var admin = storage.getItem("user");
-//     console.log(admin);
-//     variable.getUserByAdmin(admin).then(user =>{
-//         console.log(user);
-//         var admin_no = user.admin_no;
-//         var full_name = user.full_name;
-//         var phone_no = user.phone_no;
-//         var telegram_id = user.telegram_id;
-//         var picture = user.picture;
-//         res.render('/profile',{
-//             admin_no,
-//             full_name,
-//             phone_no,
-//             telegram_id,
-//             picture
-//         }
-//         );
-//     })
-// });
+router.post('/delete', (req, res) => {
+    let errors = [];
+    let success = 'User successfully deleted';
+    let {password, confirmpassword} = req.body;
+    var User = storage.getItem("user");
+    if(password != confirmpassword){
+        errors.push({ text: 'Passwords not the same!' });
+        res.render('user/delete', {
+            User,
+            errors
+        });
+    }
+    else{
+        variable.getUserByAdmin(User).then(user =>{
+            var isSame = bcrypt.compareSync(old_password, user.password);
+            if(isSame == false){
+                errors.push({ text: 'Incorrect Password!'});
+                res.render('user/delete', {
+                    User,
+                    errors
+                });
+            }
+            if(isSame == true){
+                User.delete({
+                    where: {admin_no : User}
+                });
+                Order.delete({
+                    where: {user_admin : User}
+                })
+                storage.removeItem("user");
+                res.redirect('/');
+            }
+        })
+    }
+});
+router.post('/twofa', (req, res) => {
+    let success_msg = [];
+    var User = storage.getItem("user");
+    variable.getUserByAdmin(User).then(user =>{
+        if(user.admin_status == 0) {
+            User.update({
+                admin_status: 1
+            }, {
+                where: {admin_no: User}
+            }).then(user =>{
+                success_msg.push({ text: 'Two Factor Authentication Enabled!' });
+                res.render('user/twofa',{
+                    success_msg,
+                    User
+                })
+            })
+        }
+        else if(user.admin_status == 1) {
+            User.update({
+                admin_status: 0
+            }, {
+                where: {admin_no: User}
+            }).then(user =>{
+                success_msg.push({ text: 'Two Factor Authentication Disabled!' });
+                res.render('user/twofa',{
+                    success_msg,
+                    User
+                })
+            })
+        }
+    })
+});
 router.post('/changepassword', (req, res) => {
     let errors = [];
     let {old_password, new_password, confirmpassword} = req.body;
@@ -179,16 +221,7 @@ router.post('/register', (req, res) => {
         errors.push({ text: 'Passwords do not match' });
         alertMessage(res, 'success', 'Passwords do not match!.',
                                     'fas fa-sign-in-alt', true);
-        // var errors = 'Password do not match!';
-        // storage.setItem("error", errors);
-        // var error = storage.getItem("error")
-        // res.render('user/register', {
-        //     error,
-        //     full_name,
-        //     admin_no,
-        //     phone_no,
-        //     password
-        // });
+        
         
     }
 
@@ -282,6 +315,7 @@ router.post('/register', (req, res) => {
 
 router.post('/loginuser', (req, res) => {
     let errors = [];
+    let success_msg = 'Please check your school email for the authentication code!';
     let {admin_no, password} = req.body;
     var pass = password;
     if (password.length < 4) {
@@ -301,50 +335,63 @@ router.post('/loginuser', (req, res) => {
     else
     {
         variable.getUserByAdmin(admin_no).then(user =>{
-            var isSame = bcrypt.compareSync(pass, user.password);;
-            console.log(user.password);
-            if(!isSame){
-                errors.push({ text: 'Password is incorrect!'});
-                res.render('user/loginuser', {
-                    errors,
-                    admin_no
-                });
+            if(user != null || 'undefined'){
+                var isSame = bcrypt.compareSync(pass, user.password);;
+                console.log(user.password);
+                if(!isSame){
+                    errors.push({ text: 'Password is incorrect!'});
+                    res.render('user/loginuser', {
+                        errors,
+                        admin_no
+                    });
+                }
+                else{
+                    storage.setItem("user", user.admin_no);
+                    console.log(storage.getItem("user"));
+                    console.log(user);
+        
+                    if (user == null)
+                    {
+                        res.redirect('/register');
+                    }
+        
+                    else
+                    {
+                        if(user.admin_status == 1)
+                        {
+                            var digitcode = Math.round(Math.random() * (999999 - 111111) + 111111);
+                            console.log(digitcode);
+                            var email = admin_no + '@mymail.nyp.edu.sg';
+                            sgMail.setApiKey('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');
+                            const msg = {
+                                to: email,
+                                from: '180527e@mymail.nyp.edu.sg',
+                                subject: 'Two Factor Authentication',
+                                text: 'Generated code',
+                                html: `Your code is  ` + digitcode
+                    
+                            };
+                            sgMail.send(msg);
+                            res.render('user/twofactorlogin',{
+                                success_msg,
+                                digitcode
+                            });
+
+                        }
+                        else
+                        {
+                            res.redirect('/');
+                        }
+                        
+                        
+                    }    
+                }
             }
             else{
-                storage.setItem("user", user.admin_no);
-                console.log(storage.getItem("user"));
-                console.log(user);
-    
-                if (user == null)
-                {
-                    res.redirect('/register');
-                }
-    
-                else
-                {
-                    var admin_no = user.admin_no
-                    var full_name = user.full_name;
-                    var phone_no = user.phone_no;
-                    var picture = user.picture;
-                    var telegram_id = user.telegram_id;
-                    req.session.user = user;
-                    // res.render('user/profile',{
-                    //     admin_no,
-                    //     full_name,
-                    //     phone_no,
-                    //     picture,
-                    //     telegram_id
-                    // });
-                    res.redirect('/');
-                    // passport.authenticate('local', {
-                    // successRedirect: '/profile', // Route to /video/listVideos URL
-                    // failureRedirect: '/loginuser', // Route to /login URL
-                    // failureFlash: true
-                    //  /* Setting the failureFlash option to true instructs Passport to flash an error
-                    //    message using the message given by the strategy's verify callback, if any.
-                    // When a failure occur passport passes the message object as error */
-                    // })(req, res, next);
-                }    
+                errors.push({ text: 'User not found, please register first!'})
+                res.render('user/register',{
+                    errors
+                })
             }
            
 
@@ -353,6 +400,32 @@ router.post('/loginuser', (req, res) => {
     } 
 });
 
+router.post('/twofactorlogin', (req, res) => {
+    let errors = [];
+    let { code } = req.body;
+    if(code == digitcode){
+        counter = 0;
+        res.redirect('/');
+    }
+    else{
+        if(counter > 3){
+            counter = 0;
+            errors.push({ text: 'You failed 3 attempts, please log in again!'})
+            res.render('/loginuser',{
+                errors
+            });
+        }
+        else{
+            counter += 1
+            errors.push({ text: 'Code entered is wrong, please try again!'})
+            res.render('user/twofactorlogin',
+            {
+                errors
+            });
+        }
+        
+    }
+});
 router.post('/forgetpw', (req, res) => {
     let errors = [];
     let success_msg = 'Email sent!, Please check your school email!';
@@ -417,10 +490,9 @@ router.post('/loginseller', (req, res) => {
     else
     {
         svariable.getOutletById(stall_id).then(user =>{
-            //var isSame = bcrypt.compareSync(pass, user.password); ************need uncomment once malique can create stall ownerr user
+            var isSame = bcrypt.compareSync(pass, user.password);
             console.log(user.password);
-            //if(!isSame){
-            if(pass != user.password){
+            if(!isSame){
                 errors.push({ text: 'Password incorrect!' });
                 res.render('user/loginseller', {
                     errors,
@@ -445,22 +517,8 @@ router.post('/loginseller', (req, res) => {
                     var picture = user.picture;
                     var telegram_id = user.telegram_id;
                     req.session.user = user;
-                    // res.render('user/profile',{
-                    //     admin_no,
-                    //     full_name,
-                    //     phone_no,
-                    //     picture,
-                    //     telegram_id
-                    // });
                     res.redirect('/orders');
-                    // passport.authenticate('local', {
-                    // successRedirect: '/profile', // Route to /video/listVideos URL
-                    // failureRedirect: '/loginuser', // Route to /login URL
-                    // failureFlash: true
-                    //  /* Setting the failureFlash option to true instructs Passport to flash an error
-                    //    message using the message given by the strategy's verify callback, if any.
-                    // When a failure occur passport passes the message object as error */
-                    // })(req, res, next);
+                    
                 }    
             }
            
@@ -470,6 +528,9 @@ router.post('/loginseller', (req, res) => {
     } 
 });
 
+// router.post('/history', (req,res) =>{
+
+// })
 
 
 module.exports = router;

@@ -80,7 +80,6 @@ app.use('/menu', menuRoute);
 app.use('/user', userRoute);
 app.use('/review', ratingRoute);
 app.use('/outlet', outletRoute);
-
 // Bring in database connection
 const db = require('./config/DBConnection');
 // Connects to MySQL database
