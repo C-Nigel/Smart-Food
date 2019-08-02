@@ -56,8 +56,8 @@ h2{
     padding: 0 0 5px 0;
 }
 
-/*
-button{
+
+/* button{
     border: 1px solid #722A1B;
     padding: 4px 14px;
     background-color: #fff;
@@ -67,8 +67,8 @@ button{
     margin: 5px 0;
     font-weight: bold;
     cursor: pointer;
-}
-*/
+} */
+
 
 .quantity-operator{
     background-color: #fff;
@@ -87,14 +87,10 @@ button{
     height: 24px;
     margin: 0 10px 0 0;
     /* margin-left: 105%; */
-    /* float: right; */
+    float: right;
+    cursor: pointer;
 }
 
-/*
-.cartTotal{
-    float: right;
-}
-*/
 #selectedItemCounter{
     /* margin-left: 108%; */
     float: right;
@@ -109,61 +105,15 @@ button{
     margin-top: 5px;
 }
 
-
-
-/*
-.notification .tag{
-    position: absolute;
-    top: -10px;
-    right: -10px;
-    padding: 5px 10px;
-    border-radius: 50%;
-    background-color: red;
-    color: white;
-}
-*/
-
-/* testing for showing cart items and total sum */
-/*
-#itemCount{
-    position: absolute;
-    display: none;
-    top: -10px;
-    left: -10px;
-    width: 20px;
-    height: 20px;
-    border-radius: 50%;
-    background: red;
-    color: white;
-    text-align: center;
-}
-*/
-#modification {
-    top: 0;
-    left: 0;
-    height: 165%;
-    width: 100%;
-    display: none;
-    position: absolute;
-    z-index: 9999;
-    background: rgba(0, 0, 0, 0.6);
+.quantity-operator{
+    float: left;
 }
 
-#specificationContainer{
-    position: relative;
-    width: 600px;
-    left: 50%;
-    top: 150px;
-    margin-left: -300px;
-    padding: 40px;
-    box-shadow: 0 0 10px black;
-    background: #e9e9e9;
-    overflow: auto;
+.tocart{
+    float: right;
 }
 
-.removeItem {
-    margin-left: 40px;
-}
+
 
 #shoppingCart{
     top: 0;
@@ -188,4 +138,14 @@ button{
     overflow: auto;
 }
 
+.return{
+    float: left;
+}
 
+.remove{
+    float: right;
+}
+
+.allfooditems{
+    float: center;
+}

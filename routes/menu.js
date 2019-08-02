@@ -3,6 +3,7 @@ const router = express.Router();
 const item_class = require('../class/item_class')
 const Item = require('../models/Item');
 const sessionStorage = require('node-sessionstorage');
+const order_class = require('../class/order_class');
 
 router.get('/menu', (req, res) =>{
     // never add a request yet, though having req now
@@ -50,7 +51,7 @@ router.get('/menu-chinese-old', (req, res) =>{
 
 router.get('/menu-chinese', (req, res) =>{
     var User = sessionStorage.getItem("user");
-    // console.log(User);
+    console.log(User);
     Item.findAll({
         where:{
             cat: 'chinese'
@@ -64,6 +65,13 @@ router.get('/menu-chinese', (req, res) =>{
     }).catch(err => console.log(err));
 });
 
+router.post('/menu-order/:admin/:item', (req, res) => {
+    order_class.createOrder(req.params.item, req.params.admin);
+})
+
+router.post('/menu-order/:admin/:item', (req, res) =>{
+    
+})
 
 router.get('/menu-malay', (req, res) =>{
     Item.findAll({

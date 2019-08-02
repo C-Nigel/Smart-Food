@@ -34,7 +34,7 @@ router.post('/delete', (req, res) => {
         });
     }
     else{
-        variable.getUserByAdmin(User).then(user =>{
+        user.getUserByAdmin(User).then(user =>{
             var isSame = bcrypt.compareSync(old_password, user.password);
             if(isSame == false){
                 errors.push({ text: 'Incorrect Password!'});
@@ -59,7 +59,7 @@ router.post('/delete', (req, res) => {
 router.post('/twofa', (req, res) => {
     let success_msg = [];
     var User = storage.getItem("user");
-    variable.getUserByAdmin(User).then(user =>{
+    user.getUserByAdmin(User).then(user =>{
         if(user.admin_status == 0) {
             User.update({
                 admin_status: 1
@@ -342,7 +342,7 @@ router.post('/loginuser', (req, res) => {
     }
     else
     {
-        variable.getUserByAdmin(admin_no).then(user =>{
+        user.getUserByAdmin(admin_no).then(user =>{
             if(user != null || 'undefined'){
                 var isSame = bcrypt.compareSync(pass, user.password);;
                 console.log(user.password);
@@ -505,7 +505,7 @@ router.post('/loginseller', (req, res) => {
     }
     else
     {
-        svariable.getOutletById(stall_id).then(user =>{
+        outlet.getOutletById(stall_id).then(user =>{
             var isSame = bcrypt.compareSync(pass, user.password);
             console.log(user.password);
             if(!isSame){

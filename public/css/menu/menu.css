@@ -31,20 +31,20 @@ h1{
     clear: both;
 }
 
-/* .items{
+.items{
     display: block;
     margin: 20px 0;
-} */
+}
 
-/* controls the  rows of boxes at once */
-/* .item{
+controls the  rows of boxes at once 
+.item{
     background-color: #fff;
     float: left;
     margin: 0 10px 10px 0;
     width: 290px; 
     padding: 20px;
     height: 450px;
-} */
+}
 
 /* controls the images all at once in the boxes */
 .item img{
