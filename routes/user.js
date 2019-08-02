@@ -12,6 +12,8 @@ const outlet = require('../class/outlet_class');
 const fs = require('fs');
 const upload = require('../helpers/imageUpload');
 const storage = require('node-sessionstorage');
+const Chat = require('../models/Chat');
+const Rating = require('../models/Rating');
 var counter = 0;
 
 router.get('/', (req, res) => {
@@ -35,7 +37,7 @@ router.post('/delete', (req, res) => {
     }
     else{
         user.getUserByAdmin(User).then(user =>{
-            var isSame = bcrypt.compareSync(old_password, user.password);
+            var isSame = bcrypt.compareSync(password, user.password);
             if(isSame == false){
                 errors.push({ text: 'Incorrect Password!'});
                 res.render('user/delete', {
@@ -44,12 +46,19 @@ router.post('/delete', (req, res) => {
                 });
             }
             if(isSame == true){
-                Usermodel.delete({
-                    where: {admin_no : User}
-                });
-                Order.delete({
+                Order.destroy({
                     where: {user_admin : User}
                 })
+                Chat.destroy({
+                    where: {user_admin: User}
+                })
+                Rating.destroy({
+                    where: {user_admin: User}
+                })
+                Usermodel.destroy({
+                    where: {admin_no : User}
+                });
+                
                 storage.removeItem("user");
                 res.redirect('/');
             }
@@ -411,6 +420,7 @@ router.post('/loginuser', (req, res) => {
 router.post('/twofactorlogin', (req, res) => {
     let errors = [];
     let { code } = req.body;
+    var digitcode = storage.getItem('digitcode')
     if(code == digitcode){
         counter = 0;
         res.redirect('/');
