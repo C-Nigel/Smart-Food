@@ -6,7 +6,9 @@ const users = require('../class/user_class');
 const items = require('../class/item_class');
 const bot = require('../config/telegram');
 const rating = require('../class/rating_class');
-const db = require('../config/DBConfig')
+const fs = require('fs');
+const upload = require('../helpers/imageUpload');
+const db = require('../config/DBConfig');
 
 
 router.get('/', (req, res) => {
@@ -236,6 +238,14 @@ router.post('/editItem/:id', (req, res) => {
 	items.updateItem(req.params.id, itemName, itemCategory, itemPrice);
 	res.redirect('/listItems');
 });
+
+router.post('/upload/:item', (req, res) => {
+	if (!fs.existsSync('./public/uploads/' )) {
+		fs.mkdirSync('./public/uploads/' );
+	}
+
+	
+})
 
 router.get('/history', (req, res) => {
 	let outletid = sessionStorage.getItem("user");
