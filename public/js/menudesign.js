@@ -1,16 +1,43 @@
+
+$('.back').click(function(){
+    $('.modification').toggle();
+})
+
+
+$('.cart').on('click', function(){
+    $('#shoppingCart').toggle();
+})
+
+$('.return').on('click', function(){
+    $('#shoppingCart').toggle();
+});
+
 var selectedItemCounter = 0;
 var totalPrice = 0;
+var orders = [];
 
+// adding prices for each item 
 $('.tocart').on('click', function(){
-    var myCart = $('.cart');
-    var imgtodrag = $(this).find('img').eq(0);
-    selectedItemCounter ++;
+    var cart = $('.cart');
+    var imgtodrag = $(this).parent('.eachItem').find("img").eq(0);
+    selectedItemCounter ++ ;
     $('#selectedItemCounter').text(selectedItemCounter).css('display', 'block');
-    var itemPrice = parseFloat($(this).siblings().find('.price').text());
-    totalPrice+=itemPrice;
-    $('#cartTotal').text("Total: $"+ totalPrice);
+    
+    // $(this).parent('.eachItem').clone().appendTo('#cartItems').append('<button class="btn btn-primary removeItem">Remove Item</button>');
+    //var price = parseFloat($(this).parent('.clonestuff').find('#price').text());
+    // var price = document.getElementById('price').innerHTML;
+    // $(this).parent('.eachItem').clone().appendTo('#cartItems').append('<button class="btn btn-primary removeItem">Remove Item</button>');
+    $(this).siblings('#clonestuff').clone().appendTo('#cartItems').append('<button class="btn btn-primary removeItem">Remove Item</button>');
+    var price = parseFloat($(this).siblings().find('#price').text());
 
-    if(imgtodrag){
+    totalPrice += price;
+    // $('#cartTotal').text("Total: $" + parseFloat(totalPrice));
+    $('#cartTotal').text("Total: $" + totalPrice.toFixed(2));
+
+    orders.push($('#itemid').val());
+    
+
+    if (imgtodrag) {
         var imgclone = imgtodrag.clone()
         .offset({
             top: imgtodrag.offset().top,
@@ -23,18 +50,22 @@ $('.tocart').on('click', function(){
             'width': '150px',
             'z-index': '100'
         })
+
         .appendTo($('body'))
+
         .animate({
-            'top': myCart.offset().top + 10,
-            'left': myCart.offset().left + 10,
+            'top': cart.offset().top + 10,
+            'left': cart.offset().left + 10,
             'width': 75,
             'height': 75
         }, 1000, 'easeInOutExpo');
+
         setTimeout(function (){
-            myCart.effect("shake", {
+            cart.effect("shake", {
                 times: 2
             }, 200);
         }, 1500);
+
         imgclone.animate({
             'width': 0,
             'height': 0
@@ -42,55 +73,66 @@ $('.tocart').on('click', function(){
             $(this).detach()
         });
     }
-    var inputQuantity = $('#modifyingChanges');
-    inputQuantity.val(parseFloat(inputQuantity.val()) * 0);
 });
 
+// removing items in cart
+$('#shoppingCart').on('click', '.removeItem', function(){
+    $(this).parent().remove();
+    selectedItemCounter--;
+    $('#selectedItemCounter').text(selectedItemCounter);
 
-$('.selection').on('click', function(){
-    $('#modification').toggle();
-})
+    //var price = parseFloat($(this).siblings().find('.price').text());
+    //var price = parseFloat($('.eachItem > #clonestuff').find('span'), $('span', $('#clonestuff'))); //works if remove clonestuff class
+    // var price = parseFloat($(this).parent('.clonestuff').find("#price").text());
 
-$('.back').click(function(){
-    $('#modification').toggle();
+    $(this).siblings('#clonestuff').clone().appendTo('#cartItems').append('<button class="btn btn-primary removeItem">Remove Item</button>');
+    var price = parseFloat($(this).siblings().find('#price').text());
+
+
+    totalPrice -= price;
+    $('#cartTotal').text("Total: $" + totalPrice.toFixed(2));
+    
+    if(selectedItemCounter == 0){
+        $('#selectedItemCounter').css('display', 'none');
+    }
+
+    orders.pop($('#itemid').val());
+});
+
+$('#modifyingChanges_Add').on('click', function(){
+    var input = $('#modifyingChanges');
+    input.val(parseFloat(input.val())+1);
 })
 
 $('#modifyingChanges_Minus').on('click', function(){
-    var inputQuantity = $('#modifyingChanges');
-    if(inputQuantity.val()>0){
-        inputQuantity.val(parseFloat(inputQuantity.val()) - 1);
+    var input = $('#modifyingChanges');
+    if(input.val() > 0) {
+        input.val(parseFloat(input.val())-1);
     }else{
-        inputQuantity.val(parseFloat(inputQuantity.val()) = 0);
+        input.val(parseFloat(input.val()) = 0);
     }
 })
 
-$('#modifyingChanges_Add').on('click', function(){
-    var inputQuantity = $('#modifyingChanges');
-    inputQuantity.val(parseFloat(inputQuantity.val()) + 1);
-})
-
-document.getElementById("modifyingChanges").readOnly = true;
 
 
-$('.cart').on('click', function(){
-    $('#shoppingCart').toggle();
-})
-
-$('.return').on('click', function(){
-    $('#shoppingCart').toggle();
-});
-
-// $('#shoppingCart').on('click', '.removeItem', function()
-// {
-//     $(this).parent().remove();
-//     selectedItemCounter --;
-//     $('#selectedItemCounter').text(selectedItemCounter);
-
-//     var itemPrice = parseFloat($(this).siblings().find('.card-subtitle mb-2 itemPrice').text());
-//     totalPrice -= itemPrice;
-//     $('#cartTotal').text("Total: $" + totalPrice);
-
-//     if(selectedItemCounter == 0){
-//         $('#selectedItemCounter').css('display', 'none');
+// working but causes duplication issues
+// $('.submitOrders').on('click', function(){
+//     var admin = $('#adminNo').val();
+    
+//     for (var i=0; i<orders.length; i++){
+//         $.ajax({
+//             url: '/menu/menu-order/' + admin + '/' + orders[i],
+//             type: 'POST'
+//         })
+//     console.log(orders[i]);
 //     }
-// });
+// })
+
+
+$('.emptyCart').on('click', function(){
+    var admin = $('#adminNo').val();
+    for(var i=0; i<orders.length; i++){
+        url: '/menu/menu-order' + admin + '/' + orders[i],
+        type
+    }
+})
