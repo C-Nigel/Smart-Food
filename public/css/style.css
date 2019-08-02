@@ -27,13 +27,13 @@ Author: Surjith S M
   margin: 0px;
 }
 
-.wrapper {
+.completeButton {
   text-align: center;
 }
 
-.button {
-  position: absolute;
-  top: 50%;
+.botton {
+  position: relative;
+  top: 100px;
 }
 
 .pinkline {

@@ -9,7 +9,7 @@ const Op = require('sequelize').Op;
 const sequelize = require('sequelize')
 const db = require('../config/DBConfig')
 
-
+/*
 router.get('/:user_admin', (req, res) => {
     db.query('SELECT ratings.id AS entity_index,users.full_name, ratings.user_admin, ratings.item_id, items.name AS item_name, items.cat, items.price, items.picture_url, items.outlet_id, outlets.name AS outlet_name, ratings.rating_given, ratings.createdAt FROM ooadp.ratings, ooadp.items, ooadp.outlets, ooadp.users WHERE ooadp.ratings.item_id = ooadp.items.id  AND ooadp.items.outlet_id = ooadp.outlets.id AND ooadp.ratings.user_admin = ooadp.users.admin_no AND ratings.rating_given IS NULL AND ratings.user_admin = "' + req.params.user_admin + '"' + 'ORDER BY ratings.createdAt')
     .then(([ratings, metadata]) => {
@@ -20,7 +20,7 @@ router.get('/:user_admin', (req, res) => {
             });
         }).catch(err => console.log(err));
 });
-
+*/
 router.post('/saveRating/:admin_no', (req, res) => {
 
 

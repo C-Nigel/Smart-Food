@@ -1,4 +1,5 @@
 const ItemModel = require('../models/Item');
+const OrderModel = require('../models/Order');
 var ex = module.exports = {};
 
 ex.getItemById = function(itemid){
@@ -51,6 +52,15 @@ ex.updateItem = function(itemid, name, cat, price){
     ItemModel.update({
         name, cat, price
     }, {
+        where: {id: itemid}
+    });
+}
+
+ex.deleteItem = function(itemid){
+    OrderModel.destroy({
+        where: {item_id: itemid}
+    });
+    ItemModel.destroy({
         where: {id: itemid}
     });
 }

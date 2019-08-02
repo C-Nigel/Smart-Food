@@ -9,7 +9,7 @@
         </h3>
         {{#if items}}
         {{#each items}}
-        <div class="card text-white bg-dark mt-3 mb-3">
+        <div class="card text-red bg-light mt-3 mb-3">
             <div class="card-body">
                 <div class="row">
                     <div class="col-12 col-lg-8">
@@ -17,7 +17,15 @@
                     </div>
                     <div class="col">
                         <div class="float-right">
-                            <a href="/editItem/{{id}}" class="btn btn-outline-primary">Edit</a>
+                            <a href="/editItem/{{id}}" class="btn btn-outline-primary">
+                                <i class="fas fa-pencil-alt"></i>
+                                Edit
+                            </a>
+                            <a href="/deleteItem/{{id}}" class="btn btn-outline-primary" data-toggle="confirmation"
+                                data-title="Confirm delete?">
+                                <i class="far fa-trash-alt"></i>
+                                Delete
+                            </a>
                         </div>
                     </div>
                 </div>
@@ -38,16 +46,16 @@
         {{else}}
         <div class="row">
             <div class="col">
-				<div class="card bg-light mb-3">
-					<div class="card-body">
-						<h4 class="text-center">
-							Hmm, no items yet...
-							<br><br>
-							Try <a href="/newItem">creating</a> an item to get more customers.
-						</h4>
-					</div>
-				</div>
-			</div>
+                <div class="card bg-light mb-3">
+                    <div class="card-body">
+                        <h4 class="text-center">
+                            Hmm, no items yet...
+                            <br><br>
+                            Try <a href="/newItem">creating</a> an item to get more customers.
+                        </h4>
+                    </div>
+                </div>
+            </div>
         </div>
         {{/if}}
     </div>

@@ -29,6 +29,8 @@
     "path": "^0.12.7",
     "sequelize": "^5.10.2",
     "sessionstorage": "^0.1.0",
+    "synchronized-promise": "^0.1.0",
+    "synchronous-promise": "^2.0.9",
     "twilio": "^3.30.0"
   },
   "devDependencies": {},
