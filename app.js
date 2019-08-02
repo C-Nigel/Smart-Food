@@ -10,7 +10,7 @@ const FlashMessenger = require('flash-messenger');
 const MySQLStore = require('express-mysql-session');
 const dbs = require('./config/db'); // db.js config file
 const passport = require('passport');
-//const telegram = require('./helpers/telegramLogic');
+const telegram = require('./helpers/telegramLogic');
 
 
 const mainRoute = require('./routes/main');

@@ -4,56 +4,6 @@ const item_class = require('../class/item_class')
 const Item = require('../models/Item');
 const sessionStorage = require('node-sessionstorage');
 
-// testing for adding food img by stall owners
-// const fs = require('fs');
-// const uploadOfFoodImg = require('../helpers/imageUpload');
-
-// const outlet = require('../models/Outlet');
-
-console.log("Server Online!");
-
-
-
-// for stall owner to add in their new food items to menu
-router.post('/stallownerConfig', (req, res) => {
-    let {name, price, cat, outlet_id, picture_url} = req.body;
-
-    item_class.createItem(name, cat, price, outlet_id, picture_url);
-    res.redirect('/menu/menu');
-});
-
-
-
-// for specificied cat. of food accessibility from home page
-// testing in progress..
-
-/*
-router.get('/menu/:category', (req, res) =>{
-    var cat = req.params.category;
-    item_class.getItemsByCat(cat)
-    .then((items) =>{
-        res.render('menu/:category', {items});
-    })
-});
-*/
-
-/*
-router.get('/menu/:cat', (req, res) =>{
-    Item.findOne({
-        where:{
-            cat: req.params.cat
-        }
-    }).then((items) =>{
-        res.render('menu/Alpha', {
-            items
-        });
-    }).catch(err => console.log(err));
-});
-*/
-
-
-// showing new food items added from /stall/stallownerConfig
-
 router.get('/menu', (req, res) =>{
     // never add a request yet, though having req now
     Item.findAll({

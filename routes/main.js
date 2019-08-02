@@ -3,28 +3,75 @@ const router = express.Router();
 const sessionStorage = require('node-sessionstorage');
 const orders = require('../class/order_class');
 const users = require('../class/user_class');
+const items = require('../class/item_class');
 const bot = require('../config/telegram');
 const rating = require('../class/rating_class');
-const itemModel = require('../models/Item');
-const ratingModel = require('../models/Rating');
-const variable = require('../class/user_class');
+const db = require('../config/DBConfig')
 
 
 router.get('/', (req, res) => {
 	var User = sessionStorage.getItem("user");
-	var Owners = sessionStorage.getItem("owners");
+	var Owner = sessionStorage.getItem("owner");
 	const title = 'Smart Food';
+	var listNumbers = [];
+	
+	
 	rating.countTotalItems().then(num => {
 		for (var i = 1; i <= num; i++) {
-			rating.averageRating(i)
+			rating.averageRating(i);
+			rating.countTotalRates(i);
 		}
+	});
+
+	rating.countTotalItems({
+	}).then((totalNumber) => {
+		for (var i = 1; i < 10; i++) {
+			var integer = Math.round(Math.random() * (totalNumber - 1 + 1) + 1);
+			if (listNumbers.includes(integer) || integer > totalNumber) {
+				i -= 1;
+			}
+			else {
+				listNumbers.push(integer);
+			}
+		}
+	}).then(undefined => {
+		db.query('SELECT items.id, items.name, items.cat, items.price, items.picture_url, items.outlet_id, outlets.name AS location, outlets.desc, items.average_rating, items.total_rating FROM ooadp.items, ooadp.outlets WHERE items.outlet_id = outlets.id AND items.id = ' + listNumbers[0])
+		.then(([itemsList1, metadata]) => {
+			db.query('SELECT items.id, items.name, items.cat, items.price, items.picture_url, items.outlet_id, outlets.name AS location, outlets.desc, items.average_rating, items.total_rating FROM ooadp.items, ooadp.outlets WHERE items.outlet_id = outlets.id AND items.id IN ('+ listNumbers[1] + ',' + listNumbers[2] + ')')
+			.then(([itemsList2, metadata]) => {
+				db.query('SELECT items.id, items.name, items.cat, items.price, items.picture_url, items.outlet_id, outlets.name AS location, outlets.desc, items.average_rating, items.total_rating FROM ooadp.items, ooadp.outlets WHERE items.outlet_id = outlets.id AND items.id = '+ listNumbers[3])
+				.then(([itemsList3, metadata]) => {
+					db.query('SELECT items.id, items.name, items.cat, items.price, items.picture_url, items.outlet_id, outlets.name AS location, outlets.desc, items.average_rating, items.total_rating FROM ooadp.items, ooadp.outlets WHERE items.outlet_id = outlets.id AND items.id IN ('+ listNumbers[4] + ',' + listNumbers[5] + ')')
+					.then(([itemsList4, metadata]) => {
+						db.query('SELECT items.id, items.name, items.cat, items.price, items.picture_url, items.outlet_id, outlets.name AS location, outlets.desc, items.average_rating, items.total_rating FROM ooadp.items, ooadp.outlets WHERE items.outlet_id = outlets.id AND items.id = ' + listNumbers[6])
+						.then(([itemsList5, metadata]) => {
+							db.query('SELECT items.id, items.name, items.cat, items.price, items.picture_url, items.outlet_id, outlets.name AS location, outlets.desc, items.average_rating, items.total_rating FROM ooadp.items, ooadp.outlets WHERE items.outlet_id = outlets.id AND items.id IN ('+ listNumbers[7] + ',' + listNumbers[8] + ')')
+							.then(([itemsList6, metadata]) => {
+								// renders views/home.handlebars
+								res.render('home', {
+									title: title,
+									itemsList1,
+									itemsList2,
+									itemsList3,
+									itemsList4,
+									itemsList5,
+									itemsList6,
+									User,
+									Owner
+								});
+							})
+						})
+					})
+				})
+			})
+		})
 	})
-	res.render('home', {
-		title: title,
-		User,
-		Owners
-	}); // renders views/home.handlebars
 });
+
+
+router.get('/complete', (req, res) => {
+	res.render('ratingsComplete')
+})
 
 // testing the feature for the menu of different canteen
 
@@ -35,6 +82,10 @@ router.get('/loginuser', (req, res) => {
 
 router.get('/loginseller', (req, res) => {
 	res.render('user/loginseller') // renders views/user/loginseller.handlebars
+});
+
+router.get('/loginadmin', (req, res) => {
+	res.render('user/loginadmin')
 });
 
 router.get('/index', (req, res) => {
@@ -61,7 +112,7 @@ router.get('/profile', (req, res) => {
 	var User = sessionStorage.getItem("user");
 	console.log(User);
 	if (User) {
-		variable.getUserByAdmin(User).then(user => {
+		users.getUserByAdmin(User).then(user => {
 			console.log(user);
 			var admin_no = user.admin_no;
 			var full_name = user.full_name;
@@ -75,117 +126,18 @@ router.get('/profile', (req, res) => {
 				phone_no,
 				telegram_id,
 				picture
-			}
-			);
+			});
 		})
-	}
-	else {
+	} else {
 		res.render('user/profile');
 	}
 
 });
 
-
-// deon's cart + menu stuff
-
-
-router.get('menu/menu', (req, res) => {
-	res.render('menu/menu')
-});
-
-router.get('/stallownerConfig', (req, res) => {
-	res.render('stallowner/stallownerConfig')
-});
-
-router.get('/menuDemo', (req, res) => {
-	res.render('menu/menuDemo')
-});
-
-router.get('/menuAlpha', (req, res) => {
-	res.render('menu/menuAlpha')
-});
-
-// testing in progress
-
-// displaying old chinese menu 
-router.get('menu/menu-chinese-old', (req, res) => {
-	res.render('menu/menu-chinese-old')
-});
-
-// working on smth new for chinese menu
-router.get('menu/menu-chinese', (req, res) => {
-	res.render('menu/menu-chinese')
-});
-
-
-// displaying only malay food
-/*
-router.get('menu/menu-malay', (req, res) =>{
-	res.render('menu/menu-malay')
-});
-*/
-
-// displaying only indian menu, non-halal
-router.get('menu/menu-indian', (req, res) => {
-	res.render('menu/menu-indian')
-});
-
-// displaying only western menu
-router.get('menu/menu-western', (req, res) => {
-	res.render('menu/menu-western')
-});
-
-// displaying only fusion menu
-router.get('menu/menu-fusion', (req, res) => {
-	res.render('menu/menu-fusion')
-});
-
-
-// displaying only desserts menu
-router.get('menu/menu-desserts', (req, res) => {
-	res.render('menu/menu-desserts')
-});
-
-// displaying only drinks menu
-router.get('menu/menu-drinks', (req, res) => {
-	res.render('menu/menu-drinks')
-});
-
-// displaying only vegetarian menu
-router.get('menu/menu-vegetarian', (req, res) => {
-	res.render('menu/menu-vegetarian')
-});
-
-
-// testing 1 handlebar menu 
-/*
-router.get('menu/menu-{{cat}}', (req, res) =>{
-	res.render('menu/menu-{{cat}}')
-});
-*/
-
-/*
-router.get('/showAddedItems', (req, res) =>{
-	res.render('cart/MainMenu')
-});
-*/
-
-// Setting up Stall Owner Config after clearing directory
-/*
-router.get('/stallownerConfig', (req, res) =>{
-	res.render('stallowner/stallownerConfig') 
-	// renders views/stallowner/stallownerConfig.handlebars
-});
-*/
-
-
 router.get('/logout', (req, res) => {
 	sessionStorage.removeItem("user");
+	sessionStorage.removeItem("owner");
 	res.redirect('/');
-});
-
-router.get('/orders', (req, res) => {
-    res.render('orderList');
 });
 
 router.get('/admin', (req, res) => {
@@ -201,13 +153,21 @@ router.get('/addStallOwners', (req, res) => {
 });
 
 router.get('/orders', (req, res) => {
-	let outletid = sessionStorage.getItem("user");
-	orders.getOrdersForOutlets(1).then(orders => {
-		res.render('orderList', { orders: orders });
-	})
+	let outletid = sessionStorage.getItem("owner");
+	if (outletid) {
+		orders.getOrdersForOutlets(outletid).then(orders => {
+			res.render('stallowner/orderList', {
+				orders: orders,
+				Owner: true
+			});
+		})
+	} else {
+		res.redirect('/');
+	}
+
 });
 
-router.put('/orders/:id/:status', (req, res) => {
+router.post('/orders/:id/:status', (req, res) => {
 	let id = req.params.id;
 	let status = req.params.status;
 	orders.setOrderStatus(id, status);
@@ -215,13 +175,64 @@ router.put('/orders/:id/:status', (req, res) => {
 		users.getUserByAdmin(order.user_admin).then(user => {
 			if (status == 1 && user.telegram_id) {
 				bot.sendMessage(user.telegram_id, "Your order for " + order.item_name + " (order id: " + order.id + ") is ready for collection!");
-			}
-			else if (status == 2 && user.telegram_id) {
+			} else if (status == 2 && user.telegram_id) {
 				bot.sendMessage(user.telegram_id, "Your order (order id: " + order.id + ") has been collected. Thank you for shopping with us!");
 			}
 		})
 	})
+});
+
+router.get('/listItems', (req, res) => {
+	let outletid = sessionStorage.getItem("owner");
+	if (outletid) {
+		items.getItemsByOutlet(outletid).then(items => {
+			res.render('stallowner/listItems', {
+				items: items,
+				Owner: true
+			});
+		})
+	}
 })
+
+router.get('/newItem', (req, res) => {
+	let outletid = sessionStorage.getItem('owner');
+	console.log(outletid);
+	res.render('stallowner/newItem', {
+		outlet: outletid,
+		Owner: true
+	});
+});
+
+router.post('/newItem', (req, res) => {
+	let {
+		itemName,
+		itemPrice,
+		itemCategory,
+		outletid
+	} = req.body;
+	items.createItem(itemName, itemCategory, itemPrice, null, outletid);
+	res.redirect('/listItems');
+});
+
+router.get('/editItem/:id', (req, res) => {
+	items.getItemById(req.params.id).then(item => {
+		res.render('stallowner/editItem', {
+			item: item,
+			Owner: true
+		});
+	});
+});
+
+router.post('/editItem/:id', (req, res) => {
+	let {
+		itemName,
+		itemPrice,
+		itemCategory
+	} = req.body;
+	items.updateItem(req.params.id, itemName, itemCategory, itemPrice);
+	res.redirect('/listItems');
+});
+
 router.get('/history', (req, res) => {
 	let admin = sessionStorage.getItem("user");
 	var User = admin

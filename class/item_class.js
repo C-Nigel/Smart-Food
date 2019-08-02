@@ -31,11 +31,12 @@ ex.getItemsByCat = function(cat_name){
     })
 }
 
-ex.createItem = function(iname, icat, iprice, outletid){
+ex.createItem = function(iname, icat, iprice, jpg_url, outletid){
     ItemModel.create({
         name: iname,
         cat: icat,
         price: iprice,
+        picture_url: jpg_url,
         outlet_id: outletid
     })
     .then(result => {
@@ -46,25 +47,12 @@ ex.createItem = function(iname, icat, iprice, outletid){
     })
 }
 
-ex.setName = function(itemid, newName){
-    ItemModel.update(
-        { name: newName },
-        { where: { id, itemid }}
-    )
-}
-
-ex.setCategory = function(itemid, newCat){
-    ItemModel.update(
-        { cat: newCat },
-        { where: { id, itemid }}
-    )
-}
-
-ex.setPrice = function(itemid, newPrice){
-    ItemModel.update(
-        { price: newPrice },
-        { where: { id, itemid }}
-    )
+ex.updateItem = function(itemid, name, cat, price){
+    ItemModel.update({
+        name, cat, price
+    }, {
+        where: {id: itemid}
+    });
 }
 
 ex.setOutlet = function(itemid, outletid){

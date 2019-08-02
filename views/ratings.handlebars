@@ -15,32 +15,46 @@
             {{#each ratings}}
             <div class="card border-primary mb-2 w-100 mx-auto">
                 <div class="card-header">
-                    <h5 class="card-title">{{name}}</h5>
+                    <h5 class="card-title">{{item_name}}</h5>
                 </div>
                 <div class="card-body">
                     <div class="row">
                         <div class="col-sm-12 col-md-12 col-lg-3">
-                            <a href="{{posterURL}}" data-title="{{name}}" data-toggle="lightbox">
-                                <img src="{{posterURL}}" alt="Poster unavailable" class="img-thumbnail img-fluid">
+                            <a href="{{picture_url}}" data-title="{{name}}" data-toggle="lightbox">
+                                <img src="{{picture_url}}" alt="Poster unavailable" class="img-thumbnail img-fluid">
                             </a>
                         </div>
                         <div class="col-sm-12 col-md-12 col-lg-9">
-                            <div class="row"> {{!-- subtitles, language... --}}
+                            <div class="row">
                                 <div class="col-sm-12 col-md-6 col-lg-4">
-                                    <p class="font-italic">Ordered By</p>
+                                    <p class="font-italic">Patron Admin No.:</p>
                                     <p class="text-info">
                                         {{user_admin}}
                                     </p>
                                 </div>
-                                <div class="col-sm-12 col-md-6 col-lg-4">
-                                    <p class="font-italic">item_id</p>
+                                <div class="col-sm-12 col-md-6 col-lg-8">
+                                    <p class="font-italic">Patron Name:</p>
                                     <p class="text-info">
-                                        {{item_id}}
+                                        {{full_name}}
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-12 col-md-6 col-lg-4">
+                                    <p class="font-italic">Price:</p>
+                                    <p class="text-info">{{price}}</p>
+                                </div>
+                                <div class="col-sm-12 col-md-6 col-lg-4">
+                                    <p class="font-italic">Category:</p>
+                                    <p class="text-info">
+                                        {{cat}}
                                     </p>
                                 </div>
                                 <div class="col-sm-12 col-md-6 col-lg-4">
-                                    <p class="font-italic">Price</p>
-                                    <p class="text-info">{{total_price}}</p>
+                                    <p class="font-italic">outlet:</p>
+                                    <p class="text-info">
+                                        {{outlet_name}}
+                                    </p>
                                 </div>
                             </div>
                             <br>
@@ -50,31 +64,31 @@
                                         best):</p>
                                 </div>
                                 <div class="form-group col-sm-12 col-md-6 col-lg-5 rate">
-                                    <input type="radio" id="star5_{{id}}" name="rateID_{{id}}" value="5" />
-                                    <label for="star5_{{id}}" title="Excellent">5</label>
-                                    <input type="radio" id="star4_{{id}}" name="rateID_{{id}}" value="4" />
-                                    <label for="star4_{{id}}" title="Very Good">4</label>
-                                    <input type="radio" id="star3_{{id}}" name="rateID_{{id}}" value="3" />
-                                    <label for="star3_{{id}}" title="Normal">3</label>
-                                    <input type="radio" id="star2_{{id}}" name="rateID_{{id}}" value="2" />
-                                    <label for="star2_{{id}}" title="Somewhat Poor">2</label>
-                                    <input type="radio" id="star1_{{id}}" name="rateID_{{id}}" value="1" />
-                                    <label for="star1_{{id}}" title="Very Poor">1</label>
+                                    <input type="radio" id="star5_{{entity_index}}" name="rateID_{{entity_index}}" value="5" />
+                                    <label for="star5_{{entity_index}}" title="Excellent">5</label>
+                                    <input type="radio" id="star4_{{entity_index}}" name="rateID_{{entity_index}}" value="4" />
+                                    <label for="star4_{{entity_index}}" title="Very Good">4</label>
+                                    <input type="radio" id="star3_{{entity_index}}" name="rateID_{{entity_index}}" value="3" />
+                                    <label for="star3_{{entity_index}}" title="Normal">3</label>
+                                    <input type="radio" id="star2_{{entity_index}}" name="rateID_{{entity_index}}" value="2" />
+                                    <label for="star2_{{entity_index}}" title="Somewhat Poor">2</label>
+                                    <input type="radio" id="star1_{{entity_index}}" name="rateID_{{entity_index}}" value="1" />
+                                    <label for="star1_{{entity_index}}" title="Very Poor">1</label>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-        {{/each}}
-        <button type="submit" disabled style="display: none" aria-hidden="true"></button>
-        <input id="butEditVideo" class="btn btn-outline-primary" type="submit" value="Save">
-        <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
-        {{else}}
-        <br><br><br><br><br><br>
-        <h3>No orders made recently</h3>
-        <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
-        {{/if}}
+            {{/each}}
+            <button type="submit" disabled style="display: none" aria-hidden="true"></button>
+            <input class="btn btn-outline-primary" type="submit" value="Save">
+            <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+            {{else}}
+            <br><br><br><br><br><br>
+            <h3>No orders made recently</h3>
+            <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+            {{/if}}
         </div>
     </form>
     <!--============================= FOOTER =============================-->

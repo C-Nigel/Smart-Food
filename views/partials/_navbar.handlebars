@@ -12,26 +12,17 @@
 
 					<div class="collapse navbar-collapse" id="navbarSupportedContent">
 						<ul class="navbar-nav ml-auto">
-							{{#if User}}
 							<li class="nav-item">
 								<a class="nav-link" href="/history">History</a>
 							</li>
 							<li class="nav-item">
 								<a class="nav-link" href="/profile">Profile</a>
 							</li>
+							{{#if (or User Owner)}}
 							<li class="nav-item">
 								<a class="nav-link" href="/logout">Logout</a>
 							</li>
-							{{!-- {{#if Owners}}
-								Add nav bar href for after stallowners login  @yenhao
-							 --}}
 							{{else}}
-							<li class="nav-item">
-								<a class="nav-link" href="/">Home</a>
-							</li>
-							<li class="nav-item">
-								<a class="nav-link" href="/register">Register</a>
-							</li>
 							<li class="nav-item">
 								<a class="nav-link" href="/loginuser">Login</a>
 							</li>
