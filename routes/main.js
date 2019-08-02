@@ -6,9 +6,11 @@ const users = require('../class/user_class');
 const items = require('../class/item_class');
 const bot = require('../config/telegram');
 const rating = require('../class/rating_class');
-const db = require('../config/DBConfig');
 const sp = require('synchronized-promise');
 const synpro = require('synchronous-promise')
+const fs = require('fs');
+const upload = require('../helpers/imageUpload');
+const db = require('../config/DBConfig');
 
 
 router.get('/', (req, res) => {
@@ -117,10 +119,6 @@ router.get('/loginadmin', (req, res) => {
 
 router.get('/index', (req, res) => {
 	res.render('index') // renders views/user/loginuser.handlebars
-});
-
-router.get('/history', (req, res) => {
-	res.render('history')
 });
 
 router.get('/loginadmin', (req, res) => {
@@ -264,12 +262,65 @@ router.post('/editItem/:id', (req, res) => {
 	res.redirect('/listItems');
 });
 
+router.post('/upload/:item', (req, res) => {
+	if (!fs.existsSync('./public/uploads/' )) {
+		fs.mkdirSync('./public/uploads/' );
+	}
+
+	
+})
+
 router.get('/history', (req, res) => {
-	let outletid = sessionStorage.getItem("user");
-	orders.getOrdersForOutlets(1).then(orders => {
-		res.render('history', {
-			orders: orders
-		});
-	})
+	let admin = sessionStorage.getItem("user");
+	var User = admin
+	console.log(admin);
+	users.getUserByAdmin(admin).then(user =>{
+		console.log(user)
+		
+		if(user)
+		{
+			var full_name = user.full_name;
+			var phone_no = user.phone_no;
+			var user_admin = admin;
+			orders.getOrdersFromUser(admin).then(order =>{
+				console.log(order);
+				
+				if(order){
+					// var createdAt = order.createdAt;
+					// var item_name = order.item_name;
+					// var item_id = order.item_id;
+					res.render('history',{
+						User,
+						full_name,
+						user_admin,
+						phone_no,
+						order
+						// createdAt,
+						// item_name,
+						// item_id
+					})
+				}
+				else{
+					console.log('line 2 fail!')
+					res.render('history', {
+						User,
+						full_name,
+						user_admin,
+						phone_no
+					});
+				}
+				
+			});
+		}
+		else{
+			console.log('line one fail')
+			res.render('history',{
+				User
+			});
+		}
+	
+
+	});
+	
 });
 module.exports = router;

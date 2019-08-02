@@ -61,6 +61,18 @@ ex.getOrdersForOutlets = function(outlet){
 	});
 }
 
+ex.getOrdersFromUser = function(admin_no){
+	return OrderModel.findAll({
+		where: {
+			user_admin: admin_no
+		},
+		raw: true
+	})
+	.catch(err => {
+		console.log(err);
+	});
+}
+
 ex.getOrdersByUserForOutlet = function(user, outlet){
 	return OrderModel.findAll({
 		where: {

@@ -8,13 +8,14 @@
 <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
 <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <!------ Include the above in your HEAD tag ---------->
-{{>_header}}
-{{>_navbar}}
+
 <head>
     
   <title>Bootstrap Example</title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  {{>_header}}
+{{>_navbar}}
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
@@ -69,6 +70,8 @@
             <ul class="nav nav-tabs">
                 <li class="active"><a data-toggle="tab" href="#home">Particulars</a></li>
                 <li class="active"><a data-toggle="tab" href="#messages">Change Password</a></li>
+                <li class="active"><a data-toggle="tab" href="#tryhard">2FA</a></li>
+                <li class="active"><a data-toggle="tab" href="#settings">Delete Account</a></li>
               </ul>
 
               
@@ -174,60 +177,50 @@
               	</form>
                
              </div><!--/tab-pane-->
+              <div class="tab-pane" id="tryhard">
+            		
+               	
+                  <hr>
+                  <form class="form" action="../user/twofa" method="post" id="registrationForm">
+                      
+                      
+                      <div class="form-group">
+                           <div class="col-xs-5">
+                                <br>
+                              	<button class="btn btn-lg btn-success pull-right" data-confirm="Are you sure to delete your account?" type="submit"><i class="glyphicon glyphicon-ok-sign"></i> Enable 2FA</button>
+                               	
+                            </div>
+                      </div>
+              	</form>
+              </div>
+               
+              <!--/tab-pane-->
+          <!--/tab-content-->
              <div class="tab-pane" id="settings">
             		
                	
                   <hr>
-                  <form class="form" action="##" method="post" id="registrationForm">
-                      <div class="form-group">
-                          
-                          <div class="col-xs-6">
-                              <label for="first_name"><h4>First name</h4></label>
-                              <input type="text" class="form-control" name="first_name" id="first_name" placeholder="first name" title="enter your first name if any.">
-                          </div>
-                      </div>
-                      <div class="form-group">
-                          
-                          <div class="col-xs-6">
-                            <label for="last_name"><h4>Last name</h4></label>
-                              <input type="text" class="form-control" name="last_name" id="last_name" placeholder="last name" title="enter your last name if any.">
-                          </div>
-                      </div>
-          
-                      <div class="form-group">
-                          
-                          <div class="col-xs-6">
-                              <label for="phone"><h4>Phone</h4></label>
-                              <input type="text" class="form-control" name="phone" id="phone" placeholder="enter phone" title="enter your phone number if any.">
-                          </div>
-                      </div>
-          
-                      <div class="form-group">
-                          <div class="col-xs-6">
-                             <label for="mobile"><h4>Mobile</h4></label>
-                              <input type="text" class="form-control" name="mobile" id="mobile" placeholder="enter mobile number" title="enter your mobile number if any.">
-                          </div>
-                      </div>
+                  <form class="form" action="../user/delete" method="post" id="registrationForm">
                       
                       <div class="form-group">
                           
                           <div class="col-xs-6">
                               <label for="password"><h4>Password</h4></label>
-                              <input type="password" class="form-control" name="password" id="password" placeholder="password" title="enter your password.">
+                              <input type="password" class="form-control" name="password" id="password" placeholder="password" title="enter your password." value="{{password}}">
                           </div>
                       </div>
                       <div class="form-group">
                           
                           <div class="col-xs-6">
-                            <label for="password2"><h4>Verify</h4></label>
-                              <input type="password" class="form-control" name="password2" id="password2" placeholder="password2" title="enter your password2.">
+                            <label for="confirmpassword"><h4>Confirm Password</h4></label>
+                              <input type="password" class="form-control" name="confirmpassword" id="confirmpassword" placeholder="confirmpassword" title="Confirm your password." value="{{confirmpassword}}">
                           </div>
                       </div>
                       <div class="form-group">
-                           <div class="col-xs-12">
+                           <div class="col-xs-5">
                                 <br>
-                              	<button class="btn btn-lg btn-success pull-right" type="submit"><i class="glyphicon glyphicon-ok-sign"></i> Save</button>
-                               	<!--<button class="btn btn-lg" type="reset"><i class="glyphicon glyphicon-repeat"></i> Reset</button>-->
+                              	<button class="btn btn-lg btn-success pull-right" data-confirm="Are you sure to delete your account?" type="submit"><i class="glyphicon glyphicon-ok-sign"></i> Delete Account</button>
+                               	
                             </div>
                       </div>
               	</form>
