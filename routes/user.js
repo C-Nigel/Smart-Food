@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const User = require('../models/User');
+const Usermodel = require('../models/User');
 const Order = require('../models/Order');
 var bcrypt = require('bcryptjs');
 const passport = require('passport');
@@ -34,7 +34,7 @@ router.post('/delete', (req, res) => {
         });
     }
     else{
-        variable.getUserByAdmin(User).then(user =>{
+        user.getUserByAdmin(User).then(user =>{
             var isSame = bcrypt.compareSync(old_password, user.password);
             if(isSame == false){
                 errors.push({ text: 'Incorrect Password!'});
@@ -44,7 +44,7 @@ router.post('/delete', (req, res) => {
                 });
             }
             if(isSame == true){
-                User.delete({
+                Usermodel.delete({
                     where: {admin_no : User}
                 });
                 Order.delete({
@@ -59,9 +59,9 @@ router.post('/delete', (req, res) => {
 router.post('/twofa', (req, res) => {
     let success_msg = [];
     var User = storage.getItem("user");
-    variable.getUserByAdmin(User).then(user =>{
+    user.getUserByAdmin(User).then(user =>{
         if(user.admin_status == 0) {
-            User.update({
+            Usermodel.update({
                 admin_status: 1
             }, {
                 where: {admin_no: User}
@@ -74,7 +74,7 @@ router.post('/twofa', (req, res) => {
             })
         }
         else if(user.admin_status == 1) {
-            User.update({
+            Usermodel.update({
                 admin_status: 0
             }, {
                 where: {admin_no: User}
@@ -119,7 +119,7 @@ router.post('/changepassword', (req, res) => {
         }
         if (isSame == true) {
             var hashednewPassword = bcrypt.hashSync(new_password, salt);
-            User.update({
+            Usermodel.update({
                 password: hashednewPassword
             }, {
                 where: {
@@ -187,7 +187,7 @@ router.post('/profile', (req, res) => {
                 if (user == null) {
                     res.redirect('/register');
                 } else {
-                    User.update({
+                    Usermodel.update({
                         full_name: full_name,
                         phone_no: phone_no,
                         picture_url: picture
@@ -342,7 +342,7 @@ router.post('/loginuser', (req, res) => {
     }
     else
     {
-        variable.getUserByAdmin(admin_no).then(user =>{
+        user.getUserByAdmin(admin_no).then(user =>{
             if(user != null || 'undefined'){
                 var isSame = bcrypt.compareSync(pass, user.password);;
                 console.log(user.password);
@@ -380,9 +380,9 @@ router.post('/loginuser', (req, res) => {
                     
                             };
                             sgMail.send(msg);
+                            storage.setItem('digitcode', digitcode)
                             res.render('user/twofactorlogin',{
                                 success_msg,
-                                digitcode
                             });
 
                         }
@@ -454,7 +454,7 @@ router.post('/forgetpw', (req, res) => {
             console.log(newpass)
             var salt = bcrypt.genSaltSync(10);
             var hashednewPassword = bcrypt.hashSync(newpass, salt);
-            User.update({
+            Usermodel.update({
                 password: hashednewPassword
             }, {
                 where: {
@@ -505,7 +505,7 @@ router.post('/loginseller', (req, res) => {
     }
     else
     {
-        svariable.getOutletById(stall_id).then(user =>{
+        outlet.getOutletById(stall_id).then(user =>{
             var isSame = bcrypt.compareSync(pass, user.password);
             console.log(user.password);
             if(!isSame){
