@@ -27,6 +27,11 @@ router.get('/', (req, res) => {
 		}
 	});
 
+	res.render('home', {
+		User,
+		Owner
+	});
+	/*
 	rating.countTotalItems({
 
 	}).then((totalNumber) => {
@@ -71,6 +76,7 @@ router.get('/', (req, res) => {
 					})
 			})
 	})
+	*/
 });
 
 // 	rating.countTotalItems({
@@ -262,12 +268,11 @@ router.post('/editItem/:id', (req, res) => {
 	res.redirect('/listItems');
 });
 
-router.post('/upload/:item', (req, res) => {
-	if (!fs.existsSync('./public/uploads/' )) {
-		fs.mkdirSync('./public/uploads/' );
-	}
-
-	
+router.get('/deleteItem/:item', (req, res) => {
+	items.deleteItem(req.params.item);
+	setTimeout(function(){
+		res.redirect('/listItems');
+	}, 500);
 })
 
 router.get('/history', (req, res) => {
