@@ -55,6 +55,14 @@ ex.updateItem = function(itemid, name, cat, price){
     });
 }
 
+ex.setImage = function(itemid, url){
+    ItemModel.update({
+        picture_url: url
+    }, {
+        where: {id: itemid}
+    });
+}
+
 ex.setOutlet = function(itemid, outletid){
     ItemModel.update(
         { outlet_id: outletid },
