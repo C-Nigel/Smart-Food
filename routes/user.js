@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const User = require('../models/User');
+const Usermodel = require('../models/User');
 const Order = require('../models/Order');
 var bcrypt = require('bcryptjs');
 const passport = require('passport');
@@ -12,6 +12,8 @@ const outlet = require('../class/outlet_class');
 const fs = require('fs');
 const upload = require('../helpers/imageUpload');
 const storage = require('node-sessionstorage');
+const Chat = require('../models/Chat');
+const Rating = require('../models/Rating');
 var counter = 0;
 
 router.get('/', (req, res) => {
@@ -35,7 +37,7 @@ router.post('/delete', (req, res) => {
     }
     else{
         user.getUserByAdmin(User).then(user =>{
-            var isSame = bcrypt.compareSync(old_password, user.password);
+            var isSame = bcrypt.compareSync(password, user.password);
             if(isSame == false){
                 errors.push({ text: 'Incorrect Password!'});
                 res.render('user/delete', {
@@ -44,12 +46,19 @@ router.post('/delete', (req, res) => {
                 });
             }
             if(isSame == true){
-                User.delete({
-                    where: {admin_no : User}
-                });
-                Order.delete({
+                Order.destroy({
                     where: {user_admin : User}
                 })
+                Chat.destroy({
+                    where: {user_admin: User}
+                })
+                Rating.destroy({
+                    where: {user_admin: User}
+                })
+                Usermodel.destroy({
+                    where: {admin_no : User}
+                });
+                
                 storage.removeItem("user");
                 res.redirect('/');
             }
@@ -61,7 +70,7 @@ router.post('/twofa', (req, res) => {
     var User = storage.getItem("user");
     user.getUserByAdmin(User).then(user =>{
         if(user.admin_status == 0) {
-            User.update({
+            Usermodel.update({
                 admin_status: 1
             }, {
                 where: {admin_no: User}
@@ -74,7 +83,7 @@ router.post('/twofa', (req, res) => {
             })
         }
         else if(user.admin_status == 1) {
-            User.update({
+            Usermodel.update({
                 admin_status: 0
             }, {
                 where: {admin_no: User}
@@ -119,7 +128,7 @@ router.post('/changepassword', (req, res) => {
         }
         if (isSame == true) {
             var hashednewPassword = bcrypt.hashSync(new_password, salt);
-            User.update({
+            Usermodel.update({
                 password: hashednewPassword
             }, {
                 where: {
@@ -187,7 +196,7 @@ router.post('/profile', (req, res) => {
                 if (user == null) {
                     res.redirect('/register');
                 } else {
-                    User.update({
+                    Usermodel.update({
                         full_name: full_name,
                         phone_no: phone_no,
                         picture_url: picture
@@ -380,9 +389,9 @@ router.post('/loginuser', (req, res) => {
                     
                             };
                             sgMail.send(msg);
+                            storage.setItem('digitcode', digitcode)
                             res.render('user/twofactorlogin',{
                                 success_msg,
-                                digitcode
                             });
 
                         }
@@ -411,6 +420,7 @@ router.post('/loginuser', (req, res) => {
 router.post('/twofactorlogin', (req, res) => {
     let errors = [];
     let { code } = req.body;
+    var digitcode = storage.getItem('digitcode')
     if(code == digitcode){
         counter = 0;
         res.redirect('/');
@@ -454,7 +464,7 @@ router.post('/forgetpw', (req, res) => {
             console.log(newpass)
             var salt = bcrypt.genSaltSync(10);
             var hashednewPassword = bcrypt.hashSync(newpass, salt);
-            User.update({
+            Usermodel.update({
                 password: hashednewPassword
             }, {
                 where: {
