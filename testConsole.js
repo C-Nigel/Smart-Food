@@ -4,6 +4,7 @@ const item = require('./class/item_class');
 const outlet = require('./class/outlet_class');
 const chat = require('./class/chat_class');
 const orders = require('./class/order_class');
+const ratings = require('./class/rating_class');
 
 db.setUpDB(true);
 
@@ -44,6 +45,10 @@ setTimeout(function () {
             orders.createOrder(2, "w374");
             orders.createOrder(3, "w374");
             orders.createOrder(1, "w374");
+
+            setTimeout(function () {
+                ratings.createRatings()
+            },5000)
         }, 1000);
     }, 1000);
 }, 1000);

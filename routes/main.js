@@ -27,16 +27,16 @@ router.get('/', (req, res) => {
 		}
 	});
 
-	res.render('home', {
-		User,
-		Owner
-	});
-	/*
+	// res.render('home', {
+	// 	User,
+	// 	Owner
+	// });
+	
 	rating.countTotalItems({
 
 	}).then((totalNumber) => {
 		for (var i = 1; i < 10; i++) {
-			var integer = Math.round(Math.random() * (totalNumber - 1 + 1) + 1);
+			var integer = Math.round(Math.random() * (totalNumber - 1) + 1);
 			if (listNumbers.includes(integer) || integer > totalNumber) {
 				i -= 1;
 			}
@@ -76,33 +76,9 @@ router.get('/', (req, res) => {
 					})
 			})
 	})
-	*/
+	
 });
 
-// 	rating.countTotalItems({
-
-// 	}).then(totalNumber => {
-// 		for (var i = 1; i < 2; i++) {
-// 			var integer = Math.round(Math.random() * (totalNumber - 1) + 1);
-// 			if (listNumbers.includes(integer) || integer > totalNumber) {
-// 				i -= 1;
-// 			}
-// 			else {
-// 				listNumbers.push(integer);
-// 			}
-// 		}
-// 	}).then(undefined => {
-// 		rating.query(listNumbers[0])
-
-// 	}).then(itemList1 => {
-// 		res.render('home', {
-// 			title: title,
-// 			itemList1,
-// 			user,
-// 			Owner
-// 		});
-// 	})
-// })
 
 router.get('/complete', (req, res) => {
 	res.render('ratingsComplete')

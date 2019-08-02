@@ -87,4 +87,16 @@ ex.query = function (indexitem1, indexitem2){
     }
 };
 
-
+ex.createRatings = function(){
+    this.countTotalItems().then(totalItems => {
+        for (var i = 1; i < 301; i++) {
+            var itemIndex = Math.round(Math.random() * (totalItems - 1) + 1);
+            var ratingInteger = Math.round(Math.random() * (5 - 1) + 1);
+            RatingModel.create({
+                item_id: itemIndex,
+                user_admin: '180448w',
+                rating_given: ratingInteger
+            })
+        }
+    })
+};
