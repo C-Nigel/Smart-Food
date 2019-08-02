@@ -6,7 +6,9 @@ const users = require('../class/user_class');
 const items = require('../class/item_class');
 const bot = require('../config/telegram');
 const rating = require('../class/rating_class');
-const db = require('../config/DBConfig')
+const db = require('../config/DBConfig');
+const sp = require('synchronized-promise');
+const synpro = require('synchronous-promise')
 
 
 router.get('/', (req, res) => {
@@ -14,8 +16,8 @@ router.get('/', (req, res) => {
 	var Owner = sessionStorage.getItem("owner");
 	const title = 'Smart Food';
 	var listNumbers = [];
-	
-	
+
+
 	rating.countTotalItems().then(num => {
 		for (var i = 1; i <= num; i++) {
 			rating.averageRating(i);
@@ -24,6 +26,7 @@ router.get('/', (req, res) => {
 	});
 
 	rating.countTotalItems({
+
 	}).then((totalNumber) => {
 		for (var i = 1; i < 10; i++) {
 			var integer = Math.round(Math.random() * (totalNumber - 1 + 1) + 1);
@@ -35,39 +38,63 @@ router.get('/', (req, res) => {
 			}
 		}
 	}).then(undefined => {
-		db.query('SELECT items.id, items.name, items.cat, items.price, items.picture_url, items.outlet_id, outlets.name AS location, outlets.desc, items.average_rating, items.total_rating FROM ooadp.items, ooadp.outlets WHERE items.outlet_id = outlets.id AND items.id = ' + listNumbers[0])
-		.then(([itemsList1, metadata]) => {
-			db.query('SELECT items.id, items.name, items.cat, items.price, items.picture_url, items.outlet_id, outlets.name AS location, outlets.desc, items.average_rating, items.total_rating FROM ooadp.items, ooadp.outlets WHERE items.outlet_id = outlets.id AND items.id IN ('+ listNumbers[1] + ',' + listNumbers[2] + ')')
-			.then(([itemsList2, metadata]) => {
-				db.query('SELECT items.id, items.name, items.cat, items.price, items.picture_url, items.outlet_id, outlets.name AS location, outlets.desc, items.average_rating, items.total_rating FROM ooadp.items, ooadp.outlets WHERE items.outlet_id = outlets.id AND items.id = '+ listNumbers[3])
-				.then(([itemsList3, metadata]) => {
-					db.query('SELECT items.id, items.name, items.cat, items.price, items.picture_url, items.outlet_id, outlets.name AS location, outlets.desc, items.average_rating, items.total_rating FROM ooadp.items, ooadp.outlets WHERE items.outlet_id = outlets.id AND items.id IN ('+ listNumbers[4] + ',' + listNumbers[5] + ')')
-					.then(([itemsList4, metadata]) => {
-						db.query('SELECT items.id, items.name, items.cat, items.price, items.picture_url, items.outlet_id, outlets.name AS location, outlets.desc, items.average_rating, items.total_rating FROM ooadp.items, ooadp.outlets WHERE items.outlet_id = outlets.id AND items.id = ' + listNumbers[6])
-						.then(([itemsList5, metadata]) => {
-							db.query('SELECT items.id, items.name, items.cat, items.price, items.picture_url, items.outlet_id, outlets.name AS location, outlets.desc, items.average_rating, items.total_rating FROM ooadp.items, ooadp.outlets WHERE items.outlet_id = outlets.id AND items.id IN ('+ listNumbers[7] + ',' + listNumbers[8] + ')')
-							.then(([itemsList6, metadata]) => {
-								// renders views/home.handlebars
-								res.render('home', {
-									title: title,
-									itemsList1,
-									itemsList2,
-									itemsList3,
-									itemsList4,
-									itemsList5,
-									itemsList6,
-									User,
-									Owner
-								});
+		rating.query(listNumbers[0])
+			.then(([itemsList1, metadata]) => {
+				rating.query(listNumbers[1], listNumbers[2])
+					.then(([itemsList2, metadata]) => {
+						rating.query(listNumbers[3])
+							.then(([itemsList3, metadata]) => {
+								rating.query(listNumbers[4], listNumbers[5])
+									.then(([itemsList4, metadata]) => {
+										rating.query(listNumbers[6])
+											.then(([itemsList5, metadata]) => {
+												rating.query(listNumbers[7], listNumbers[8])
+													.then(([itemsList6, metadata]) => {
+														// renders views/home.handlebars
+														res.render('home', {
+															title: title,
+															itemsList1,
+															itemsList2,
+															itemsList3,
+															itemsList4,
+															itemsList5,
+															itemsList6,
+															User,
+															Owner
+														});
+													})
+											})
+									})
 							})
-						})
 					})
-				})
 			})
-		})
 	})
 });
 
+// 	rating.countTotalItems({
+
+// 	}).then(totalNumber => {
+// 		for (var i = 1; i < 2; i++) {
+// 			var integer = Math.round(Math.random() * (totalNumber - 1) + 1);
+// 			if (listNumbers.includes(integer) || integer > totalNumber) {
+// 				i -= 1;
+// 			}
+// 			else {
+// 				listNumbers.push(integer);
+// 			}
+// 		}
+// 	}).then(undefined => {
+// 		rating.query(listNumbers[0])
+
+// 	}).then(itemList1 => {
+// 		res.render('home', {
+// 			title: title,
+// 			itemList1,
+// 			user,
+// 			Owner
+// 		});
+// 	})
+// })
 
 router.get('/complete', (req, res) => {
 	res.render('ratingsComplete')
