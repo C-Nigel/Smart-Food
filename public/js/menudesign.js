@@ -1,3 +1,6 @@
+// const orders = require('./class/order_class');
+
+
 
 $('.back').click(function(){
     $('.modification').toggle();
@@ -15,6 +18,7 @@ $('.return').on('click', function(){
 var selectedItemCounter = 0;
 var totalPrice = 0;
 var orders = [];
+
 
 // adding prices for each item 
 $('.tocart').on('click', function(){
@@ -34,6 +38,7 @@ $('.tocart').on('click', function(){
     // $('#cartTotal').text("Total: $" + parseFloat(totalPrice));
     $('#cartTotal').text("Total: $" + totalPrice.toFixed(2));
 
+    
     orders.push($('#itemid').val());
     
 
@@ -96,43 +101,47 @@ $('#shoppingCart').on('click', '.removeItem', function(){
         $('#selectedItemCounter').css('display', 'none');
     }
 
-    orders.pop($('#itemid').val());
+    // orders.pop($('#itemid').val());
 });
 
-$('#modifyingChanges_Add').on('click', function(){
-    var input = $('#modifyingChanges');
-    input.val(parseFloat(input.val())+1);
-})
 
-$('#modifyingChanges_Minus').on('click', function(){
-    var input = $('#modifyingChanges');
-    if(input.val() > 0) {
-        input.val(parseFloat(input.val())-1);
-    }else{
-        input.val(parseFloat(input.val()) = 0);
-    }
-})
+// not used anymore
+// $('#modifyingChanges_Add').on('click', function(){
+//     var input = $('#modifyingChanges');
+//     input.val(parseFloat(input.val())+1);
+// })
 
-
-
-// working but causes duplication issues
-// $('.submitOrders').on('click', function(){
-//     var admin = $('#adminNo').val();
-    
-//     for (var i=0; i<orders.length; i++){
-//         $.ajax({
-//             url: '/menu/menu-order/' + admin + '/' + orders[i],
-//             type: 'POST'
-//         })
-//     console.log(orders[i]);
+// $('#modifyingChanges_Minus').on('click', function(){
+//     var input = $('#modifyingChanges');
+//     if(input.val() > 0) {
+//         input.val(parseFloat(input.val())-1);
+//     }else{
+//         input.val(parseFloat(input.val()) = 0);
 //     }
 // })
 
 
-$('.emptyCart').on('click', function(){
+
+// // not working, only print out the first 
+$('.submitOrders').on('click', function(){
     var admin = $('#adminNo').val();
-    for(var i=0; i<orders.length; i++){
-        url: '/menu/menu-order' + admin + '/' + orders[i],
-        type
+    for (var i=0; i<orders.length; i++){
+        $.ajax({
+            url: '/menu/menu-order/' + admin + '/' + orders[i],
+            type: 'POST'
+        })
+    console.log(orders[i]);
     }
 })
+
+
+
+
+// $('.emptyCart').on('click', function(){
+//     var admin = $('#adminNo').val();
+//     for(var i=0; i<orders.length; i++){
+//         url: '/menu/menu-order' + admin + '/' + orders[i],
+//         type
+//     }
+// })
+
