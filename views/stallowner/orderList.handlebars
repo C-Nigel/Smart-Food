@@ -85,7 +85,7 @@
 			var element = event.target.id;
 			$.ajax({
 				url: '/orders/' + element,
-				type: 'PUT'
+				type: 'POST'
 			});
 			
 			if (element.split("/")[1] == 2) {

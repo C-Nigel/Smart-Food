@@ -24,31 +24,41 @@ router.get('/', (req, res) => {
 router.post('/delete', (req, res) => {
     let errors = [];
     let success = 'User successfully deleted';
-    let {password, confirmpassword} = req.body;
+    let {
+        password,
+        confirmpassword
+    } = req.body;
     var User = storage.getItem("user");
-    if(password != confirmpassword){
-        errors.push({ text: 'Passwords not the same!' });
+    if (password != confirmpassword) {
+        errors.push({
+            text: 'Passwords not the same!'
+        });
         res.render('user/delete', {
             User,
             errors
         });
-    }
-    else{
-        user.getUserByAdmin(User).then(user =>{
+    } else {
+        user.getUserByAdmin(User).then(user => {
             var isSame = bcrypt.compareSync(old_password, user.password);
-            if(isSame == false){
-                errors.push({ text: 'Incorrect Password!'});
+            if (isSame == false) {
+                errors.push({
+                    text: 'Incorrect Password!'
+                });
                 res.render('user/delete', {
                     User,
                     errors
                 });
             }
-            if(isSame == true){
+            if (isSame == true) {
                 Usermodel.delete({
-                    where: {admin_no : User}
+                    where: {
+                        admin_no: User
+                    }
                 });
                 Order.delete({
-                    where: {user_admin : User}
+                    where: {
+                        user_admin: User
+                    }
                 })
                 storage.removeItem("user");
                 res.redirect('/');
@@ -59,28 +69,35 @@ router.post('/delete', (req, res) => {
 router.post('/twofa', (req, res) => {
     let success_msg = [];
     var User = storage.getItem("user");
-    user.getUserByAdmin(User).then(user =>{
-        if(user.admin_status == 0) {
+    user.getUserByAdmin(User).then(user => {
+        if (user.admin_status == 0) {
             Usermodel.update({
                 admin_status: 1
             }, {
-                where: {admin_no: User}
-            }).then(user =>{
-                success_msg.push({ text: 'Two Factor Authentication Enabled!' });
-                res.render('user/twofa',{
+                where: {
+                    admin_no: User
+                }
+            }).then(user => {
+                success_msg.push({
+                    text: 'Two Factor Authentication Enabled!'
+                });
+                res.render('user/twofa', {
                     success_msg,
                     User
                 })
             })
-        }
-        else if(user.admin_status == 1) {
+        } else if (user.admin_status == 1) {
             Usermodel.update({
                 admin_status: 0
             }, {
-                where: {admin_no: User}
-            }).then(user =>{
-                success_msg.push({ text: 'Two Factor Authentication Disabled!' });
-                res.render('user/twofa',{
+                where: {
+                    admin_no: User
+                }
+            }).then(user => {
+                success_msg.push({
+                    text: 'Two Factor Authentication Disabled!'
+                });
+                res.render('user/twofa', {
                     success_msg,
                     User
                 })
@@ -249,9 +266,9 @@ router.post('/register', (req, res) => {
             text: 'Passwords do not match'
         });
         alertMessage(res, 'success', 'Passwords do not match!.',
-                                    'fas fa-sign-in-alt', true);
-        
-        
+            'fas fa-sign-in-alt', true);
+
+
     }
 
     // Checks that password length is more than 4
@@ -319,7 +336,10 @@ router.post('/register', (req, res) => {
 router.post('/loginuser', (req, res) => {
     let errors = [];
     let success_msg = 'Please check your school email for the authentication code!';
-    let {admin_no, password} = req.body;
+    let {
+        admin_no,
+        password
+    } = req.body;
     var pass = password;
     if (password.length < 4) {
         errors.push({
@@ -339,34 +359,28 @@ router.post('/loginuser', (req, res) => {
             admin_no,
             password
         });
-    }
-    else
-    {
-        user.getUserByAdmin(admin_no).then(user =>{
-            if(user != null || 'undefined'){
+    } else {
+        user.getUserByAdmin(admin_no).then(user => {
+            if (user != null || 'undefined') {
                 var isSame = bcrypt.compareSync(pass, user.password);;
                 console.log(user.password);
-                if(!isSame){
-                    errors.push({ text: 'Password is incorrect!'});
+                if (!isSame) {
+                    errors.push({
+                        text: 'Password is incorrect!'
+                    });
                     res.render('user/loginuser', {
                         errors,
                         admin_no
                     });
-                }
-                else{
+                } else {
                     storage.setItem("user", user.admin_no);
                     console.log(storage.getItem("user"));
                     console.log(user);
-        
-                    if (user == null)
-                    {
+
+                    if (user == null) {
                         res.redirect('/register');
-                    }
-        
-                    else
-                    {
-                        if(user.admin_status == 1)
-                        {
+                    } else {
+                        if (user.admin_status == 1) {
                             var digitcode = Math.round(Math.random() * (999999 - 111111) + 111111);
                             console.log(digitcode);
                             var email = admin_no + '@mymail.nyp.edu.sg';
@@ -377,27 +391,26 @@ router.post('/loginuser', (req, res) => {
                                 subject: 'Two Factor Authentication',
                                 text: 'Generated code',
                                 html: `Your code is  ` + digitcode
-                    
+
                             };
                             sgMail.send(msg);
                             storage.setItem('digitcode', digitcode)
-                            res.render('user/twofactorlogin',{
+                            res.render('user/twofactorlogin', {
                                 success_msg,
                             });
 
-                        }
-                        else
-                        {
+                        } else {
                             res.redirect('/');
                         }
-                        
-                        
-                    }    
+
+
+                    }
                 }
-            }
-            else{
-                errors.push({ text: 'User not found, please register first!'})
-                res.render('user/register',{
+            } else {
+                errors.push({
+                    text: 'User not found, please register first!'
+                })
+                res.render('user/register', {
                     errors
                 })
             }
@@ -410,28 +423,31 @@ router.post('/loginuser', (req, res) => {
 
 router.post('/twofactorlogin', (req, res) => {
     let errors = [];
-    let { code } = req.body;
-    if(code == digitcode){
+    let {
+        code
+    } = req.body;
+    if (code == digitcode) {
         counter = 0;
         res.redirect('/');
-    }
-    else{
-        if(counter > 3){
+    } else {
+        if (counter > 3) {
             counter = 0;
-            errors.push({ text: 'You failed 3 attempts, please log in again!'})
-            res.render('/loginuser',{
+            errors.push({
+                text: 'You failed 3 attempts, please log in again!'
+            })
+            res.render('/loginuser', {
                 errors
             });
-        }
-        else{
+        } else {
             counter += 1
-            errors.push({ text: 'Code entered is wrong, please try again!'})
-            res.render('user/twofactorlogin',
-            {
+            errors.push({
+                text: 'Code entered is wrong, please try again!'
+            })
+            res.render('user/twofactorlogin', {
                 errors
             });
         }
-        
+
     }
 });
 router.post('/forgetpw', (req, res) => {
@@ -502,29 +518,23 @@ router.post('/loginseller', (req, res) => {
             admin_no,
             password
         });
-    }
-    else
-    {
-        outlet.getOutletById(stall_id).then(user =>{
-            var isSame = bcrypt.compareSync(pass, user.password);
-            console.log(user.password);
-            if(!isSame){
-                errors.push({ text: 'Password incorrect!' });
-                res.render('user/loginseller', {
-                    errors,
-                    stall_id
-                });
-            } else {
-                storage.setItem("owner", user.id);
-                //console.log(storage.getItem("owner"));
-                console.log(user);
-
-                if (user == null || 'undefined') {
-                    res.redirect('/register');
+    } else {
+        outlet.getOutletById(stall_id).then(user => {
+            if (user) {
+                var isSame = bcrypt.compareSync(pass, user.password);
+                console.log(user.password);
+                if (!isSame) {
+                    errors.push({
+                        text: 'Password incorrect!'
+                    });
+                    res.render('user/loginseller', {
+                        errors,
+                        stall_id
+                    });
                 } else {
+                    storage.setItem("owner", user.id);
                     res.redirect('/orders');
-                    
-                }    
+                }
             }
         })
     }
