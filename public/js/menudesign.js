@@ -38,8 +38,9 @@ $('.tocart').on('click', function(){
     // $('#cartTotal').text("Total: $" + parseFloat(totalPrice));
     $('#cartTotal').text("Total: $" + totalPrice.toFixed(2));
 
-    
+    var itemid = $(this).siblings().find('#itemid');
     orders.push($('#itemid').val());
+    // orders.push($('#itemid').val());
     
 
     if (imgtodrag) {
