@@ -22,7 +22,6 @@ router.get('/outlet/addSO', (req, res) =>{
         
     }).then((outlets) => 
     {
-        console.log(outlets);
         res.render('outlet', {
             outlets
         });

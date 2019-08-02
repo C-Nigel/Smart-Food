@@ -1,5 +1,6 @@
 const ItemModel = require('../models/Item');
 const OrderModel = require('../models/Order');
+const RatingModel = require('../models/Rating');
 var ex = module.exports = {};
 
 ex.getItemById = function(itemid){
@@ -60,7 +61,10 @@ ex.deleteItem = function(itemid){
     OrderModel.destroy({
         where: {item_id: itemid}
     });
-    ItemModel.destroy({
+    RatingModel.destroy({
+        where: {item_id: itemid}
+    });
+    return ItemModel.destroy({
         where: {id: itemid}
     });
 }

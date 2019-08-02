@@ -6,13 +6,6 @@ const sp = require('synchronized-promise');
 const synpro = require('synchronous-promise');
 var ex = module.exports = {};
 
-ex.getUserByAdmin = function (adminNo) {
-    return UserModel.findByPk(adminNo)
-        .catch(err => {
-            console.log(err)
-        });
-};
-
 ex.averageRating = function (entityID) {
     return RatingModel.sum('rating_given', {
         where: { item_id: entityID }
