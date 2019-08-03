@@ -112,9 +112,12 @@ $('.submitOrders').on('click', function(){
                 type: 'POST'
             })
             console.log(orders[i]);
-        }    
+        }
+        // document.getElementById('#successmsg').style.display = "block";
+        window.location.href="/";
     }else{
         // do nothing
+        // document.getElementById('#successmsg').style.display = "none";
     }
 });
 

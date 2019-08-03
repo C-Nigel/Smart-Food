@@ -33,21 +33,6 @@ router.get('/menuAlpha', (req, res) =>{
 
 
 // this is old menu-chinese, testing smth new....
-router.get('/menu-chinese-old', (req, res) =>{
-    var User = sessionStorage.getItem("user");
-    // console.log(User);
-    Item.findAll({
-        where:{
-            cat: 'chinese'
-        },
-        raw: true
-    }).then((items) =>{
-        res.render('menu/menu-chinese-old', {
-            User,
-            items
-        });
-    }).catch(err => console.log(err));
-});
 
 router.get('/menu-chinese', (req, res) =>{
     var User = sessionStorage.getItem("user");
