@@ -6,9 +6,7 @@ var bcrypt = require('bcryptjs');
 var salt = bcrypt.genSaltSync(10);
 
 router.post('/addSO', (req,res) => {
-    
     let name = req.body.name;
-    
     let password = req.body.password;
     var hashPass = bcrypt.hashSync(password, salt)
     let desc = req.body.desc;
@@ -27,6 +25,25 @@ router.get('/outlet/addSO', (req, res) =>{
         });
     })
     .catch(err => console.log(err));
+});
+
+router.get('/delete/:id', (req, res) => {
+    var OutletID = req.params.id;
+    Outlet.findOne({
+        where:{
+            id: OutletID
+        }
+    }).then((outlets) =>{
+        if (outlets.id === OutletID){
+            Outlet.destroy({
+                where:{
+                    id: OutletID
+                }
+            }).then((outlets) => {
+                res.redirect('/outlet/outlet/addSO');
+            }).catch(err => console.log(err));
+        }
+    })
 });
 
 module.exports = router;

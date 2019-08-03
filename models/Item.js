@@ -13,9 +13,6 @@ const Item = db.define('item', {
     price: {
         type: Sequelize.DOUBLE
     },
-    picture_url: {
-        type: Sequelize.STRING
-    },
     outlet_id: {
         type: Sequelize.INTEGER,
         allowNull: false
@@ -28,11 +25,9 @@ const Item = db.define('item', {
         0 - 0 being the worst
         5 - 5 being the best
         */
-        allowNull: true
     },
     total_rating: {
-        type: Sequelize.INTEGER,
-        allowNull: true
+        type: Sequelize.INTEGER
     }
 
 });
