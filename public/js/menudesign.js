@@ -1,3 +1,5 @@
+// import { Message } from "twilio/lib/twiml/MessagingResponse";
+
 // const orders = require('./class/order_class');
 
 
@@ -38,11 +40,12 @@ $('.tocart').on('click', function(){
     // $('#cartTotal').text("Total: $" + parseFloat(totalPrice));
     $('#cartTotal').text("Total: $" + totalPrice.toFixed(2));
 
-    $('.row > div').on('click', function() {
-        var val = $('input[id^="itemid_"]', this).val();
-        // orders.push(val);
-        console.log(val);
-    });
+    // $('.row > div').on('click', function() {
+    //     var val = $('input[id^="itemid_"]', this).val();
+    //     // var val = $(this).siblings().find('#itemid_', this).val();
+    //     alert(val);
+    //     orders.push(val);
+    // });
     
     
 
@@ -109,34 +112,40 @@ $('#shoppingCart').on('click', '.removeItem', function(){
 });
 
 
-// not used anymore
-// $('#modifyingChanges_Add').on('click', function(){
-//     var input = $('#modifyingChanges');
-//     input.val(parseFloat(input.val())+1);
-// })
-
-// $('#modifyingChanges_Minus').on('click', function(){
-//     var input = $('#modifyingChanges');
-//     if(input.val() > 0) {
-//         input.val(parseFloat(input.val())-1);
-//     }else{
-//         input.val(parseFloat(input.val()) = 0);
-//     }
-// })
+$('.row > #infoforcart > .eachItem').on('click', function() {
+    var val = $('input[id^="itemid_"]', this).val();
+    // var val = $(this).siblings().find('#itemid_', this).val();
+    alert(val);
+    orders.push(val);
+});
 
 
-
-// // not working, only print out the first 
+// // now print in a wrong manner
 $('.submitOrders').on('click', function(){
     var admin = $('#adminNo').val();
+    
     for (var i=0; i<orders.length; i++){
-        // $.ajax({
-        //     url: '/menu/menu-order/' + admin + '/' + orders[i],
-        //     type: 'POST'
-        // })
-        console.log("outside:" + orders[i]);
+        $.ajax({
+            url: '/menu/menu-order/' + admin + '/' + orders[i],
+            type: 'POST'
+        })
+        console.log(orders[i]);
     }
+
 });
+
+// $('.tocart').on('click', function(){
+//     var admin = $('#adminNo').val();
+//     for (var i=0; i<orders.length; i++){
+//         $.ajax({
+//             url: '/menu/menu-order/' + admin + '/' + orders[i],
+//             type: 'POST'
+//         })
+//         console.log(orders[i]);
+//     }
+// });
+
+
 
 
 
@@ -148,4 +157,6 @@ $('.submitOrders').on('click', function(){
 //         type
 //     }
 // })
-
+// function returnMain(){
+//     location.href = '/'
+// }
