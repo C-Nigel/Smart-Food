@@ -22,10 +22,6 @@ router.get('/:user_admin', (req, res) => {
 });
 */
 router.post('/saveRating/:admin_no', (req, res) => {
-
-
-	/* console.log(`\n++++++++ Video from session: ${req.session.video.title}`);
-     console.log(`\n++++++++ All videos from session: ${req.session.allVideos}`); */
     rating_class.count().then(num => {
         for (var i = 1; i <= num; i++) {
             var admin_no = req.params.admin_no;
