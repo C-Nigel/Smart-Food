@@ -42,6 +42,6 @@ ex.userMsg = function(telegram, msgs){
             console.log(" User " + user.full_name + " (" + user.admin_no + ") not found in DB and failed to register message (" + msgs + " into database!")
         }
     }).catch(err =>{
-        console.log("User did not provide admin number!")
+        console.log("User did not provide admin number! Unable to log message.")
     })
 }
