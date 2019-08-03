@@ -546,15 +546,10 @@ router.post('/loginseller', (req, res) => {
 // router.post('/history', (req,res) =>{
 
 // })
-router.post('/loginadmin', (req, res) => {
-    var pass = password;
 
-    if (Admin_ID == SFAdmin && pass == SFAd45) {
-        res.redirect('/admin')
-    } else {
-        res.redirect('/home');
-    }
-});
+// router.post('/loginadmin', (req, res) => {
+    
+// });
 
 
 

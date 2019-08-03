@@ -27,17 +27,17 @@ router.get('/outlet/addSO', (req, res) =>{
     .catch(err => console.log(err));
 });
 
-router.get('/delete/:id', (req, res) => {
-    var OutletID = req.params.id;
+router.get('/delete/:name', (req, res) => {
+    var outletName = req.params.name;
     Outlet.findOne({
         where:{
-            id: OutletID
+            name:outletName
         }
     }).then((outlets) =>{
-        if (outlets.id === OutletID){
+        if (outlets.name === outletName){
             Outlet.destroy({
                 where:{
-                    id: OutletID
+                    name:outletName
                 }
             }).then((outlets) => {
                 res.redirect('/outlet/outlet/addSO');
