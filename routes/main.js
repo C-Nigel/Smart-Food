@@ -1,6 +1,5 @@
 const express = require('express')
 const router = express.Router();
-const sessionStorage = require('node-sessionstorage');
 const orders = require('../class/order_class');
 const users = require('../class/user_class');
 const items = require('../class/item_class');
@@ -9,8 +8,14 @@ const rating = require('../class/rating_class');
 
 
 router.get('/', (req, res) => {
-	var User = sessionStorage.getItem("user");
-	var Owner = sessionStorage.getItem("owner");
+	if (!req.session.user){
+		req.session.user = null;
+	}
+	if (!req.session.owner){
+		req.session.owner = null;
+	}
+	var User = req.session.user;
+	var Owner = req.session.owner;
 	const title = 'Smart Food';
 	var listNumbers = [];
 
@@ -115,7 +120,7 @@ router.get('/changepassword', (req, res) => {
 });
 
 router.get('/profile', (req, res) => {
-	var User = sessionStorage.getItem("user");
+	var User = req.session.user;
 	if (User) {
 		users.getUserByAdmin(User).then(user => {
 			var admin_no = user.admin_no;
@@ -139,8 +144,8 @@ router.get('/profile', (req, res) => {
 });
 
 router.get('/logout', (req, res) => {
-	sessionStorage.removeItem("user");
-	sessionStorage.removeItem("owner");
+	req.session.user = null;
+	req.session.owner = null;
 	res.redirect('/');
 });
 
@@ -157,7 +162,7 @@ router.get('/addStallOwners', (req, res) => {
 });
 
 router.get('/orders', (req, res) => {
-	let outletid = sessionStorage.getItem("owner");
+	let outletid = req.session.owner;
 	if (outletid) {
 		orders.getOrdersForOutlets(outletid).then(orders => {
 			res.render('stallowner/orderList', {
@@ -187,7 +192,7 @@ router.post('/orders/:id/:status', (req, res) => {
 });
 
 router.get('/listItems', (req, res) => {
-	let outletid = sessionStorage.getItem("owner");
+	let outletid = req.session.owner;
 	if (outletid) {
 		items.getItemsByOutlet(outletid).then(items => {
 			res.render('stallowner/listItems', {
@@ -199,8 +204,7 @@ router.get('/listItems', (req, res) => {
 })
 
 router.get('/newItem', (req, res) => {
-	let outletid = sessionStorage.getItem('owner');
-	(outletid);
+	let outletid = req.session.owner;
 	res.render('stallowner/newItem', {
 		outlet: outletid,
 		Owner: true
@@ -247,7 +251,7 @@ router.get('/deleteItem/:item', (req, res) => {
 })
 
 router.get('/history', (req, res) => {
-	let admin = sessionStorage.getItem("user");
+	let admin = req.session.user;
 	var User = admin
 	users.getUserByAdmin(admin).then(user =>{
 		if(user)
