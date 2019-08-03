@@ -33,12 +33,11 @@ ex.getItemsByCat = function(cat_name){
     })
 }
 
-ex.createItem = function(iname, icat, iprice, jpg_url, outletid){
-    ItemModel.create({
+ex.createItem = function(iname, icat, iprice, outletid){
+    return ItemModel.create({
         name: iname,
         cat: icat,
         price: iprice,
-        picture_url: jpg_url,
         outlet_id: outletid
     })
     .then(result => {
@@ -65,14 +64,6 @@ ex.deleteItem = function(itemid){
         where: {item_id: itemid}
     });
     return ItemModel.destroy({
-        where: {id: itemid}
-    });
-}
-
-ex.setImage = function(itemid, url){
-    ItemModel.update({
-        picture_url: url
-    }, {
         where: {id: itemid}
     });
 }

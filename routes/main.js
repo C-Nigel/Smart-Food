@@ -6,11 +6,6 @@ const users = require('../class/user_class');
 const items = require('../class/item_class');
 const bot = require('../config/telegram');
 const rating = require('../class/rating_class');
-const sp = require('synchronized-promise');
-const synpro = require('synchronous-promise')
-const fs = require('fs');
-const upload = require('../helpers/imageUpload');
-const db = require('../config/DBConfig');
 
 
 router.get('/', (req, res) => {
@@ -219,8 +214,10 @@ router.post('/newItem', (req, res) => {
 		itemCategory,
 		outletid
 	} = req.body;
-	items.createItem(itemName, itemCategory, itemPrice, null, outletid);
-	res.redirect('/listItems');
+	items.createItem(itemName, itemCategory, itemPrice, null, outletid).then(() => {
+		res.redirect('/listItems');
+	});
+	
 });
 
 router.get('/editItem/:id', (req, res) => {

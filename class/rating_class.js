@@ -2,8 +2,6 @@ const RatingModel = require('../models/Rating');
 const Op = require('sequelize').Op;
 const itemModel = require('../models/Item');
 const db = require('../config/DBConfig');
-const sp = require('synchronized-promise');
-const synpro = require('synchronous-promise');
 var ex = module.exports = {};
 
 ex.averageRating = function (entityID) {
