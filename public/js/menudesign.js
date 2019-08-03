@@ -1,13 +1,5 @@
 // import { Message } from "twilio/lib/twiml/MessagingResponse";
 
-// const orders = require('./class/order_class');
-// const Order = require('../models/Order');
-
-
-// $('.back').click(function(){
-//     $('.modification').toggle();
-// })
-
 
 $('.cart').on('click', function(){
     $('#shoppingCart').toggle();
@@ -30,25 +22,11 @@ $('.tocart').on('click', function(){
     selectedItemCounter ++ ;
     $('#selectedItemCounter').text(selectedItemCounter).css('display', 'block');
     
-    // $(this).parent('.eachItem').clone().appendTo('#cartItems').append('<button class="btn btn-primary removeItem">Remove Item</button>');
-    //var price = parseFloat($(this).parent('.clonestuff').find('#price').text());
-    // var price = document.getElementById('price').innerHTML;
-    // $(this).parent('.eachItem').clone().appendTo('#cartItems').append('<button class="btn btn-primary removeItem">Remove Item</button>');
     $(this).siblings('#clonestuff').clone().appendTo('#cartItems').append('<button class="btn btn-primary removeItem">Remove Item</button>');
     var price = parseFloat($(this).siblings().find('#price').text());
 
     totalPrice += price;
-    // $('#cartTotal').text("Total: $" + parseFloat(totalPrice));
     $('#cartTotal').text("Total: $" + totalPrice.toFixed(2));
-
-    // $('.row > div').on('click', function() {
-    //     var val = $('input[id^="itemid_"]', this).val();
-    //     // var val = $(this).siblings().find('#itemid_', this).val();
-    //     alert(val);
-    //     orders.push(val);
-    // });
-    
-    
 
     if (imgtodrag) {
         var imgclone = imgtodrag.clone()
@@ -90,24 +68,20 @@ $('.tocart').on('click', function(){
 
 // removing items in cart
 $('#shoppingCart').on('click', '.removeItem', function(){
-    var child = $(this).parent();
+    var child = $(this).parent().parent();
     var parent = child.parent();
-    var index = Array.prototype.index.call(parent.children, child);
+    var index = $('#cartItems').index($(this).parent());
+
+    console.log(index);
+
     orders.splice(index, 1);
+    console.log(orders);
 
     $(this).parent().remove();
     selectedItemCounter--;
     $('#selectedItemCounter').text(selectedItemCounter);
 
-<<<<<<< HEAD
     $(this).siblings('#clonestuff').clone().appendTo('#cartItems').append('<button class="btn btn-primary" id="removeItem_{{id}}" value="{{id}}">Remove Item</button>');
-=======
-    //var price = parseFloat($(this).siblings().find('.price').text());
-    //var price = parseFloat($('.eachItem > #clonestuff').find('span'), $('span', $('#clonestuff'))); //works if remove clonestuff class
-    // var price = parseFloat($(this).parent('.clonestuff').find("#price").text());
-
-    
->>>>>>> b5e053437876a4f801f2bbc920dd895c27c07996
     var price = parseFloat($(this).siblings().find('#price').text());
 
 
@@ -117,8 +91,6 @@ $('#shoppingCart').on('click', '.removeItem', function(){
     if(selectedItemCounter == 0){
         $('#selectedItemCounter').css('display', 'none');
     }
-
-    // orders.pop($('#itemid').val());
 });
 
 // adding items to database when orders are submitted
@@ -150,9 +122,6 @@ $('.submitOrders').on('click', function(){
 
 //trying to identify the position of the item that user wan to remove
 // after pressing removing btn
-
-var child = document.getElementById('#cartItems');
-var parent = child.parentNode;
 
 
 // $('#cartItem > .removeItem').on('click', function(){
