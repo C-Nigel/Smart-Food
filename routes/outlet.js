@@ -29,4 +29,23 @@ router.get('/outlet/addSO', (req, res) =>{
     .catch(err => console.log(err));
 });
 
+router.get('/delete/:id', (req, res) => {
+    var OutletName = req.params.name;
+    Outlet.findOne({
+        where:{
+            name: OutletName
+        }
+    }).then((outlets) =>{
+        if (outlets.name === outlets.name){
+            Outlet.destroy({
+                where:{
+                    name: OutletName
+                }
+            }).then((outlets) => {
+                res.redirect('/outlet/outlet/addSO');
+            }).catch(err => console.log(err));
+        }
+    })
+});
+
 module.exports = router;
