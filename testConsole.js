@@ -21,15 +21,15 @@ setTimeout(function () {
     outlet.createOutlet("Thai@North", "$2a$10$zEV3Pi6567KF8NxMHZwzi.giRfvtdr5CZ2uHLLn/2zS4lR662U6ae", "Selling all food from Thailand happy ending place");
 
     setTimeout(function () {
-        item.createItem("Roasted Chicken", "Chinese", 2.5, "", 1);
-        item.createItem("Steamed Chicken", "Chinese", 2.3, "", 1);
-        item.createItem("Lemon Chicken", "Chinese", 2.7, "", 1);
-        item.createItem("Char Siew", "Chinese", 2.6, "", 1);
-        item.createItem("Pecan Jam", "Western", 4.5, "", 2);
-        item.createItem("Cheesecake", "Western", 2.9, "", 2);
-        item.createItem("Double Cheeseburger", "Western", 5, "", 2);
-        item.createItem("Chicken Chop", "Western", 4, "", 2);
-        item.createItem("Fish Porridge", "Chinese", 1.5, "", 1);
+        item.createItem("Roasted Chicken", "Chinese", 2.5, 1);
+        item.createItem("Steamed Chicken", "Chinese", 2.3, 1);
+        item.createItem("Lemon Chicken", "Chinese", 2.7, 1);
+        item.createItem("Char Siew", "Chinese", 2.6, 1);
+        item.createItem("Pecan Jam", "Western", 4.5, 2);
+        item.createItem("Cheesecake", "Western", 2.9, 2);
+        item.createItem("Double Cheeseburger", "Western", 5, 2);
+        item.createItem("Chicken Chop", "Western", 4, 2);
+        item.createItem("Fish Porridge", "Chinese", 1.5, 1);
 
 
         user.setTelegram("w369", "340756470");

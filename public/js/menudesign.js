@@ -1,13 +1,5 @@
 // import { Message } from "twilio/lib/twiml/MessagingResponse";
 
-// const orders = require('./class/order_class');
-// const Order = require('../models/Order');
-
-
-// $('.back').click(function(){
-//     $('.modification').toggle();
-// })
-
 
 $('.cart').on('click', function(){
     $('#shoppingCart').toggle();
@@ -38,17 +30,7 @@ $('.tocart').on('click', function(){
     var price = parseFloat($(this).siblings().find('#price').text());
 
     totalPrice += price;
-    // $('#cartTotal').text("Total: $" + parseFloat(totalPrice));
     $('#cartTotal').text("Total: $" + totalPrice.toFixed(2));
-
-    // $('.row > div').on('click', function() {
-    //     var val = $('input[id^="itemid_"]', this).val();
-    //     // var val = $(this).siblings().find('#itemid_', this).val();
-    //     alert(val);
-    //     orders.push(val);
-    // });
-    
-    
 
     if (imgtodrag) {
         var imgclone = imgtodrag.clone()
@@ -98,11 +80,7 @@ $('#shoppingCart').on('click', '.removeItem', function(){
     selectedItemCounter--;
     $('#selectedItemCounter').text(selectedItemCounter);
 
-    //var price = parseFloat($(this).siblings().find('.price').text());
-    //var price = parseFloat($('.eachItem > #clonestuff').find('span'), $('span', $('#clonestuff'))); //works if remove clonestuff class
-    // var price = parseFloat($(this).parent('.clonestuff').find("#price").text());
-
-    
+    $(this).siblings('#clonestuff').clone().appendTo('#cartItems').append('<button class="btn btn-primary" id="removeItem_{{id}}" value="{{id}}">Remove Item</button>');
     var price = parseFloat($(this).siblings().find('#price').text());
 
 
@@ -112,8 +90,6 @@ $('#shoppingCart').on('click', '.removeItem', function(){
     if(selectedItemCounter == 0){
         $('#selectedItemCounter').css('display', 'none');
     }
-
-    // orders.pop($('#itemid').val());
 });
 
 // adding items to database when orders are submitted
@@ -143,10 +119,9 @@ $('.submitOrders').on('click', function(){
 });
 
 
-var removeItembtn = $('input[id^="removeItem_"]', this).val();
-$(removeItembtn).on('click', function(){
-    alert("Hello");
-});
+//trying to identify the position of the item that user wan to remove
+// after pressing removing btn
+
 
 // $('#cartItem > .removeItem').on('click', function(){
 //     var deleteitem = $('input[id="itemid_"]', this).val();

@@ -11,7 +11,6 @@ const user = require('../class/user_class');
 const outlet = require('../class/outlet_class');
 const fs = require('fs');
 const upload = require('../helpers/imageUpload');
-const storage = require('node-sessionstorage');
 const Chat = require('../models/Chat');
 const Rating = require('../models/Rating');
 const bot = require("../config/telegram");
@@ -32,7 +31,7 @@ router.post('/delete', (req, res) => {
         password,
         confirmpassword
     } = req.body;
-    var User = storage.getItem("user");
+    var User = req.session.user;
     if (password != confirmpassword) {
         errors.push({
             text: 'Passwords not the same!'
@@ -79,7 +78,7 @@ router.post('/delete', (req, res) => {
                     });
                 }, 1200)
 
-                storage.removeItem("user");
+                req.session.user = null;
                 res.redirect('/');
             }
         })
@@ -87,7 +86,7 @@ router.post('/delete', (req, res) => {
 });
 router.post('/twofa', (req, res) => {
     let success_msg = [];
-    var User = storage.getItem("user");
+    var User = req.session.user;
     user.getUserByAdmin(User).then(user => {
         if (user.admin_status == 0) {
             Usermodel.update({
@@ -131,7 +130,7 @@ router.post('/changepassword', (req, res) => {
         new_password,
         confirmpassword
     } = req.body;
-    var admin = storage.getItem("user");
+    var admin = req.session.user;
     var salt = bcrypt.genSaltSync(10);
     user.getUserByAdmin(admin).then(user => {
         var isSame = bcrypt.compareSync(old_password, user.password);
@@ -385,7 +384,7 @@ router.post('/loginuser', (req, res) => {
                         admin_no
                     });
                 } else {
-                    storage.setItem("user", user.admin_no);
+                    req.session.user = admin_no;
                     if (user == null) {
                         res.redirect('/register');
                     } else {
@@ -402,7 +401,7 @@ router.post('/loginuser', (req, res) => {
 
                             };
                             sgMail.send(msg);
-                            storage.setItem('digitcode', digitcode)
+                            req.session.digitcode = digitcode;
                             res.render('user/twofactorlogin', {
                                 success_msg,
                             });
@@ -432,7 +431,7 @@ router.post('/loginuser', (req, res) => {
 router.post('/twofactorlogin', (req, res) => {
     let errors = [];
     let { code } = req.body;
-    var digitcode = storage.getItem('digitcode')
+    var digitcode = req.session.digitcode;
     if (code == digitcode) {
         counter = 0;
         res.redirect('/');
@@ -535,7 +534,7 @@ router.post('/loginseller', (req, res) => {
                         stall_id
                     });
                 } else {
-                    storage.setItem("owner", user.id);
+                    req.session.owner = stall_id;
                     res.redirect('/orders');
                 }
             }
