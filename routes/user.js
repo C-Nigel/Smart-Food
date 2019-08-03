@@ -108,12 +108,14 @@ router.post('/twofa', (req, res) => {
                 success_msg.push({
                     text: 'Two Factor Authentication Enabled!'
                 });
-                res.render('user/twofa', {
-                    success_msg,
-                    User
+                res.render('user/profile', {
+                    user,
+                    success_msg
+                    
                 })
             })
-        } else if (user.admin_status == 1) {
+        }
+        else if(user.admin_status == 1) {
             Usermodel.update({
                 admin_status: 0
             }, {
@@ -124,9 +126,10 @@ router.post('/twofa', (req, res) => {
                 success_msg.push({
                     text: 'Two Factor Authentication Disabled!'
                 });
-                res.render('user/twofa', {
-                    success_msg,
-                    User
+                res.render('user/profile', {
+                    user,
+                    success_msg
+                    
                 })
             })
         }
@@ -134,46 +137,66 @@ router.post('/twofa', (req, res) => {
 });
 router.post('/changepassword', (req, res) => {
     let errors = [];
+    let success_msg = [];
     let {
         old_password,
         new_password,
-        confirmpassword
+        confirmpassword2
     } = req.body;
     var admin = req.session.user;
     var salt = bcrypt.genSaltSync(10);
-    user.getUserByAdmin(admin).then(user => {
-        var isSame = bcrypt.compareSync(old_password, user.password);
-        if (isSame == false) {
-            errors.push({
-                text: 'Old password not correct!'
-            });
-        }
-        if (new_password != confirmpassword) {
-            errors.push({
-                text: 'New passwords do not match!'
-            });
-        }
-        if (errors.length > 0) {
-            res.render('user/changepassword', {
-                errors
-            });
-        }
-        if (isSame == true) {
-            var hashednewPassword = bcrypt.hashSync(new_password, salt);
-            Usermodel.update({
-                password: hashednewPassword
-            }, {
-                where: {
-                    admin_no: admin
-                }
-            }).then(user => {
-                var User = user;
-                res.redirect('/', {
+    console.log(admin);
+    console.log(new_password);
+    console.log(confirmpassword2);
+
+        user.getUserByAdmin(admin).then(user => {
+            var isSame = bcrypt.compareSync(old_password, user.password);
+            console.log(isSame);
+            console.log(user);
+            
+            if (isSame == false) {
+                errors.push({
+                    text: 'Old password not correct!'
+                });
+                res.render('user/profile', {
+                    errors,
+                    user,
                     User
                 });
-            })
-        }
-    });
+            }
+            if (new_password != confirmpassword2) {
+                errors.push({
+                    text: 'New passwords do not match!'
+                });
+                res.render('user/profile', {
+                    errors,
+                    user,
+                    User
+                });
+            }
+            
+            if (isSame == true) {
+                var hashednewPassword = bcrypt.hashSync(new_password, salt);
+                Usermodel.update({
+                    password: hashednewPassword
+                }, {
+                    where: {
+                        admin_no: admin
+                    }
+                }).then(user => {
+                    success_msg.push({
+                        text: 'Password Successfully changed!'
+                    });
+                    console.log(user);
+                    var User = user;
+                    res.render('user/loginuser', {
+                        success_msg
+                    });
+                })
+            }
+        });
+    
+    
 });
 
 router.post('/profile', (req, res) => {
@@ -279,6 +302,7 @@ router.post('/register', (req, res) => {
         password,
         confirmpassword
     } = req.body;
+    var admin = admin_no.toLowerCase();
     var email = admin_no + "@mymail.nyp.edu.sg";
 
     // Checks if both passwords entered are the same
@@ -335,7 +359,7 @@ router.post('/register', (req, res) => {
             token = jwtoken;
         });
 
-        user.createUser(admin_no, full_name, password, phone_no)
+        user.createUser(admin, full_name, password, phone_no)
             .then(user => {
                 res.render('user/loginuser', {
                     success_msg
@@ -361,6 +385,7 @@ router.post('/loginuser', (req, res) => {
         admin_no,
         password
     } = req.body;
+    var admin = admin_no.toLowerCase();
     var pass = password;
     if (password.length < 4) {
         errors.push({
@@ -381,9 +406,11 @@ router.post('/loginuser', (req, res) => {
             password
         });
     } else {
-        user.getUserByAdmin(admin_no).then(user => {
-            if (user != null || 'undefined') {
+        user.getUserByAdmin(admin).then(user => {
+            console.log(user)
+            if (user) {
                 var isSame = bcrypt.compareSync(pass, user.password);
+                console.log(user.password);
                 if (!isSame) {
                     errors.push({
                         text: 'Password is incorrect!'
@@ -399,7 +426,8 @@ router.post('/loginuser', (req, res) => {
                     } else {
                         if (user.admin_status == 1) {
                             var digitcode = Math.round(Math.random() * (999999 - 111111) + 111111);
-                            var email = admin_no + '@mymail.nyp.edu.sg';
+                            console.log(digitcode);
+                            var email = admin + '@mymail.nyp.edu.sg';
                             sgMail.setApiKey('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');
                             const msg = {
                                 to: email,
@@ -473,7 +501,8 @@ router.post('/forgetpw', (req, res) => {
     let {
         admin_no
     } = req.body;
-    user.getUserByAdmin(admin_no).then(user => {
+    var admin = admin_no.toLowerCase();
+    user.getUserByAdmin(admin).then(user => {
         if (user == null) {
             errors.push({
                 text: 'Admin number not found!'
@@ -489,9 +518,10 @@ router.post('/forgetpw', (req, res) => {
                 password: hashednewPassword
             }, {
                 where: {
-                    admin_no: admin_no
+                    admin_no: admin
                 }
             }).then(user => {
+                console.log(user);
                 var email = admin_no + '@mymail.nyp.edu.sg';
                 sgMail.setApiKey('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');
                 const msg = {
