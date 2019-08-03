@@ -10,21 +10,18 @@
 <!------ Include the above in your HEAD tag ---------->
 
 <head>
-    
+    {{>_header}}
+{{>_navbar}}
   <title>Bootstrap Example</title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  {{>_header}}
-{{>_navbar}}
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 </head>
-
 <style>
     #hi {
         background-image: url(https://backgrounddownload.com/wp-content/uploads/2018/09/background-for-food-website-3.jpg) ;
-        align-items: center;
     }
     #hii {
             width: 700px;
@@ -32,7 +29,6 @@
             background:white;
             border-radius: 10px;
             overflow: hidden;
-            align-items: center;
         
             box-shadow: 0 3px 20px 0px rgba(0, 0, 0, 0.1);
             -moz-box-shadow: 0 3px 20px 0px rgba(0, 0, 0, 0.1);
@@ -45,63 +41,80 @@
 <hr>
 
 <div class="container bootstrap snippet" id="hii">
+     </br>
     </br>
-    </br>
- 
     <div class="row">
   		<div class="col-sm-10"><h1>Profile</h1></div>
     </div>
     <div class="row">
   		<div class="col-sm-3"><!--left col-->
-              
-    <form class="form" action="../user/upload" method="post">
+
+    <form class="form" action="../user/profile" method="post" id="registrationForm">
       <div class="text-center">
-          {{!-- <img id="poster" src="/img/no-image.jpg" alt="" class="border img-circle img-fluid" style="height:100px; width:100px;">
-          <input type="file" id="posterUpload" name="picture" accept = "image/png,image/jpeg,image/jpg,image/gif"> --}}
         <img src="{{picture}}" class="avatar img-circle img-thumbnail" alt="avatar" name="picture">
         <h6>Upload a different photo...</h6>
         <input type="file" class="text-center center-block file-upload" name="picture">
         </div></hr><br>
-    </form>
-  
+
+
+        <!--  <div class="panel panel-default">
+            <div class="panel-heading">Website <i class="fa fa-link fa-1x"></i></div>
+            <div class="panel-body"><a href="http://bootnipets.com">bootnipets.com</a></div>
+          </div>
           
+          
+          <ul class="list-group">
+            <li class="list-group-item text-muted">Activity <i class="fa fa-dashboard fa-1x"></i></li>
+            <li class="list-group-item text-right"><span class="pull-left"><strong>Shares</strong></span> 125</li>
+            <li class="list-group-item text-right"><span class="pull-left"><strong>Likes</strong></span> 13</li>
+            <li class="list-group-item text-right"><span class="pull-left"><strong>Posts</strong></span> 37</li>
+            <li class="list-group-item text-right"><span class="pull-left"><strong>Followers</strong></span> 78</li>
+          </ul> 
+               
+          <div class="panel panel-default">
+            <div class="panel-heading">Social Media</div>
+            <div class="panel-body">
+            	<i class="fa fa-facebook fa-2x"></i> <i class="fa fa-github fa-2x"></i> <i class="fa fa-twitter fa-2x"></i> <i class="fa fa-pinterest fa-2x"></i> <i class="fa fa-google-plus fa-2x"></i>
+            </div>
+          </div> -->
+
         </div><!--/col-3-->
     	<div class="col-sm-9">
             <ul class="nav nav-tabs">
-                <li class="active"><a data-toggle="tab" href="#home">Particulars</a></li>
+                <li class="active"><a data-toggle="tab" href="#home">Home</a></li>
                 <li class="active"><a data-toggle="tab" href="#messages">Change Password</a></li>
-                <li class="active"><a data-toggle="tab" href="#tryhard">2FA</a></li>
-                <li class="active"><a data-toggle="tab" href="#settings">Delete Account</a></li>
+                <li class="active"><a data-toggle="tab" href="#change">2FA</a></li>
+                <li class="active"><a data-toggle="tab" href="#delete">Delete Account</a></li>
               </ul>
 
-              
+
           <div class="tab-content">
             <div class="tab-pane active" id="home">
                 <hr>
-                  
+
                       <div class="form-group">
-                    <form class="form" action="../user/profile" method="post" id="registrationForm"></form>  
+
                           <div class="col-xs-6">
                               <label for="full_name"><h4>Name</h4></label>
                               <input type="text" class="form-control" name="full_name" id="full_name" placeholder="Name" title="Change your name" value="{{full_name}}" required>
                           </div>
                       </div>
                       <div class="form-group">
-                          
+
                           <div class="col-xs-6">
                             <label for="admin_no"><h4>Admin number</h4></label>
                               <input type="text" class="form-control" name="admin_no" id="admin_no" placeholder="Admin Number" title="Admin number cannot be changed" value="{{admin_no}}" readonly>
                           </div>
                       </div>
-          
+
                       <div class="form-group">
-                          
+
                           <div class="col-xs-6">
                               <label for="phone_no"><h4>Phone Number</h4></label>
                               <input type="text" class="form-control" name="phone_no" id="phone_no" placeholder="Phone number" title="Change your phone number" value="{{phone_no}}" required>
                           </div>
                       </div>
-          
+
                       <div class="form-group">
                           <div class="col-xs-6">
                              <label for="telegram_id"><h4>Telegram id</h4></label>
@@ -110,17 +123,17 @@
                       </div>
 
                       <div class="form-group">
-                          
+
                           <div class="col-xs-6">
                               <label for="password"><h4>Password</h4></label>
                               <input type="password" class="form-control" name="password" id="password" placeholder="password" title="enter your password." required>
                           </div>
                       </div>
                       <div class="form-group">
-                          
+
                           <div class="col-xs-6">
-                            <label for="password2"><h4>Re-enter Password</h4></label>
-                              <input type="password" class="form-control" name="confirmpassword" id="password2" placeholder="confirm password" title="reenter your password." required>
+                            <label for="password2"><h4>Confirm Password</h4></label>
+                              <input type="password" class="form-control" name="confirmpassword" id="password2" placeholder="confirm password" title="re enter your password." required>
                           </div>
                       </div>
                       <div class="form-group">
@@ -128,34 +141,34 @@
                                 <br>
                               	<button class="btn btn-lg btn-success" type="submit"><i class="glyphicon glyphicon-ok-sign"></i> Save</button>
                                	<button class="btn btn-lg" type="reset"><i class="glyphicon glyphicon-repeat"></i> Reset</button>
+                                   {{> _msg}} {{!-- views/partials/_msg.handlebars --}}
+                                    {{> _errors}} {{!-- views/partials/_errors.handlebars --}}
+                                    {{{body}}}
                             </div>
+                            
                       </div>
-                      <div class="container">
-						{{> _msg}} {{!-- views/partials/_msg.handlebars --}}
-						{{> _errors}} {{!-- views/partials/_errors.handlebars --}}
-						{{{body}}}
-					</div>
+
     </form>
-              
+
               <hr>
-              
+
              </div><!--/tab-pane-->
              <div class="tab-pane" id="messages">
-               
+
                <h2></h2>
-               
+
                <hr>
                   <form class="form" action="../user/changepassword" method="post" id="registrationForm">
-                      
+
                       <div class="form-group">
-                          
+
                           <div class="col-xs-6">
                               <label for="old_password"><h4>Old Password</h4></label>
                               <input type="password" class="form-control" name="old_password" id="old_password" placeholder="Enter old Password" title="Enter old password">
                           </div>
                       </div>
                       <div class="form-group">
-                          
+
                           <div class="col-xs-6">
                             <label for="new_password"><h4>New Password</h4></label>
                               <input type="password" class="form-control" name="new_password" id="new_password" placeholder="new_password" title="Enter your new password">
@@ -164,7 +177,7 @@
                     <div class="form-group">
                           <div class="col-xs-6">
                             <label for="confirmpassword"><h4>Confirm new password</h4></label>
-                              <input type="password" class="form-control" name="comfirmpassword" id="confirmpassword" placeholder="Re enter your new password" title="Re enter your new password">
+                              <input type="password" class="form-control" name="comfirmpassword2" id="confirmpassword2" placeholder="Re enter your new password" title="Re enter your new password">
                           </div>
                       </div>
                       <div class="form-group">
@@ -175,61 +188,59 @@
                             </div>
                       </div>
               	</form>
-               
+
              </div><!--/tab-pane-->
-              <div class="tab-pane" id="tryhard">
-            		
-               	
+             <div class="tab-pane" id="change">
+
+
                   <hr>
                   <form class="form" action="../user/twofa" method="post" id="registrationForm">
                       
-                      
                       <div class="form-group">
-                           <div class="col-xs-5">
+                           <div class="col-xs-12">
                                 <br>
-                              	<button class="btn btn-lg btn-success pull-right" data-confirm="Are you sure to delete your account?" type="submit"><i class="glyphicon glyphicon-ok-sign"></i> Enable 2FA</button>
-                               	
+                              	<button class="btn btn-lg btn-success pull-right" type="submit"><i class="glyphicon glyphicon-ok-sign"></i> Enable 2FA</button>
+                               	<!--<button class="btn btn-lg" type="reset"><i class="glyphicon glyphicon-repeat"></i> Reset</button>-->
                             </div>
                       </div>
               	</form>
               </div>
-               
-              <!--/tab-pane-->
-          <!--/tab-content-->
-             <div class="tab-pane" id="settings">
-            		
-               	
-                  <hr>
+              <div class="tab-pane" id="delete">
+
+               <h2></h2>
+
+               <hr>
                   <form class="form" action="../user/delete" method="post" id="registrationForm">
-                      
-                      <div class="form-group">
-                          
+
+                    <div class="form-group">
+
                           <div class="col-xs-6">
-                              <label for="password"><h4>Password</h4></label>
-                              <input type="password" class="form-control" name="password" id="password" placeholder="password" title="enter your password." value="{{password}}">
+                            <label for="new_password"><h4>Password</h4></label>
+                              <input type="password" class="form-control" name="password" id="password" placeholder="Password" title="Enter your password">
+                          </div>
+                      </div>
+                    <div class="form-group">
+                          <div class="col-xs-6">
+                            <label for="confirmpassword"><h4>Confirm new password</h4></label>
+                              <input type="password" class="form-control" name="comfirmpassword" id="confirmpassword" placeholder="Re enter your password" title="Re enter your new password">
                           </div>
                       </div>
                       <div class="form-group">
-                          
-                          <div class="col-xs-6">
-                            <label for="confirmpassword"><h4>Confirm Password</h4></label>
-                              <input type="password" class="form-control" name="confirmpassword" id="confirmpassword" placeholder="confirmpassword" title="Confirm your password." value="{{confirmpassword}}">
-                          </div>
-                      </div>
-                      <div class="form-group">
-                           <div class="col-xs-5">
+                           <div class="col-xs-12">
                                 <br>
-                              	<button class="btn btn-lg btn-success pull-right" data-confirm="Are you sure to delete your account?" type="submit"><i class="glyphicon glyphicon-ok-sign"></i> Delete Account</button>
-                               	
+                              	<button class="btn btn-lg btn-success" type="submit"><i class="glyphicon glyphicon-ok-sign"></i> Change Password</button>
+                               	<button class="btn btn-lg" type="reset"><i class="glyphicon glyphicon-repeat"></i> Reset</button>
                             </div>
                       </div>
               	</form>
-              </div>
-               
+
+             </div><!--/tab-pane-->
+              
+
               </div><!--/tab-pane-->
           </div><!--/tab-content-->
 
         </div><!--/col-9-->
     </div><!--/row-->
     </div>
-    <script src="js/profile.js"></script>                                              
+    <script src="js/profile.js"></script>     
