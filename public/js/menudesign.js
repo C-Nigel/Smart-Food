@@ -22,10 +22,6 @@ $('.tocart').on('click', function(){
     selectedItemCounter ++ ;
     $('#selectedItemCounter').text(selectedItemCounter).css('display', 'block');
     
-    // $(this).parent('.eachItem').clone().appendTo('#cartItems').append('<button class="btn btn-primary removeItem">Remove Item</button>');
-    //var price = parseFloat($(this).parent('.clonestuff').find('#price').text());
-    // var price = document.getElementById('price').innerHTML;
-    // $(this).parent('.eachItem').clone().appendTo('#cartItems').append('<button class="btn btn-primary removeItem">Remove Item</button>');
     $(this).siblings('.clonestuff').clone().appendTo('#cartItems').append('<button class="btn btn-primary removeItem">Remove Item</button>');
     var price = parseFloat($(this).siblings().find('#price').text());
 
@@ -73,7 +69,6 @@ $('.tocart').on('click', function(){
 // removing items in cart
 $('#shoppingCart').on('click', '.removeItem', function(){
     var index = $('#cartItems').children().index($(this).parent());
-    console.log(index);
     orders.splice(index, 1);
     
     $(this).parent().remove();
@@ -96,8 +91,6 @@ $('#shoppingCart').on('click', '.removeItem', function(){
 
 $('.row > #infoforcart > .eachItem').on('click', function() {
     var val = $('input[id^="itemid_"]', this).val();
-    // var val = $(this).siblings().find('#itemid_', this).val();
-    alert(val);
     orders.push(val);
 });
 
@@ -105,34 +98,14 @@ $('.row > #infoforcart > .eachItem').on('click', function() {
 // // now print in a wrong manner
 $('.submitOrders').on('click', function(){
     var admin = $('#adminNo').val();
-    if(confirm("Do you want to submit your order(Action is irreversible!)? ")){
+    if(confirm("Do you want to submit your order ?")){
         for (var i=0; i<orders.length; i++){
             $.ajax({
                 url: '/menu/menu-order/' + admin + '/' + orders[i],
                 type: 'POST'
             })
-            console.log(orders[i]);
         }
-        // document.getElementById('#successmsg').style.display = "block";
         window.location.href="/";
-    }else{
-        // do nothing
-        // document.getElementById('#successmsg').style.display = "none";
     }
 });
 
-
-//trying to identify the position of the item that user wan to remove
-// after pressing removing btn
-
-
-// $('#cartItem > .removeItem').on('click', function(){
-//     var deleteitem = $('input[id="itemid_"]', this).val();
-//     alert(deleteitem);
-//     orders.eq(deleteitem).remove();
-//     Order.destroy({
-//         where: {deleteitem: item_id }
-//     });
-//     console.log(orders);
-//     alert('Deleted selected food items');
-// });

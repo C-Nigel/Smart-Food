@@ -4,8 +4,6 @@
     padding: 0;
 }
 
-
-
 .wrapper{
     width: 705px;
     margin: 20px auto;
@@ -20,7 +18,6 @@ h1{
     font-weight: normal;
     text-transform: uppercase;
     padding: 4px 20px;
-    /* float: left; */
 }
 
 .clear{
@@ -32,7 +29,6 @@ h1{
     margin: 20px 0;
 }
 
-/* controls the  rows of boxes at once */
 .item{
     background-color: #fff;
     float: left;
@@ -57,18 +53,9 @@ h2{
 }
 
 
-/* button{
-    border: 1px solid #722A1B;
-    padding: 4px 14px;
-    background-color: #fff;
-    color: #722A1B;
-    text-transform: uppercase;
-    float: right;
-    margin: 5px 0;
-    font-weight: bold;
-    cursor: pointer;
-} */
-
+.btn-primary{
+    background-color: #ff3a6d;
+}
 
 .quantity-operator{
     background-color: #fff;
@@ -86,13 +73,11 @@ h2{
     width: 24px;
     height: 24px;
     margin: 0 10px 0 0;
-    /* margin-left: 105%; */
     float: right;
     cursor: pointer;
 }
 
 #selectedItemCounter{
-    /* margin-left: 108%; */
     float: right;
 }
 
@@ -100,10 +85,6 @@ h2{
     float: right;
 }
 
-.choosePlace{
-    margin-left: 230px;
-    margin-top: 5px;
-}
 
 .quantity-operator{
     float: left;
@@ -118,12 +99,11 @@ h2{
 #shoppingCart{
     top: 0;
     left: 0;
-    height: 165%;
     width: 100%;
     display: none;
     position: absolute;
     z-index: 9999;
-    background: rgba(0, 0, 0, 0.6);
+    
 }
 
 #cartContainer{

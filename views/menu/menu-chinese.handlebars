@@ -4,7 +4,7 @@
 
 <head>
     <meta charset="utf-8">
-    <link rel="stylesheet" href="/css/menu/testingmenu.css">
+    <link rel="stylesheet" href="/css/menu/menu.css">
     <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.2/themes/smoothness/jquery-ui.css">
 </head>
 
@@ -69,7 +69,6 @@
                     <button type="button" class="btn btn-primary return">return</button>
                     <button type="button" class="btn btn-primary submitOrders" style="float: right">Submit
                         Order</button>
-                    <button type="button" class="btn btn-primary emptyCart">Empty Cart</button>
                 </div>
             </div>
         </div>
@@ -80,11 +79,13 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.2/jquery-ui.min.js"></script>
     <script src="/js/menudesign.js"></script>
 
-
+    
     {{else}}
     <br>
     <h3>No Chinese Cuisine available at the moment !</h3>
     {{/if}}
+
+{{>_footer}}
 </body>
 
 </html>
