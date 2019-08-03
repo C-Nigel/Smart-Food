@@ -40,12 +40,13 @@ router.post('/delete', (req, res) => {
             User,
             errors
         });
-    }
-    else {
+    } else {
         user.getUserByAdmin(User).then(user => {
             var isSame = bcrypt.compareSync(password, user.password);
             if (isSame == false) {
-                errors.push({ text: 'Incorrect Password!' });
+                errors.push({
+                    text: 'Incorrect Password!'
+                });
                 res.render('user/delete', {
                     User,
                     errors
@@ -65,16 +66,24 @@ router.post('/delete', (req, res) => {
                 }
                 setTimeout(function () {
                     Order.destroy({
-                        where: { user_admin: User }
+                        where: {
+                            user_admin: User
+                        }
                     })
                     Chat.destroy({
-                        where: { user_admin: User }
+                        where: {
+                            user_admin: User
+                        }
                     })
                     Rating.destroy({
-                        where: { user_admin: User }
+                        where: {
+                            user_admin: User
+                        }
                     })
                     Usermodel.destroy({
-                        where: { admin_no: User }
+                        where: {
+                            admin_no: User
+                        }
                     });
                 }, 1200)
 
@@ -102,11 +111,10 @@ router.post('/twofa', (req, res) => {
                 res.render('user/profile', {
                     user,
                     success_msg
-                    
+
                 })
             })
-        }
-        else if(user.admin_status == 1) {
+        } else if (user.admin_status == 1) {
             Usermodel.update({
                 admin_status: 0
             }, {
@@ -120,7 +128,7 @@ router.post('/twofa', (req, res) => {
                 res.render('user/profile', {
                     user,
                     success_msg
-                    
+
                 })
             })
         }
@@ -134,60 +142,48 @@ router.post('/changepassword', (req, res) => {
         new_password,
         confirmpassword2
     } = req.body;
-    var admin = req.session.user;
+    var User = req.session.user;
     var salt = bcrypt.genSaltSync(10);
-    console.log(admin);
-    console.log(new_password);
-    console.log(confirmpassword2);
 
-        user.getUserByAdmin(admin).then(user => {
-            var isSame = bcrypt.compareSync(old_password, user.password);
-            console.log(isSame);
-            console.log(user);
-            
-            if (isSame == false) {
-                errors.push({
-                    text: 'Old password not correct!'
+    user.getUserByAdmin(User).then(user => {
+        var isSame = bcrypt.compareSync(old_password, user.password);
+
+        if (isSame == false) {
+            errors.push({
+                text: 'Old password not correct!'
+            });
+            res.render('user/profile', {
+                errors,
+                user,
+                User
+            });
+        } else if (new_password != confirmpassword2) {
+            errors.push({
+                text: 'New passwords do not match!'
+            });
+            res.render('user/profile', {
+                errors,
+                user,
+                User
+            });
+        } else {
+            var hashednewPassword = bcrypt.hashSync(new_password, salt);
+            Usermodel.update({
+                password: hashednewPassword
+            }, {
+                where: {
+                    admin_no: User
+                }
+            }).then(() => {
+                success_msg.push({
+                    text: 'Password Successfully changed!'
                 });
-                res.render('user/profile', {
-                    errors,
-                    user,
-                    User
+                res.render('user/loginuser', {
+                    success_msg
                 });
-            }
-            if (new_password != confirmpassword2) {
-                errors.push({
-                    text: 'New passwords do not match!'
-                });
-                res.render('user/profile', {
-                    errors,
-                    user,
-                    User
-                });
-            }
-            
-            if (isSame == true) {
-                var hashednewPassword = bcrypt.hashSync(new_password, salt);
-                Usermodel.update({
-                    password: hashednewPassword
-                }, {
-                    where: {
-                        admin_no: admin
-                    }
-                }).then(user => {
-                    success_msg.push({
-                        text: 'Password Successfully changed!'
-                    });
-                    console.log(user);
-                    var User = user;
-                    res.render('user/loginuser', {
-                        success_msg
-                    });
-                })
-            }
-        });
-    
-    
+            })
+        }
+    });
 });
 
 router.post('/profile', (req, res) => {
@@ -245,18 +241,18 @@ router.post('/profile', (req, res) => {
                         phone_no: phone_no,
                         picture_url: picture
                     }, {
-                            where: {
-                                admin_no: admin_no
-                            }
-                        }).then(user => {
-                            res.render('user/profile', {
-                                admin_no,
-                                full_name,
-                                phone_no,
-                                picture,
-                                telegram_id
-                            });
-                        })
+                        where: {
+                            admin_no: admin_no
+                        }
+                    }).then(user => {
+                        res.render('user/profile', {
+                            admin_no,
+                            full_name,
+                            phone_no,
+                            picture,
+                            telegram_id
+                        });
+                    })
                 }
             }
 
@@ -326,7 +322,6 @@ router.post('/register', (req, res) => {
     }
 
     if (errors.length > 0) {
-        console.log(errors);
         res.render('user/register', {
             errors,
             full_name,
@@ -398,10 +393,8 @@ router.post('/loginuser', (req, res) => {
         });
     } else {
         user.getUserByAdmin(admin).then(user => {
-            console.log(user)
             if (user) {
                 var isSame = bcrypt.compareSync(pass, user.password);
-                console.log(user.password);
                 if (!isSame) {
                     errors.push({
                         text: 'Password is incorrect!'
@@ -458,7 +451,9 @@ router.post('/loginuser', (req, res) => {
 
 router.post('/twofactorlogin', (req, res) => {
     let errors = [];
-    let { code } = req.body;
+    let {
+        code
+    } = req.body;
     var digitcode = req.session.digitcode;
     if (code == digitcode) {
         counter = 0;
@@ -510,7 +505,6 @@ router.post('/forgetpw', (req, res) => {
                     admin_no: admin
                 }
             }).then(user => {
-                console.log(user);
                 var email = admin_no + '@mymail.nyp.edu.sg';
                 sgMail.setApiKey('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');
                 const msg = {

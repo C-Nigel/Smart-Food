@@ -12,14 +12,14 @@
 					<div class="col-lg-9">
 						<div class="form-group">
 							<label for="itemName">Name of food item:</label>
-							<input type="text" class="form-control" id="itemName" name="itemName" value="{{item.name}}">
+							<input type="text" class="form-control" id="itemName" name="itemName" value="{{item.name}}" required>
 						</div>
 						<div class="row">
 							<div class="col-6">
 								<div class="form-group">
 									<label for="itemPrice">Price of food item:</label>
 									<input type="number" step="any" min="0" class="form-control" id="itemPrice"
-										name="itemPrice" value="{{item.price}}">
+										name="itemPrice" value="{{item.price}}" required>
 								</div>
 							</div>
 							<div class="col-6">
@@ -43,7 +43,7 @@
 					</div>
 					<div class="col-lg-3 mb-4">
 						<img id="itemImg" src="/img/no-img.png" alt="" class="border img-thumbnail img-fluid"
-							style="height:40%">
+							style="height:40%" onload="imgLoad">
 					</div>
 				</div>
 				<input class="btn btn-outline-primary" type="submit" value="Save">
@@ -54,7 +54,75 @@
 </body>
 
 <script>
+	$('#itemCategory').on('change', function () {
+		var cat = $('#itemCategory option:selected').text();
+		var src;
+		switch (cat) {
+			case 'Chinese':
+				src = "/img/chinesefood.jpg";
+				break;
+			case 'Malay':
+				src = "/img/malayfood.jpg";
+				break;
+			case 'Indian':
+				src = "/img/indianfood.jpg";
+				break;
+			case 'Western':
+				src = "/img/westernfood.jpg";
+				break;
+			case 'Fusion':
+				src = "/img/fusionfood.jpg";
+				break;
+			case 'Vegetarian':
+				src = "/img/vegetarianfood.jpg";
+				break;
+			case 'Desserts':
+				src = "/img/desserts.jpg";
+				break;
+			case 'Drinks':
+				src = "/img/drinks.jpg";
+				break;
+			default:
+				src = "/img/no-img.png";
+				break;
+		}
+		$('#itemImg').attr('src', src);
+	});
 
+	$(window).load(function () {
+		var cat = $('#itemCategory option:selected').text();
+		var src;
+		switch (cat) {
+			case 'Chinese':
+				src = "/img/chinesefood.jpg";
+				break;
+			case 'Malay':
+				src = "/img/malayfood.jpg";
+				break;
+			case 'Indian':
+				src = "/img/indianfood.jpg";
+				break;
+			case 'Western':
+				src = "/img/westernfood.jpg";
+				break;
+			case 'Fusion':
+				src = "/img/fusionfood.jpg";
+				break;
+			case 'Vegetarian':
+				src = "/img/vegetarianfood.jpg";
+				break;
+			case 'Desserts':
+				src = "/img/desserts.jpg";
+				break;
+			case 'Drinks':
+				src = "/img/drinks.jpg";
+				break;
+			default:
+				src = "/img/no-img.png";
+				break;
+		}
+		$('#itemImg').attr('src', src);
+	});
 </script>
 
 </html>

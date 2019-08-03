@@ -2,61 +2,93 @@
 {{>_header}}
 
 <body style="background-image: url('/img/item_background.jpg'); background-size: cover;">
-    {{>_navbar}}
-    <div class="container" style="padding-top: 6rem;">
-        <div class="card card-body mx-auto">
-            <h3>Create New Food Item</h3>
-            <br>
-            <form action="/newItem" method="post">
-                <input type="hidden" name="outletid" value="{{outlet}}">
-                <div class="row mb-2">
-                    <div class="col-lg-9">
-                        <div class="form-group">
-                            <label for="itemName">Name of food item:</label>
-                            <input type="text" class="form-control" id="itemName" name="itemName"
-                                placeholder="Enter name">
-                        </div>
-                        <div class="row">
-                            <div class="col-6">
-                                <div class="form-group">
-                                    <label for="itemPrice">Price of food item:</label>
-                                    <input type="number" step="any" min="0" class="form-control" id="itemPrice"
-                                        name="itemPrice" placeholder="Enter price">
-                                </div>
-                            </div>
-                            <div class="col-6">
-                                <div class="form-group">
-                                    <label for="itemCategory">Category of food item:</label>
-                                    <select class="form-control" id="itemCategory" name="itemCategory">
-                                        <option>Chinese</option>
-                                        <option>Malay</option>
-                                        <option>Indian</option>
-                                        <option>Western</option>
-                                        <option>Fusion</option>
-                                        <option>Vegetarian</option>
-                                        <option>Desserts</option>
-                                        <option>Drinks</option>
-                                    </select>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-3 mb-4">
-                        <img id="itemImg" src="/img/no-img.png" alt="" class="border img-thumbnail img-fluid"
-                            style="height:40%">
-                    </div>
-                </div>
-                <input class="btn btn-outline-primary" type="submit" value="Save">
-                <a href='/listItems' class="btn btn-outline-primary ml-1">Back to menu</a>
-            </form>
-        </div>
-    </div>
+	{{>_navbar}}
+	<div class="container" style="padding-top: 6rem;">
+		<div class="card card-body mx-auto">
+			<h3>Create New Food Item</h3>
+			<br>
+			<form action="/newItem" method="post">
+				<input type="hidden" name="outletid" value="{{outlet}}">
+				<div class="row mb-2">
+					<div class="col-lg-9">
+						<div class="form-group">
+							<label for="itemName">Name of food item:</label>
+							<input type="text" class="form-control" id="itemName" name="itemName"
+								placeholder="Enter name" required>
+						</div>
+						<div class="row">
+							<div class="col-6">
+								<div class="form-group">
+									<label for="itemPrice">Price of food item:</label>
+									<input type="number" step="any" min="0" class="form-control" id="itemPrice"
+										name="itemPrice" placeholder="Enter price" required>
+								</div>
+							</div>
+							<div class="col-6">
+								<div class="form-group">
+									<label for="itemCategory">Category of food item:</label>
+									<select class="form-control" id="itemCategory" name="itemCategory" required>
+										<option hidden="hidden" selected="selected"></option>
+										<option>Chinese</option>
+										<option>Malay</option>
+										<option>Indian</option>
+										<option>Western</option>
+										<option>Fusion</option>
+										<option>Vegetarian</option>
+										<option>Desserts</option>
+										<option>Drinks</option>
+									</select>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="col-lg-3 mb-4">
+						<img id="itemImg" src="/img/no-img.png" alt="" class="border img-thumbnail img-fluid"
+							style="height:40%">
+					</div>
+				</div>
+				<input class="btn btn-outline-primary" type="submit" value="Save">
+				<a href='/listItems' class="btn btn-outline-primary ml-1">Back to menu</a>
+			</form>
+		</div>
+	</div>
 </body>
 
 <script>
-    $('#itemCategory').on('change', function () {
-
-    });
+	$('#itemCategory').on('change', function () {
+		var cat = $('#itemCategory option:selected').text();
+		var src;
+		switch (cat) {
+			case 'Chinese':
+				src = "/img/chinesefood.jpg";
+				break;
+			case 'Malay':
+				src = "/img/malayfood.jpg";
+				break;
+			case 'Indian':
+				src = "/img/indianfood.jpg";
+				break;
+			case 'Western':
+				src = "/img/westernfood.jpg";
+				break;
+			case 'Fusion':
+				src = "/img/fusionfood.jpg";
+				break;
+			case 'Vegetarian':
+				src = "/img/vegetarianfood.jpg";
+				break;
+			case 'Desserts':
+				src = "/img/desserts.jpg";
+				break;
+			case 'Drinks':
+				src = "/img/drinks.jpg";
+				break;
+			default:
+				src = "/img/no-img.png";
+				break;
+		}
+		$('#itemImg').attr('src', src);
+	});
 </script>
 
 </html>
