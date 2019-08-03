@@ -94,11 +94,7 @@ $('#shoppingCart').on('click', '.removeItem', function(){
     selectedItemCounter--;
     $('#selectedItemCounter').text(selectedItemCounter);
 
-    //var price = parseFloat($(this).siblings().find('.price').text());
-    //var price = parseFloat($('.eachItem > #clonestuff').find('span'), $('span', $('#clonestuff'))); //works if remove clonestuff class
-    // var price = parseFloat($(this).parent('.clonestuff').find("#price").text());
-
-    var newdiv = $(this).siblings('#clonestuff').clone().appendTo('#cartItems').append('<button class="btn btn-primary" id="removeItem_{{id}}" value="{{id}}">Remove Item</button>');
+    $(this).siblings('#clonestuff').clone().appendTo('#cartItems').append('<button class="btn btn-primary" id="removeItem_{{id}}" value="{{id}}">Remove Item</button>');
     var price = parseFloat($(this).siblings().find('#price').text());
 
 
@@ -139,10 +135,12 @@ $('.submitOrders').on('click', function(){
 });
 
 
-var removeItembtn = $('input[id^="removeItem_"]', this).val();
-$(removeItembtn).on('click', function(){
-    alert("Hello");
-});
+//trying to identify the position of the item that user wan to remove
+// after pressing removing btn
+
+var child = document.getElementById('#cartItems');
+var parent = child.parentNode;
+
 
 // $('#cartItem > .removeItem').on('click', function(){
 //     var deleteitem = $('input[id="itemid_"]', this).val();
