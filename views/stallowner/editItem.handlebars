@@ -42,46 +42,19 @@
 						</div>
 					</div>
 					<div class="col-lg-3 mb-4">
-						<div class="form-group">
-							<label for="itemImage">Add image to item (optional)</label>
-							<input type="file" id="itemImgUpload" name="itemImgUpload"
-								accept="image/png, image/jpg, image/jpeg, image/gif">
-							<img id="itemImg" src="/img/no-img.png" alt="" class="border img-thumbnail img-fluid"
-								style="height:40%">
-							<input id="imgURL" type="hidden" name="imgURL">
-							<div class="font-weight-bold text-danger small" id="Err" style="display:none"></div>
-						</div>
+						<img id="itemImg" src="/img/no-img.png" alt="" class="border img-thumbnail img-fluid"
+							style="height:40%">
 					</div>
 				</div>
 				<input class="btn btn-outline-primary" type="submit" value="Save">
+				<a href='/listItems' class="btn btn-outline-primary ml-1">Back to menu</a>
 			</form>
 		</div>
 	</div>
 </body>
 
 <script>
-	$('#itemImgUpload').on('change', function () {
-		let image = $("#itemImgUpload")[0].files[0];
-		let formdata = new FormData();
-		formdata.append('#itemImgUpload', image);
-		$.ajax({
-			url: '/upload/{{item.id}}',
-			data: formdata,
-			contentType: false,
-			processData: false,
-			type: 'POST',
-			'success': (data) => {
-				$('#itemImg').attr('src', data.file);
-				$('#imgURL').attr('value', data.file);	// sets posterURL hidden field
-				if (data.err) {
-					$('#Err').show();
-					$('#Err').text(data.err.message);
-				} else {
-					$('#Err').hide();
-				}
-			}
-		});
-	});
+
 </script>
 
 </html>
