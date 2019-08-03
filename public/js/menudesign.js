@@ -34,7 +34,7 @@ $('.tocart').on('click', function(){
     //var price = parseFloat($(this).parent('.clonestuff').find('#price').text());
     // var price = document.getElementById('price').innerHTML;
     // $(this).parent('.eachItem').clone().appendTo('#cartItems').append('<button class="btn btn-primary removeItem">Remove Item</button>');
-    $(this).siblings('#clonestuff').clone().appendTo('#cartItems').append('<button class="btn btn-primary removeItem">Remove Item</button>');
+    $(this).siblings('.clonestuff').clone().appendTo('#cartItems').append('<button class="btn btn-primary removeItem">Remove Item</button>');
     var price = parseFloat($(this).siblings().find('#price').text());
 
     totalPrice += price;
@@ -90,11 +90,10 @@ $('.tocart').on('click', function(){
 
 // removing items in cart
 $('#shoppingCart').on('click', '.removeItem', function(){
-    var child = $(this).parent();
-    var parent = child.parent();
-    var index = Array.prototype.index.call(parent.children, child);
+    var index = $('#cartItems').children().index($(this).parent());
+    console.log(index);
     orders.splice(index, 1);
-
+    
     $(this).parent().remove();
     selectedItemCounter--;
     $('#selectedItemCounter').text(selectedItemCounter);
