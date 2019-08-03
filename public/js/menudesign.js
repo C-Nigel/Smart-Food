@@ -22,7 +22,11 @@ $('.tocart').on('click', function(){
     selectedItemCounter ++ ;
     $('#selectedItemCounter').text(selectedItemCounter).css('display', 'block');
     
-    $(this).siblings('#clonestuff').clone().appendTo('#cartItems').append('<button class="btn btn-primary removeItem">Remove Item</button>');
+    // $(this).parent('.eachItem').clone().appendTo('#cartItems').append('<button class="btn btn-primary removeItem">Remove Item</button>');
+    //var price = parseFloat($(this).parent('.clonestuff').find('#price').text());
+    // var price = document.getElementById('price').innerHTML;
+    // $(this).parent('.eachItem').clone().appendTo('#cartItems').append('<button class="btn btn-primary removeItem">Remove Item</button>');
+    $(this).siblings('.clonestuff').clone().appendTo('#cartItems').append('<button class="btn btn-primary removeItem">Remove Item</button>');
     var price = parseFloat($(this).siblings().find('#price').text());
 
     totalPrice += price;
@@ -68,15 +72,10 @@ $('.tocart').on('click', function(){
 
 // removing items in cart
 $('#shoppingCart').on('click', '.removeItem', function(){
-    var child = $(this).parent().parent();
-    var parent = child.parent();
-    var index = $('#cartItems').index($(this).parent());
-
+    var index = $('#cartItems').children().index($(this).parent());
     console.log(index);
-
     orders.splice(index, 1);
-    console.log(orders);
-
+    
     $(this).parent().remove();
     selectedItemCounter--;
     $('#selectedItemCounter').text(selectedItemCounter);
