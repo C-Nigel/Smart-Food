@@ -40,7 +40,7 @@ router.get('/', (req, res) => {
 			if (listNumbers.includes(integer) || integer > totalNumber) {
 				i -= 1;
 			}
-			else {
+			else {	
 				listNumbers.push(integer);
 			}
 		}

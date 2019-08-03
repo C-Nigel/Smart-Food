@@ -105,7 +105,7 @@ $('.row > #infoforcart > .eachItem').on('click', function() {
 // // now print in a wrong manner
 $('.submitOrders').on('click', function(){
     var admin = $('#adminNo').val();
-    if(confirm("Do you want to submit your order(Action is irreversible!)? ")){
+    if(confirm("Do you want to submit your order? (once submitted, orders cannot be modified) ")){
         for (var i=0; i<orders.length; i++){
             $.ajax({
                 url: '/menu/menu-order/' + admin + '/' + orders[i],
