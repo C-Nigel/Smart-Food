@@ -111,11 +111,10 @@ router.post('/twofa', (req, res) => {
                 res.render('user/profile', {
                     user,
                     success_msg
-                    
+
                 })
             })
-        }
-        else if(user.admin_status == 1) {
+        } else if (user.admin_status == 1) {
             Usermodel.update({
                 admin_status: 0
             }, {
@@ -129,7 +128,7 @@ router.post('/twofa', (req, res) => {
                 res.render('user/profile', {
                     user,
                     success_msg
-                    
+
                 })
             })
         }
@@ -143,60 +142,48 @@ router.post('/changepassword', (req, res) => {
         new_password,
         confirmpassword2
     } = req.body;
-    var admin = req.session.user;
+    var User = req.session.user;
     var salt = bcrypt.genSaltSync(10);
-    console.log(admin);
-    console.log(new_password);
-    console.log(confirmpassword2);
 
-        user.getUserByAdmin(admin).then(user => {
-            var isSame = bcrypt.compareSync(old_password, user.password);
-            console.log(isSame);
-            console.log(user);
-            
-            if (isSame == false) {
-                errors.push({
-                    text: 'Old password not correct!'
+    user.getUserByAdmin(User).then(user => {
+        var isSame = bcrypt.compareSync(old_password, user.password);
+
+        if (isSame == false) {
+            errors.push({
+                text: 'Old password not correct!'
+            });
+            res.render('user/profile', {
+                errors,
+                user,
+                User
+            });
+        } else if (new_password != confirmpassword2) {
+            errors.push({
+                text: 'New passwords do not match!'
+            });
+            res.render('user/profile', {
+                errors,
+                user,
+                User
+            });
+        } else {
+            var hashednewPassword = bcrypt.hashSync(new_password, salt);
+            Usermodel.update({
+                password: hashednewPassword
+            }, {
+                where: {
+                    admin_no: User
+                }
+            }).then(() => {
+                success_msg.push({
+                    text: 'Password Successfully changed!'
                 });
-                res.render('user/profile', {
-                    errors,
-                    user,
-                    User
+                res.render('user/loginuser', {
+                    success_msg
                 });
-            }
-            if (new_password != confirmpassword2) {
-                errors.push({
-                    text: 'New passwords do not match!'
-                });
-                res.render('user/profile', {
-                    errors,
-                    user,
-                    User
-                });
-            }
-            
-            if (isSame == true) {
-                var hashednewPassword = bcrypt.hashSync(new_password, salt);
-                Usermodel.update({
-                    password: hashednewPassword
-                }, {
-                    where: {
-                        admin_no: admin
-                    }
-                }).then(user => {
-                    success_msg.push({
-                        text: 'Password Successfully changed!'
-                    });
-                    console.log(user);
-                    var User = user;
-                    res.render('user/loginuser', {
-                        success_msg
-                    });
-                })
-            }
-        });
-    
-    
+            })
+        }
+    });
 });
 
 router.post('/profile', (req, res) => {
@@ -335,7 +322,6 @@ router.post('/register', (req, res) => {
     }
 
     if (errors.length > 0) {
-        console.log(errors);
         res.render('user/register', {
             errors,
             full_name,
@@ -407,10 +393,8 @@ router.post('/loginuser', (req, res) => {
         });
     } else {
         user.getUserByAdmin(admin).then(user => {
-            console.log(user)
             if (user) {
                 var isSame = bcrypt.compareSync(pass, user.password);
-                console.log(user.password);
                 if (!isSame) {
                     errors.push({
                         text: 'Password is incorrect!'
@@ -521,7 +505,6 @@ router.post('/forgetpw', (req, res) => {
                     admin_no: admin
                 }
             }).then(user => {
-                console.log(user);
                 var email = admin_no + '@mymail.nyp.edu.sg';
                 sgMail.setApiKey('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');
                 const msg = {
