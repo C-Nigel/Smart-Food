@@ -2,16 +2,7 @@ const RatingModel = require('../models/Rating');
 const Op = require('sequelize').Op;
 const itemModel = require('../models/Item');
 const db = require('../config/DBConfig');
-const sp = require('synchronized-promise');
-const synpro = require('synchronous-promise');
 var ex = module.exports = {};
-
-ex.getUserByAdmin = function (adminNo) {
-    return UserModel.findByPk(adminNo)
-        .catch(err => {
-            console.log(err)
-        });
-};
 
 ex.averageRating = function (entityID) {
     return RatingModel.sum('rating_given', {
@@ -87,4 +78,16 @@ ex.query = function (indexitem1, indexitem2){
     }
 };
 
-
+ex.createRatings = function(){
+    this.countTotalItems().then(totalItems => {
+        for (var i = 1; i < 301; i++) {
+            var itemIndex = Math.round(Math.random() * (totalItems - 1) + 1);
+            var ratingInteger = Math.round(Math.random() * (5 - 1) + 1);
+            RatingModel.create({
+                item_id: itemIndex,
+                user_admin: '180448w',
+                rating_given: ratingInteger
+            })
+        }
+    })
+};

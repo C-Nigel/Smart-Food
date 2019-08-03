@@ -69,9 +69,7 @@ router.post('/menu-order/:admin/:item', (req, res) => {
     order_class.createOrder(req.params.item, req.params.admin);
 })
 
-router.post('/menu-order/:admin/:item', (req, res) =>{
-    
-})
+
 
 router.get('/menu-malay', (req, res) =>{
     Item.findAll({

@@ -1,5 +1,6 @@
 const ItemModel = require('../models/Item');
 const OrderModel = require('../models/Order');
+const RatingModel = require('../models/Rating');
 var ex = module.exports = {};
 
 ex.getItemById = function(itemid){
@@ -32,12 +33,11 @@ ex.getItemsByCat = function(cat_name){
     })
 }
 
-ex.createItem = function(iname, icat, iprice, jpg_url, outletid){
-    ItemModel.create({
+ex.createItem = function(iname, icat, iprice, outletid){
+    return ItemModel.create({
         name: iname,
         cat: icat,
         price: iprice,
-        picture_url: jpg_url,
         outlet_id: outletid
     })
     .then(result => {
@@ -60,15 +60,10 @@ ex.deleteItem = function(itemid){
     OrderModel.destroy({
         where: {item_id: itemid}
     });
-    ItemModel.destroy({
-        where: {id: itemid}
+    RatingModel.destroy({
+        where: {item_id: itemid}
     });
-}
-
-ex.setImage = function(itemid, url){
-    ItemModel.update({
-        picture_url: url
-    }, {
+    return ItemModel.destroy({
         where: {id: itemid}
     });
 }
