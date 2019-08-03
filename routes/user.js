@@ -14,6 +14,8 @@ const upload = require('../helpers/imageUpload');
 const storage = require('node-sessionstorage');
 const Chat = require('../models/Chat');
 const Rating = require('../models/Rating');
+const bot = require("../config/telegram");
+
 var counter = 0;
 
 router.get('/', (req, res) => {
@@ -40,30 +42,43 @@ router.post('/delete', (req, res) => {
             errors
         });
     }
-    else{
-        user.getUserByAdmin(User).then(user =>{
+    else {
+        user.getUserByAdmin(User).then(user => {
             var isSame = bcrypt.compareSync(password, user.password);
-            if(isSame == false){
-                errors.push({ text: 'Incorrect Password!'});
+            if (isSame == false) {
+                errors.push({ text: 'Incorrect Password!' });
                 res.render('user/delete', {
                     User,
                     errors
                 });
             }
-            if(isSame == true){
-                Order.destroy({
-                    where: {user_admin : User}
-                })
-                Chat.destroy({
-                    where: {user_admin: User}
-                })
-                Rating.destroy({
-                    where: {user_admin: User}
-                })
-                Usermodel.destroy({
-                    where: {admin_no : User}
-                });
-                
+            if (isSame == true) {
+                if (user.telegram_id != undefined) {
+                    setTimeout(function () {
+                        bot.sendMessage(user.telegram_id, 'your account has been deleted.');
+                    }, 300)
+                    setTimeout(function () {
+                        bot.sendMessage(user.telegram_id, 'You will now no longer receive notifications.');
+                    }, 300)
+                    setTimeout(function () {
+                        bot.sendMessage(user.telegram_id, 'If you did not authorize this, please contact an admin immediately.');
+                    }, 300)
+                }
+                setTimeout(function () {
+                    Order.destroy({
+                        where: { user_admin: User }
+                    })
+                    Chat.destroy({
+                        where: { user_admin: User }
+                    })
+                    Rating.destroy({
+                        where: { user_admin: User }
+                    })
+                    Usermodel.destroy({
+                        where: { admin_no: User }
+                    });
+                }, 1200)
+
                 storage.removeItem("user");
                 res.redirect('/');
             }
@@ -78,34 +93,34 @@ router.post('/twofa', (req, res) => {
             Usermodel.update({
                 admin_status: 1
             }, {
-                where: {
-                    admin_no: User
-                }
-            }).then(user => {
-                success_msg.push({
-                    text: 'Two Factor Authentication Enabled!'
-                });
-                res.render('user/twofa', {
-                    success_msg,
-                    User
+                    where: {
+                        admin_no: User
+                    }
+                }).then(user => {
+                    success_msg.push({
+                        text: 'Two Factor Authentication Enabled!'
+                    });
+                    res.render('user/twofa', {
+                        success_msg,
+                        User
+                    })
                 })
-            })
         } else if (user.admin_status == 1) {
             Usermodel.update({
                 admin_status: 0
             }, {
-                where: {
-                    admin_no: User
-                }
-            }).then(user => {
-                success_msg.push({
-                    text: 'Two Factor Authentication Disabled!'
-                });
-                res.render('user/twofa', {
-                    success_msg,
-                    User
+                    where: {
+                        admin_no: User
+                    }
+                }).then(user => {
+                    success_msg.push({
+                        text: 'Two Factor Authentication Disabled!'
+                    });
+                    res.render('user/twofa', {
+                        success_msg,
+                        User
+                    })
                 })
-            })
         }
     })
 });
@@ -140,15 +155,15 @@ router.post('/changepassword', (req, res) => {
             Usermodel.update({
                 password: hashednewPassword
             }, {
-                where: {
-                    admin_no: admin
-                }
-            }).then(user => {
-                var User = user;
-                res.redirect('/', {
-                    User
-                });
-            })
+                    where: {
+                        admin_no: admin
+                    }
+                }).then(user => {
+                    var User = user;
+                    res.redirect('/', {
+                        User
+                    });
+                })
         }
     });
 });
@@ -208,18 +223,18 @@ router.post('/profile', (req, res) => {
                         phone_no: phone_no,
                         picture_url: picture
                     }, {
-                        where: {
-                            admin_no: admin_no
-                        }
-                    }).then(user => {
-                        res.render('user/profile', {
-                            admin_no,
-                            full_name,
-                            phone_no,
-                            picture,
-                            telegram_id
-                        });
-                    })
+                            where: {
+                                admin_no: admin_no
+                            }
+                        }).then(user => {
+                            res.render('user/profile', {
+                                admin_no,
+                                full_name,
+                                phone_no,
+                                picture,
+                                telegram_id
+                            });
+                        })
                 }
             }
 
@@ -418,7 +433,7 @@ router.post('/twofactorlogin', (req, res) => {
     let errors = [];
     let { code } = req.body;
     var digitcode = storage.getItem('digitcode')
-    if(code == digitcode){
+    if (code == digitcode) {
         counter = 0;
         res.redirect('/');
     } else {
@@ -463,26 +478,26 @@ router.post('/forgetpw', (req, res) => {
             Usermodel.update({
                 password: hashednewPassword
             }, {
-                where: {
-                    admin_no: admin_no
-                }
-            }).then(user => {
-                var email = admin_no + '@mymail.nyp.edu.sg';
-                sgMail.setApiKey('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');
-                const msg = {
-                    to: email,
-                    from: '180527e@mymail.nyp.edu.sg',
-                    subject: 'Forget Password',
-                    text: 'Generated password',
-                    html: `This is your new password ` + newpass + ` </br> Please use this random generated password to login<a href="http://localhost:5000/loginuser"> here `
-                    //html: 'Your password is ' + user.password
+                    where: {
+                        admin_no: admin_no
+                    }
+                }).then(user => {
+                    var email = admin_no + '@mymail.nyp.edu.sg';
+                    sgMail.setApiKey('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');
+                    const msg = {
+                        to: email,
+                        from: '180527e@mymail.nyp.edu.sg',
+                        subject: 'Forget Password',
+                        text: 'Generated password',
+                        html: `This is your new password ` + newpass + ` </br> Please use this random generated password to login<a href="http://localhost:5000/loginuser"> here `
+                        //html: 'Your password is ' + user.password
 
-                };
-                sgMail.send(msg);
-                res.render('user/loginuser', {
-                    success_msg
-                });
-            })
+                    };
+                    sgMail.send(msg);
+                    res.render('user/loginuser', {
+                        success_msg
+                    });
+                })
         }
 
     })
