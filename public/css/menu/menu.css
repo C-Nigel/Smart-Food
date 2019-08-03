@@ -4,12 +4,6 @@
     padding: 0;
 }
 
-body{
-    background-color: #F2EEE9;
-    font: normal 13px/1.5 Georgia, Serif;
-    color: #333;
-}
-
 .wrapper{
     width: 705px;
     margin: 20px auto;
@@ -24,7 +18,6 @@ h1{
     font-weight: normal;
     text-transform: uppercase;
     padding: 4px 20px;
-    /* float: left; */
 }
 
 .clear{
@@ -36,7 +29,6 @@ h1{
     margin: 20px 0;
 }
 
-controls the  rows of boxes at once 
 .item{
     background-color: #fff;
     float: left;
@@ -61,16 +53,8 @@ h2{
 }
 
 
-button{
-    border: 1px solid #722A1B;
-    padding: 4px 14px;
-    background-color: #fff;
-    color: #722A1B;
-    text-transform: uppercase;
-    float: right;
-    margin: 5px 0;
-    font-weight: bold;
-    cursor: pointer;
+.btn-primary{
+    background-color: #ff3a6d;
 }
 
 .quantity-operator{
@@ -89,16 +73,11 @@ button{
     width: 24px;
     height: 24px;
     margin: 0 10px 0 0;
-    /* float: right; */
-}
-
-/*
-.cartTotal{
     float: right;
+    cursor: pointer;
 }
-*/
 
-#itemCount{
+#selectedItemCounter{
     float: right;
 }
 
@@ -106,49 +85,25 @@ button{
     float: right;
 }
 
-.choosePlace{
-    margin-left: 230px;
-    margin-top: 5px;
+
+.quantity-operator{
+    float: left;
+}
+
+.tocart{
+    float: right;
 }
 
 
 
-/*
-.notification .tag{
-    position: absolute;
-    top: -10px;
-    right: -10px;
-    padding: 5px 10px;
-    border-radius: 50%;
-    background-color: red;
-    color: white;
-}
-*/
-
-/* testing for showing cart items and total sum */
-/*
-#itemCount{
-    position: absolute;
-    display: none;
-    top: -10px;
-    left: -10px;
-    width: 20px;
-    height: 20px;
-    border-radius: 50%;
-    background: red;
-    color: white;
-    text-align: center;
-}
-*/
-#shoppingCart {
+#shoppingCart{
     top: 0;
     left: 0;
-    height: 100%;
     width: 100%;
     display: none;
     position: absolute;
     z-index: 9999;
-    background: rgba(0, 0, 0, 0.6);
+    
 }
 
 #cartContainer{
@@ -163,8 +118,15 @@ button{
     overflow: auto;
 }
 
-.removeItem {
-    margin-left: 40px;
+.return{
+    float: left;
 }
 
+.remove{
+    float: right;
+}
+
+.allfooditems{
+    float: center;
+}
 

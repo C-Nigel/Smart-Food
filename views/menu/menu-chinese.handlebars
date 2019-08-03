@@ -4,13 +4,16 @@
 
 <head>
     <meta charset="utf-8">
-    <link rel="stylesheet" href="/css/menu/testingmenu.css">
+    <link rel="stylesheet" href="/css/menu/menu.css">
     <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.2/themes/smoothness/jquery-ui.css">
 </head>
 
 <body>
     {{>_navbar}}
     <br>
+    <br>
+    
+    
     <div class="container">
         <div class="allfooditems">
             <br>
@@ -20,23 +23,6 @@
             <span id="selectedItemCounter"></span>
             <span id="tag"><a href="#"><i class="cart"></i></a></span>
             {{/if}}
-
-            {{!-- <div id="shoppingCart">
-                        <div id="cartContainer">
-                            <h2>Selected Items</h2>
-                            <!--<i class="fa fa-times-circle-o fa-3x openCart" aria-hidden="true"></i>-->
-                            <div id="cartItems"></div>
-                            <span id="cartTotal"></span>
-                            <br>
-                            <button type="button" class="btn btn-primary return">return</button>
-                            <button type="button" class="btn btn-primary submitOrders" style="float: right" >Submit Order</button>
-                        </div>
-                    </div> --}}
-
-
-
-            {{!-- originaally col-lg-4, but got some weird css error --}}
-            {{!-- thus special margin-left is being used in .cart --}}
 
             <div class="items">
 
@@ -54,17 +40,12 @@
                                 <br>
                                 <h6 class="card-subtitle price">Price: $<span id="price">{{price}}</span></h6>
                                 <br>
-                                {{!-- Image of food items still in prg.... --}}
-                                {{!-- <p>{{picture_url}}</p> --}}
                                 <img src="/img/chickenricemod1.jpg" />
                                 <br>
                                 <br>
                             </div>
                             <p>Introduced on: {{createdAt}}</p>
-
-
                             <button class="btn btn-primary btn-block tocart" type="button">Add to Cart</button>
-
                         </div>
                     </div>
                     {{/each}}
@@ -82,21 +63,14 @@
                 <div id="cartContainer">
                     <h2>Selected Items</h2>
                     <input type="hidden" id="adminNo" value="{{User}}">
-                    <!--<i class="fa fa-times-circle-o fa-3x openCart" aria-hidden="true"></i>-->
                     <div id="cartItems"></div>
-
-
                     <span id="cartTotal"></span>
                     <br>
-
                     <button type="button" class="btn btn-primary return">return</button>
-
                     <button type="button" class="btn btn-primary submitOrders" style="float: right">Submit
                         Order</button>
-                    <button type="button" class="btn btn-primary emptyCart">Empty Cart</button>
                 </div>
             </div>
-
         </div>
     </div>
     </div>
@@ -105,11 +79,13 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.2/jquery-ui.min.js"></script>
     <script src="/js/menudesign.js"></script>
 
-
+    
     {{else}}
     <br>
     <h3>No Chinese Cuisine available at the moment !</h3>
     {{/if}}
+
+{{>_footer}}
 </body>
 
 </html>
