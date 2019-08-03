@@ -118,11 +118,8 @@ router.post('/changepassword', (req, res) => {
     } = req.body;
     var admin = storage.getItem("user");
     var salt = bcrypt.genSaltSync(10);
-    console.log(admin);
     user.getUserByAdmin(admin).then(user => {
         var isSame = bcrypt.compareSync(old_password, user.password);
-        console.log(isSame);
-        console.log(user);
         if (isSame == false) {
             errors.push({
                 text: 'Old password not correct!'
@@ -147,7 +144,6 @@ router.post('/changepassword', (req, res) => {
                     admin_no: admin
                 }
             }).then(user => {
-                console.log(user);
                 var User = user;
                 res.redirect('/', {
                     User
@@ -203,7 +199,6 @@ router.post('/profile', (req, res) => {
                     telegram_id
                 });
             } else {
-                console.log(user);
 
                 if (user == null) {
                     res.redirect('/register');
@@ -217,7 +212,6 @@ router.post('/profile', (req, res) => {
                             admin_no: admin_no
                         }
                     }).then(user => {
-                        console.log(user);
                         res.render('user/profile', {
                             admin_no,
                             full_name,
@@ -366,8 +360,7 @@ router.post('/loginuser', (req, res) => {
     } else {
         user.getUserByAdmin(admin_no).then(user => {
             if (user != null || 'undefined') {
-                var isSame = bcrypt.compareSync(pass, user.password);;
-                console.log(user.password);
+                var isSame = bcrypt.compareSync(pass, user.password);
                 if (!isSame) {
                     errors.push({
                         text: 'Password is incorrect!'
@@ -378,15 +371,11 @@ router.post('/loginuser', (req, res) => {
                     });
                 } else {
                     storage.setItem("user", user.admin_no);
-                    console.log(storage.getItem("user"));
-                    console.log(user);
-
                     if (user == null) {
                         res.redirect('/register');
                     } else {
                         if (user.admin_status == 1) {
                             var digitcode = Math.round(Math.random() * (999999 - 111111) + 111111);
-                            console.log(digitcode);
                             var email = admin_no + '@mymail.nyp.edu.sg';
                             sgMail.setApiKey('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');
                             const msg = {
@@ -468,9 +457,7 @@ router.post('/forgetpw', (req, res) => {
                 errors
             });
         } else {
-            console.log(user);
             var newpass = Math.random().toString(36).replace('0.', '').substr(0, 8);
-            console.log(newpass)
             var salt = bcrypt.genSaltSync(10);
             var hashednewPassword = bcrypt.hashSync(newpass, salt);
             Usermodel.update({
@@ -480,7 +467,6 @@ router.post('/forgetpw', (req, res) => {
                     admin_no: admin_no
                 }
             }).then(user => {
-                console.log(user);
                 var email = admin_no + '@mymail.nyp.edu.sg';
                 sgMail.setApiKey('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');
                 const msg = {
@@ -525,7 +511,6 @@ router.post('/loginseller', (req, res) => {
         outlet.getOutletById(stall_id).then(user => {
             if (user) {
                 var isSame = bcrypt.compareSync(pass, user.password);
-                console.log(user.password);
                 if (!isSame) {
                     errors.push({
                         text: 'Password incorrect!'

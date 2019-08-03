@@ -121,10 +121,8 @@ router.get('/changepassword', (req, res) => {
 
 router.get('/profile', (req, res) => {
 	var User = sessionStorage.getItem("user");
-	console.log(User);
 	if (User) {
 		users.getUserByAdmin(User).then(user => {
-			console.log(user);
 			var admin_no = user.admin_no;
 			var full_name = user.full_name;
 			var phone_no = user.phone_no;
@@ -207,7 +205,7 @@ router.get('/listItems', (req, res) => {
 
 router.get('/newItem', (req, res) => {
 	let outletid = sessionStorage.getItem('owner');
-	console.log(outletid);
+	(outletid);
 	res.render('stallowner/newItem', {
 		outlet: outletid,
 		Owner: true
@@ -245,27 +243,22 @@ router.post('/editItem/:id', (req, res) => {
 });
 
 router.get('/deleteItem/:item', (req, res) => {
-	items.deleteItem(req.params.item);
-	setTimeout(function(){
+	items.deleteItem(req.params.item).then(() => {
 		res.redirect('/listItems');
-	}, 500);
+	});
+	
 })
 
 router.get('/history', (req, res) => {
 	let admin = sessionStorage.getItem("user");
 	var User = admin
-	console.log(admin);
 	users.getUserByAdmin(admin).then(user =>{
-		console.log(user)
-		
 		if(user)
 		{
 			var full_name = user.full_name;
 			var phone_no = user.phone_no;
 			var user_admin = admin;
 			orders.getOrdersFromUser(admin).then(order =>{
-				console.log(order);
-				
 				if(order){
 					// var createdAt = order.createdAt;
 					// var item_name = order.item_name;
@@ -282,7 +275,6 @@ router.get('/history', (req, res) => {
 					})
 				}
 				else{
-					console.log('line 2 fail!')
 					res.render('history', {
 						User,
 						full_name,
@@ -294,7 +286,6 @@ router.get('/history', (req, res) => {
 			});
 		}
 		else{
-			console.log('line one fail')
 			res.render('history',{
 				User
 			});

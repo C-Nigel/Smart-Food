@@ -17,6 +17,7 @@ $('.return').on('click', function(){
     $('#shoppingCart').toggle();
 });
 
+var count = -1;
 var selectedItemCounter = 0;
 var totalPrice = 0;
 var orders = [];

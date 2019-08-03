@@ -16,9 +16,9 @@ setTimeout(function () {
     user.createUser("w373", "malique", "tank");
     user.createUser("w374", "tim", "$2a$10$zEV3Pi6567KF8NxMHZwzi.giRfvtdr5CZ2uHLLn/2zS4lR662U6ae");
 
-    outlet.createOutlet("Chicken Rice@North", "", "Selling chicken rice and other chicken-related food");
-    outlet.createOutlet("Western@Foodgle", "", "Selling all western food at Block P1");
-    outlet.createOutlet("Thai@North", "", "Selling all food from Thailand happy ending place");
+    outlet.createOutlet("Chicken Rice@North", "$2a$10$zEV3Pi6567KF8NxMHZwzi.giRfvtdr5CZ2uHLLn/2zS4lR662U6ae", "Selling chicken rice and other chicken-related food");
+    outlet.createOutlet("Western@Foodgle", "$2a$10$zEV3Pi6567KF8NxMHZwzi.giRfvtdr5CZ2uHLLn/2zS4lR662U6ae", "Selling all western food at Block P1");
+    outlet.createOutlet("Thai@North", "$2a$10$zEV3Pi6567KF8NxMHZwzi.giRfvtdr5CZ2uHLLn/2zS4lR662U6ae", "Selling all food from Thailand happy ending place");
 
     setTimeout(function () {
         item.createItem("Roasted Chicken", "Chinese", 2.5, "", 1);
