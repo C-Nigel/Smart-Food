@@ -1,7 +1,7 @@
 // import { Message } from "twilio/lib/twiml/MessagingResponse";
 
 // const orders = require('./class/order_class');
-
+// const Order = require('../models/Order');
 
 
 // $('.back').click(function(){
@@ -98,7 +98,7 @@ $('#shoppingCart').on('click', '.removeItem', function(){
     //var price = parseFloat($('.eachItem > #clonestuff').find('span'), $('span', $('#clonestuff'))); //works if remove clonestuff class
     // var price = parseFloat($(this).parent('.clonestuff').find("#price").text());
 
-    $(this).siblings('#clonestuff').clone().appendTo('#cartItems').append('<button class="btn btn-primary removeItem">Remove Item</button>');
+    var newdiv = $(this).siblings('#clonestuff').clone().appendTo('#cartItems').append('<button class="btn btn-primary" id="removeItem_{{id}}" value="{{id}}">Remove Item</button>');
     var price = parseFloat($(this).siblings().find('#price').text());
 
 
@@ -112,6 +112,7 @@ $('#shoppingCart').on('click', '.removeItem', function(){
     // orders.pop($('#itemid').val());
 });
 
+// adding items to database when orders are submitted
 
 $('.row > #infoforcart > .eachItem').on('click', function() {
     var val = $('input[id^="itemid_"]', this).val();
@@ -124,40 +125,32 @@ $('.row > #infoforcart > .eachItem').on('click', function() {
 // // now print in a wrong manner
 $('.submitOrders').on('click', function(){
     var admin = $('#adminNo').val();
-    
-    for (var i=0; i<orders.length; i++){
-        $.ajax({
-            url: '/menu/menu-order/' + admin + '/' + orders[i],
-            type: 'POST'
-        })
-        console.log(orders[i]);
+    if(confirm("Do you want to submit your order(Action is irreversible!)? ")){
+        for (var i=0; i<orders.length; i++){
+            $.ajax({
+                url: '/menu/menu-order/' + admin + '/' + orders[i],
+                type: 'POST'
+            })
+            console.log(orders[i]);
+        }    
+    }else{
+        // do nothing
     }
-
 });
 
-// $('.tocart').on('click', function(){
-//     var admin = $('#adminNo').val();
-//     for (var i=0; i<orders.length; i++){
-//         $.ajax({
-//             url: '/menu/menu-order/' + admin + '/' + orders[i],
-//             type: 'POST'
-//         })
-//         console.log(orders[i]);
-//     }
+
+var removeItembtn = $('input[id^="removeItem_"]', this).val();
+$(removeItembtn).on('click', function(){
+    alert("Hello");
+});
+
+// $('#cartItem > .removeItem').on('click', function(){
+//     var deleteitem = $('input[id="itemid_"]', this).val();
+//     alert(deleteitem);
+//     orders.eq(deleteitem).remove();
+//     Order.destroy({
+//         where: {deleteitem: item_id }
+//     });
+//     console.log(orders);
+//     alert('Deleted selected food items');
 // });
-
-
-
-
-
-
-// $('.emptyCart').on('click', function(){
-//     var admin = $('#adminNo').val();
-//     for(var i=0; i<orders.length; i++){
-//         url: '/menu/menu-order' + admin + '/' + orders[i],
-//         type
-//     }
-// })
-// function returnMain(){
-//     location.href = '/'
-// }
