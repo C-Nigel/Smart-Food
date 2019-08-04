@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
-const Outlet = require('../models/Outlet')
+const Outlet = require('../models/Outlet');
+const Item = require('../models/Item');
 const outlet_class = require('../class/outlet_class')
 var bcrypt = require('bcryptjs');
 var salt = bcrypt.genSaltSync(10);
@@ -42,6 +43,13 @@ router.get('/delete/:name', (req, res) => {
             }).then((outlets) => {
                 res.redirect('/outlet/outlet/addSO');
             }).catch(err => console.log(err));
+        }
+        if(Outlet.destroy == true){
+            Item.destroy({
+                where: {
+                    id:outlet_id
+                }
+            })
         }
     })
 });

@@ -570,11 +570,14 @@ router.post('/loginseller', (req, res) => {
 
 // })
 
-// router.post('/loginadmin', (req, res) => {
-    
-// });
+router.post('/loginadmin', (req, res) => {
+    let {admin_ID, password} = req.body;
+    const username = SFAdmin;
+    const pass = SFadm1n045;
 
-
-
+    if (pass === password && username === admin_ID){
+        res.render('/admin');
+    }
+});
 
 module.exports = router;
