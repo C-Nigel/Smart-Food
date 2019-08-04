@@ -45,10 +45,6 @@ setTimeout(function () {
             orders.createOrder(2, "w374");
             orders.createOrder(3, "w374");
             orders.createOrder(1, "w374");
-
-            setTimeout(function () {
-                ratings.createRatings()
-            },5000)
         }, 1000);
     }, 1000);
 }, 1000);

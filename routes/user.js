@@ -332,12 +332,12 @@ router.post('/register', (req, res) => {
 
 	if (isNaN(admin_no.slice(0, 6))) {
 		errors.push({
-			text: 'Password must be at least 4 characters'
+			text: 'Invalid Admin Number'
 		});
 	}
 	if (phone_no.length != 8) {
 		errors.push({
-			text: 'Password must be at least 4 characters'
+			text: 'Phone number must be 8 digits long'
 		});
 	}
 
