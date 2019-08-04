@@ -9,10 +9,10 @@ const chat = require('../class/chat_class');
 
 
 router.get('/', (req, res) => {
-	if (!req.session.user){
+	if (!req.session.user) {
 		req.session.user = null;
 	}
-	if (!req.session.owner){
+	if (!req.session.owner) {
 		req.session.owner = null;
 	}
 	var User = req.session.user;
@@ -42,7 +42,7 @@ router.get('/', (req, res) => {
 	// // 	User,
 	// // 	Owner
 	// // });
-	
+
 	rating.countTotalItems({
 
 	}).then((totalNumber) => {
@@ -50,8 +50,7 @@ router.get('/', (req, res) => {
 			var integer = Math.round(Math.random() * (totalNumber - 1) + 1);
 			if (listNumbers.includes(integer) || integer > totalNumber) {
 				i -= 1;
-			}
-			else {	
+			} else {
 				listNumbers.push(integer);
 			}
 		}
@@ -87,7 +86,7 @@ router.get('/', (req, res) => {
 					})
 			})
 	})
-	
+
 });
 
 
@@ -252,8 +251,12 @@ router.post('/orders/:id/:status', (req, res) => {
 		users.getUserByAdmin(order.user_admin).then(user => {
 			if (status == 1 && user.telegram_id) {
 				bot.sendMessage(user.telegram_id, "Your order for " + order.item_name + " (order id: " + order.id + ") is ready for collection!");
+				chat.systemMsg(order.user_admin, "Your order for " + order.item_name + " (order id: " + order.id + ") is ready for collection!");
 			} else if (status == 2 && user.telegram_id) {
 				bot.sendMessage(user.telegram_id, "Your order (order id: " + order.id + ") has been collected. Thank you for shopping with us!");
+				chat.systemMsg(order.user_admin, "Your order (order id: " + order.id + ") has been collected. Thank you for shopping with us!");
+				bot.sendMessage(user.telegram_id, "Do help us to rate your food at localhost:5000/review/" + user.user_admin);
+				chat.systemMsg(order.user_admin, "Do help us to rate your food at localhost:5000/review/" + user.user_admin);
 			}
 		})
 	})
@@ -273,10 +276,14 @@ router.get('/listItems', (req, res) => {
 
 router.get('/newItem', (req, res) => {
 	let outletid = req.session.owner;
-	res.render('stallowner/newItem', {
-		outlet: outletid,
-		Owner: true
-	});
+	if (outletid) {
+		res.render('stallowner/newItem', {
+			outlet: outletid,
+			Owner: true
+		});
+	} else {
+		res.redirect('/');
+	}
 });
 
 router.post('/newItem', (req, res) => {
@@ -286,19 +293,23 @@ router.post('/newItem', (req, res) => {
 		itemCategory,
 		outletid
 	} = req.body;
-	items.createItem(itemName, itemCategory, itemPrice, null, outletid).then(() => {
+	items.createItem(itemName, itemCategory, itemPrice, outletid).then(() => {
 		res.redirect('/listItems');
 	});
-	
+
 });
 
 router.get('/editItem/:id', (req, res) => {
-	items.getItemById(req.params.id).then(item => {
-		res.render('stallowner/editItem', {
-			item: item,
-			Owner: true
+	if (req.session.owner) {
+		items.getItemById(req.params.id).then(item => {
+			res.render('stallowner/editItem', {
+				item: item,
+				Owner: true
+			});
 		});
-	});
+	} else {
+		res.redirect('/');
+	}
 });
 
 router.post('/editItem/:id', (req, res) => {
@@ -312,29 +323,31 @@ router.post('/editItem/:id', (req, res) => {
 });
 
 router.get('/deleteItem/:item', (req, res) => {
-	items.deleteItem(req.params.item).then(() => {
-		res.redirect('/listItems');
-	});
-	
+	if (req.session.owner) {
+		items.deleteItem(req.params.item).then(() => {
+			res.redirect('/listItems');
+		});
+	} else {
+		res.redirect('/');
+	}
 })
 
 router.get('/history', (req, res) => {
 	let errors = 'Please login to access the page!';
 	let admin = req.session.user;
 	var User = admin
-	users.getUserByAdmin(admin).then(user =>{
-		if(user)
-		{
+	users.getUserByAdmin(admin).then(user => {
+		if (user) {
 			var full_name = user.full_name;
 			var phone_no = user.phone_no;
 			var user_admin = admin;
-			orders.getOrdersFromUser(admin).then(order =>{
+			orders.getOrdersFromUser(admin).then(order => {
 				chat.getUserChatByUserId(admin).then(chats => {
-					if(order){
+					if (order) {
 						// var createdAt = order.createdAt;
 						// var item_name = order.item_name;
 						// var item_id = order.item_id;
-						res.render('history',{
+						res.render('history', {
 							User,
 							full_name,
 							user_admin,
@@ -345,8 +358,7 @@ router.get('/history', (req, res) => {
 							// item_name,
 							// item_id
 						})
-					}
-					else{
+					} else {
 						res.render('history', {
 							User,
 							full_name,
@@ -363,9 +375,9 @@ router.get('/history', (req, res) => {
 				errors
 			});
 		}
-	
+
 
 	});
-	
+
 });
 module.exports = router;
