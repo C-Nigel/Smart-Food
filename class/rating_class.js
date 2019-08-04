@@ -79,7 +79,7 @@ ex.query = function (indexitem1, indexitem2) {
 };
 
 ex.createRatings = function () {
-    this.highestItemId().then(totalItems => {
+    this.countTotalItems().then(totalItems => {
         for (var i = 1; i < 301; i++) {
             var itemIndex = Math.round(Math.random() * (totalItems - 1) + 1);
             itemClass.getItemById(itemIndex).then(item => {
