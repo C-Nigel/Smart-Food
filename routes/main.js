@@ -27,21 +27,21 @@ router.get('/', (req, res) => {
 			rating.countTotalRates(i);
 		}
 	});
-	res.render('home', {
-																title: title,
-																// itemsList1,
-																// itemsList2,
-																// itemsList3,
-																// itemsList4,
-																// itemsList5,
-																// itemsList6,
-																User,
-																Owner
-															});
 	// res.render('home', {
-	// 	User,
-	// 	Owner
-	// });
+	// 															title: title,
+	// 															// itemsList1,
+	// 															// itemsList2,
+	// 															// itemsList3,
+	// 															// itemsList4,
+	// 															// itemsList5,
+	// 															// itemsList6,
+	// 															User,
+	// 															Owner
+	// 														});
+	// // res.render('home', {
+	// // 	User,
+	// // 	Owner
+	// // });
 	
 	rating.countTotalItems({
 
