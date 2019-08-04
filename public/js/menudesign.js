@@ -85,6 +85,7 @@ $('#shoppingCart').on('click', '.removeItem', function(){
     if(selectedItemCounter == 0){
         $('#selectedItemCounter').css('display', 'none');
     }
+
 });
 
 // adding items to database when orders are submitted

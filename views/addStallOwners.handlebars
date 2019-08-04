@@ -16,7 +16,8 @@
                         <label for="password">
                             Enter Password:</label>
                             <br>
-                        <input required type="text" class="form-control" id="password" name="password" value={{password}}>
+                        <input required type="password" class="form-control" id="password" name="password" value={{password}}>
+                        <input type="checkbox" onclick="showPass()"> Show Password
                     </div>
                     <div class="col-sm-12 form-group">
                         <label for="desc">
@@ -46,3 +47,15 @@
     }
 
 </style>
+
+<script>
+    function showPass() {
+        var x = document.getElementById("password");
+        if (x.type === "password") {
+            x.type = "text";
+        }
+        else{
+            x.type = "password";
+        }
+    }
+</script>
