@@ -108,10 +108,6 @@ router.get('/index', (req, res) => {
 	res.render('index') // renders views/user/loginuser.handlebars
 });
 
-router.get('/loginadmin', (req, res) => {
-	res.render('loginadmin')
-});
-
 router.get('/register', (req, res) => {
 	res.render('user/register') // renders views/user/register.handlebars
 });
@@ -209,10 +205,6 @@ router.get('/logout', (req, res) => {
 	req.session.user = null;
 	req.session.owner = null;
 	res.redirect('/');
-});
-
-router.get('/admin', (req, res) => {
-	res.render('admin');
 });
 
 router.get('outlet/outlet', (req, res) => {

@@ -591,24 +591,26 @@ router.post('/loginadmin', (req, res) => {
 	let {admin_no, password} = req.body;
 	var Admin = req.session.admin;
 	var admin = admin_no;
-		user.getUserByAdmin(admin).then(user => {
-			if(admin == user.admin_no && password == user.password){
-				res.redirect('/admin',{
-					Admin
-				});
-			}
-			else{
-				res.render('user/loginadmin',{
-					errors,
-					admin_no
-				});
-			}
-		})
+	if(admin == 'sfadmin' && password == 'SFAd45'){
+		res.redirect('/user/admin');
+	}
+	else{
+		res.render('user/loginadmin',{
+			errors,
+			admin_no
+		});
+	}
 	// if (user.admin_no == SFAdmin  && user.password == SFAd45) {
 	// 	res.redirect('/admin')
 	// } else {
 	// 	res.redirect('/home');
 	// }
+});
+
+
+
+router.get('/admin', (req, res) => {
+	res.render('admin');
 });
 
 module.exports = router;
