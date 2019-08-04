@@ -17,7 +17,7 @@ router.get('/menu-chinese', (req, res) =>{
     var User = req.session.user;
     Item.findAll({
         where:{
-            cat: 'chinese'
+            cat: 'Chinese'
         },
         raw: true
     }).then((items) =>{
@@ -50,7 +50,7 @@ router.get('/menu-malay', (req, res) =>{
     var User = req.session.user;
     Item.findAll({
         where:{
-            cat: 'malay'
+            cat: 'Malay'
         },
         raw: true
     }).then((items) =>{
@@ -66,7 +66,7 @@ router.get('/menu-indian', (req, res) =>{
     var User = req.session.user;
     Item.findAll({
         where:{
-            cat: 'indian'
+            cat: 'Indian'
         },
         raw: true
     }).then((items) =>{
@@ -81,7 +81,7 @@ router.get('/menu-western', (req, res) =>{
     var User = req.session.user;
     Item.findAll({
         where:{
-            cat: 'western'
+            cat: 'Western'
         },
         raw: true
     }).then((items) =>{
@@ -96,7 +96,7 @@ router.get('/menu-fusion', (req, res) =>{
     var User = req.session.user;
     Item.findAll({
         where:{
-            cat: 'fusion'
+            cat: 'Fusion'
         },
         raw: true
     }).then((items) =>{
@@ -111,7 +111,7 @@ router.get('/menu-vegetarian', (req, res) =>{
     var User = req.session.user;
     Item.findAll({
         where:{
-            cat: 'vegetarian'
+            cat: 'Vegetarian'
         },
         raw: true
     }).then((items) =>{
@@ -126,7 +126,7 @@ router.get('/menu-desserts', (req, res) =>{
     var User = req.session.user;
     Item.findAll({
         where:{
-            cat: 'desserts'
+            cat: 'Desserts'
         },
         raw: true
     }).then((items) =>{
@@ -141,7 +141,7 @@ router.get('/menu-drinks', (req, res) =>{
     var User = req.session.user;
     Item.findAll({
         where:{
-            cat: 'drinks'
+            cat: 'Drinks'
         },
         raw: true
     }).then((items) =>{

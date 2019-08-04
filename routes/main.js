@@ -9,7 +9,8 @@ const chat = require('../class/chat_class');
 
 
 router.get('/', (req, res) => {
-	if (!req.session.user) {
+	var j = 0;
+	if (!req.session.user){
 		req.session.user = null;
 	}
 	if (!req.session.owner) {
@@ -20,37 +21,30 @@ router.get('/', (req, res) => {
 	const title = 'Smart Food';
 	var listNumbers = [];
 
-
+	/*
 	rating.countTotalItems().then(num => {
 		for (var i = 1; i <= num; i++) {
 			rating.averageRating(i);
 			rating.countTotalRates(i);
 		}
 	});
-	// res.render('home', {
-	// 															title: title,
-	// 															// itemsList1,
-	// 															// itemsList2,
-	// 															// itemsList3,
-	// 															// itemsList4,
-	// 															// itemsList5,
-	// 															// itemsList6,
-	// 															User,
-	// 															Owner
-	// 														});
-	// // res.render('home', {
-	// // 	User,
-	// // 	Owner
-	// // });
-
+	
 	rating.countTotalItems({
 
 	}).then((totalNumber) => {
 		for (var i = 1; i < 10; i++) {
 			var integer = Math.round(Math.random() * (totalNumber - 1) + 1);
-			if (listNumbers.includes(integer) || integer > totalNumber) {
+			if (j == 15 || isNaN(integer)) {
+				for (var k = 0; k < 9; k++){
+					listNumbers.push(0)
+					break;
+				}
+			}
+			else if (listNumbers.includes(integer) || integer > totalNumber) {
 				i -= 1;
-			} else {
+				j += 1;
+			}
+			else {	
 				listNumbers.push(integer);
 			}
 		}
@@ -86,7 +80,8 @@ router.get('/', (req, res) => {
 					})
 			})
 	})
-
+	*/
+	res.render('home', {title, User, Owner});
 });
 
 
