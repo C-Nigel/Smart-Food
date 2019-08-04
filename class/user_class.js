@@ -2,10 +2,7 @@ const UserModel = require('../models/User');
 var ex = module.exports = {};
 
 ex.getUserByAdmin = function (adminNo) {
-    return UserModel.findByPk(adminNo)
-        .catch(err => {
-            console.log(err)
-        });
+    return UserModel.findByPk(adminNo);
 };
 
 ex.getUserByTelegram = function (telegram) {

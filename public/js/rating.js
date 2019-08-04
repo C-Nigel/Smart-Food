@@ -30,8 +30,6 @@ $(document).ready(function () {
             first = parseInt(name.split('-')[0], 10);
             second = parseInt(name.split('-')[1], 10);
 
-            console.log(between(dc, first, second));
-
             if (between(dc, first, second)) {
                 th.addClass(value);
             }
