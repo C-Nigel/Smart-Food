@@ -2,13 +2,7 @@ const OutletModel = require('../models/Outlet');
 var ex = module.exports = {};
 
 ex.getOutletById = function(x){
-    return OutletModel.findOne({
-        where: { id: x },
-        raw: true
-    })
-    .catch(err => {
-        console.log(err)
-    });
+    return OutletModel.findByPk(x);
 }
 
 ex.createOutlet = function(name1, pswd, description){
