@@ -590,10 +590,13 @@ router.post('/loginseller', (req, res) => {
 
 router.post('/loginadmin', (req, res) => {
 	let {admin_no, password} = req.body;
+	var Admin = req.session.admin;
 	var admin = admin_no;
 		user.getUserByAdmin(admin).then(user => {
 			if(admin == user.admin_no && password == user.password){
-				res.redirect('/admin');
+				res.redirect('/admin',{
+					Admin
+				});
 			}
 			else{
 				res.render('user/loginadmin',{
