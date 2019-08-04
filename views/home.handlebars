@@ -684,10 +684,11 @@
                         <li data-target="#slides1" data-slide-to="2"></li>
                     </ol>
                     <div class="carousel-inner">
+                        {{#if itemsList1}}
                         {{#each itemsList1}}
                         <div class="carousel-item active">
                             <div class="featured-place-wrap">
-                                    <img src="img/featured1.jpg" class="img-fluid" alt="#">
+                                    <img src="img/noodle.jpg" class="img-fluid" alt="#">
                                     <span data-color="{{average_rating}}">{{average_rating}}</span>
                                     <div class="featured-title-box">
                                         <h6>{{name}}</h6>
@@ -711,10 +712,23 @@
                             </div>
                         </div>
                         {{/each}}
+                        {{else}}
+                        <div class="carousel-item active">
+                            <div class="featured-place-wrap">
+                                    <img src="img/img-no-cartitems.png" class="img-fluid" alt="#">
+                                    <span data-color="{{average_rating}}">{{average_rating}}</span>
+                                    <div class="featured-title-box">
+                                        <h6>{{name}}</h6>
+                                        <h6>No items picked</h6>
+                                    </div>
+                            </div>
+                        </div>
+                        {{/if}}
+                        {{#if itemsList2}}
                         {{#each itemsList2}}
                         <div class="carousel-item">
                             <div class="featured-place-wrap">
-                                    <img src="img/featured3.jpg" class="img-fluid" alt="#">
+                                    <img src="img/rice.jpg" class="img-fluid" alt="#">
                                     <span data-color="{{average_rating}}">{{average_rating}}</span>
                                     <div class="featured-title-box">
                                         <h6>{{name}}</h6>
@@ -738,6 +752,18 @@
                             </div>
                         </div>
                         {{/each}}
+                        {{else}}
+                        <div class="carousel-item">
+                            <div class="featured-place-wrap">
+                                    <img src="img/img-no-cartitems.png" class="img-fluid" alt="#">
+                                    <span data-color="{{average_rating}}">{{average_rating}}</span>
+                                    <div class="featured-title-box">
+                                        <h6>{{name}}</h6>
+                                        <h6>No items picked</h6>
+                                    </div>
+                            </div>
+                        </div>
+                        {{/if}}
                     </div>
                     <a class="carousel-control-prev" href="#slides1" role="button" data-slide="prev">
                         <span class="carousel-control-prev-icon" aria-hidden="true"></span>
@@ -758,10 +784,11 @@
                         <li data-target="#slides2" data-slide-to="2"></li>
                     </ol>
                     <div class="carousel-inner">
+                        {{#if itemsList3}}
                         {{#each itemsList3}}
                         <div class="carousel-item active">
                             <div class="featured-place-wrap">
-                                    <img src="img/featured2.jpg" class="img-fluid" alt="#">
+                                    <img src="img/beehoon.jpg" class="img-fluid" alt="#">
                                     <span data-color="{{average_rating}}">{{average_rating}}</span>
                                     <div class="featured-title-box">
                                         <h6>{{name}}</h6>
@@ -785,10 +812,23 @@
                             </div>
                         </div>
                         {{/each}}
+                        {{else}}
+                        <div class="carousel-item active">
+                            <div class="featured-place-wrap">
+                                    <img src="img/img-no-cartitems.png" class="img-fluid" alt="#">
+                                    <span data-color="{{average_rating}}">{{average_rating}}</span>
+                                    <div class="featured-title-box">
+                                        <h6>{{name}}</h6>
+                                        <h6>No items picked</h6>
+                                    </div>
+                            </div>
+                        </div>
+                        {{/if}}
+                        {{#if itemsList4}}
                         {{#each itemsList4}}
                         <div class="carousel-item">
                             <div class="featured-place-wrap">
-                                    <img src="img/featured1.jpg" class="img-fluid" alt="#">
+                                    <img src="img/friedrice.jpg" class="img-fluid" alt="#">
                                     <span data-color="{{average_rating}}">{{average_rating}}</span>
                                     <div class="featured-title-box">
                                         <h6>{{name}}</h6>
@@ -812,6 +852,18 @@
                             </div>
                         </div>
                         {{/each}}
+                        {{else}}
+                        <div class="carousel-item">
+                            <div class="featured-place-wrap">
+                                    <img src="img/img-no-cartitems.png" class="img-fluid" alt="#">
+                                    <span data-color="{{average_rating}}">{{average_rating}}</span>
+                                    <div class="featured-title-box">
+                                        <h6>{{name}}</h6>
+                                        <h6>No items picked</h6>
+                                    </div>
+                            </div>
+                        </div>
+                        {{/if}}
                     </div>
                     <a class="carousel-control-prev" href="#slides2" role="button" data-slide="prev">
                         <span class="carousel-control-prev-icon" aria-hidden="true"></span>
@@ -832,10 +884,11 @@
                         <li data-target="#slides3" data-slide-to="2"></li>
                     </ol>
                     <div class="carousel-inner">
+                        {{#if itemsList5}}
                         {{#each itemsList5}}
                         <div class="carousel-item active">
                             <div class="featured-place-wrap">
-                                    <img src="img/featured3.jpg" class="img-fluid" alt="#">
+                                    <img src="img/charkuayteow.jpg" class="img-fluid" alt="#">
                                     <span data-color="{{average_rating}}">{{average_rating}}</span>
                                     <div class="featured-title-box">
                                         <h6>{{name}}</h6>
@@ -859,10 +912,23 @@
                             </div>
                         </div>
                         {{/each}}
+                        {{else}}
+                        <div class="carousel-item active">
+                            <div class="featured-place-wrap">
+                                    <img src="img/img-no-cartitems.png" class="img-fluid" alt="#">
+                                    <span data-color="{{average_rating}}">{{average_rating}}</span>
+                                    <div class="featured-title-box">
+                                        <h6>{{name}}</h6>
+                                        <h6>No items picked</h6>
+                                    </div>
+                            </div>
+                        </div>
+                        {{/if}}
+                        {{#if itemsList6}}
                         {{#each itemsList6}}
                         <div class="carousel-item">
                             <div class="featured-place-wrap">
-                                    <img src="img/featured2.jpg" class="img-fluid" alt="#">
+                                    <img src="img/nasilemak.jpg" class="img-fluid" alt="#">
                                     <span data-color="{{average_rating}}">{{average_rating}}</span>
                                     <div class="featured-title-box">
                                         <h6>{{name}}</h6>
@@ -886,6 +952,18 @@
                             </div>
                         </div>
                         {{/each}}
+                        {{else}}
+                        <div class="carousel-item">
+                            <div class="featured-place-wrap">
+                                    <img src="img/img-no-cartitems.png" class="img-fluid" alt="#">
+                                    <span data-color="{{average_rating}}">{{average_rating}}</span>
+                                    <div class="featured-title-box">
+                                        <h6>{{name}}</h6>
+                                        <h6>No items picked</h6>
+                                    </div>
+                            </div>
+                        </div>
+                        {{/if}}
                     </div>
                     <a class="carousel-control-prev" href="#slides3" role="button" data-slide="prev">
                         <span class="carousel-control-prev-icon" aria-hidden="true"></span>
