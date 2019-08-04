@@ -34,62 +34,72 @@ router.get('/', (req, res) => {
 			})
 		}
 	});
-
+	res.render('home', {
+																title: title,
+																// itemsList1,
+																// itemsList2,
+																// itemsList3,
+																// itemsList4,
+																// itemsList5,
+																// itemsList6,
+																User,
+																Owner
+															});
 	// res.render('home', {
 	// 	User,
 	// 	Owner
 	// });
 	
-	rating.highestItemId({
+	// rating.highestItemId({
 
-	}).then((totalNumber) => {
-		for (var i = 1; i < 10; i++) {
-			var integer = Math.round(Math.random() * (totalNumber - 1) + 1);
-			console.log(integer);
-			items.getItemById(integer).then(item =>{
-				if (item == null){
-					i -= 1;
-				}
-				else if (listNumbers.includes(integer) || integer > totalNumber){
-					i -= 1;
-				}
-				else{
-					listNumbers.push(integer);
-				}
-			})
-		}
-	}).then(undefined => {
-		rating.query(listNumbers[0])
-			.then(([itemsList1, metadata]) => {
-				rating.query(listNumbers[1], listNumbers[2])
-					.then(([itemsList2, metadata]) => {
-						rating.query(listNumbers[3])
-							.then(([itemsList3, metadata]) => {
-								rating.query(listNumbers[4], listNumbers[5])
-									.then(([itemsList4, metadata]) => {
-										rating.query(listNumbers[6])
-											.then(([itemsList5, metadata]) => {
-												rating.query(listNumbers[7], listNumbers[8])
-													.then(([itemsList6, metadata]) => {
-														// renders views/home.handlebars
-														res.render('home', {
-															title: title,
-															itemsList1,
-															itemsList2,
-															itemsList3,
-															itemsList4,
-															itemsList5,
-															itemsList6,
-															User,
-															Owner
-														});
-													})
-											})
-									})
-							})
-					})
-			})
-	})
+	// }).then((totalNumber) => {
+	// 	for (var i = 1; i < 10; i++) {
+	// 		var integer = Math.round(Math.random() * (totalNumber - 1) + 1);
+	// 		console.log(integer);
+	// 		items.getItemById(integer).then(item =>{
+	// 			if (item == null){
+	// 				i -= 1;
+	// 			}
+	// 			else if (listNumbers.includes(integer) || integer > totalNumber){
+	// 				i -= 1;
+	// 			}
+	// 			else{
+	// 				listNumbers.push(integer);
+	// 			}
+	// 		})
+	// 	}
+	// }).then(undefined => {
+	// 	rating.query(listNumbers[0])
+	// 		.then(([itemsList1, metadata]) => {
+	// 			rating.query(listNumbers[1], listNumbers[2])
+	// 				.then(([itemsList2, metadata]) => {
+	// 					rating.query(listNumbers[3])
+	// 						.then(([itemsList3, metadata]) => {
+	// 							rating.query(listNumbers[4], listNumbers[5])
+	// 								.then(([itemsList4, metadata]) => {
+	// 									rating.query(listNumbers[6])
+	// 										.then(([itemsList5, metadata]) => {
+	// 											rating.query(listNumbers[7], listNumbers[8])
+	// 												.then(([itemsList6, metadata]) => {
+	// 													// renders views/home.handlebars
+	// 													res.render('home', {
+	// 														title: title,
+	// 														itemsList1,
+	// 														itemsList2,
+	// 														itemsList3,
+	// 														itemsList4,
+	// 														itemsList5,
+	// 														itemsList6,
+	// 														User,
+	// 														Owner
+	// 													});
+	// 												})
+	// 										})
+	// 								})
+	// 						})
+	// 				})
+	// 		})
+	// })
 });
 
 
@@ -152,6 +162,54 @@ router.get('/profile', (req, res) => {
 		})
 	} else {
 		res.render('user/profile');
+	}
+
+});
+
+router.get('/changepassword', (req, res) => {
+	var User = req.session.user;
+	if (User) {
+		users.getUserByAdmin(User).then(user => {
+			var admin_no = user.admin_no;
+			var full_name = user.full_name;
+			var phone_no = user.phone_no;
+			var telegram_id = user.telegram_id;
+			var picture = user.picture;
+			res.render('user/changepassword', {
+				User,
+				admin_no,
+				full_name,
+				phone_no,
+				telegram_id,
+				picture
+			});
+		})
+	} else {
+		res.render('user/changepassword');
+	}
+
+});
+
+router.get('/twofa', (req, res) => {
+	var User = req.session.user;
+	if (User) {
+		users.getUserByAdmin(User).then(user => {
+			var admin_no = user.admin_no;
+			var full_name = user.full_name;
+			var phone_no = user.phone_no;
+			var telegram_id = user.telegram_id;
+			var picture = user.picture;
+			res.render('user/twofa', {
+				User,
+				admin_no,
+				full_name,
+				phone_no,
+				telegram_id,
+				picture
+			});
+		})
+	} else {
+		res.render('user/twofa');
 	}
 
 });

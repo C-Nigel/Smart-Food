@@ -97,6 +97,10 @@ router.post('/twofa', (req, res) => {
 	let success_msg = [];
 	var User = req.session.user;
 	user.getUserByAdmin(User).then(user => {
+        var admin_no = user.admin_no;
+        var full_name = user.full_name;
+        var phone_no = user.phone_no;
+        var telegram_id = user.telegram_Id;
 		if (user.admin_status == 0) {
 			Usermodel.update({
 				admin_status: 1
@@ -108,7 +112,11 @@ router.post('/twofa', (req, res) => {
 				success_msg.push({
 					text: 'Two Factor Authentication Enabled!'
 				});
-				res.render('user/profile', {
+				res.render('user/twofa', {
+                    admin_no,
+                    full_name,
+                    phone_no,
+                    telegram_id,
 					user,
 					success_msg
 
@@ -125,7 +133,11 @@ router.post('/twofa', (req, res) => {
 				success_msg.push({
 					text: 'Two Factor Authentication Disabled!'
 				});
-				res.render('user/profile', {
+				res.render('user/twofa', {
+                    admin_no,
+                    full_name,
+                    phone_no,
+                    telegram_id,
 					user,
 					success_msg
 
@@ -136,7 +148,7 @@ router.post('/twofa', (req, res) => {
 });
 router.post('/changepassword', (req, res) => {
 	let errors = [];
-	let success_msg = [];
+	let success_msg = 'Password successfully changed!';
 	let {
 		old_password,
 		new_password,
@@ -147,23 +159,33 @@ router.post('/changepassword', (req, res) => {
 
 	user.getUserByAdmin(User).then(user => {
 		var isSame = bcrypt.compareSync(old_password, user.password);
-
+        var admin_no = user.admin_no;
+        var full_name = user.full_name;
+        var phone_no = user.phone_no;
+        var telegram_id = user.telegram_Id;
 		if (isSame == false) {
 			errors.push({
 				text: 'Old password not correct!'
 			});
-			res.render('user/profile', {
+			res.render('user/changepassword', {
 				errors,
-				user,
+                user,
+                admin_no,
+                full_name,
+                phone_no,
+                telegram_id,
 				User
 			});
 		} else if (new_password != confirmpassword2) {
 			errors.push({
 				text: 'New passwords do not match!'
 			});
-			res.render('user/profile', {
+			res.render('user/changepassword', {
 				errors,
-				user,
+                admin_no,
+                full_name,
+                phone_no,
+                telegram_id,
 				User
 			});
 		} else {
@@ -175,9 +197,7 @@ router.post('/changepassword', (req, res) => {
 					admin_no: User
 				}
 			}).then(() => {
-				success_msg.push({
-					text: 'Password Successfully changed!'
-				});
+				
 				res.render('user/loginuser', {
 					success_msg
 				});
@@ -566,11 +586,10 @@ router.post('/loginseller', (req, res) => {
 	}
 });
 
-// router.post('/history', (req,res) =>{
 
-// })
 
 router.post('/loginadmin', (req, res) => {
+    let {}
 	var pass = password;
 
 	if (Admin_ID == SFAdmin && pass == SFAd45) {
