@@ -571,34 +571,19 @@ router.post('/loginseller', (req, res) => {
 // })
 
 router.post('/loginadmin', (req, res) => {
-    let {admin_id, password} = req.body;
-    if (isNaN(admin_id)) {
-		errors.push({
-			text: 'Invalid Admin Id!'
-		});
-    }
-    if (errors.length > 0) {
-		res.render('user/loginadmin', {
-			errors,
-			admin_id,
-			password
-		});
-	}
-    else{
-        user.getUserByAdmin(admin_id).then(user => {
-            if(admin_id === "SFAdmin" && password === "SFAd45"){
-                res.redirect('/admin');
-            }
-            else{
-                res.render('user/loginadmin', {
-                    errors,
-                    admin_id
-                });
-            }
-        })
-    }
-
-
+	let {admin_no, password} = req.body;
+	var admin = admin_no;
+		user.getUserByAdmin(admin).then(user => {
+			if(admin == user.admin_no && password == user.password){
+				res.redirect('/admin');
+			}
+			else{
+				res.render('user/loginadmin',{
+					errors,
+					admin_no
+				});
+			}
+		})
 	// if (user.admin_no == SFAdmin  && user.password == SFAd45) {
 	// 	res.redirect('/admin')
 	// } else {
