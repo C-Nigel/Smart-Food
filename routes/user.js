@@ -589,14 +589,24 @@ router.post('/loginseller', (req, res) => {
 
 
 router.post('/loginadmin', (req, res) => {
-    let {}
-	var pass = password;
-
-	if (Admin_ID == SFAdmin && pass == SFAd45) {
-		res.redirect('/admin')
-	} else {
-		res.redirect('/home');
-	}
+	let {admin_no, password} = req.body;
+	var admin = admin_no;
+		user.getUserByAdmin(admin).then(user => {
+			if(admin == user.admin_no && password == user.password){
+				res.redirect('/admin');
+			}
+			else{
+				res.render('user/loginadmin',{
+					errors,
+					admin_no
+				});
+			}
+		})
+	// if (user.admin_no == SFAdmin  && user.password == SFAd45) {
+	// 	res.redirect('/admin')
+	// } else {
+	// 	res.redirect('/home');
+	// }
 });
 
 module.exports = router;

@@ -46,7 +46,7 @@ ex.count = function () {
     })
 };
 
-ex.highestItemId = function () {
+ex.countTotalItems = function () {
     return itemModel.max('id')
 };
 
