@@ -21,7 +21,7 @@ router.get('/', (req, res) => {
 	const title = 'Smart Food';
 	var listNumbers = [];
 
-
+	/*
 	rating.countTotalItems().then(num => {
 		for (var i = 1; i <= num; i++) {
 			rating.averageRating(i);
@@ -80,7 +80,8 @@ router.get('/', (req, res) => {
 					})
 			})
 	})
-
+	*/
+	res.render('home', {title, User, Owner});
 });
 
 
