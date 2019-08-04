@@ -70,10 +70,12 @@ ex.query = function (indexitem1, indexitem2) {
     if (indexitem2 == undefined) {
         return db.query('SELECT items.id, items.name, items.cat, items.price, items.outlet_id, outlets.name AS location, outlets.desc, items.average_rating, items.total_rating FROM ooadp.items, ooadp.outlets WHERE items.outlet_id = outlets.id AND items.id = ' + indexitem1);
     }
-    else {
+    else if(indexitem2 != undefined && indexitem2 != undefined){
         return db.query('SELECT items.id, items.name, items.cat, items.price, items.outlet_id, outlets.name AS location, outlets.desc, items.average_rating, items.total_rating FROM ooadp.items, ooadp.outlets WHERE items.outlet_id = outlets.id AND items.id IN (' + indexitem1 + ',' + indexitem2 + ')');
-
     } 
+    else if(indexitem1 == NaN || indexitem1 == 0){
+        return [];
+    }
 };
 
 ex.createRatings = function () {

@@ -34,9 +34,9 @@ router.get('/', (req, res) => {
 	}).then((totalNumber) => {
 		for (var i = 1; i < 10; i++) {
 			var integer = Math.round(Math.random() * (totalNumber - 1) + 1);
-			if (j == 15) {
+			if (j == 15 || isNaN(integer)) {
 				for (var k = 0; k < 9; k++){
-					listNumbers.push(1)
+					listNumbers.push(0)
 					break;
 				}
 			}
