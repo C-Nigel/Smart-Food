@@ -76,3 +76,10 @@ ex.setOutlet = function(itemid, outletid){
         console.log(err)
     })
 }
+
+ex.findItem = function(itemID){
+    return ItemModel.findOne({
+        where: {id: itemID},
+        raw: true
+    })
+}

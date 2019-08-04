@@ -6,6 +6,9 @@ var ex = module.exports = {};
 ex.getUserChatByUserId = function(useradmin){
     return ChatModel.findAll({
         where: { user_admin: useradmin },
+        order: [
+            ['createdAt', 'DESC']
+        ],
         raw: true
     })
 };

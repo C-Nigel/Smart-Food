@@ -5,6 +5,7 @@ const users = require('../class/user_class');
 const items = require('../class/item_class');
 const bot = require('../config/telegram');
 const rating = require('../class/rating_class');
+const chat = require('../class/chat_class');
 
 
 router.get('/', (req, res) => {
@@ -20,10 +21,17 @@ router.get('/', (req, res) => {
 	var listNumbers = [];
 
 
-	rating.countTotalItems().then(num => {
+	rating.highestItemId().then(num => {
 		for (var i = 1; i <= num; i++) {
-			rating.averageRating(i);
-			rating.countTotalRates(i);
+			items.getItemById(i).then(item => {
+				if (item == null){
+
+				}
+				else{
+					rating.averageRating(i);
+					rating.countTotalRates(i);
+				}
+			})
 		}
 	});
 
@@ -32,17 +40,23 @@ router.get('/', (req, res) => {
 	// 	Owner
 	// });
 	
-	rating.countTotalItems({
+	rating.highestItemId({
 
 	}).then((totalNumber) => {
 		for (var i = 1; i < 10; i++) {
 			var integer = Math.round(Math.random() * (totalNumber - 1) + 1);
-			if (listNumbers.includes(integer) || integer > totalNumber) {
-				i -= 1;
-			}
-			else {	
-				listNumbers.push(integer);
-			}
+			console.log(integer);
+			items.getItemById(integer).then(item =>{
+				if (item == null){
+					i -= 1;
+				}
+				else if (listNumbers.includes(integer) || integer > totalNumber){
+					i -= 1;
+				}
+				else{
+					listNumbers.push(integer);
+				}
+			})
 		}
 	}).then(undefined => {
 		rating.query(listNumbers[0])
@@ -76,7 +90,7 @@ router.get('/', (req, res) => {
 					})
 			})
 	})
-	
+
 });
 
 
@@ -260,35 +274,39 @@ router.get('/history', (req, res) => {
 			var phone_no = user.phone_no;
 			var user_admin = admin;
 			orders.getOrdersFromUser(admin).then(order =>{
-				if(order){
-					// var createdAt = order.createdAt;
-					// var item_name = order.item_name;
-					// var item_id = order.item_id;
-					res.render('history',{
-						User,
-						full_name,
-						user_admin,
-						phone_no,
-						order
-						// createdAt,
-						// item_name,
-						// item_id
-					})
-				}
-				else{
-					res.render('history', {
-						User,
-						full_name,
-						user_admin,
-						phone_no
-					});
-				}
-				
+				chat.getUserChatByUserId(admin).then(chats => {
+					if(order){
+						// var createdAt = order.createdAt;
+						// var item_name = order.item_name;
+						// var item_id = order.item_id;
+						res.render('history',{
+							User,
+							full_name,
+							user_admin,
+							phone_no,
+							order,
+							chats
+							// createdAt,
+							// item_name,
+							// item_id
+						})
+					}
+					else{
+						res.render('history', {
+							User,
+							full_name,
+							user_admin,
+							phone_no,
+							chats
+						});
+					}
+				})
 			});
 		}
 		else{
 			res.render('history',{
-				User
+				User,
+				chats
 			});
 		}
 	
