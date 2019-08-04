@@ -94,7 +94,8 @@ router.post('/delete', (req, res) => {
 	}
 });
 router.post('/twofa', (req, res) => {
-	let success_msg = [];
+    let success_msg = 'Two Factor Authentication Disabled!';
+    let errors = 'Two Factor Authentication Disabled!';
 	var User = req.session.user;
 	user.getUserByAdmin(User).then(user => {
         var admin_no = user.admin_no;
@@ -109,10 +110,8 @@ router.post('/twofa', (req, res) => {
 					admin_no: User
 				}
 			}).then(user => {
-				success_msg.push({
-					text: 'Two Factor Authentication Enabled!'
-				});
 				res.render('user/twofa', {
+                    success_msg,
                     admin_no,
                     full_name,
                     phone_no,
@@ -130,10 +129,8 @@ router.post('/twofa', (req, res) => {
 					admin_no: User
 				}
 			}).then(user => {
-				success_msg.push({
-					text: 'Two Factor Authentication Disabled!'
-				});
 				res.render('user/twofa', {
+                    errors,
                     admin_no,
                     full_name,
                     phone_no,
@@ -207,6 +204,7 @@ router.post('/changepassword', (req, res) => {
 });
 
 router.post('/profile', (req, res) => {
+    let success_msg = 'Profile successfully changed!';
 	let errors = [];
 	let {
 		admin_no,
@@ -266,6 +264,7 @@ router.post('/profile', (req, res) => {
 						}
 					}).then(user => {
 						res.render('user/profile', {
+                            success_msg,
 							admin_no,
 							full_name,
 							phone_no,
