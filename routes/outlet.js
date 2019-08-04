@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
-const Outlet = require('../models/Outlet')
+const Outlet = require('../models/Outlet');
+const Item = require('../models/Item');
 const outlet_class = require('../class/outlet_class')
 var bcrypt = require('bcryptjs');
 var salt = bcrypt.genSaltSync(10);
@@ -27,21 +28,28 @@ router.get('/outlet/addSO', (req, res) =>{
     .catch(err => console.log(err));
 });
 
-router.get('/delete/:id', (req, res) => {
-    var OutletID = req.params.id;
+router.get('/delete/:name', (req, res) => {
+    var outletName = req.params.name;
     Outlet.findOne({
         where:{
-            id: OutletID
+            name:outletName
         }
     }).then((outlets) =>{
-        if (outlets.id === OutletID){
+        if (outlets.name === outletName){
             Outlet.destroy({
                 where:{
-                    id: OutletID
+                    name:outletName
                 }
             }).then((outlets) => {
                 res.redirect('/outlet/outlet/addSO');
             }).catch(err => console.log(err));
+        }
+        if(Outlet.destroy == true){
+            Item.destroy({
+                where: {
+                    id:outlet_id
+                }
+            })
         }
     })
 });

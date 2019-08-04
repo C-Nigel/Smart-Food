@@ -4,13 +4,7 @@ const RatingModel = require('../models/Rating');
 var ex = module.exports = {};
 
 ex.getItemById = function(itemid){
-    return ItemModel.findOne({
-        where: {id: itemid},
-        raw: true
-    })
-    .catch(err => {
-        console.log(err);
-    })
+    return ItemModel.findByPk(itemid);
 }
 
 ex.getItemsByOutlet = function(outlet){

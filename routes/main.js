@@ -9,10 +9,10 @@ const chat = require('../class/chat_class');
 
 
 router.get('/', (req, res) => {
-	if (!req.session.user){
+	if (!req.session.user) {
 		req.session.user = null;
 	}
-	if (!req.session.owner){
+	if (!req.session.owner) {
 		req.session.owner = null;
 	}
 	var User = req.session.user;
@@ -90,7 +90,6 @@ router.get('/', (req, res) => {
 					})
 			})
 	})
-
 });
 
 
@@ -235,7 +234,7 @@ router.post('/newItem', (req, res) => {
 	items.createItem(itemName, itemCategory, itemPrice, null, outletid).then(() => {
 		res.redirect('/listItems');
 	});
-	
+
 });
 
 router.get('/editItem/:id', (req, res) => {
@@ -261,15 +260,14 @@ router.get('/deleteItem/:item', (req, res) => {
 	items.deleteItem(req.params.item).then(() => {
 		res.redirect('/listItems');
 	});
-	
+
 })
 
 router.get('/history', (req, res) => {
 	let admin = req.session.user;
 	var User = admin
-	users.getUserByAdmin(admin).then(user =>{
-		if(user)
-		{
+	users.getUserByAdmin(admin).then(user => {
+		if (user) {
 			var full_name = user.full_name;
 			var phone_no = user.phone_no;
 			var user_admin = admin;
@@ -309,9 +307,9 @@ router.get('/history', (req, res) => {
 				chats
 			});
 		}
-	
+
 
 	});
-	
+
 });
 module.exports = router;

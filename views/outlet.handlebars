@@ -10,19 +10,19 @@
                 {{desc}} </p>
 
                 <p class="font-italic">
-						<a href="" class="card-link">
+						{{!-- <a href="" class="card-link">
                             <button type="button">
                                 <i class="fas fa-pencil-alt"></i>
 							    Edit
                             </button>
-						</a>
-						<a href="/order/delete/{{id}}" class="card-link">
+						</a> --}}
+						<a href="/outlet/delete/{{name}}" class="card-link">
                             <button type="button" formmethod="get">
                                 <i class="far fa-trash-alt"></i>
                                      Delete
                             </button>
 						</a>
-                        </p>
+                </p>
         </div>
         
     {{/each}}
@@ -32,6 +32,14 @@
     {{else}}
         <h3>No stall owners info added ! Please Add more info</h3>
     {{/if}}
+
+<br>
+<br>
+<div>
+    <a href="/admin">
+        <button type="button"> Back </button>
+    </a> 
+</div>
 
 
 <style>
