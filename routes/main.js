@@ -13,7 +13,7 @@ router.get('/', (req, res) => {
 	if (!req.session.user){
 		req.session.user = null;
 	}
-	if (!req.session.owner){
+	if (!req.session.owner) {
 		req.session.owner = null;
 	}
 	var User = req.session.user;
@@ -80,7 +80,7 @@ router.get('/', (req, res) => {
 					})
 			})
 	})
-	
+
 });
 
 
@@ -124,6 +124,7 @@ router.get('/changepassword', (req, res) => {
 });
 
 router.get('/profile', (req, res) => {
+	let errors = 'Please login to access the page!';
 	var User = req.session.user;
 	if (User) {
 		users.getUserByAdmin(User).then(user => {
@@ -142,12 +143,15 @@ router.get('/profile', (req, res) => {
 			});
 		})
 	} else {
-		res.render('user/profile');
+		res.render('user/loginuser',{
+			errors
+		});
 	}
 
 });
 
 router.get('/changepassword', (req, res) => {
+	let errors = 'Please login to access the page!';
 	var User = req.session.user;
 	if (User) {
 		users.getUserByAdmin(User).then(user => {
@@ -166,12 +170,15 @@ router.get('/changepassword', (req, res) => {
 			});
 		})
 	} else {
-		res.render('user/changepassword');
+		res.render('user/loginuser',{
+			errors
+		});
 	}
 
 });
 
 router.get('/twofa', (req, res) => {
+	let errors = 'Please login to access the page!';
 	var User = req.session.user;
 	if (User) {
 		users.getUserByAdmin(User).then(user => {
@@ -190,7 +197,9 @@ router.get('/twofa', (req, res) => {
 			});
 		})
 	} else {
-		res.render('user/twofa');
+		res.render('user/loginuser',{
+			errors
+		});
 	}
 
 });
@@ -261,10 +270,14 @@ router.get('/listItems', (req, res) => {
 
 router.get('/newItem', (req, res) => {
 	let outletid = req.session.owner;
-	res.render('stallowner/newItem', {
-		outlet: outletid,
-		Owner: true
-	});
+	if (outletid) {
+		res.render('stallowner/newItem', {
+			outlet: outletid,
+			Owner: true
+		});
+	} else {
+		res.redirect('/');
+	}
 });
 
 router.post('/newItem', (req, res) => {
@@ -274,19 +287,23 @@ router.post('/newItem', (req, res) => {
 		itemCategory,
 		outletid
 	} = req.body;
-	items.createItem(itemName, itemCategory, itemPrice, null, outletid).then(() => {
+	items.createItem(itemName, itemCategory, itemPrice, outletid).then(() => {
 		res.redirect('/listItems');
 	});
-	
+
 });
 
 router.get('/editItem/:id', (req, res) => {
-	items.getItemById(req.params.id).then(item => {
-		res.render('stallowner/editItem', {
-			item: item,
-			Owner: true
+	if (req.session.owner) {
+		items.getItemById(req.params.id).then(item => {
+			res.render('stallowner/editItem', {
+				item: item,
+				Owner: true
+			});
 		});
-	});
+	} else {
+		res.redirect('/');
+	}
 });
 
 router.post('/editItem/:id', (req, res) => {
@@ -300,28 +317,31 @@ router.post('/editItem/:id', (req, res) => {
 });
 
 router.get('/deleteItem/:item', (req, res) => {
-	items.deleteItem(req.params.item).then(() => {
-		res.redirect('/listItems');
-	});
-	
+	if (req.session.owner) {
+		items.deleteItem(req.params.item).then(() => {
+			res.redirect('/listItems');
+		});
+	} else {
+		res.redirect('/');
+	}
 })
 
 router.get('/history', (req, res) => {
+	let errors = 'Please login to access the page!';
 	let admin = req.session.user;
 	var User = admin
-	users.getUserByAdmin(admin).then(user =>{
-		if(user)
-		{
+	users.getUserByAdmin(admin).then(user => {
+		if (user) {
 			var full_name = user.full_name;
 			var phone_no = user.phone_no;
 			var user_admin = admin;
-			orders.getOrdersFromUser(admin).then(order =>{
+			orders.getOrdersFromUser(admin).then(order => {
 				chat.getUserChatByUserId(admin).then(chats => {
-					if(order){
+					if (order) {
 						// var createdAt = order.createdAt;
 						// var item_name = order.item_name;
 						// var item_id = order.item_id;
-						res.render('history',{
+						res.render('history', {
 							User,
 							full_name,
 							user_admin,
@@ -332,8 +352,7 @@ router.get('/history', (req, res) => {
 							// item_name,
 							// item_id
 						})
-					}
-					else{
+					} else {
 						res.render('history', {
 							User,
 							full_name,
@@ -346,14 +365,13 @@ router.get('/history', (req, res) => {
 			});
 		}
 		else{
-			res.render('history',{
-				User,
-				chats
+			res.render('user/loginuser',{
+				errors
 			});
 		}
-	
+
 
 	});
-	
+
 });
 module.exports = router;
