@@ -24,10 +24,10 @@ router.get('/', (req, res) => {
 	rating.highestItemId().then(num => {
 		for (var i = 1; i <= num; i++) {
 			items.getItemById(i).then(item => {
-				if (item == null){
+				if (item == null) {
 
 				}
-				else{
+				else {
 					rating.averageRating(i);
 					rating.countTotalRates(i);
 				}
@@ -39,21 +39,21 @@ router.get('/', (req, res) => {
 	// 	User,
 	// 	Owner
 	// });
-	
+
 	rating.highestItemId({
 
 	}).then((totalNumber) => {
 		for (var i = 1; i < 10; i++) {
 			var integer = Math.round(Math.random() * (totalNumber - 1) + 1);
 			console.log(integer);
-			items.getItemById(integer).then(item =>{
-				if (item == null){
+			items.getItemById(integer).then(item => {
+				if (item == null || item == undefined) {
 					i -= 1;
 				}
-				else if (listNumbers.includes(integer) || integer > totalNumber){
+				else if (listNumbers.includes(integer) || integer > totalNumber) {
 					i -= 1;
 				}
-				else{
+				else {
 					listNumbers.push(integer);
 				}
 			})
@@ -271,13 +271,13 @@ router.get('/history', (req, res) => {
 			var full_name = user.full_name;
 			var phone_no = user.phone_no;
 			var user_admin = admin;
-			orders.getOrdersFromUser(admin).then(order =>{
+			orders.getOrdersFromUser(admin).then(order => {
 				chat.getUserChatByUserId(admin).then(chats => {
-					if(order){
+					if (order) {
 						// var createdAt = order.createdAt;
 						// var item_name = order.item_name;
 						// var item_id = order.item_id;
-						res.render('history',{
+						res.render('history', {
 							User,
 							full_name,
 							user_admin,
@@ -289,7 +289,7 @@ router.get('/history', (req, res) => {
 							// item_id
 						})
 					}
-					else{
+					else {
 						res.render('history', {
 							User,
 							full_name,
@@ -301,8 +301,8 @@ router.get('/history', (req, res) => {
 				})
 			});
 		}
-		else{
-			res.render('history',{
+		else {
+			res.render('history', {
 				User,
 				chats
 			});
