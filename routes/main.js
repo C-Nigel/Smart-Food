@@ -131,6 +131,7 @@ router.get('/changepassword', (req, res) => {
 });
 
 router.get('/profile', (req, res) => {
+	let errors = 'Please login to access the page!';
 	var User = req.session.user;
 	if (User) {
 		users.getUserByAdmin(User).then(user => {
@@ -149,12 +150,15 @@ router.get('/profile', (req, res) => {
 			});
 		})
 	} else {
-		res.render('user/profile');
+		res.render('user/loginuser',{
+			errors
+		});
 	}
 
 });
 
 router.get('/changepassword', (req, res) => {
+	let errors = 'Please login to access the page!';
 	var User = req.session.user;
 	if (User) {
 		users.getUserByAdmin(User).then(user => {
@@ -173,12 +177,15 @@ router.get('/changepassword', (req, res) => {
 			});
 		})
 	} else {
-		res.render('user/changepassword');
+		res.render('user/loginuser',{
+			errors
+		});
 	}
 
 });
 
 router.get('/twofa', (req, res) => {
+	let errors = 'Please login to access the page!';
 	var User = req.session.user;
 	if (User) {
 		users.getUserByAdmin(User).then(user => {
@@ -197,7 +204,9 @@ router.get('/twofa', (req, res) => {
 			});
 		})
 	} else {
-		res.render('user/twofa');
+		res.render('user/loginuser',{
+			errors
+		});
 	}
 
 });
@@ -310,6 +319,7 @@ router.get('/deleteItem/:item', (req, res) => {
 })
 
 router.get('/history', (req, res) => {
+	let errors = 'Please login to access the page!';
 	let admin = req.session.user;
 	var User = admin
 	users.getUserByAdmin(admin).then(user =>{
@@ -349,9 +359,8 @@ router.get('/history', (req, res) => {
 			});
 		}
 		else{
-			res.render('history',{
-				User,
-				chats
+			res.render('user/loginuser',{
+				errors
 			});
 		}
 	
