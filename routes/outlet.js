@@ -44,14 +44,26 @@ router.get('/delete/:name', (req, res) => {
                 res.redirect('/outlet/outlet/addSO');
             }).catch(err => console.log(err));
         }
-        if(Outlet.destroy == true){
-            Item.destroy({
-                where: {
-                    id:outlet_id
-                }
-            })
-        }
     })
 });
+
+// router.get('/delete/:outlet_id', (req, res) => {
+//     var outletID = req.params.outlet_id;
+//     Item.findAll({
+//         where:{
+//             id:outletID
+//         }
+//     }).then((items) => {
+//         if (items.outlet_id === outletID){
+//             Item.destroy({
+//                 where:{
+//                     id:outletID
+//                 }
+//             }).then((items) =>{
+//                 res.redirect('/outlet/outlet/addSO');
+//             }).catch(err => console.log(err));
+//         }
+//     })
+// });
 
 module.exports = router;

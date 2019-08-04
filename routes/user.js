@@ -571,13 +571,39 @@ router.post('/loginseller', (req, res) => {
 // })
 
 router.post('/loginadmin', (req, res) => {
-	var pass = password;
-
-	if (Admin_ID == SFAdmin && pass == SFAd45) {
-		res.redirect('/admin')
-	} else {
-		res.redirect('/home');
+    let {admin_id, password} = req.body;
+    if (isNaN(admin_id)) {
+		errors.push({
+			text: 'Invalid Admin Id!'
+		});
+    }
+    if (errors.length > 0) {
+		res.render('user/loginadmin', {
+			errors,
+			admin_id,
+			password
+		});
 	}
+    else{
+        user.getUserByAdmin(admin_id).then(user => {
+            if(admin_id === "SFAdmin" && password === "SFAd45"){
+                res.redirect('/admin');
+            }
+            else{
+                res.render('user/loginadmin', {
+                    errors,
+                    admin_id
+                });
+            }
+        })
+    }
+
+
+	// if (user.admin_no == SFAdmin  && user.password == SFAd45) {
+	// 	res.redirect('/admin')
+	// } else {
+	// 	res.redirect('/home');
+	// }
 });
 
 module.exports = router;
