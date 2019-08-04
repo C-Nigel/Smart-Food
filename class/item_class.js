@@ -7,6 +7,13 @@ ex.getItemById = function(itemid){
     return ItemModel.findByPk(itemid);
 }
 
+ex.getitem = function(itemid){
+    return ItemModel.findOne({
+        where: {id: itemid},
+        raw: true
+    })
+}
+
 ex.getItemsByOutlet = function(outlet){
     return ItemModel.findAll({
         where: { outlet_id: outlet },

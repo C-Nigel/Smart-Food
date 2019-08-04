@@ -7,7 +7,14 @@ Author: Surjith S M
 /* ==============================================================
   GLOBAL STYLES
    ============================================================== */
-.lilist {
+.ratingbg {
+  background-image: url("../img/ratingscomplete.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position-x: -150px;
+}
+
+   .lilist {
   padding-top: 10px;
 }
 
