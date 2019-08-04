@@ -243,8 +243,12 @@ router.post('/orders/:id/:status', (req, res) => {
 		users.getUserByAdmin(order.user_admin).then(user => {
 			if (status == 1 && user.telegram_id) {
 				bot.sendMessage(user.telegram_id, "Your order for " + order.item_name + " (order id: " + order.id + ") is ready for collection!");
+				chat.systemMsg(order.user_admin, "Your order for " + order.item_name + " (order id: " + order.id + ") is ready for collection!");
 			} else if (status == 2 && user.telegram_id) {
 				bot.sendMessage(user.telegram_id, "Your order (order id: " + order.id + ") has been collected. Thank you for shopping with us!");
+				chat.systemMsg(order.user_admin, "Your order (order id: " + order.id + ") has been collected. Thank you for shopping with us!");
+				bot.sendMessage(user.telegram_id, "Do help us to rate your food at localhost:5000/review/" + user.user_admin);
+				chat.systemMsg(order.user_admin, "Do help us to rate your food at localhost:5000/review/" + user.user_admin);
 			}
 		})
 	})
