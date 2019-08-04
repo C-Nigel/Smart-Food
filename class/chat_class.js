@@ -6,6 +6,9 @@ var ex = module.exports = {};
 ex.getUserChatByUserId = function(useradmin){
     return ChatModel.findAll({
         where: { user_admin: useradmin },
+        order: [
+            ['createdAt', 'DESC']
+        ],
         raw: true
     })
 };
@@ -42,6 +45,6 @@ ex.userMsg = function(telegram, msgs){
             console.log(" User " + user.full_name + " (" + user.admin_no + ") not found in DB and failed to register message (" + msgs + " into database!")
         }
     }).catch(err =>{
-        console.log("User did not provide admin number! Unable to log message.")
+        console.log("User admin was not found/not provided beforehand! Unable to log message.")
     })
 }

@@ -7,6 +7,13 @@ ex.getItemById = function(itemid){
     return ItemModel.findByPk(itemid);
 }
 
+ex.getitem = function(itemid){
+    return ItemModel.findOne({
+        where: {id: itemid},
+        raw: true
+    })
+}
+
 ex.getItemsByOutlet = function(outlet){
     return ItemModel.findAll({
         where: { outlet_id: outlet },
@@ -68,5 +75,12 @@ ex.setOutlet = function(itemid, outletid){
         { where: { id, itemid }}
     ).catch(err => {
         console.log(err)
+    })
+}
+
+ex.findItem = function(itemID){
+    return ItemModel.findOne({
+        where: {id: itemID},
+        raw: true
     })
 }

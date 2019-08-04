@@ -3,6 +3,10 @@ const router = express.Router();
 const item_class = require('../class/item_class')
 const Item = require('../models/Item');
 const order_class = require('../class/order_class');
+const bot = require('../config/telegram');
+const User = require('../class/user_class');
+const Chat = require("../class/chat_class");
+const outlet = require("../class/outlet_class");
 
 
 
@@ -26,6 +30,19 @@ router.get('/menu-chinese', (req, res) =>{
 
 router.post('/menu-order/:admin/:item', (req, res) => {
     order_class.createOrder(req.params.item, req.params.admin);
+    item_class.getItemById(req.params.item).then(itemDetails => {
+        outlet.getOutletById(itemDetails.outlet_id).then(outletDetails => {
+            setTimeout(function () {
+                User.getUserByAdmin(req.params.admin).then(user => {
+                    bot.sendMessage(user.telegram_id, 'Your order for ' + itemDetails.name + ' has been sent to '+outletDetails.name+'. You will be notified when your order is ready.');
+                    Chat.systemMsg(user.telegram_id, 'Your order for ' + itemDetails.name + ' has been sent to '+outletDetails.name+'. You will be notified when your order is ready.');
+                })
+            }, 500);
+
+        })
+
+    })
+   
 })
 
 

@@ -5,13 +5,14 @@ const users = require('../class/user_class');
 const items = require('../class/item_class');
 const bot = require('../config/telegram');
 const rating = require('../class/rating_class');
+const chat = require('../class/chat_class');
 
 
 router.get('/', (req, res) => {
-	if (!req.session.user) {
+	if (!req.session.user){
 		req.session.user = null;
 	}
-	if (!req.session.owner) {
+	if (!req.session.owner){
 		req.session.owner = null;
 	}
 	var User = req.session.user;
@@ -27,6 +28,11 @@ router.get('/', (req, res) => {
 		}
 	});
 
+	// res.render('home', {
+	// 	User,
+	// 	Owner
+	// });
+	
 	rating.countTotalItems({
 
 	}).then((totalNumber) => {
@@ -34,7 +40,8 @@ router.get('/', (req, res) => {
 			var integer = Math.round(Math.random() * (totalNumber - 1) + 1);
 			if (listNumbers.includes(integer) || integer > totalNumber) {
 				i -= 1;
-			} else {
+			}
+			else {	
 				listNumbers.push(integer);
 			}
 		}
@@ -70,6 +77,7 @@ router.get('/', (req, res) => {
 					})
 			})
 	})
+	
 });
 
 
@@ -214,7 +222,7 @@ router.post('/newItem', (req, res) => {
 	items.createItem(itemName, itemCategory, itemPrice, null, outletid).then(() => {
 		res.redirect('/listItems');
 	});
-
+	
 });
 
 router.get('/editItem/:id', (req, res) => {
@@ -240,50 +248,57 @@ router.get('/deleteItem/:item', (req, res) => {
 	items.deleteItem(req.params.item).then(() => {
 		res.redirect('/listItems');
 	});
-
+	
 })
 
 router.get('/history', (req, res) => {
 	let admin = req.session.user;
 	var User = admin
-	users.getUserByAdmin(admin).then(user => {
-		if (user) {
+	users.getUserByAdmin(admin).then(user =>{
+		if(user)
+		{
 			var full_name = user.full_name;
 			var phone_no = user.phone_no;
 			var user_admin = admin;
-			orders.getOrdersFromUser(admin).then(order => {
-				if (order) {
-					// var createdAt = order.createdAt;
-					// var item_name = order.item_name;
-					// var item_id = order.item_id;
-					res.render('history', {
-						User,
-						full_name,
-						user_admin,
-						phone_no,
-						order
-						// createdAt,
-						// item_name,
-						// item_id
-					})
-				} else {
-					res.render('history', {
-						User,
-						full_name,
-						user_admin,
-						phone_no
-					});
-				}
-
-			});
-		} else {
-			res.render('history', {
-				User
+			orders.getOrdersFromUser(admin).then(order =>{
+				chat.getUserChatByUserId(admin).then(chats => {
+					if(order){
+						// var createdAt = order.createdAt;
+						// var item_name = order.item_name;
+						// var item_id = order.item_id;
+						res.render('history',{
+							User,
+							full_name,
+							user_admin,
+							phone_no,
+							order,
+							chats
+							// createdAt,
+							// item_name,
+							// item_id
+						})
+					}
+					else{
+						res.render('history', {
+							User,
+							full_name,
+							user_admin,
+							phone_no,
+							chats
+						});
+					}
+				})
 			});
 		}
-
+		else{
+			res.render('history',{
+				User,
+				chats
+			});
+		}
+	
 
 	});
-
+	
 });
 module.exports = router;
