@@ -243,8 +243,7 @@ router.post('/orders/:id/:status', (req, res) => {
 				chat.systemMsg(order.admin_no, "Your order (order id: " + order.id + ") has been collected. Thank you for shopping with us!");
 				bot.sendMessage(user.telegram_id, "Do help us to rate your food at localhost:5000/review/" + user.admin_no);
 				chat.systemMsg(order.admin_no, "Do help us to rate your food at localhost:5000/review/" + user.admin_no);
-				bot.sendMessage(user.telegram_id, "Do help us to rate your food at www.google.com");
-				bot.sendMessage(user.telegram_id, "http://www.youtube.com");
+
 
 
 
