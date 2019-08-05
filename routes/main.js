@@ -21,7 +21,7 @@ router.get('/', (req, res) => {
 	const title = 'Smart Food';
 	var listNumbers = [];
 
-	/*
+	
 	rating.countTotalItems().then(num => {
 		for (var i = 1; i <= num; i++) {
 			rating.averageRating(i);
@@ -80,8 +80,7 @@ router.get('/', (req, res) => {
 					})
 			})
 	})
-	*/
-	res.render('home', {title, User, Owner});
+	// res.render('home', {title, User, Owner});
 });
 
 
@@ -238,8 +237,17 @@ router.post('/orders/:id/:status', (req, res) => {
 		users.getUserByAdmin(order.user_admin).then(user => {
 			if (status == 1 && user.telegram_id) {
 				bot.sendMessage(user.telegram_id, "Your order for " + order.item_name + " (order id: " + order.id + ") is ready for collection!");
+				chat.systemMsg(order.admin_no, "Your order for " + order.item_name + " (order id: " + order.id + ") is ready for collection!");
 			} else if (status == 2 && user.telegram_id) {
 				bot.sendMessage(user.telegram_id, "Your order (order id: " + order.id + ") has been collected. Thank you for shopping with us!");
+				chat.systemMsg(order.admin_no, "Your order (order id: " + order.id + ") has been collected. Thank you for shopping with us!");
+				bot.sendMessage(user.telegram_id, "Do help us to rate your food at localhost:5000/review/" + user.admin_no);
+				chat.systemMsg(order.admin_no, "Do help us to rate your food at localhost:5000/review/" + user.admin_no);
+				bot.sendMessage(user.telegram_id, "Do help us to rate your food at www.google.com");
+				bot.sendMessage(user.telegram_id, "http://www.youtube.com");
+
+
+
 			}
 		})
 	})
