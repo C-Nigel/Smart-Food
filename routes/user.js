@@ -2,6 +2,8 @@ const express = require('express');
 const router = express.Router();
 const Usermodel = require('../models/User');
 const Order = require('../models/Order');
+const items = require('../class/item_class');
+const orders = require('../class/order_class');
 var bcrypt = require('bcryptjs');
 const passport = require('passport');
 const alertMessage = require('../helpers/messenger');
@@ -618,6 +620,40 @@ router.post('/loginadmin', (req, res) => {
 
 router.get('/admin', (req, res) => {
 	res.render('admin');
+});
+
+router.post('/history', (req, res) => {
+	let admin = req.session.user;
+	orders.getCompletedOrdersByUser(admin).then(order => {
+		item.getitem(order.item_id).then(items =>{
+			if(items.cat == 'Chinese' ){
+				res.redirect('/menu-chinese')
+			}
+			if(items.cat == 'Malay' ){
+				res.redirect('/menu-malay')
+			}
+			if(items.cat == 'Indian'){
+				res.redirect('mneu-indian')
+			}
+			if(items.cat == 'Western'){
+				res.redirect('/menu-western')
+			}
+			if(items.cat == 'Fusion'){
+				res.redirect('/menu-fusion')
+			}
+			if(items.cat == 'Vegetarian'){
+				res.redirect('/menu-vegetarian')
+			}
+			if(items.cat == 'Desserts'){
+				res.redirect('/menu-desserts')
+			}
+			if(items.cat == 'Drinks'){
+				res.redirect('/menu-drinks')
+			}
+			
+
+		})
+	})
 });
 
 module.exports = router;
