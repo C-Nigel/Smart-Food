@@ -36,7 +36,7 @@ router.post('/delete', (req, res) => {
 		errors.push({
 			text: 'Passwords not the same!'
 		});
-		res.render('user/delete', {
+		res.render('user/profile', {
 			User,
 			errors
 		});
@@ -47,7 +47,7 @@ router.post('/delete', (req, res) => {
 				errors.push({
 					text: 'Incorrect Password!'
 				});
-				res.render('user/delete', {
+				res.render('user/profile', {
 					User,
 					errors
 				});
@@ -94,8 +94,8 @@ router.post('/delete', (req, res) => {
 	}
 });
 router.post('/twofa', (req, res) => {
-    let success_msg = 'Two Factor Authentication Disabled!';
-    let errors = 'Two Factor Authentication Disabled!';
+    let success_msg = 'Two Factor Authentication Enabled!';
+	let errors = [];
 	var User = req.session.user;
 	user.getUserByAdmin(User).then(user => {
         var admin_no = user.admin_no;
@@ -110,14 +110,14 @@ router.post('/twofa', (req, res) => {
 					admin_no: User
 				}
 			}).then(user => {
-				res.render('user/twofa', {
+				res.render('user/profile', {
                     success_msg,
                     admin_no,
                     full_name,
                     phone_no,
                     telegram_id,
 					user,
-					success_msg
+					User
 
 				})
 			})
@@ -129,14 +129,17 @@ router.post('/twofa', (req, res) => {
 					admin_no: User
 				}
 			}).then(user => {
-				res.render('user/twofa', {
+				errors.push({
+					text: 'Two Factor Authentication Disabled!'
+				});
+				res.render('user/profile', {
                     errors,
                     admin_no,
                     full_name,
                     phone_no,
                     telegram_id,
 					user,
-					success_msg
+					User
 
 				})
 			})
@@ -164,7 +167,7 @@ router.post('/changepassword', (req, res) => {
 			errors.push({
 				text: 'Old password not correct!'
 			});
-			res.render('user/changepassword', {
+			res.render('user/profile', {
 				errors,
                 user,
                 admin_no,
@@ -177,7 +180,7 @@ router.post('/changepassword', (req, res) => {
 			errors.push({
 				text: 'New passwords do not match!'
 			});
-			res.render('user/changepassword', {
+			res.render('user/profile', {
 				errors,
                 admin_no,
                 full_name,
@@ -215,6 +218,7 @@ router.post('/profile', (req, res) => {
 		phone_no,
 		picture
 	} = req.body;
+	var User = req.session.user;
 	if (password !== confirmpassword) {
 		errors.push({
 			text: 'Passwords do not match'
@@ -232,7 +236,8 @@ router.post('/profile', (req, res) => {
 			admin_no,
 			phone_no,
 			picture,
-			telegram_id
+			telegram_id,
+			User
 		});
 	} else {
 		user.getUserByAdmin(admin_no).then(user => {
@@ -247,7 +252,8 @@ router.post('/profile', (req, res) => {
 					admin_no,
 					phone_no,
 					picture,
-					telegram_id
+					telegram_id,
+					User
 				});
 			} else {
 
@@ -269,7 +275,8 @@ router.post('/profile', (req, res) => {
 							full_name,
 							phone_no,
 							picture,
-							telegram_id
+							telegram_id,
+							User
 						});
 					})
 				}
