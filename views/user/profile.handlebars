@@ -120,112 +120,113 @@
 										</div>
 									</form>
 								</div>
+								<div class="tab-pane fade" id="change" role="tabpanel" aria-labelledby="change-tab">
+									<h2></h2>
+									<hr>
+									<form class="form" action="/user/changepassword" method="post" id="changepw">
+
+										<div class="form-group">
+
+											<div class="col-xs-6">
+												<label for="old_password">
+													<h4>Old Password</h4>
+												</label>
+												<input type="password" class="form-control" name="old_password"
+													id="old_password" placeholder="Enter old Password"
+													title="Enter old password">
+											</div>
+										</div>
+										<div class="form-group">
+
+											<div class="col-xs-6">
+												<label for="new_password">
+													<h4>New Password</h4>
+												</label>
+												<input type="password" class="form-control" name="new_password"
+													id="new_password" placeholder="new_password"
+													title="Enter your new password">
+											</div>
+										</div>
+										<div class="form-group">
+											<div class="col-xs-6">
+												<label for="confirmpassword">
+													<h4>Confirm new password</h4>
+												</label>
+												<input type="password" class="form-control" name="confirmpassword2"
+													id="confirmpassword2" placeholder="Re enter your new password"
+													title="Re enter your new password">
+											</div>
+										</div>
+										<div class="form-group">
+											<div class="col-xs-12">
+												<br>
+												<button class="btn btn-lg btn-success" type="submit">Change
+													Password</button>
+												<button class="btn btn-lg" type="reset"><i
+														class="glyphicon glyphicon-repeat"></i>
+													Reset</button>
+											</div>
+										</div>
+									</form>
+
+								</div>
+								<div class="tab-pane fade" id="2fa" role="tabpanel" aria-labelledby="2fa-tab">
+
+
+									<hr>
+									<form class="form" action="../user/twofa" method="post" id="twofa">
+
+										<div class="form-group">
+											<div class="col-xs-5">
+												<br>
+												<button class="btn btn-lg btn-success pull-right"
+													type="submit">Enable/Disable
+													2FA</button>
+												<!--<button class="btn btn-lg" type="reset"><i class="glyphicon glyphicon-repeat"></i> Reset</button>-->
+											</div>
+										</div>
+									</form>
+								</div>
+								<div class="tab-pane fade" id="delete" role="tabpanel" aria-labelledby="delete-tab">
+
+									<h2></h2>
+
+									<hr>
+									<form class="form" action="../user/delete" method="post" id="delete">
+
+										<div class="form-group">
+
+											<div class="col-xs-6">
+												<label for="new_password">
+													<h4>Password</h4>
+												</label>
+												<input type="password" class="form-control" name="password"
+													id="passwordd" placeholder="Password" title="Enter your password">
+											</div>
+										</div>
+										<div class="form-group">
+											<div class="col-xs-6">
+												<label for="confirmpassword">
+													<h4>Confirm Password</h4>
+												</label>
+												<input type="password" class="form-control" name="confirmpassword"
+													id="confirmpassword" placeholder="Re enter your password"
+													title="Re enter your new password">
+											</div>
+										</div>
+										<div class="form-group">
+											<div class="col-xs-12">
+												<br>
+												<button class="btn btn-lg btn-error"
+													style="background-color: rgb(233, 72, 72);" type="submit">Delete
+													Account</button>
+
+											</div>
+										</div>
+									</form>
+								</div>
 							</div>
-							<div class="tab-pane fade" id="change" role="tabpanel" aria-labelledby="change-tab">
-								<h2></h2>
-								<hr>
-								<form class="form" action="/user/changepassword" method="post" id="changepw">
 
-									<div class="form-group">
-
-										<div class="col-xs-6">
-											<label for="old_password">
-												<h4>Old Password</h4>
-											</label>
-											<input type="password" class="form-control" name="old_password"
-												id="old_password" placeholder="Enter old Password"
-												title="Enter old password">
-										</div>
-									</div>
-									<div class="form-group">
-
-										<div class="col-xs-6">
-											<label for="new_password">
-												<h4>New Password</h4>
-											</label>
-											<input type="password" class="form-control" name="new_password"
-												id="new_password" placeholder="new_password"
-												title="Enter your new password">
-										</div>
-									</div>
-									<div class="form-group">
-										<div class="col-xs-6">
-											<label for="confirmpassword">
-												<h4>Confirm new password</h4>
-											</label>
-											<input type="password" class="form-control" name="confirmpassword2"
-												id="confirmpassword2" placeholder="Re enter your new password"
-												title="Re enter your new password">
-										</div>
-									</div>
-									<div class="form-group">
-										<div class="col-xs-12">
-											<br>
-											<button class="btn btn-lg btn-success" type="submit">Change
-												Password</button>
-											<button class="btn btn-lg" type="reset"><i
-													class="glyphicon glyphicon-repeat"></i>
-												Reset</button>
-										</div>
-									</div>
-								</form>
-
-							</div>
-							<div class="tab-pane fade" id="2fa" role="tabpanel" aria-labelledby="2fa-tab">
-
-
-								<hr>
-								<form class="form" action="../user/twofa" method="post" id="twofa">
-
-									<div class="form-group">
-										<div class="col-xs-5">
-											<br>
-											<button class="btn btn-lg btn-success pull-right"
-												type="submit">Enable/Disable
-												2FA</button>
-											<!--<button class="btn btn-lg" type="reset"><i class="glyphicon glyphicon-repeat"></i> Reset</button>-->
-										</div>
-									</div>
-								</form>
-							</div>
-							<div class="tab-pane fade" id="delete" role="tabpanel" aria-labelledby="delete-tab">
-
-								<h2></h2>
-
-								<hr>
-								<form class="form" action="../user/delete" method="post" id="delete">
-
-									<div class="form-group">
-
-										<div class="col-xs-6">
-											<label for="new_password">
-												<h4>Password</h4>
-											</label>
-											<input type="password" class="form-control" name="password" id="passwordd"
-												placeholder="Password" title="Enter your password">
-										</div>
-									</div>
-									<div class="form-group">
-										<div class="col-xs-6">
-											<label for="confirmpassword">
-												<h4>Confirm Password</h4>
-											</label>
-											<input type="password" class="form-control" name="confirmpassword"
-												id="confirmpassword" placeholder="Re enter your password"
-												title="Re enter your new password">
-										</div>
-									</div>
-									<div class="form-group">
-										<div class="col-xs-12">
-											<br>
-											<button class="btn btn-lg btn-error"
-												style="background-color: rgb(233, 72, 72);" type="submit">Delete
-												Account</button>
-
-										</div>
-									</div>
-								</form>
-							</div>
 						</div>
 					</div>
 				</div>
